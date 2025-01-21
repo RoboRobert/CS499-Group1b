@@ -8,6 +8,6 @@ export const GET: RequestHandler = async ({ params }) => {
 
 	const res = (await db.query('SELECT * FROM players WHERE id = $1', [id])).rows[0];
 
-    let user: Player = {id: res.id, name: res.name, team: res.team}
-    return json(user);
+    let player: Player = {id: res.id, name: res.name, team: res.team}
+    return json(player);
 };

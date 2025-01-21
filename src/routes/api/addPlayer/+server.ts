@@ -5,9 +5,9 @@ import { json, type RequestHandler } from '@sveltejs/kit';
 export const POST: RequestHandler = async ({ request }) => {
 	const { name, team } = await request.json();
 
-  // Query to insert data into the "users" table
+  // Query to insert data into the "players" table
   const result = await pool.query(
-    'INSERT INTO players (user, email) VALUES ($1, $2) RETURNING *',
+    'INSERT INTO players (name, team) VALUES ($1, $2) RETURNING *',
     [name, team]
   );
 
