@@ -1,7 +1,6 @@
 <script lang="ts">
     import type { Player } from '$lib/Player';
-    import type { PageProps } from '../$types';
-	let { data }: PageProps = $props();
+    	let { data } = $props();
 
 	let players: Player[] = data.data;
 </script>
