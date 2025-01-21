@@ -14,6 +14,10 @@ const sql = postgres({
 
 export default sql
 
+async function doQuery() {
+  
+}
+
 export async function getPlayers(): Promise<Player[]> {
     const players = await sql<Player[]>`
       SELECT * FROM players
@@ -28,4 +32,14 @@ export async function getPlayer(id: number): Promise<Player> {
     `
 
     return players[0]
+}
+
+export async function addPlayer(player: Player) {
+  let name = player.name;
+  let team = player.team;
+  const result = await sql`
+    INSERT INTO players (name, team) VALUES (${name}, ${team}) RETURNING *
+  `
+
+  return result
 }

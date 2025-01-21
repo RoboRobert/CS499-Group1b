@@ -15,9 +15,14 @@
 	}
 </script>
 
-<p>NAME:</p>
-<input type="string" bind:value={name}>
-<p>TEAM:</p>
-<input type="string" bind:value={team}>
-
-<button onclick={add}>Add to Database!</button>
+<form method="POST" action="?/addPlayer">
+	<label>
+		Name
+		<input name="name" type="string" required>
+	</label>
+	<label>
+		Team
+		<input name="team" type="string" required>
+	</label>
+	<button>Add to Database!</button>
+</form>
