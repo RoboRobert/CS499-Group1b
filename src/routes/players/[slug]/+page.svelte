@@ -3,12 +3,10 @@
     import type { PageProps } from '../$types';
 	let { data }: PageProps = $props();
 
-	let players: Player[] = data.data;
+	let player: Player = data.data;
 </script>
 
-{#each players as player}
-	<h1>{player.name}</h1>
-	<p>Team: {player.team}</p>
-	<p>ID: {player.id}</p>
-{/each}
+<h1>{player.name}</h1>
+<p>Team: {player.team}</p>
+<p>ID: {player.id}</p>
 
