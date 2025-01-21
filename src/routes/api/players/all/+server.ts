@@ -1,6 +1,6 @@
 import { json, type RequestHandler } from '@sveltejs/kit';
 import type { Player } from '$lib/Player';
-import db from '$lib/db';
+import db from '$lib/dbtest1';
  
 // Loads the data of the player corresponding to the id defined by the endpoint slug
 export const GET: RequestHandler = async ({ params }) => {

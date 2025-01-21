@@ -1,4 +1,4 @@
-import pool from '$lib/db';
+import pool from '$lib/dbtest1';
 import { json, type RequestHandler } from '@sveltejs/kit';
 
 // Sets up the database with tables containing the correct schemas

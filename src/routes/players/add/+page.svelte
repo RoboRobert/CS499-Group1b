@@ -1,4 +1,4 @@
-<form method="POST" action="?/addPlayer">
+<form method="POST" action="?/addPlayer" style="margin-top: 20px">
 	<label>
 		Name
 		<input name="name" type="string" required>

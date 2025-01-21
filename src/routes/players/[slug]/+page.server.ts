@@ -1,4 +1,4 @@
-import * as db from '$lib/dbtest';
+import * as db from '$lib/db';
 import type { PageServerLoad } from './$types';
 
 export const load: PageServerLoad = async ({ params }) => {

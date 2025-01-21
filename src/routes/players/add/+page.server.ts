@@ -1,4 +1,4 @@
-import * as db from '$lib/dbtest';
+import * as db from '$lib/db';
 import type { Player } from '$lib/Player';
 import type { Actions, PageServerLoad } from './$types';
 

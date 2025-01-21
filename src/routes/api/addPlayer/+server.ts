@@ -1,4 +1,4 @@
-import pool from '$lib/db';
+import pool from '$lib/dbtest1';
 import { json, type RequestHandler } from '@sveltejs/kit';
 
 // Inserts a new player into the "players table"
