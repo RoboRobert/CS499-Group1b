@@ -1,16 +1,22 @@
 import postgres from 'postgres'
-import { PGUSER, PGPASSWORD, PGHOST, PGPORT, PGDATABASE } from '$env/static/private'
+// import { PGUSER, PGPASSWORD, PGHOST, PGPORT, PGDATABASE } from '$env/static/private'
 import type { Player } from '$lib/Player';
 
-// const sql = postgres({ /* options */ }) // will use psql environment variables
+// const sql = postgres({
+//   user: PGUSER,
+//   password: PGPASSWORD,
+//   host: PGHOST,
+//   port: parseInt(PGPORT),
+//   database: PGDATABASE,
+// });
 
 const sql = postgres({
-  user: PGUSER,
-  password: PGPASSWORD,
-  host: PGHOST,
-  port: parseInt(PGPORT),
-  database: PGDATABASE,
-}); // will use psql environment variables
+  user: "postgres",
+  password: "test",
+  host: "localhost",
+  port: 5432,
+  database: "template1",
+});
 
 export default sql
 

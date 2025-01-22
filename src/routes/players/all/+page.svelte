@@ -9,7 +9,11 @@
 			headers: {
 				"content-type": "application/json",
 			},
-		}).then(() => invalidateAll());
+		});
+		
+		// For some reason I have to only reload the data after 20 ms or else the race condition breaks it.
+		// I'm sorry
+		setTimeout(async () => invalidateAll(), 20);
 
 		return;
 	}

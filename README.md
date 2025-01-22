@@ -25,6 +25,35 @@ npm run build
 
 You can preview the production build with `npm run preview`.
 
+## Setting up a Postgres Database
+Currently, this application makes use of a PostgreSQL database that has been set up with these presets:
+
+```
+username="postgres"
+password="test"
+host="localhost"
+port=5432
+database="template1"
+```
+
+So if you set up a local Postgres database with these settings, the application will work properly.
+
+To do this on Ubuntu, follow these steps (taken from [here](https://ubuntu.com/server/docs/install-and-configure-postgresql)):
+
+```
+sudo apt install postgresql
+sudo -u postgres psql template1
+ALTER USER postgres with encrypted password 'test';
+
+// Run \q to exit the postgres terminal
+
+// Then run
+sudo systemctl restart postgresql.service
+// If the above command doesn't work, run this:
+sudo service postgresql restart
+```
+
+
 ## API Usage
 To get a JSON representation of all players in our database, use the `/api/players/all` endpoint.
 
