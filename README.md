@@ -53,6 +53,9 @@ sudo systemctl restart postgresql.service
 sudo service postgresql restart
 ```
 
+After setting up your Postgres server, go to 
+`localhost:{port}/api/reset`
+in your web browser to set up the database for use.
 
 ## API Usage
 To get a JSON representation of all players in our database, use the `/api/players/all` endpoint.
