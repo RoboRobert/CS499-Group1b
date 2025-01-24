@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lacrosse Scorebook</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <h1>Lacrosse Scorebook</h1>
+    </header>
+
+    <main>
+        <!-- Game Information Section -->
+        <section id="game-info">
+            <h2>Game Information</h2>
+            <form id="game-info-form">
+                <label for="date">Date:</label>
+                <input type="date" id="date" name="date" required>
+
+                <label for="time">Time:</label>
+                <input type="time" id="time" name="time" required>
+
+                <label for="location">Location:</label>
+                <input type="text" id="location" name="location" required>
+
+                <label for="opponent">Opponent:</label>
+                <input type="text" id="opponent" name="opponent" required>
+
+                <label for="weather">Weather:</label>
+                <input type="text" id="weather" name="weather">
+
+                <label for="final-score">Final Score:</label>
+                <input type="text" id="final-score" name="final-score">
+            </form>
+        </section>
+
+        <!-- Home Team Roster Section -->
+        <section id="home-team-roster">
+            <h2>Home Team Roster</h2>
+            <fieldset>
+                <legend>Player Information</legend>
+                <form id="roster-form">
+                    <div class="player-row">
+                        <label for="player-number-1">Player Number:</label>
+                        <input type="text" id="player-number-1" name="player-number[]" required>
+
+                        <label for="player-name-1">Player Name:</label>
+                        <input type="text" id="player-name-1" name="player-name[]" required>
+
+                        <label for="player-quarters-1">Quarters Played:</label>
+                        <input type="checkbox" id="player-quarters-1" name="player-quarters[]">
+
+                        <label for="player-shots-1">Shots:</label>
+                        <input type="number" id="player-shots-1" name="player-shots[]">
+
+                        <label for="player-goals-1">Goals:</label>
+                        <input type="number" id="player-goals-1" name="player-goals[]">
+
+                        <label for="player-assists-1">Assists:</label>
+                        <input type="number" id="player-assists-1" name="player-assists[]">
+                    </div>
+                
+                    <button type="button" id="add-player">Add Player</button>
+                </form>
+            </fieldset>
+        </section>
+
+        <!-- Game Statistics Section -->
+        <section id="game-stats">
+            <h2>Game Statistics</h2>
+            <!-- Game Stats --> 
+            <form>
+                <h2>Statistics</h2>
+                <fieldset class="groundballs">
+                    <legend>Ground Balls</legend>
+                    <div>
+                        <label for="ground-balls">1</label>
+                        <input type="number" id="ground-balls1" name="ground-balls1">
+                    </div>
+                    <div>
+                        <label for="ground-balls">2</label>
+                        <input type="number" id="ground-balls2" name="ground-balls2">
+                    </div>
+                    <div>
+                        <label for="ground-balls">3</label>
+                        <input type="number" id="ground-balls3" name="ground-balls3">
+                    </div>
+                    <div>
+                        <label for="ground-balls">4</label>
+                        <input type="number" id="ground-balls4" name="ground-balls4">
+                    </div>
+                    <div>
+                        <label for="empty">QT</label>
+                        <input type="text" id="empty1" name="empty1">
+                    </div>
+                </fieldset>
+
+                <fieldset class="shots">
+                    <legend>Shots</legend>
+                    <div>
+                        <label for="shots">1</label>
+                        <input type="number" id="shots1" name="shots1">
+                    </div>
+                    <div>
+                        <label for="shots">2</label>
+                        <input type="number" id="shots2" name="shots2">
+                    </div>
+                    <div>
+                        <label for="shots">3</label>
+                        <input type="number" id="shots3" name="shots3">
+                    </div>
+                    <div>
+                        <label for="shots">4</label>
+                        <input type="number" id="shots4" name="shots4">
+                    </div>
+                    <div>
+                        <label for="empty">QT</label>
+                        <input type="text" id="empty2" name="empty2">
+                    </div>
+                </fieldset>
+
+                <fieldset class="clears">
+                    <legend>Clears</legend>
+                    <div><h5>-----------------CLEARED---------------------------------FAILED------------------</h5></div>
+                    <div>
+                        <label for="clears">1</label>
+                        <input type="number" id="clears-win1" name="clears-win1">
+                        <input type="number" id="clears-failed1" name="clears-failed1">
+                    </div>
+                    <div>
+                        <label for="clears">2</label>
+                        <input type="number" id="clears-win2" name="clears-win2">
+                        <input type="number" id="clears-failed2" name="clears-failed2">
+                    </div>
+                    <div>
+                        <label for="clears">3</label>
+                        <input type="number" id="clears-win3" name="clears-win3">
+                        <input type="number" id="clears-failed3" name="clears-failed3">
+                    </div>
+                    <div>
+                        <label for="clears">4</label>
+                        <input type="number" id="clears-win4" name="clears-win4">
+                        <input type="number" id="clears-failed4" name="clears-failed4">
+                    </div>
+                    <div>
+                        <label for="empty">QT</label>
+                        <input type="text" id="empty3" name="empty3">
+                        <input type="text" id="empty4" name="empty4">
+                    </div>
+                </fieldset>
+
+                <fieldset class="extraman">
+                    <legend>Extra Man</legend>
+                    <div><h5>-----------------SCORED-----------------------------FAILED------------------</h5></div>
+                    <div>
+                        <label for="extraman">1</label>
+                        <input type="number" id="extraman-scored1" name="extraman-scored1">
+                        <input type="number" id="extraman-failed1" name="extraman-failed1">
+                    </div>
+                    <div>
+                        <label for="extraman">2</label>
+                        <input type="number" id="extraman-scored2" name="extraman-scored2">
+                        <input type="number" id="extraman-failed2" name="extraman-failed2">
+                    </div>
+                    <div>
+                        <label for="extraman">3</label>
+                        <input type="number" id="extraman-scored3" name="extraman-scored3">
+                        <input type="number" id="extraman-failed3" name="extraman-failed3">
+                    </div>
+                    <div>
+                        <label for="extraman">4</label>
+                        <input type="number" id="extraman-scored4" name="extraman-scored4">
+                        <input type="number" id="extraman-failed4" name="extraman-failed4">
+                    </div>
+                    <div>
+                        <label for="empty">QT</label>
+                        <input type="text" id="empty5" name="empty5">
+                        <input type="text" id="empty6" name="empty6">
+                    </div>
+                </fieldset>
+
+                <fieldset class="faceoff">
+                    <legend>Faceoff</legend>
+                    <div><h5>-----------------WIN ---------------------------------LOST------------------</h5></div>
+                    <div>
+                        <label for="faceoff">1</label>
+                        <input type="number" id="faceoff-win1" name="faceoff-win1">
+                        <input type="number" id="faceoff-lost1" name="faceoff-lost1">
+                    </div>
+                    <div>
+                        <label for="faceoff">2</label>
+                        <input type="number" id="faceoff-win2" name="faceoff-win2">
+                        <input type="number" id="faceoff-lost2" name="faceoff-lost2">
+                    </div>
+                    <div>
+                        <label for="faceoff">3</label>
+                        <input type="number" id="faceoff-win3" name="faceoff-win3">
+                        <input type="number" id="faceoff-lost3" name="faceoff-lost3">
+                    </div>
+                    <div>
+                        <label for="faceoff">4</label>
+                        <input type="number" id="faceoff-win4" name="faceoff-win4">
+                        <input type="number" id="faceoff-lost4" name="faceoff-lost4">
+                    </div>
+                    <div>
+                        <label for="empty">QT</label>
+                        <input type="text" id="empty7" name="empty7">
+                        <input type="text" id="empty8" name="empty8">
+                    </div>
+                </fieldset>
+            </form>
+
+            <!-- Penalty Summary -->
+            <form>
+                <h2>Penalties/Fouls</h2>
+                <fieldset class="penalties">
+                    <div>
+                        <label for="penalty-player">Player #</label>
+                        <label for="infraction">Infraction</label>
+                        <label for="quarter-penalty">Quarter</label>
+                        <label for="time">Time</label>
+                    </div>
+                    <div>
+                        <input type="text" id="penalty-player1" name="penalty-player1">
+                        <select id="infraction1" name="infraction1">
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                        </select>
+                        <select id="quarter-penalty1" name="quarter-penalty1">
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                        </select>
+                        <input type="time" id="time1" name="time1">
+                    </div>
+                    <div>
+                        <input type="text" id="penalty-player2" name="penalty-player2">
+                        <select id="infraction2" name="infraction2">
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                        </select>
+                        <select id="quarter-penalty2" name="quarter-penalty2">
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                        </select>
+                        <input type="time" id="time2" name="time2">
+                    </div>
+                    <div>
+                        <input type="text" id="penalty-player3" name="penalty-player3">
+                        <select id="infraction3" name="infraction3">
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                        </select>
+                        <select id="quarter-penalty3" name="quarter-penalty3">
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                        </select>
+                        <input type="time" id="time3" name="time3">
+                    </div>
+                    <div>
+                        <input type="text" id="penalty-player4" name="penalty-player4">
+                        <select id="infraction4" name="infraction4">
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                        </select>
+                        <select id="quarter-penalty4" name="quarter-penalty4">
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                        </select>
+                        <input type="time" id="time4" name="time4">
+                    </div>
+                </fieldset>
+            </form>
+            
+            <!-- Saves -->
+            <form>
+                <h2>Saves</h2>
+                <fieldset class="goalies">
+                    <legend>Goalies</legend>
+                    <div>
+                        <label for="goalie">#</label>
+                        <label for="q1">1st Quarter</label>
+                        <label for="q2">2nd Quarter</label>
+                        <label for="q3">3rd Quarter</label>
+                        <label for="q4">4th Quarter</label>
+                        <label for="OT">Overtime</label>
+                        <label for="totals">Totals</label>
+                    </div>
+                    <div>
+                        <input type="text" id="goalie-player1" name="goalie-player1">
+
+                        <input type="number" id="saves1.1" name="saves1.1">
+                        <input type="number" id="saves1.2" name="saves1.2">
+                        <input type="number" id="saves1.3" name="saves1.3">
+                        <input type="number" id="saves1.4" name="saves1.4">
+                        <input type="number" id="saves1.5" name="saves1.5">
+
+                        <input type="number" id="total1" name="total1">
+                    </div>
+                    <div>
+                        <input type="text" id="goalie-player2" name="goalie-player2">
+
+                        <input type="number" id="saves2.1" name="saves2.1">
+                        <input type="number" id="saves2.2" name="saves2.2">
+                        <input type="number" id="saves2.3" name="saves2.3">
+                        <input type="number" id="saves2.4" name="saves2.4">
+                        <input type="number" id="saves2.5" name="saves2.5">
+
+                        <input type="number" id="total2" name="total2">
+                    </div>
+                    <div>
+                        <input type="text" id="goalie-player3" name="goalie-player3">
+
+                        <input type="number" id="saves3.1" name="saves3.1">
+                        <input type="number" id="saves3.2" name="saves3.2">
+                        <input type="number" id="saves3.3" name="saves3.3">
+                        <input type="number" id="saves3.4" name="saves3.4">
+                        <input type="number" id="saves3.5" name="saves3.5">
+
+                        <input type="number" id="total3" name="total3">
+                    </div>
+                </fieldset>
+            </form>
+
+            <!-- Timeouts -->
+            <form>
+                <h2>TIMEOUTS</h2>
+                <fieldset class="timeouts">
+                    <div>
+                        <label for="firsthalf">First Half</label>
+                        <label for="secondhalf">Second Half</label>
+                        <label for="OT1">1st OT</label>
+                        <label for="OT2">2nd OT</label>
+                    </div>
+
+                    <div>
+                        <input type="time" id="totime1" name="totime1">
+                        <select id="quarter1" name="quarter1">
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                        </select>
+
+                        <input type="time" id="totime2" name="totime2">
+                        <select id="quarter2" name="quarter2">
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                        </select>
+                
+                        <input type="time" id="totime3" name="totime3">
+                        <select id="quarter3" name="quarter3">
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                        </select>
+
+                        <input type="time" id="totime4" name="totime4">
+                        <select id="quarter4" name="quarter4">
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                        </select>
+
+                        <input type="time" id="totime5" name="totime5">
+                    </div>
+                </fieldset>
+            </form>
+        </section>
+
+
+        <!-- Submit Button -->
+        <section id="submit-section">
+            <button type="submit" form="game-info-form">Submit Scorebook</button>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 Lacrosse Scorebook. All rights reserved.</p>
+    </footer>
+
+    <script>
+        // Script to dynamically add player rows
+        document.getElementById('add-player').addEventListener('click', function () {
+            const rosterForm = document.getElementById('roster-form');
+            const playerRow = document.querySelector('.player-row').cloneNode(true);
+
+            // Clear input values in the new row
+            playerRow.querySelectorAll('input').forEach(input => input.value = '');
+
+            rosterForm.appendChild(playerRow);
+        });
+    </script>
+</body>
+</html>
