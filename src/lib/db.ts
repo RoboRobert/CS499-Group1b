@@ -53,3 +53,27 @@ export async function deletePlayer(id: number) {
 
   return result
 }
+
+export async function dbReset() {
+  await sql`DO $$ 
+      DECLARE
+        r RECORD;
+      BEGIN
+        FOR r IN (SELECT tablename FROM pg_tables WHERE schemaname = 'public') LOOP
+          EXECUTE 'DROP TABLE IF EXISTS public.' || r.tablename || ' CASCADE';
+        END LOOP;
+      END $$;
+    `;
+
+  await sql`CREATE TABLE players (
+      id SERIAL PRIMARY KEY,
+      name VARCHAR(100) NOT NULL,
+      team VARCHAR(100) NOT NULL
+    );`
+
+  const res = await sql`INSERT INTO players (name, team)
+    VALUES ('John Doe', 'Team A'), 
+        ('Jane Smith', 'Team B');`
+
+  return res;
+}
