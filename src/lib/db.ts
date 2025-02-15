@@ -1,6 +1,7 @@
-import postgres from 'postgres'
+import postgres, { type Sql } from 'postgres'
 // import { PGUSER, PGPASSWORD, PGHOST, PGPORT, PGDATABASE } from '$env/static/private'
 import type { Player } from '$lib/Player';
+import { json } from '@sveltejs/kit';
 
 // const sql = postgres({
 //   user: PGUSER,
@@ -55,7 +56,7 @@ export async function deletePlayer(id: number) {
 }
 
 export async function dbReset() {
-  await sql`DO $$ 
+  const res = await sql`DO $$ 
       DECLARE
         r RECORD;
       BEGIN
@@ -69,11 +70,11 @@ export async function dbReset() {
       id SERIAL PRIMARY KEY,
       name VARCHAR(100) NOT NULL,
       team VARCHAR(100) NOT NULL
-    );`
+      );`
 
-  const res = await sql`INSERT INTO players (name, team)
-    VALUES ('John Doe', 'Team A'), 
-        ('Jane Smith', 'Team B');`
+  await sql`INSERT INTO players (name, team)
+      VALUES ('John Doe', 'Team A'), 
+          ('Jane Smith', 'Team B');`
 
   return res;
 }

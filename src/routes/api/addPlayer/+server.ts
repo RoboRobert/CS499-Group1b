@@ -1,15 +1,14 @@
-import pool from '$lib/dbtest1';
 import { json, type RequestHandler } from '@sveltejs/kit';
+import * as db from '$lib/db';
+import type { Player } from '$lib/Player';
 
-// Inserts a new player into the "players table"
+// Loads the data of the player corresponding to the id defined by the endpoint slug
 export const POST: RequestHandler = async ({ request }) => {
-	const { name, team } = await request.json();
+  console.log(request);
+  const data = await request.formData();
+  let player: Player = { name: data.get('name').toString(), team: data.get('team').toString() };
 
-  // Query to insert data into the "players" table
-  const result = await pool.query(
-    'INSERT INTO players (name, team) VALUES ($1, $2) RETURNING *',
-    [name, team]
-  );
+  const res = db.addPlayer(player);
 
-  return json(result);
+  return json(res);
 };
