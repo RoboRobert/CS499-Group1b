@@ -4,7 +4,6 @@
 </script>
 <div class="outer">
     <Player></Player>
-    <Player></Player>
 </div>
 
 <style>
