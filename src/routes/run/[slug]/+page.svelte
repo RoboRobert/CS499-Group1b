@@ -1,8 +1,6 @@
 <script lang="ts">
     import Comp1 from "$lib/components/scoresheet/comp1.svelte";
     import Team from "$lib/components/scoresheet/Team.svelte";
-    import "$lib/styles/fonts.css"
-
 </script>
 
 <div class="wrapper">
@@ -31,13 +29,11 @@
 <style>
     .column {
         border: 1px solid black;
-        width:max-content;
     }
 
     .columns {
         display: flex;
         flex-direction: row;
-        height: 1000px;
         width: 1000px;
     }
 
