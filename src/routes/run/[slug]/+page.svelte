@@ -1,8 +1,8 @@
 <script lang="ts">
     import Comp1 from "$lib/components/scoresheet/comp1.svelte";
     import Team from "$lib/components/scoresheet/Team.svelte";
+    import "$lib/styles/fonts.css"
 
-    let num = 100;
 </script>
 
 <div class="wrapper">

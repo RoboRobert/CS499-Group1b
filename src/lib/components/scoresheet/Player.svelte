@@ -1,5 +1,5 @@
 <script lang="ts">
-    
+    export let playerName: string = "";
 </script>
 
 <div class="outer">
