@@ -22,19 +22,24 @@
     <div class="column">
         <Team></Team>
     </div>
-    <div class="column"></div>
-    <div class="column"></div>
+    <div class="column">
+        <Team></Team>
+    </div>
+    <div class="column">
+        <Team></Team>
+    </div>
 </div>
 
 <style>
     .column {
-        border: 1px solid black;
+        flex-direction: column;
+        width:33%;
     }
 
     .columns {
         display: flex;
         flex-direction: row;
-        width: 1000px;
+        width:100%;
     }
 
     .wrapper {

@@ -4,11 +4,11 @@
     let numPlayers = 31;
 </script>
 <div class="outer">
-    <div class="header">HOME TEAM</div>
+    <div class="headerBox">HOME TEAM</div>
     <div class="teamHeader">
         <div class="headerBox">PO</div>
         <div class="headerBox">#</div>
-        <div class="headerBox">Name</div>
+        <div class="headerBox" style="flex:2">Name</div>
         <div class="headerBox">Quarters</div>
         <div class="headerBox">Shots</div>
         <div class="headerBox">G</div>
@@ -21,25 +21,21 @@
 </div>
 
 <style>
-    .header {
-        border: 1px solid black;
-        text-align: center;
-    }
-
     .teamHeader {
         display: flex;
         flex-direction:row;
-        justify-content: space-evenly;
         border: 1px solid black;
     }
 
     .headerBox {
-        border: 1px solid red;
-        text-align: center;
-        flex-grow: 1;
+        flex: 1;
+        text-align:center;
+        border: 1px solid black;
+        box-sizing: border-box;
     }
     .outer {
         border: 1px solid black;
-        max-width:300px;
+        resize:horizontal;
+        overflow:hidden;
     }
 </style>
