@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
     import Player from "./Player.svelte";
 
     let numPlayers = 31;
@@ -35,7 +35,8 @@
     }
     .outer {
         border: 1px solid black;
-        resize:both;
+        resize:horizontal;
         overflow:hidden;
+        max-width:100%;
     }
 </style>

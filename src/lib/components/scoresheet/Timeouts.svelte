@@ -1,6 +1,4 @@
 <script lang="ts">
-    let numScores = 12;
-
     // Only allows digits to be entered
     function allowDigits(event: any) {
         event.target.value = event.target.value.replace(/[^0-9]/g, '');
@@ -8,24 +6,24 @@
 </script>
 
 <div class="outer">
-    <div class="headerBox">INDIVIDUAL SCORING</div>
+    <div class="headerBox">TIMEOUTS</div>
     <div class="teamHeader">
-        <div class="headerBox">#</div>
-        <div class="headerBox">Name</div>
-        <div class="headerBox">G</div>
-        <div class="headerBox">A</div>
-        <div class="headerBox">P</div>
+        <div class="headerBox">First Half</div>
+        <div class="headerBox">Second Half</div>
+        <div class="headerBox">1 O.T.</div>
+        <div class="headerBox">2 O.T.</div>
     </div>
 
-    {#each Array(numScores) as penalty}
-        <div class="penalty">
-            <input oninput={allowDigits} class="field" type="text">
-            <input class="field" type="text" />
-            <input class="field" type="text" />
-            <input class="field" type="text" />
-            <input class="field" type="text" />
-        </div>
-    {/each}
+    <div class="timeout">
+        <input class="field" type="text" />
+        <input class="field" type="text" />
+        <input class="field" type="text" />
+        <input class="field" type="text" />
+        <input class="field" type="text" />
+        <input class="field" type="text" />
+        <input class="field" type="text" />
+        <input class="field" type="text" />
+    </div>
 </div>
 
 <style>
@@ -48,7 +46,7 @@
         max-width: 100%;
     }
 
-    .penalty {
+    .timeout {
         display: flex;
         flex-direction: row;
         border: 1px solid black;

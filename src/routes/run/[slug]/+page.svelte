@@ -3,6 +3,7 @@
     import Scoring from "$lib/components/scoresheet/Scoring.svelte";
     import Stats from "$lib/components/scoresheet/Stats.svelte";
     import Team from "$lib/components/scoresheet/Team.svelte";
+    import Timeouts from "$lib/components/scoresheet/Timeouts.svelte";
 </script>
 
 <div class="wrapper">
@@ -27,9 +28,11 @@
     <div class="column">
         <Penalties></Penalties>
         <Scoring></Scoring>
+        <Timeouts></Timeouts>
     </div>
     <div class="column">
-        <Stats></Stats>
+        <!-- <Stats></Stats> -->
+        <Team></Team>
     </div>
 </div>
 
@@ -39,9 +42,10 @@
     }
 
     .columns {
-        display: grid;
-        grid-template-columns: repeat(3, minmax(0, 1fr));
+        display:grid;
+        grid-template-columns: minmax(0,2fr) minmax(0,1fr) minmax(0,1fr);
         width:100%;
+        gap: 10px;
     }
 
     .wrapper {

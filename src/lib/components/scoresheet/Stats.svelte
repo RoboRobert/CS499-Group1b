@@ -1,8 +1,9 @@
-<script>
+<script lang="ts">
+    
 </script>
 
 <div class="outer">
-    <div class="headerBox">PENALTIES/FOULS</div>
+    <div class="headerBox">HOME TEAM</div>
     <div class="teamHeader">
         <div class="headerBox">PO</div>
         <div class="headerBox">#</div>
@@ -32,5 +33,6 @@
         border: 1px solid black;
         resize:horizontal;
         overflow:hidden;
+        max-width:100%;
     }
 </style>
