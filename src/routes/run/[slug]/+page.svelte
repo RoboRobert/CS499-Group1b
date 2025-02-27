@@ -1,5 +1,7 @@
 <script lang="ts">
-    import Comp1 from "$lib/components/scoresheet/comp1.svelte";
+    import Penalties from "$lib/components/scoresheet/Penalties.svelte";
+    import Scoring from "$lib/components/scoresheet/Scoring.svelte";
+    import Stats from "$lib/components/scoresheet/Stats.svelte";
     import Team from "$lib/components/scoresheet/Team.svelte";
 </script>
 
@@ -23,22 +25,22 @@
         <Team></Team>
     </div>
     <div class="column">
-        <Team></Team>
+        <Penalties></Penalties>
+        <Scoring></Scoring>
     </div>
     <div class="column">
-        <Team></Team>
+        <Stats></Stats>
     </div>
 </div>
 
 <style>
     .column {
         flex-direction: column;
-        width:33%;
     }
 
     .columns {
-        display: flex;
-        flex-direction: row;
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
         width:100%;
     }
 

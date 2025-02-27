@@ -21,6 +21,7 @@
         text-align: center;
         flex: 1;
         min-width: 0;
-        height:20px;
+        max-height:50px;
+        min-height:20px;
     }
 </style>

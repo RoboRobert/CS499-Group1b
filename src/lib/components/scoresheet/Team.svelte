@@ -35,7 +35,7 @@
     }
     .outer {
         border: 1px solid black;
-        resize:horizontal;
+        resize:both;
         overflow:hidden;
     }
 </style>
