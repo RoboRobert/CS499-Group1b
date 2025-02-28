@@ -14,37 +14,32 @@
             <div class="quarterBox">3</div>
             <div class="quarterBox">4</div>
             <div class="quarterBox">OT</div>
+            <div class="quarterBox" style="border:none"></div>
         </div>
-        <div style="min-width: 0; flex:4">
+        <div style="min-width: 0;">
             <div class="quarter">
-                <input class="field" type="text">
-                <input class="field" type="text">
                 <input class="field" type="text">
                 <input class="field" type="text">
             </div>
             <div class="quarter">
                 <input class="field" type="text">
                 <input class="field" type="text">
+            </div>
+            <div class="quarter">
                 <input class="field" type="text">
                 <input class="field" type="text">
             </div>
             <div class="quarter">
                 <input class="field" type="text">
                 <input class="field" type="text">
-                <input class="field" type="text">
-                <input class="field" type="text">
             </div>
             <div class="quarter">
                 <input class="field" type="text">
                 <input class="field" type="text">
-                <input class="field" type="text">
-                <input class="field" type="text">
             </div>
             <div class="quarter">
-                <input class="field" type="text">
-                <input class="field" type="text">
-                <input class="field" type="text">
-                <input class="field" type="text">
+                <div class="field" style="flex:3">TOTALS</div>
+                <div class="field" style="flex:1">20</div>
             </div>
         </div>
     </div>
@@ -52,8 +47,7 @@
 
 <style>
     .test {
-        min-width: 0; 
-        flex:1;
+        width:20px;
         display: flex;
         flex-direction: column;  /* Align children vertically */
         justify-content: flex-end;  /* Push children to the bottom */
@@ -76,7 +70,7 @@
     .quarter {
         display: flex;
         flex-direction:row;
-        border: 1px solid black;
+        /* border: 1px solid black; */
     }
 
     .headerBox {
@@ -94,6 +88,7 @@
 
     .vertical {
         transform:rotate(-90deg);
+        font-size:smaller;
     }
 
     .field {
@@ -103,5 +98,6 @@
         min-width: 0;
         max-height:50px;
         min-height:20px;
+        border: 1px solid black;
     }
 </style>
