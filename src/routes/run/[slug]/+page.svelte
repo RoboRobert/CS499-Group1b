@@ -1,7 +1,11 @@
 <script lang="ts">
     import Penalties from "$lib/components/scoresheet/Penalties.svelte";
     import Scoring from "$lib/components/scoresheet/Scoring.svelte";
-    import Stats from "$lib/components/scoresheet/Stats.svelte";
+    import Clears from "$lib/components/scoresheet/Stats/Clears.svelte";
+    import ExtraMan from "$lib/components/scoresheet/Stats/ExtraMan.svelte";
+    import Faceoffs from "$lib/components/scoresheet/Stats/Faceoffs.svelte";
+    import GroundBalls from "$lib/components/scoresheet/Stats/GroundBalls.svelte";
+    import Shots from "$lib/components/scoresheet/Stats/Shots.svelte";
     import Team from "$lib/components/scoresheet/Team.svelte";
     import Timeouts from "$lib/components/scoresheet/Timeouts.svelte";
 </script>
@@ -31,19 +35,23 @@
         <Timeouts></Timeouts>
     </div>
     <div class="column">
-        <!-- <Stats></Stats> -->
-        <Team></Team>
+        <GroundBalls></GroundBalls>
+        <Shots></Shots>
+        <Clears></Clears>
+        <ExtraMan></ExtraMan>
+        <Faceoffs></Faceoffs>
     </div>
 </div>
 
 <style>
     .column {
         flex-direction: column;
+        column-gap:10px;
     }
 
     .columns {
         display:grid;
-        grid-template-columns: minmax(0,2fr) minmax(0,1fr) minmax(0,1fr);
+        grid-template-columns: minmax(0,2fr) minmax(0,1.5fr) minmax(0,1fr);
         width:100%;
         gap: 10px;
     }
