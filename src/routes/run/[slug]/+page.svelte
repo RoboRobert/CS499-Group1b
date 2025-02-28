@@ -1,5 +1,6 @@
 <script lang="ts">
     import Penalties from "$lib/components/scoresheet/Penalties.svelte";
+    import Saves from "$lib/components/scoresheet/Saves.svelte";
     import Scoring from "$lib/components/scoresheet/Scoring.svelte";
     import Clears from "$lib/components/scoresheet/Stats/Clears.svelte";
     import ExtraMan from "$lib/components/scoresheet/Stats/ExtraMan.svelte";
@@ -28,6 +29,7 @@
 <div class="columns">
     <div class="column">
         <Team></Team>
+        <Saves></Saves>
     </div>
     <div class="column">
         <Penalties></Penalties>
@@ -46,7 +48,6 @@
 <style>
     .column {
         flex-direction: column;
-        column-gap:10px;
     }
 
     .columns {
