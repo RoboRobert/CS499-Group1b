@@ -1,5 +1,3 @@
-
-
 <head>
     <title>Home Page</title>
     <style>
@@ -23,7 +21,7 @@
             <h3>Stats Made Easy, Game Operator's Log</h3>
         </section>
 
-        <section class = "recent-games">
+        <section class = "list-section-1">
             <h2>Recent Games</h2>
             <a href=" ">
                 <div class = "game">
@@ -41,7 +39,7 @@
 
             <a href=" ">
                 <div class = "game">
-                    <h3>Game 2</h3>
+                    <h3>Game 3</h3>
                     <p>Score and Date</p>
                 </div>
             </a>

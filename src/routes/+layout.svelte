@@ -6,12 +6,8 @@
     <div style="margin-right: 20px;">
         <a href="/homepage">Home</a>
         <a href=" ">Run Mode</a>
-        <a href=" ">Rosters</a>
-        <a href=" ">Past Games</a>
-        
-        <a href="/players/all">View All Players</a>
-       
-        <a href="/players/add">Add a Player</a>
+        <a href="/rosters ">Rosters</a>
+        <a href="/pastgames ">Past Games</a>
 
        
     </div>
