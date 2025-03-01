@@ -83,3 +83,75 @@
     .buttons button:hover {
         background-color:#6c6b6b;
     }
+
+    /* Modal Styles */
+    .modal-backdrop {
+        position: fixed;
+        inset: 0;
+        background-color: rgba(0, 0, 0, 0.5);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 50;
+    }
+    
+    .modal-content {
+        background-color: #fff;
+        border-radius: 8px;
+        padding: 20px;
+        width: 400px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    }
+    
+    .modal-content h2 {
+        font-size: 20px;
+        margin-bottom: 15px;
+    }
+    
+    .form-group {
+        margin-bottom: 15px;
+    }
+    
+    .form-group label {
+        display: block;
+        margin-bottom: 5px;
+    }
+    
+    .form-group input {
+        width: 100%;
+        padding: 5px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+    }
+    
+    .modal-actions {
+        display: flex;
+        justify-content: flex-end;
+        gap: 10px;
+    }
+    
+    .cancel-button {
+        background-color: transparent;
+        border: none;
+        color: #718096;
+        cursor: pointer;
+        transition: color 0.2s;
+    }
+    
+    .cancel-button:hover {
+        color: #4a5568;
+    }
+    
+    .sign-in-button {
+        background-color: #3182ce;
+        color: #fff;
+        border: none;
+        padding: 5px 15px;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.2s;
+    }
+    
+    .sign-in-button:hover {
+        background-color: #2b6cb0;
+    }
