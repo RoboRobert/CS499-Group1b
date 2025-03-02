@@ -1,6 +1,6 @@
 import postgres from 'postgres'
 // import { PGUSER, PGPASSWORD, PGHOST, PGPORT, PGDATABASE } from '$env/static/private'
-import type { Player } from '$lib/Player';
+import type { Team } from '$lib/Team';
 
 // const sql = postgres({
 //   user: PGUSER,
@@ -20,35 +20,34 @@ const sql = postgres({
 
 export default sql
 
-export async function getPlayers(): Promise<Player[]> {
-  const players = await sql<Player[]>`
-      SELECT * FROM players
+export async function getTeams(): Promise<Team[]> {
+  const players = await sql<Team[]>`
+      SELECT * FROM teams
     `
 
   return players
 }
 
-export async function getPlayer(id: number): Promise<Player> {
-  const players = await sql<Player[]>`
-      SELECT * FROM players WHERE id = ${id}
+export async function getTeam(name: string): Promise<Team> {
+  const players = await sql<Team[]>`
+      SELECT * FROM teams WHERE name = ${name}
     `
 
   return players[0]
 }
 
-export async function addPlayer(player: Player) {
-  let name = player.name;
-  let team = player.team;
+export async function addTeam(player: Team) {
+  let name = teams.name;
   const result = await sql`
-    INSERT INTO players (name, team) VALUES (${name}, ${team}) RETURNING *
+    INSERT INTO teams (name) VALUES (${name}) RETURNING *
   `
 
   return result
 }
 
-export async function deletePlayer(id: number) {
+export async function deleteTeam(name: string) {
   const result = await sql`
-      DELETE FROM players WHERE id = ${id}
+      DELETE FROM teams WHERE name = ${name}
     `
 
   return result
@@ -65,15 +64,13 @@ export async function dbReset() {
       END $$;
     `;
 
-  await sql`CREATE TABLE players (
-      id SERIAL PRIMARY KEY,
-      name VARCHAR(100) NOT NULL,
-      team VARCHAR(100) NOT NULL
+  await sql`CREATE TABLE teams (
+      name VARCHAR(100) NOT NULL
     );`
 
-  const res = await sql`INSERT INTO players (name, team)
-    VALUES ('John Doe', 'Team A'), 
-        ('Jane Smith', 'Team B');`
+  const res = await sql`INSERT INTO teams (name)
+    VALUES ('Team A'), 
+        ('Team B');`
 
   return res;
 }

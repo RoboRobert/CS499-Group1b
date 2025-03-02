@@ -1,6 +1,6 @@
 import postgres from 'postgres'
 // import { PGUSER, PGPASSWORD, PGHOST, PGPORT, PGDATABASE } from '$env/static/private'
-import type { Player } from '$lib/Player';
+import type { Sheet } from '$lib/Sheet';
 
 // const sql = postgres({
 //   user: PGUSER,
@@ -20,35 +20,34 @@ const sql = postgres({
 
 export default sql
 
-export async function getPlayers(): Promise<Player[]> {
-  const players = await sql<Player[]>`
-      SELECT * FROM players
+export async function getSheets(): Promise<Sheet[]> {
+  const players = await sql<Sheet[]>`
+      SELECT * FROM sheets
     `
 
   return players
 }
 
-export async function getPlayer(id: number): Promise<Player> {
-  const players = await sql<Player[]>`
-      SELECT * FROM players WHERE id = ${id}
+export async function getSheet(sheetid: number): Promise<Sheet> {
+  const players = await sql<Sheet[]>`
+      SELECT * FROM sheets WHERE sheetid = ${sheetid}
     `
 
   return players[0]
 }
 
-export async function addPlayer(player: Player) {
-  let name = player.name;
-  let team = player.team;
+export async function addSheet(sheet: Sheet) {
+  let sheetID = sheet.sheetid;
   const result = await sql`
-    INSERT INTO players (name, team) VALUES (${name}, ${team}) RETURNING *
+    INSERT INTO sheets (sheetid) VALUES (${sheetID}) RETURNING *
   `
 
   return result
 }
 
-export async function deletePlayer(id: number) {
+export async function deleteSheet(sheetid: number) {
   const result = await sql`
-      DELETE FROM players WHERE id = ${id}
+      DELETE FROM teams WHERE name = ${sheetid}
     `
 
   return result
@@ -65,15 +64,14 @@ export async function dbReset() {
       END $$;
     `;
 
-  await sql`CREATE TABLE players (
-      id SERIAL PRIMARY KEY,
-      name VARCHAR(100) NOT NULL,
-      team VARCHAR(100) NOT NULL
+    //Not entirely sure about this for the table
+  await sql`CREATE TABLE sheets (
+      sheetid SERIAL PRIMARY KEY
     );`
 
-  const res = await sql`INSERT INTO players (name, team)
-    VALUES ('John Doe', 'Team A'), 
-        ('Jane Smith', 'Team B');`
+  const res = await sql`INSERT INTO teams (name)
+    VALUES ('Team A'), 
+        ('Team B');`
 
   return res;
 }
