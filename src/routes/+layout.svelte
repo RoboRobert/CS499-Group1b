@@ -19,7 +19,7 @@
 
 <nav>
     <div style="margin-right: 20px;">
-        <a href="/homepage">Home</a>
+        <a href="/">Home</a>
         <a href=" ">Run Mode</a>
         <a href="/rosters ">Rosters</a>
         <a href="/pastgames ">Past Games</a>

@@ -1,5 +1,6 @@
-<script>
+<script lang="ts">
     let showAddModal = false
+    let teams: number[] = [1, 2, 3, 4, 5]
 
     const openAddModal = () => (showAddModal = true);
     const closeAddModal = () => (showAddModal = false);
@@ -19,7 +20,16 @@
             <button on:click={openAddModal} type="button">Add Teams</button>
         </div>
         <div>
-            <p>List of teams</p>
+            <h1>All Teams</h1>
+        </div>
+        <div>
+            {#each teams as team }
+            <a href='/rosters/${team}'>
+                <div class = "game">
+                    <h3>{team}</h3>
+                </div>
+            </a>
+            {/each}
         </div>
 
     </section>
