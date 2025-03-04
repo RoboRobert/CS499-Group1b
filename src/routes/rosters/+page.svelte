@@ -24,7 +24,7 @@
         </div>
         <div>
             {#each teams as team }
-            <a href='/rosters/${team}'>
+            <a href='/rosters/{team}'>
                 <div class = "game">
                     <h3>{team}</h3>
                 </div>

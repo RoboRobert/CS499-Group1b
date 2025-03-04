@@ -27,7 +27,7 @@
         <h2>Recent Games</h2>
         <div>
         {#each games as game }
-        <a href="/pastgames/${game}">
+        <a href="/pastgames/{game}">
             <div class = "game">
                 <h3>{game}</h3>
             </div>
