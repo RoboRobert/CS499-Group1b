@@ -1,6 +1,6 @@
 import postgres from 'postgres'
 // import { PGUSER, PGPASSWORD, PGHOST, PGPORT, PGDATABASE } from '$env/static/private'
-import type { Saves } from '$lib/Save';
+import type { Save } from '$lib/Save';
 
 // const sql = postgres({
 //   user: PGUSER,
@@ -21,32 +21,32 @@ const sql = postgres({
 export default sql
 
 export async function getSaves(): Promise<Save[]> {
-  const penalties = await sql<Penalty[]>`
+  const penalties = await sql<Save[]>`
       SELECT * FROM saves
     `
 
   return penalties
 }
 
-export async function getPenalty(sheetid: string): Promise<Penalty> {
-  const penalties = await sql<Penalty[]>`
+export async function getSave(sheetid: string): Promise<Save> {
+  const saves = await sql<Save[]>`
       SELECT * FROM saves WHERE sheetid = ${sheetid}
     `
 
-  return penalties[0]
+  return saves[0]
 }
 
-export async function addPenalty(penalties: Penalty) {
-  let sheetid = penalties.sheetid;
-  let side = penalties.side;
-  let player = penalties.player;
-  let playerno = penalties.playerno;
-  let quarterone = penalties.quarterone;
-  let quartertwo = penalties.quartertwo;
-  let quarterthree = penalties.quarterthreee;
-  let quarterfour = penalties.quarterfour;
-  let ot = penalties.ot;
-  let total = penalties.ot;
+export async function addSave(saves: Save) {
+  let sheetid = saves.sheetid;
+  let side = saves.side;
+  let player = saves.player;
+  let playerno = saves.playerno;
+  let quarterone = saves.quarterone;
+  let quartertwo = saves.quartertwo;
+  let quarterthree = saves.quarterthreee;
+  let quarterfour = saves.quarterfour;
+  let ot = saves.ot;
+  let total = saves.total;
   const result = await sql`
     INSERT INTO teams (sheetid, side, player, playerno, quarterone, quartertwo, quarterthree, quarterfour, ot, total) VALUES (${sheetid}, ${side}, ${player}, ${playerno}, ${quarterone}, ${quartertwo}, ${quarterthree}, ${quarterfour}, ${ot}, ${total}) RETURNING *
   `
@@ -54,7 +54,7 @@ export async function addPenalty(penalties: Penalty) {
   return result
 }
 
-export async function deletePenalty(name: string) {
+export async function deleteSave(name: string) {
   const result = await sql`
       DELETE FROM saves WHERE name = ${name}
     `
