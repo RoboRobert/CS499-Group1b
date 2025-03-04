@@ -1,0 +1,141 @@
+/* General Styles */
+/* Styling the body to set the font, background color, and general padding */
+body {
+    font-family: Arial, sans-serif; /* Clean, readable font */
+    background-color: #f4f4f9; /* Light gray-blue background for subtle contrast */
+    color: #333; /* Dark gray text for readability */
+    margin: 0; /* Removes default margin */
+    padding: 20px; /* Adds space around the content */
+}
+
+/* Main header styles for page titles */
+h1 {
+    text-align: center; /* Centers the text */
+    color: #00509e; /* Blue color for emphasis */
+    margin-bottom: 20px; /* Adds spacing below the header */
+}
+
+/* Secondary header styles for section titles */
+h2 {
+    color: #333; /* Dark gray text */
+    border-bottom: 2px solid #00509e; /* Underline effect with blue border */
+    padding-bottom: 5px; /* Adds space below the text */
+    margin-top: 30px; /* Adds spacing above the header */
+}
+
+/* Styling smaller headers */
+h4, h5 {
+    margin-top: 10px; /* Adds a small margin above */
+    color: #444; /* Slightly lighter gray for differentiation */
+}
+
+/* Container */
+/* Sets the layout and styling of the main content container */
+.container {
+    max-width: 1200px; /* Limits the container width */
+    margin: 0 auto; /* Centers the container horizontally */
+    padding: 20px; /* Adds space inside the container */
+    background: #fff; /* White background for clear content visibility */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+    border-radius: 8px; /* Rounds the corners slightly */
+}
+
+/* Forms */
+/* General form layout */
+form {
+    margin-bottom: 20px; /* Adds space below each form */
+}
+
+/* Groups form elements together with consistent spacing */
+.form-group {
+    display: inline-block; /* Aligns elements in a flexible row */
+    flex-wrap: wrap; /* Allows elements to wrap to the next line */
+    gap: 15px; /* Adds spacing between elements */
+    margin-bottom: 15px; /* Adds space below the group */
+}
+
+/* Label styling */
+label {
+    display: inline-block; 
+    font-weight: bold; /* Highlights labels for clarity */
+    margin-bottom: 5px; /* Adds space between label and input */
+    font-size: 0.9rem; /* Slightly smaller font size */
+}
+
+/* Input and select field styling */
+input, select {
+    padding: 8px; /* Adds space inside the input field */
+    border: 1px solid #ccc; /* Light gray border for inputs */
+    border-radius: 4px; /* Rounds input corners */
+    width: 25%; /* Makes inputs stretch to the container width */
+    max-width: 250px; /* Restricts the maximum width */
+}
+
+/* Specific width adjustment for number inputs */
+input[type="number"] {
+    width: 40px; /* Sets a fixed width for number inputs */
+}
+/* Specific width adjustment for number inputs */
+input[type="text"] {
+    width: 40px; /* Sets a fixed width for number inputs */
+}
+
+/* Section Styles */
+/* Styling for different data entry sections */
+.player-roster, .groundballs, .shots, .clears, .extraman, .faceoff, .penalties {
+    border: 1px solid #ddd; /* Light gray border */
+    padding: 15px; /* Adds space inside the section */
+    margin-bottom: 15px; /* Adds space below the section */
+    border-radius: 5px; /* Rounds the corners */
+    background-color: #f9f9fb; /* Slightly lighter background for section distinction */
+}
+
+/* Styling labels within the sections */
+.player-roster label,
+.groundballs label,
+.shots label,
+.clears label,
+.extraman label,
+.faceoff label,
+.penalties label {
+    margin-right: 10px; /* Adds space to the right of labels */
+}
+
+/* Styling input fields within the sections */
+.player-roster input,
+.groundballs input,
+.shots input,
+.clears input,
+.extraman input,
+.faceoff input,
+.penalties input {
+    margin-bottom: 10px; /* Adds space below each input field */
+}
+
+/* Special styling for penalties section */
+.penalties label, 
+.penalties input, 
+.penalties select {
+    margin-right: 10px; /* Adds space to the right */
+    margin-bottom: 5px; /* Adds space below */
+}
+
+/* Adjusts width for input and select fields within penalties */
+.penalties input, 
+.penalties select {
+    width: auto; /* Makes the width adjust to the content */
+}
+
+/* Tables for Saves Section */
+/* Header styling for sub-section headers */
+form h3 {
+    margin-top: 20px; /* Adds space above headers in the form */
+}
+
+/* General label styling inside divs */
+div label {
+    font-weight: bold; /* Highlights the label text */
+    margin-right: 15px; /* Adds spacing to the right */
+    text-align: left; /* Aligns the text to the left */
+}
+
