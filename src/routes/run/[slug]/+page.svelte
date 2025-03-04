@@ -8,22 +8,12 @@
     import GroundBalls from "$lib/components/scoresheet/Stats/GroundBalls.svelte";
     import Shots from "$lib/components/scoresheet/Stats/Shots.svelte";
     import Team from "$lib/components/scoresheet/Team.svelte";
+    import TeamCoaches from "$lib/components/scoresheet/Header/TeamCoaches.svelte";
     import Timeouts from "$lib/components/scoresheet/Timeouts.svelte";
 </script>
 
-<div class="wrapper">
-    <div class="wrapper">
-        <div class="header"></div>
-        <div class="header"></div>
-    </div>
-    <div class="wrapper">
-        <div class="header"></div>
-        <div class="header"></div>
-    </div>
-    <div class="wrapper">
-        <div class="header"></div>
-        <div class="header"></div>
-    </div>
+<div style="flex-direction:row;">
+    <TeamCoaches></TeamCoaches>
 </div>
 
 <div class="columns">
@@ -55,18 +45,5 @@
         grid-template-columns: minmax(0,2fr) minmax(0,1.5fr) minmax(0,1fr);
         width:100%;
         gap: 10px;
-    }
-
-    .wrapper {
-        display: flex;
-        flex-wrap: wrap;
-        flex-direction: row;
-        height: auto;
-    }
-
-    .header {
-        border: 1px solid black; 
-        width:30px;
-        height:30px;
     }
 </style>
