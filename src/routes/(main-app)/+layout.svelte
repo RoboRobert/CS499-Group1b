@@ -1,5 +1,5 @@
 <script>
-    import "../app.css"
+    import "$lib/styles/app.css"
     
     // State to control modal visibility
     let showSignInModal = false;
@@ -20,7 +20,7 @@
 <nav>
     <div style="margin-right: 20px;">
         <a href="/">Home</a>
-        <a href=" ">Run Mode</a>
+        <a href="/run/1">Run Mode</a>
         <a href="/rosters ">Rosters</a>
         <a href="/pastgames ">Past Games</a>
 
