@@ -9,7 +9,7 @@
     import Shots from "$lib/components/scoresheet/Stats/Shots.svelte";
     import Team from "$lib/components/scoresheet/Team.svelte";
     import Timeouts from "$lib/components/scoresheet/Timeouts.svelte";
-    import "$lib/components/scoresheet/test.css"
+    import "$lib/components/scoresheet/scoresheet.css"
     import Header from "$lib/components/scoresheet/Header/Header.svelte";
 </script>
 

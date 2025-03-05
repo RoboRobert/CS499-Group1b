@@ -1,3 +1,7 @@
+* {
+    /* box-sizing: border-box; */
+}
+
 .outer {
     /* border: 1px solid black; */
     resize:both;
@@ -9,7 +13,6 @@
 }
 
 .field {
-    box-sizing: border-box;
     text-align: center;
     flex: 1;
     min-width: 0;
@@ -21,7 +24,6 @@
     flex: 1;
     text-align: center;
     border: 1px solid black;
-    box-sizing: border-box;
     overflow:hidden;
     align-content:center;
 }
@@ -29,7 +31,6 @@
 .headerBox {
     text-align: center;
     border: 1px solid black;
-    box-sizing: border-box;
 }
 
 .headerRow {
