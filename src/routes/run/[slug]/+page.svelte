@@ -10,6 +10,7 @@
     import Team from "$lib/components/scoresheet/Team.svelte";
     import TeamCoaches from "$lib/components/scoresheet/Header/TeamCoaches.svelte";
     import Timeouts from "$lib/components/scoresheet/Timeouts.svelte";
+    import "$lib/components/scoresheet/test.css"
 </script>
 
 <div style="flex-direction:row;">

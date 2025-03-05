@@ -1,0 +1,54 @@
+.outer {
+    /* border: 1px solid black; */
+    resize:both;
+    overflow:hidden;
+    max-width:100%;
+    margin-bottom:10px;
+    display: flex;
+    flex-direction:column;
+}
+
+.field {
+    box-sizing: border-box;
+    text-align: center;
+    flex: 1;
+    min-width: 0;
+    min-height:0;
+    border: 1px solid black;
+}
+
+.rowBox {
+    flex: 1;
+    text-align: center;
+    border: 1px solid black;
+    box-sizing: border-box;
+    overflow:hidden;
+    align-content:center;
+}
+
+.headerBox {
+    text-align: center;
+    border: 1px solid black;
+    box-sizing: border-box;
+}
+
+.headerRow {
+    display: flex;
+    flex-direction:row;
+    /* border: 1px solid black; */
+}
+
+.innerRow {
+    flex:1;
+    display: flex;
+    flex-direction: row;
+    /* border: 1px solid black; */
+    min-height:0;
+}
+
+.innerColumn {
+    flex:1;
+    display:flex;
+    flex-direction:column;
+    min-height:0;
+}
