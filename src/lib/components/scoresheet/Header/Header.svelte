@@ -1,35 +1,47 @@
 <script lang="ts">
-    import Attempt from "./Attempt.svelte";
-    import OverallShots from "./OverallShots.svelte";
-    import PlayerNums from "./PlayerNums.svelte";
+    import OverallShots from "./Goals.svelte";
 
-    let numAttempts = 30;
+    import { homeGoalTrack, awayGoalTrack } from "../data.svelte";
+
+    let numGoals = 30;
 </script>
 
 <div class="testRow">
     <div class="outer">
         <div class="innerRow">
             <input class="field bigField" type="text" placeholder="Home">
-            {#each Array(numAttempts) as attempt}
-                <Attempt></Attempt>
+            {#each Array(numGoals) as attempt, i}
+                <div class="boxes">
+                    <input class="field" style="flex:3" type="text" bind:value={homeGoalTrack[i].time}>
+                    <input class="field" type="text" bind:value={homeGoalTrack[i].type}>
+                </div>
             {/each}
         </div>
-        <div class="innerRow">
+        <div class="innerRow" style="margin-bottom:10px;">
             <input class="field bigField" type="text" placeholder="Coach">
-            {#each Array(numAttempts) as attempt}
-                <PlayerNums></PlayerNums>
+            {#each Array(numGoals) as attempt, i}
+                <div class="boxes">
+                    <input class="field" type="text" bind:value={homeGoalTrack[i].main}> 
+                    <input class="field" type="text" bind:value={homeGoalTrack[i].assist}>
+                </div>
             {/each}
         </div>
         <div class="innerRow">
             <input class="field bigField" type="text" placeholder="Visiting">
-            {#each Array(numAttempts) as attempt}
-                <Attempt></Attempt>
+            {#each Array(numGoals) as attempt, i}
+            <div class="boxes">
+                <input class="field" style="flex:3" type="text" bind:value={awayGoalTrack[i].time}>
+                <input class="field" type="text" bind:value={awayGoalTrack[i].type}>
+            </div>
             {/each}
         </div>
         <div class="innerRow">
             <input class="field bigField" type="text" placeholder="Coach">
-            {#each Array(numAttempts) as attempt}
-                <PlayerNums></PlayerNums>
+            {#each Array(numGoals) as attempt, i}
+                <div class="boxes">
+                    <input class="field" type="text" bind:value={awayGoalTrack[i].main}>
+                    <input class="field" type="text" bind:value={awayGoalTrack[i].assist}>
+                </div>
             {/each}
         </div>
     </div>
@@ -38,10 +50,19 @@
 </div>
 
 <style>
+    .boxes {
+        flex: 1;
+        max-width:100%;
+        flex-direction: row;
+        display:flex;
+        min-width:0;
+    }
+
     .outer {
         max-width:80%; 
         margin-right:10px;
     }
+
     .bigField {
         flex:3;
         text-align: left;
