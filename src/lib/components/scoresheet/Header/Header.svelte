@@ -1,5 +1,5 @@
 <script lang="ts">
-    import OverallShots from "./Goals.svelte";
+    import Goals from "./Goals.svelte";
 
     import { homeGoalTrack, awayGoalTrack } from "../data.svelte";
 
@@ -46,7 +46,7 @@
         </div>
     </div>
 
-    <OverallShots></OverallShots>
+    <Goals></Goals>
 </div>
 
 <style>
@@ -59,7 +59,7 @@
     }
 
     .outer {
-        max-width:80%; 
+        max-width:85%; 
         margin-right:10px;
     }
 

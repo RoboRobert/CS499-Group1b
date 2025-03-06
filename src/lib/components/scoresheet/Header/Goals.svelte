@@ -2,7 +2,7 @@
     import { homeGoals, awayGoals } from "../data.svelte";
 </script>
 
-<div class="outer" style="width: 20%;"> 
+<div class="outer" style="width: 15%;"> 
     <div class="innerRow">
         <div class="innerColumn">
             <input class="field" type="number" placeholder="Q1" bind:value={homeGoals[0]}>
