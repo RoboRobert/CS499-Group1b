@@ -3,10 +3,15 @@
 
     let numPlayers = 31;
 
-    export let side: string;
+    interface Side {
+        teamName: string,
+        side:number,
+    }
+
+    let {teamName, side}: Side = $props();
 </script>
 <div class="outer">
-    <div class="headerBox">{side}</div>
+    <div class="headerBox">{teamName}</div>
     <div class="headerRow">
         <div class="rowBox">PO</div>
         <div class="rowBox">#</div>

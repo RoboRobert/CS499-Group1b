@@ -1,8 +1,11 @@
 <script lang="ts">
-    // Only allows digits to be entered
-    function allowDigits(event: any) {
-        event.target.value = event.target.value.replace(/[^0-9]/g, '');
+    import { timeouts } from "./data.svelte";
+
+    interface Side {
+        side:number;
     }
+
+    let {side}: Side = $props();
 </script>
 
 <div class="outer">
@@ -15,13 +18,13 @@
     </div>
 
     <div class="innerRow">
-        <input class="field" type="text" />
-        <input class="field" type="text" />
-        <input class="field" type="text" />
-        <input class="field" type="text" />
-        <input class="field" type="text" />
-        <input class="field" type="text" />
-        <input class="field" type="text" />
-        <input class="field" type="text" />
+        <input class="field" type="text" bind:value={timeouts[side][0].minutes}/>
+        <input class="field" type="text" bind:value={timeouts[side][0].period}/>
+        <input class="field" type="text" bind:value={timeouts[side][1].minutes}/>
+        <input class="field" type="text" bind:value={timeouts[side][1].period}/>
+        <input class="field" type="text" bind:value={timeouts[side][2].minutes}/>
+        <input class="field" type="text" bind:value={timeouts[side][2].period}/>
+        <input class="field" type="text" bind:value={timeouts[side][3].minutes}/>
+        <input class="field" type="text" bind:value={timeouts[side][3].period}/>
     </div>
 </div>

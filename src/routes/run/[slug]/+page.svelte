@@ -30,49 +30,49 @@
 <div class="main">
     <Header></Header>
     <div class="sheets">
-        <div class="columns maximized" bind:this={leftSheet}>
+        <div class="columns" bind:this={leftSheet}>
             <div
                 class="cover inactive"
                 bind:this={leftCover}
-                on:pointerup={swap}
+                onpointerup={swap}
             ></div>
             <div class="column">
-                <Team side={"HOME TEAM"}></Team>
+                <Team teamName={"HOME TEAM"} side={0}></Team>
                 <Saves></Saves>
             </div>
             <div class="column">
                 <Penalties></Penalties>
                 <Scoring></Scoring>
-                <Timeouts></Timeouts>
+                <Timeouts side={0}></Timeouts>
             </div>
             <div class="column">
-                <GroundBalls></GroundBalls>
-                <Shots></Shots>
-                <Clears teamType={"HOME"}></Clears>
-                <ExtraMan></ExtraMan>
-                <Faceoffs></Faceoffs>
+                <GroundBalls side={0}></GroundBalls>
+                <Shots side={0}></Shots>
+                <Clears side={0}></Clears>
+                <ExtraMan side={0}></ExtraMan>
+                <Faceoffs side={0}></Faceoffs>
             </div>
         </div>
 
         <div class="verticalLine"></div>
 
         <div class="columns" bind:this={rightSheet}>
-            <div class="cover" bind:this={rightCover} on:pointerup={swap}></div>
+            <!-- <div class="cover" bind:this={rightCover} onpointerup={swap}></div> -->
             <div class="column">
-                <Team side={"AWAY TEAM"}></Team>
+                <Team teamName={"AWAY TEAM"} side={1}></Team>
                 <Saves></Saves>
             </div>
             <div class="column">
                 <Penalties></Penalties>
                 <Scoring></Scoring>
-                <Timeouts></Timeouts>
+                <Timeouts side={1}></Timeouts>
             </div>
             <div class="column">
-                <GroundBalls></GroundBalls>
-                <Shots></Shots>
-                <Clears teamType={"HOME"}></Clears>
-                <ExtraMan></ExtraMan>
-                <Faceoffs></Faceoffs>
+                <GroundBalls side={1}></GroundBalls>
+                <Shots side={1}></Shots>
+                <Clears side={1}></Clears>
+                <ExtraMan side={1}></ExtraMan>
+                <Faceoffs side={1}></Faceoffs>
             </div>
         </div>
     </div>
@@ -80,9 +80,11 @@
 
 <style>
     .main {
+        display:flex;
+        flex-direction: column;
         max-height: 98vh;
         min-height:0;
-        /* overflow:hidden; */
+        overflow:hidden;
     }
 
     .sheets {
@@ -104,8 +106,6 @@
         grid-template-columns: minmax(0, 2fr) minmax(0, 1.5fr) minmax(0, 1fr);
         gap: 10px;
         min-height:0;
-        resize:both;
-        overflow:hidden;
     }
 
     .verticalLine {
