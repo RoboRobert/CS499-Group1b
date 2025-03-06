@@ -30,7 +30,7 @@
 <div class="main">
     <Header></Header>
     <div class="sheets">
-        <div class="columns" bind:this={leftSheet}>
+        <div class="columns maximized" bind:this={leftSheet}>
             <div
                 class="cover inactive"
                 bind:this={leftCover}
@@ -38,7 +38,7 @@
             ></div>
             <div class="column">
                 <Team teamName={"HOME TEAM"} side={0}></Team>
-                <Saves></Saves>
+                <Saves side={0}></Saves>
             </div>
             <div class="column">
                 <Penalties></Penalties>
@@ -57,10 +57,10 @@
         <div class="verticalLine"></div>
 
         <div class="columns" bind:this={rightSheet}>
-            <!-- <div class="cover" bind:this={rightCover} onpointerup={swap}></div> -->
+            <div class="cover" bind:this={rightCover} onpointerup={swap}></div>
             <div class="column">
                 <Team teamName={"AWAY TEAM"} side={1}></Team>
-                <Saves></Saves>
+                <Saves side={1}></Saves>
             </div>
             <div class="column">
                 <Penalties></Penalties>

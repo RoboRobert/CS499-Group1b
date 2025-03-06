@@ -2,6 +2,14 @@
     /* box-sizing: border-box; */
 }
 
+/* body {
+    background-color: antiquewhite;
+}
+
+input {
+    background-color: antiquewhite;
+} */
+
 .outer {
     /* border: 1px solid black; */
     resize:both;
