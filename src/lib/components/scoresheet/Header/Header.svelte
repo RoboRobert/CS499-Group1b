@@ -9,7 +9,7 @@
 <div class="testRow">
     <div class="outer">
         <div class="innerRow">
-            <input class="field bigField" type="text" placeholder="Home">
+            <input class="field bigField" type="text" placeholder="Home Team">
             {#each Array(numGoals) as attempt, i}
                 <div class="boxes">
                     <input class="field" style="flex:3" type="text" bind:value={homeGoalTrack[i].time}>
@@ -27,7 +27,7 @@
             {/each}
         </div>
         <div class="innerRow">
-            <input class="field bigField" type="text" placeholder="Visiting">
+            <input class="field bigField" type="text" placeholder="Away Team">
             {#each Array(numGoals) as attempt, i}
             <div class="boxes">
                 <input class="field" style="flex:3" type="text" bind:value={awayGoalTrack[i].time}>

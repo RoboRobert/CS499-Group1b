@@ -2,9 +2,11 @@
     import Player from "./Player.svelte";
 
     let numPlayers = 31;
+
+    export let side: string;
 </script>
 <div class="outer">
-    <div class="headerBox">HOME TEAM</div>
+    <div class="headerBox">{side}</div>
     <div class="headerRow">
         <div class="rowBox">PO</div>
         <div class="rowBox">#</div>

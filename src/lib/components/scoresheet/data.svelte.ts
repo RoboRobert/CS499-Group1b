@@ -1,11 +1,11 @@
-interface Goal {
+export interface Goal {
     time: number,
     type: string,
     main: number,
     assist: number,
 }
 
-interface Stat {
+export interface Stat {
     won:number,
     lost:number
 }
