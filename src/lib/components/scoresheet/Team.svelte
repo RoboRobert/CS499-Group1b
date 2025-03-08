@@ -23,6 +23,15 @@
         <div class="rowBox">GBS</div>
     </div>
     {#each Array(numPlayers) as player}
-        <Player></Player>
+        <div class="innerRow">
+            <input class="field" type="text">
+            <input class="field" type="text">
+            <input class="field" type="text" style="flex:2">
+            <input class="field" type="text">
+            <input class="field" type="text">
+            <input class="field" type="text">
+            <input class="field" type="text">
+            <input class="field" type="text">
+        </div>
     {/each}
 </div>

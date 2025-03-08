@@ -1,3 +1,5 @@
+import type { Player } from "$lib/database/Team";
+
 export interface Goal {
     time: number,
     type: string,
