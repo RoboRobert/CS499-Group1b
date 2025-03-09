@@ -9,29 +9,21 @@
     const openAddModal = () => (showAddModal = true);
     const closeAddModal = () => (showAddModal = false);
 
-    // Local state for new team data
-    let newTeamName: string = "";
-    let newTeamHometown: string = "";
-    let newCoachName: string = "";
-  
     // Handler for form submission to add a team
     function handleAddTeam(event: Event) {
       event.preventDefault();
+
+      let formdata = new FormData(event.target as HTMLFormElement);
       // Create a new team object; note that players is empty initially.
       const newTeam: team = {
-        name: newTeamName,
-        hometown: newTeamHometown,
-        coach: newCoachName,
+        name: formdata.get('team-name') as string,
+        hometown: formdata.get('hometown') as string,
+        coach: formdata.get('coach-name') as string,
         players: []
       };
   
       // Add the new team to the teams state
       addTeam(newTeam);
-  
-      // Reset form fields
-      newTeamName = "";
-      newTeamHometown = "";
-      newCoachName = "";
   
       // Close the modal
       closeAddModal();
@@ -76,15 +68,15 @@
         <form on:submit|preventDefault={handleAddTeam}>
           <div class="form-group">
             <label for="team-name">Team Name:</label>
-            <input type="text" id="team-name" bind:value={newTeamName} required>
+            <input type="text" name="team-name"  required>
           </div>
           <div class="form-group">
             <label for="hometown">Hometown:</label>
-            <input type="text" id="hometown" bind:value={newTeamHometown} required>
+            <input type="text" name="hometown"  required>
           </div>
           <div class="form-group">
             <label for="coach-name">Coach:</label>
-            <input type="text" id="coach-name" bind:value={newCoachName} required>
+            <input type="text" name="coach-name"  required>
           </div>
           <div class="modal-actions">
             <button type="button" on:click={closeAddModal} class="cancel-button">Cancel</button>

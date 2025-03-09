@@ -9,7 +9,7 @@ export interface player {
 	name: string,
 	team: string,
 	hometown: string,
-	number: number,
+	number: string,
 	position: string,
 	class: string,
 	height: string,

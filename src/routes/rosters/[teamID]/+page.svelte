@@ -12,14 +12,6 @@
     // Modal state for adding a new player
     let showAddPlayerModal = false;
   
-    // Local state for new player data
-    let newPlayerName = "";
-    let newPlayerHometown = "";
-    let newPlayerNumber: number = 0;
-    let newPlayerPosition = "";
-    let newPlayerClass = "";
-    let newPlayerHeight = "";
-    let newPlayerWeight = "";
   
     function openAddPlayerModal() {
       showAddPlayerModal = true;
@@ -31,29 +23,23 @@
   
     function handleAddPlayer(event: Event) {
         event.preventDefault();
+
+        let formdata = new FormData(event.target as HTMLFormElement);
         // Create a new player object using the current team id
         const newPlayer: player = {
-        name: newPlayerName,
-        team: teamId,
-        hometown: newPlayerHometown,
-        number: newPlayerNumber,
-        position: newPlayerPosition,
-        class: newPlayerClass,
-        height: newPlayerHeight,
-        weight: newPlayerWeight
+        name: formdata.get('player-name') as string,
+        hometown: formdata.get('player-hometown') as string,
+        number: formdata.get('player-number') as string,
+        position: formdata.get('player-position') as string,
+        class: formdata.get('player-class') as string,
+        height: formdata.get('player-height') as string,
+        weight: formdata.get('player-weight') as string,
+        team: teamId
         };
   
       // Add the new player to the shared players state
         addPlayer(newPlayer);
   
-        // Reset form fields
-        newPlayerName = "";
-        newPlayerHometown = "";
-        newPlayerNumber = 0;
-        newPlayerPosition = "";
-        newPlayerClass = "";
-        newPlayerHeight = "";
-        newPlayerWeight = "";
     
         closeAddPlayerModal();
     }
@@ -92,31 +78,31 @@
         <form on:submit|preventDefault={handleAddPlayer}>
           <div class="form-group">
             <label for="player-name">Player Name:</label>
-            <input type="text" id="player-name" bind:value={newPlayerName} required>
+            <input type="text" name="player-name"  required>
           </div>
           <div class="form-group">
             <label for="player-hometown">Hometown:</label>
-            <input type="text" id="player-hometown" bind:value={newPlayerHometown} required>
+            <input type="text" name="player-hometown"  required>
           </div>
           <div class="form-group">
             <label for="player-number">Number:</label>
-            <input type="number" id="player-number" bind:value={newPlayerNumber} required>
+            <input type="number" name="player-number"  required>
           </div>
           <div class="form-group">
             <label for="player-position">Position:</label>
-            <input type="text" id="player-position" bind:value={newPlayerPosition} required>
+            <input type="text" name="player-position"  required>
           </div>
           <div class="form-group">
             <label for="player-class">Class:</label>
-            <input type="text" id="player-class" bind:value={newPlayerClass} required>
+            <input type="text" name="player-class"  required>
           </div>
           <div class="form-group">
             <label for="player-height">Height:</label>
-            <input type="text" id="player-height" bind:value={newPlayerHeight} required>
+            <input type="text" name="player-height"  required>
           </div>
           <div class="form-group">
             <label for="player-weight">Weight:</label>
-            <input type="text" id="player-weight" bind:value={newPlayerWeight} required>
+            <input type="text" name="player-weight"  required>
           </div>
           <div class="modal-actions">
             <button type="button" on:click={closeAddPlayerModal} class="cancel-button">Cancel</button>
