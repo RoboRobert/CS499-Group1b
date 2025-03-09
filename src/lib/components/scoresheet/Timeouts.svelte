@@ -10,7 +10,7 @@
 
 <div class="outer">
     <div class="headerBox">TIMEOUTS</div>
-    <div class="headerRow">
+    <div class="innerRow">
         <div class="rowBox">First Half</div>
         <div class="rowBox">Second Half</div>
         <div class="rowBox">1 O.T.</div>

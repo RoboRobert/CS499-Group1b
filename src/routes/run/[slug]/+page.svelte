@@ -11,6 +11,9 @@
     import Timeouts from "$lib/components/scoresheet/Timeouts.svelte";
     import "$lib/components/scoresheet/scoresheet.css";
     import Header from "$lib/components/scoresheet/Header/Header.svelte";
+    import Settings from "$lib/components/scoresheet/Bar/Settings.svelte";
+    import MetaStats from "$lib/components/scoresheet/Bar/MetaStats.svelte";
+    import Timer from "$lib/components/scoresheet/Bar/Timer.svelte";
 
     let leftSheet: HTMLElement;
     let rightSheet: HTMLElement;
@@ -28,6 +31,11 @@
 </script>
 
 <div class="main">
+    <div class="wideRow">
+        <Settings></Settings>
+        <MetaStats></MetaStats>
+        <Timer></Timer>
+    </div>
     <Header></Header>
     <div class="sheets">
         <div class="columns maximized" bind:this={leftSheet}>

@@ -6,7 +6,7 @@
     let numGoals = 30;
 </script>
 
-<div class="testRow">
+<div class="wideRow">
     <div class="outer">
         <div class="innerRow">
             <input class="field bigField" type="text" placeholder="Home Team">
@@ -21,8 +21,8 @@
             <input class="field bigField" type="text" placeholder="Coach">
             {#each Array(numGoals) as attempt, i}
                 <div class="boxes">
-                    <input class="field" type="text" bind:value={homeGoalTrack[i].main}> 
-                    <input class="field" type="text" bind:value={homeGoalTrack[i].assist}>
+                    <input class="field" type="text" oninput={e => homeGoalTrack[i].main = Number(e.currentTarget.value)}> 
+                    <input class="field" inputmode="numeric" oninput={e => homeGoalTrack[i].assist = Number(e.currentTarget.value)}>
                 </div>
             {/each}
         </div>
@@ -39,8 +39,8 @@
             <input class="field bigField" type="text" placeholder="Coach">
             {#each Array(numGoals) as attempt, i}
                 <div class="boxes">
-                    <input class="field" type="text" bind:value={awayGoalTrack[i].main}>
-                    <input class="field" type="text" bind:value={awayGoalTrack[i].assist}>
+                    <input class="field" inputmode="numeric" oninput={e => awayGoalTrack[i].main = Number(e.currentTarget.value)}>
+                    <input class="field" inputmode="numeric" oninput={e => awayGoalTrack[i].assist = Number(e.currentTarget.value)}>
                 </div>
             {/each}
         </div>
@@ -66,12 +66,6 @@
     .bigField {
         flex:3;
         text-align: left;
-    }
-
-    .testRow {
-        max-width:100%;
-        display:flex;
-        flex-direction: row;
-        margin-top:10px;
+        margin-right:10px;
     }
 </style>

@@ -54,13 +54,12 @@ export const timeouts: Timeout[][] = $state([[{ minutes: 0, seconds: 0, period: 
 let homeArr: Goal[] = [];
 let awayArr: Goal[] = [];
 for (let i = 0; i < 30; i++) {
-    homeArr.push({ time: 0, type: "", main: 0, assist: 0 })
-    awayArr.push({ time: 0, type: "", main: 0, assist: 0 })
+    homeArr.push({ time: undefined, type: "", main: undefined, assist: undefined })
+    awayArr.push({ time: undefined, type: "", main: undefined, assist: undefined })
 }
 
 export const homeGoalTrack = $state(homeArr);
 export const awayGoalTrack = $state(awayArr);
-
 
 let homeSaves: Save[] = [];
 let awaySaves: Save[] = [];
@@ -70,3 +69,13 @@ for (let i = 0; i < 3; i++) {
 }
 
 export const saves = $state([homeSaves,awaySaves]);
+
+let numPlayers = 31;
+let homePlayers: number[] = [];
+let awayPlayers: number[] = [];
+for (let i = 0; i < numPlayers; i++) {
+    homePlayers.push(undefined);
+    awayPlayers.push(undefined);
+}
+
+export const players = $state([homePlayers,awayPlayers]);

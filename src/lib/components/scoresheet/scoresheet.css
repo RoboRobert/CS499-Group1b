@@ -60,3 +60,19 @@ input {
     min-height:0;
     min-width:0;
 }
+
+.wideRow {
+    max-width:100%;
+    display:flex;
+    flex-direction: row;
+    margin-top:10px;
+}
+
+.svg {
+    width:50px;
+    height:50px;
+}
+
+.svg:hover {
+    background-color: lightgray;
+}
