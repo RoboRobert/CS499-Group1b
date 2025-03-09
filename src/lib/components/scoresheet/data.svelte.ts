@@ -1,5 +1,3 @@
-import type { Player } from "$lib/database/Team";
-
 export interface Goal {
     time: number,
     type: string,
@@ -25,6 +23,17 @@ export interface Save {
     qtr3: number,
     qtr4:number,
     ot:number,
+}
+
+export interface Player {
+    position: string,
+    name: string,
+    number:number,
+    quarters: string,
+    shots:number,
+    goals:number,
+    assists:number,
+    groundBalls:number,
 }
 
 export const homeGoals = $state([0, 0, 0, 0, 0, 0]);
@@ -71,11 +80,71 @@ for (let i = 0; i < 3; i++) {
 export const saves = $state([homeSaves,awaySaves]);
 
 let numPlayers = 31;
-let homePlayers: number[] = [];
-let awayPlayers: number[] = [];
+let homePlayers: Player[] = [];
+let awayPlayers: Player[] = [];
 for (let i = 0; i < numPlayers; i++) {
-    homePlayers.push(undefined);
-    awayPlayers.push(undefined);
+    homePlayers.push({position:"", name:"", number:undefined, quarters:"", shots:undefined, goals:undefined, assists:undefined, groundBalls:undefined});
+    awayPlayers.push({position:"", name:"", number:undefined, quarters:"", shots:undefined, goals:undefined, assists:undefined, groundBalls:undefined});
 }
 
 export const players = $state([homePlayers,awayPlayers]);
+
+// Maps player # to goals.
+// Stored as an array where goalMap[0] is home team, goalMap[1] is away team
+const goalMap = $derived.by(() => {
+    let homeMap = new Map<number, number>();
+    let awayMap = new Map<number, number>();
+    homeGoalTrack.forEach((e) => {
+        if(homeMap.has(e.main)) {
+            let val = homeMap.get(e.main);
+            val += 1;
+            homeMap.set(e.main,val);
+        }
+        else {
+            homeMap.set(e.main,1);
+        }
+    });
+
+    awayGoalTrack.forEach((e) => {
+        if(awayMap.has(e.main)) {
+            let val = awayMap.get(e.main);
+            val += 1;
+            awayMap.set(e.main,val);
+        }
+        else {
+            awayMap.set(e.main,1);
+        }
+    });
+
+    return [homeMap,awayMap];
+})
+
+// Maps player # to assists.
+// Stored as an array where assistMap[0] is home team, assistMap[1] is away team
+const assistMap = $derived.by(() => {
+    let homeMap = new Map<number, number>();
+    let awayMap = new Map<number, number>();
+    homeGoalTrack.forEach((e) => {
+        if(homeMap.has(e.assist)) {
+            let val = homeMap.get(e.assist);
+            val += 1;
+            homeMap.set(e.assist,val);
+        }
+        else {
+            homeMap.set(e.assist,1);
+        }
+    });
+
+    awayGoalTrack.forEach((e) => {
+        if(awayMap.has(e.assist)) {
+            let val = awayMap.get(e.assist);
+            val += 1;
+            awayMap.set(e.assist,val);
+        }
+        else {
+            awayMap.set(e.assist,1);
+        }
+    });
+
+    return [homeMap,awayMap];
+})

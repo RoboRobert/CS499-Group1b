@@ -14,6 +14,8 @@
     import Settings from "$lib/components/scoresheet/Bar/Settings.svelte";
     import MetaStats from "$lib/components/scoresheet/Bar/MetaStats.svelte";
     import Timer from "$lib/components/scoresheet/Bar/Timer.svelte";
+    import Quarters from "$lib/components/scoresheet/Bar/Quarters.svelte";
+    import Submit from "$lib/components/scoresheet/Bar/Submit.svelte";
 
     let leftSheet: HTMLElement;
     let rightSheet: HTMLElement;
@@ -34,7 +36,9 @@
     <div class="wideRow">
         <Settings></Settings>
         <MetaStats></MetaStats>
+        <Quarters></Quarters>
         <Timer></Timer>
+        <Submit></Submit>
     </div>
     <Header></Header>
     <div class="sheets">

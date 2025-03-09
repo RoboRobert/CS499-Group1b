@@ -7,7 +7,7 @@
 </script>
 
 <div class="wideRow">
-    <div class="outer">
+    <div class="outer noBorder">
         <div class="innerRow">
             <input class="field bigField" type="text" placeholder="Home Team">
             {#each Array(numGoals) as attempt, i}

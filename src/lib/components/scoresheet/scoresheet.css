@@ -11,13 +11,18 @@ input {
 } */
 
 .outer {
-    /* border: 1px solid black; */
+    border: 1px solid black;
     resize:both;
     overflow:hidden;
     max-width:100%;
     margin-bottom:10px;
     display: flex;
     flex-direction:column;
+}
+
+.noBorder {
+    flex:1;
+    border: none;
 }
 
 .field {

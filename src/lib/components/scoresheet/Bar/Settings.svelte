@@ -1,14 +1,11 @@
 <script lang="ts">
-    import { base } from "$app/paths";
-
-
     let settings = false;
     function toggleSettings() {
         settings = !settings;
     }
 </script>
 
-<div>
+<div class="noBorder">
     <img class="svg" src="/svgs/gear-svgrepo-com.svg" alt="The settings menu" onpointerup={toggleSettings}>
 
     {#if settings}
