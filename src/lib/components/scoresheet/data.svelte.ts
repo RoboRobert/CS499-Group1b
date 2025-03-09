@@ -25,15 +25,26 @@ export interface Save {
     ot:number,
 }
 
-export interface Player {
-    position: string,
-    name: string,
-    number:number,
-    quarters: string,
-    shots:number,
-    goals:number,
-    assists:number,
-    groundBalls:number,
+export class Player {
+    side:number = 0;
+    position: string;
+    name: string;
+    number: number;
+    quarters: string;
+    shots:number;
+    goals: number;
+    assists: number;
+    groundBalls:number;
+
+    constructor(side, position, name, number:number, quarters, shots, groundBalls) {
+        this.side = side;
+        this.position = position;
+        this.name = name;
+        this.number = number;
+        this.quarters = quarters;
+        this.shots = shots;
+        this.groundBalls = groundBalls;
+    }
 }
 
 export const homeGoals = $state([0, 0, 0, 0, 0, 0]);
@@ -83,8 +94,8 @@ let numPlayers = 31;
 let homePlayers: Player[] = [];
 let awayPlayers: Player[] = [];
 for (let i = 0; i < numPlayers; i++) {
-    homePlayers.push({position:"", name:"", number:undefined, quarters:"", shots:undefined, goals:undefined, assists:undefined, groundBalls:undefined});
-    awayPlayers.push({position:"", name:"", number:undefined, quarters:"", shots:undefined, goals:undefined, assists:undefined, groundBalls:undefined});
+    homePlayers.push(new Player(0,"","",undefined,"",0,0));
+    awayPlayers.push(new Player(1,"","",undefined,"",0,0));
 }
 
 export const players = $state([homePlayers,awayPlayers]);
