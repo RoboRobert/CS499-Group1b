@@ -3,13 +3,13 @@ export interface team {
 	hometown: string,
 	state: string,
 	coach: string,
-	players: string[],
+	players: player[],
 }
 
 export interface player {
 	firstName: string,
 	lastName: string,
-	team: string,
+	team: team,
 	hometown: string,
 	state: string,
 	number: string,
