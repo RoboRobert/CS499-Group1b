@@ -1,18 +1,22 @@
 export interface team {
 	name: string,
 	hometown: string,
+	state: string,
 	coach: string,
 	players: string[],
 }
 
 export interface player {
-	name: string,
+	firstName: string,
+	lastName: string,
 	team: string,
 	hometown: string,
+	state: string,
 	number: string,
 	position: string,
 	class: string,
-	height: string,
+	heightFeet: string,
+	heightInches: string,
 	weight: string,
 }
 

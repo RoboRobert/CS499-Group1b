@@ -106,6 +106,8 @@
         border-radius: 8px;
         padding: 20px;
         width: 400px;
+        max-height: 80vh; /* Set a maximum height */
+        overflow-y: auto; /* Enable vertical scrolling */
         box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
     }
     
