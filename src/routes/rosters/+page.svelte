@@ -1,8 +1,9 @@
 <script lang="ts">
     import {
-      type team,
-      teams,
-      addTeam
+        type team,
+        teams,
+        addTeam,
+        deleteTeam,
     } from './rosters.svelte';
 
     let editingTeam: team | null = null;
@@ -13,19 +14,19 @@
     const closeAddModal = () => (showAddModal = false);
 
     const openEditModal = (team: team) => {
-      editingTeam = team;
-      showEditModal = true;
+        editingTeam = team;
+        showEditModal = true;
     };
     const closeEditModal = () => {
-      showEditModal = false;
-      editingTeam = null;
+        showEditModal = false;
+        editingTeam = null;
     };
 
     let formErrors = {
-      name: '',
-      hometown: '',
-      state: '',
-      coach: ''
+        name: '',
+        hometown: '',
+        state: '',
+        coach: ''
     };
 
     // Handler for form submission to add a team
@@ -59,6 +60,7 @@
 
         // Create a new team object; note that players is empty initially.
         const newTeam: team = {
+            teamId: `${name}-${hometown}-${state}-${coach}`,
             name,
             hometown,
             state,
@@ -119,7 +121,12 @@
 
         // Close the modal
         closeEditModal();
-}
+    }
+
+    function handleDeleteTeam(team: team) {
+        deleteTeam(team);
+        
+    }
 
 
   </script>
@@ -143,13 +150,14 @@
         {#each teams as team}
           <!-- Using team.name in the href and display -->
             <div class="game">
-                <a href="/rosters/{team.name}">
+                <a href="/rosters/{team.teamId}">
                 <h3>{team.name}</h3>
                 <p>{team.hometown}</p>
                 <p>{team.state}</p>
                 <p>Coach: {team.coach}</p>
                 </a>
               <button on:click={() => openEditModal(team)} type="button">Edit</button>
+              <button on:click={() => handleDeleteTeam(team)} type="button">Delete</button>
             </div>
           
         {/each}
