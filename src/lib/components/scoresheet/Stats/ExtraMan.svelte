@@ -19,32 +19,32 @@
         </div>
         <div class="innerRow">
             <div class="rowBox">QTR 1</div>
-            <input class="field" type="number" bind:value={extraMan[side][0].won}>
-            <input class="field" type="number" bind:value={extraMan[side][0].lost}>
+            <input autocomplete="off" class="field" type="number" bind:value={extraMan[side][0].won}>
+            <input autocomplete="off" class="field" type="number" bind:value={extraMan[side][0].lost}>
             <div class="rowBox">{extraMan[side][0].won}/{extraMan[side][0].lost + extraMan[side][0].won}</div>
         </div>
         <div class="innerRow">
             <div class="rowBox">QTR 2</div>
-            <input class="field" type="number" bind:value={extraMan[side][1].won}>
-            <input class="field" type="number" bind:value={extraMan[side][1].lost}>
+            <input autocomplete="off" class="field" type="number" bind:value={extraMan[side][1].won}>
+            <input autocomplete="off" class="field" type="number" bind:value={extraMan[side][1].lost}>
             <div class="rowBox">{extraMan[side][1].won}/{extraMan[side][1].lost + extraMan[side][1].won}</div>
         </div>
         <div class="innerRow">
             <div class="rowBox">QTR 3</div>
-            <input class="field" type="number" bind:value={extraMan[side][2].won}>
-            <input class="field" type="number" bind:value={extraMan[side][2].lost}>
+            <input autocomplete="off" class="field" type="number" bind:value={extraMan[side][2].won}>
+            <input autocomplete="off" class="field" type="number" bind:value={extraMan[side][2].lost}>
             <div class="rowBox">{extraMan[side][2].won}/{extraMan[side][2].lost + extraMan[side][2].won}</div>
         </div>
         <div class="innerRow">
             <div class="rowBox">QTR 4</div>
-            <input class="field" type="number" bind:value={extraMan[side][3].won}>
-            <input class="field" type="number" bind:value={extraMan[side][3].lost}>
+            <input autocomplete="off" class="field" type="number" bind:value={extraMan[side][3].won}>
+            <input autocomplete="off" class="field" type="number" bind:value={extraMan[side][3].lost}>
             <div class="rowBox">{extraMan[side][3].won}/{extraMan[side][3].lost + extraMan[side][3].won}</div>
         </div>
         <div class="innerRow">
             <div class="rowBox">O.T.</div>
-            <input class="field" type="number" bind:value={extraMan[side][4].won}>
-            <input class="field" type="number" bind:value={extraMan[side][4].lost}>
+            <input autocomplete="off" class="field" type="number" bind:value={extraMan[side][4].won}>
+            <input autocomplete="off" class="field" type="number" bind:value={extraMan[side][4].lost}>
             <div class="rowBox">{extraMan[side][4].won}/{extraMan[side][4].lost + extraMan[side][4].won}</div>
         </div>
         <div class="innerRow">

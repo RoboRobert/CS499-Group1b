@@ -24,12 +24,12 @@
 
     {#each Array(saveRows) as saveRow, i}
         <div class="innerRow">
-            <input class="field" type="number" bind:value={saves[side][i].goalie}/>
-            <input class="field" type="number" bind:value={saves[side][i].qtr1}/>
-            <input class="field" type="number" bind:value={saves[side][i].qtr2}/>
-            <input class="field" type="number" bind:value={saves[side][i].qtr3}/>
-            <input class="field" type="number" bind:value={saves[side][i].qtr4}/>
-            <input class="field" type="number" bind:value={saves[side][i].ot}/>
+            <input autocomplete="off" class="field" type="number" bind:value={saves[side][i].goalie}/>
+            <input autocomplete="off" class="field" type="number" bind:value={saves[side][i].qtr1}/>
+            <input autocomplete="off" class="field" type="number" bind:value={saves[side][i].qtr2}/>
+            <input autocomplete="off" class="field" type="number" bind:value={saves[side][i].qtr3}/>
+            <input autocomplete="off" class="field" type="number" bind:value={saves[side][i].qtr4}/>
+            <input autocomplete="off" class="field" type="number" bind:value={saves[side][i].ot}/>
             <div class="rowBox">{saves[side][i].qtr1 + saves[side][i].qtr2 + saves[side][i].qtr3 + saves[side][i].qtr4 + saves[side][i].ot}</div>
         </div>
     {/each}

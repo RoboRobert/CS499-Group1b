@@ -18,13 +18,13 @@
     </div>
 
     <div class="innerRow">
-        <input class="field" type="text" bind:value={timeouts[side][0].minutes}/>
-        <input class="field" type="text" bind:value={timeouts[side][0].period}/>
-        <input class="field" type="text" bind:value={timeouts[side][1].minutes}/>
-        <input class="field" type="text" bind:value={timeouts[side][1].period}/>
-        <input class="field" type="text" bind:value={timeouts[side][2].minutes}/>
-        <input class="field" type="text" bind:value={timeouts[side][2].period}/>
-        <input class="field" type="text" bind:value={timeouts[side][3].minutes}/>
-        <input class="field" type="text" bind:value={timeouts[side][3].period}/>
+        <input autocomplete="off" class="field" type="text" bind:value={timeouts[side][0].minutes}/>
+        <input autocomplete="off" class="field" type="text" bind:value={timeouts[side][0].period}/>
+        <input autocomplete="off" class="field" type="text" bind:value={timeouts[side][1].minutes}/>
+        <input autocomplete="off" class="field" type="text" bind:value={timeouts[side][1].period}/>
+        <input autocomplete="off" class="field" type="text" bind:value={timeouts[side][2].minutes}/>
+        <input autocomplete="off" class="field" type="text" bind:value={timeouts[side][2].period}/>
+        <input autocomplete="off" class="field" type="text" bind:value={timeouts[side][3].minutes}/>
+        <input autocomplete="off" class="field" type="text" bind:value={timeouts[side][3].period}/>
     </div>
 </div>

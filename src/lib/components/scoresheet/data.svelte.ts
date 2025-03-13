@@ -86,7 +86,6 @@ const defaultPlayers = [{side:0, position:"", name:"", number:null, goals:0, ass
 let numPlayers = 31;
 let homePlayers: Player[] = [];
 let awayPlayers: Player[] = [];
-
 for (let i = 0; i < numPlayers; i++) {
     homePlayers.push(defaultPlayers[0]);
     awayPlayers.push(defaultPlayers[1]);
@@ -104,8 +103,8 @@ function makeMap(players: Player[]): Map<number,Player> {
     return map;
 }
 
-// Maps player # to goals and assists
-// Stored as an array where goalMap[0] is home team, goalMap[1] is away team
+// Maps player # to player data
+// Stored as an array where playerMap[0] is home team, playerMap[1] is away team
 const playerMap = $derived.by(() => {
     let homeMap = makeMap($state.snapshot(players[0]))
     let awayMap = makeMap($state.snapshot(players[1]))
@@ -135,9 +134,6 @@ const playerMap = $derived.by(() => {
             awayMap.set(e.assist,val);
         }
     });
-
-    console.log(homeMap);
-    console.log(awayMap);
 
     return [homeMap,awayMap];
 })

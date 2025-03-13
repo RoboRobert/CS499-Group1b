@@ -26,7 +26,7 @@
                 <div class="rowBox">{player[1].name}</div>
                 <div class="rowBox">{player[1].goals}</div>
                 <div class="rowBox">{player[1].assists}</div>
-                <input class="field" type="text"/>
+                <input autocomplete="off" class="field" type="text"/>
             </div>
         {/if}
     {/each}

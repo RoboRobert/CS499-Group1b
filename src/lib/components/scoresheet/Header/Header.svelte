@@ -12,35 +12,35 @@
             <input class="field bigField" type="text" placeholder="Home Team">
             {#each Array(numGoals) as attempt, i}
                 <div class="boxes">
-                    <input class="field" style="flex:3" type="text" bind:value={homeGoalTrack[i].time}>
-                    <input class="field" type="text" bind:value={homeGoalTrack[i].type}>
+                    <input autocomplete="off" class="field" style="flex:3" type="text" bind:value={homeGoalTrack[i].time}>
+                    <input autocomplete="off" class="field" type="text" bind:value={homeGoalTrack[i].type}>
                 </div>
             {/each}
         </div>
         <div class="innerRow" style="margin-bottom:10px;">
-            <input class="field bigField" type="text" placeholder="Coach">
+            <input autocomplete="off" class="field bigField" type="text" placeholder="Coach">
             {#each Array(numGoals) as attempt, i}
                 <div class="boxes">
-                    <input class="field" type="text" oninput={e => homeGoalTrack[i].main = Number(e.currentTarget.value)}> 
-                    <input class="field" inputmode="numeric" oninput={e => homeGoalTrack[i].assist = Number(e.currentTarget.value)}>
+                    <input autocomplete="off" class="field" type="text" oninput={e => homeGoalTrack[i].main = Number(e.currentTarget.value)}> 
+                    <input autocomplete="off" class="field" inputmode="numeric" oninput={e => homeGoalTrack[i].assist = Number(e.currentTarget.value)}>
                 </div>
             {/each}
         </div>
         <div class="innerRow">
-            <input class="field bigField" type="text" placeholder="Away Team">
+            <input autocomplete="off" class="field bigField" type="text" placeholder="Away Team">
             {#each Array(numGoals) as attempt, i}
             <div class="boxes">
-                <input class="field" style="flex:3" type="text" bind:value={awayGoalTrack[i].time}>
-                <input class="field" type="text" bind:value={awayGoalTrack[i].type}>
+                <input autocomplete="off" class="field" style="flex:3" type="text" bind:value={awayGoalTrack[i].time}>
+                <input autocomplete="off" class="field" type="text" bind:value={awayGoalTrack[i].type}>
             </div>
             {/each}
         </div>
         <div class="innerRow">
-            <input class="field bigField" type="text" placeholder="Coach">
+            <input autocomplete="off" class="field bigField" type="text" placeholder="Coach">
             {#each Array(numGoals) as attempt, i}
                 <div class="boxes">
-                    <input class="field" inputmode="numeric" oninput={e => awayGoalTrack[i].main = Number(e.currentTarget.value)}>
-                    <input class="field" inputmode="numeric" oninput={e => awayGoalTrack[i].assist = Number(e.currentTarget.value)}>
+                    <input autocomplete="off" class="field" inputmode="numeric" oninput={e => awayGoalTrack[i].main = Number(e.currentTarget.value)}>
+                    <input autocomplete="off" class="field" inputmode="numeric" oninput={e => awayGoalTrack[i].assist = Number(e.currentTarget.value)}>
                 </div>
             {/each}
         </div>
