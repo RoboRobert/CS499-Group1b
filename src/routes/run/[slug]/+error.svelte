@@ -1,0 +1,1 @@
+<p>There's no current game with that ID. Please Try again.</p>
