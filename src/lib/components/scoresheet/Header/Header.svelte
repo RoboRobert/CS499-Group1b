@@ -1,56 +1,71 @@
 <script lang="ts">
-    import Attempt from "./Attempt.svelte";
-    import OverallShots from "./OverallShots.svelte";
-    import PlayerNums from "./PlayerNums.svelte";
+    import Goals from "./Goals.svelte";
 
-    let numAttempts = 30;
+    import { homeGoalTrack, awayGoalTrack } from "../data.svelte";
+
+    let numGoals = 30;
 </script>
 
-<div class="testRow">
-    <div class="outer">
+<div class="wideRow">
+    <div class="outer noBorder">
         <div class="innerRow">
-            <input class="field bigField" type="text" placeholder="Home">
-            {#each Array(numAttempts) as attempt}
-                <Attempt></Attempt>
+            <input class="field bigField" type="text" placeholder="Home Team">
+            {#each Array(numGoals) as attempt, i}
+                <div class="boxes">
+                    <input autocomplete="off" class="field" style="flex:3" type="text" bind:value={homeGoalTrack[i].time}>
+                    <input autocomplete="off" class="field" type="text" bind:value={homeGoalTrack[i].type}>
+                </div>
+            {/each}
+        </div>
+        <div class="innerRow" style="margin-bottom:10px;">
+            <input autocomplete="off" class="field bigField" type="text" placeholder="Coach">
+            {#each Array(numGoals) as attempt, i}
+                <div class="boxes">
+                    <input autocomplete="off" class="field" type="text" oninput={e => homeGoalTrack[i].main = Number(e.currentTarget.value)}> 
+                    <input autocomplete="off" class="field" inputmode="numeric" oninput={e => homeGoalTrack[i].assist = Number(e.currentTarget.value)}>
+                </div>
             {/each}
         </div>
         <div class="innerRow">
-            <input class="field bigField" type="text" placeholder="Coach">
-            {#each Array(numAttempts) as attempt}
-                <PlayerNums></PlayerNums>
+            <input autocomplete="off" class="field bigField" type="text" placeholder="Away Team">
+            {#each Array(numGoals) as attempt, i}
+            <div class="boxes">
+                <input autocomplete="off" class="field" style="flex:3" type="text" bind:value={awayGoalTrack[i].time}>
+                <input autocomplete="off" class="field" type="text" bind:value={awayGoalTrack[i].type}>
+            </div>
             {/each}
         </div>
         <div class="innerRow">
-            <input class="field bigField" type="text" placeholder="Visiting">
-            {#each Array(numAttempts) as attempt}
-                <Attempt></Attempt>
-            {/each}
-        </div>
-        <div class="innerRow">
-            <input class="field bigField" type="text" placeholder="Coach">
-            {#each Array(numAttempts) as attempt}
-                <PlayerNums></PlayerNums>
+            <input autocomplete="off" class="field bigField" type="text" placeholder="Coach">
+            {#each Array(numGoals) as attempt, i}
+                <div class="boxes">
+                    <input autocomplete="off" class="field" inputmode="numeric" oninput={e => awayGoalTrack[i].main = Number(e.currentTarget.value)}>
+                    <input autocomplete="off" class="field" inputmode="numeric" oninput={e => awayGoalTrack[i].assist = Number(e.currentTarget.value)}>
+                </div>
             {/each}
         </div>
     </div>
 
-    <OverallShots></OverallShots>
+    <Goals></Goals>
 </div>
 
 <style>
+    .boxes {
+        flex: 1;
+        max-width:100%;
+        flex-direction: row;
+        display:flex;
+        min-width:0;
+    }
+
     .outer {
-        max-width:80%; 
+        max-width:85%; 
         margin-right:10px;
     }
+
     .bigField {
         flex:3;
         text-align: left;
-    }
-
-    .testRow {
-        max-width:100%;
-        display:flex;
-        flex-direction: row;
-        margin-top:10px;
+        margin-right:10px;
     }
 </style>

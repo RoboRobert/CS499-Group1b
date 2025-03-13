@@ -19,11 +19,11 @@
 
     {#each Array(numPenalties) as penalty}
         <div class="innerRow">
-            <input class="field" type="text">
-            <input oninput={allowDigits} class="field" type="text">
-            <input class="field" type="text">
-            <input class="field" type="text">
-            <input class="field" type="text">
+            <input autocomplete="off" class="field" type="text">
+            <input autocomplete="off" oninput={allowDigits} class="field" type="text">
+            <input autocomplete="off" class="field" type="text">
+            <input autocomplete="off" class="field" type="text">
+            <input autocomplete="off" class="field" type="text">
         </div>
     {/each}
 </div>
