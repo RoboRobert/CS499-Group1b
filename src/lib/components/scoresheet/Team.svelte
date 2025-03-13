@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { awayGoalTrack, homeGoalTrack, players } from "./data.svelte";
+    import { getGoals, players } from "./data.svelte";
 
     interface Side {
         teamName: string,
@@ -23,14 +23,12 @@
     {#each players[side] as player, i}
         <div class="innerRow">
             <input class="field" type="text">
-            <input class="field" type="number" bind:value={players[side][i]}>
+            <input class="field" type="number" bind:value={players[side][i].number}>
             <input class="field" type="text" style="flex:2">
             <input class="field" type="text">
             <input class="field" type="text">
-            <!-- <div class="rowBox">{players[side][i].goals}</div>
-            <div class="rowBox">{players[side][i].assists}</div> -->
-            <div class="rowBox">TEST</div>
-            <div class="rowBox">TEST</div>
+            <div class="rowBox">{getGoals(side, players[side][i].number).goals}</div>
+            <div class="rowBox">{getGoals(side, players[side][i].number).assists}</div>
             <input class="field" type="text">
         </div>
     {/each}

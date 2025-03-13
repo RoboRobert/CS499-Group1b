@@ -1,10 +1,11 @@
 <script lang="ts">
-    let numScores = 12;
+    import { getGoalMap } from "./data.svelte";
 
-    // Only allows digits to be entered
-    function allowDigits(event: any) {
-        event.target.value = event.target.value.replace(/[^0-9]/g, '');
+    interface Side {
+        side:number,
     }
+
+    let {side}: Side = $props();
 </script>
 
 <div class="outer">
@@ -17,13 +18,13 @@
         <div class="rowBox">P</div>
     </div>
 
-    {#each Array(numScores) as penalty}
+    {#each getGoalMap(side).entries() as goal}
         <div class="innerRow">
-            <input oninput={allowDigits} class="field" type="text">
-            <input class="field" type="text" />
-            <input class="field" type="text" />
-            <input class="field" type="text" />
-            <input class="field" type="text" />
+            <div class="rowBox">TEST</div>
+            <div class="rowBox">TEST</div>
+            <div class="rowBox">{goal[1].goals}</div>
+            <div class="rowBox">{goal[1].assists}</div>
+            <input class="field" type="text"/>
         </div>
     {/each}
 </div>
