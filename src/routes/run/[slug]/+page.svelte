@@ -54,7 +54,7 @@
             </div>
             <div class="column">
                 <Penalties></Penalties>
-                <Scoring></Scoring>
+                <Scoring side={0}></Scoring>
                 <Timeouts side={0}></Timeouts>
             </div>
             <div class="column">
@@ -76,7 +76,7 @@
             </div>
             <div class="column">
                 <Penalties></Penalties>
-                <Scoring></Scoring>
+                <Scoring side={1}></Scoring>
                 <Timeouts side={1}></Timeouts>
             </div>
             <div class="column">

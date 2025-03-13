@@ -37,33 +37,6 @@ export interface Player {
     groundBalls:number;
 }
 
-export interface Goals {
-    goals: number,
-    assists: number,
-}
-
-// export class Player {
-//     side:number;
-//     position: string;
-//     name: string;
-//     number: number;
-//     quarters: string;
-//     shots:number;
-//     goals: number;
-//     assists: number;
-//     groundBalls:number;
-
-//     constructor(side, position, name, number:number, quarters, shots, groundBalls) {
-//         this.side = side;
-//         this.position = position;
-//         this.name = name;
-//         this.number = number;
-//         this.quarters = quarters;
-//         this.shots = shots;
-//         this.groundBalls = groundBalls;
-//     }
-// }
-
 export const homeGoals = $state([0, 0, 0, 0, 0, 0]);
 export const awayGoals = $state([0, 0, 0, 0, 0, 0]);
 
@@ -107,42 +80,46 @@ for (let i = 0; i < 3; i++) {
 
 export const saves = $state([homeSaves,awaySaves]);
 
+const defaultPlayers = [{side:0, position:"", name:"", number:null, goals:0, assists:0, shots:0, quarters:"", groundBalls:0},
+                        {side:1, position:"", name:"", number:null, goals:0, assists:0, shots:0, quarters:"", groundBalls:0}]
+
 let numPlayers = 31;
 let homePlayers: Player[] = [];
 let awayPlayers: Player[] = [];
-// for (let i = 0; i < numPlayers; i++) {
-//     homePlayers.push(new Player(0,"","",undefined,"",0,0));
-//     awayPlayers.push(new Player(1,"","",undefined,"",0,0));
-// }
 
 for (let i = 0; i < numPlayers; i++) {
-    homePlayers.push({side:0, position:"", name:"", number:null, goals:0, assists:0, shots:0, quarters:"", groundBalls:0});
-    awayPlayers.push({side:0, position:"", name:"", number:null, goals:0, assists:0, shots:0, quarters:"", groundBalls:0});
+    homePlayers.push(defaultPlayers[0]);
+    awayPlayers.push(defaultPlayers[1]);
 }
 
 export const players = $state([homePlayers,awayPlayers]);
 
+function makeMap(players: Player[]): Map<number,Player> {
+    let map = new Map<number, Player>();
+    players.forEach((player) => {
+        if(player.number)
+        map.set(player.number, player);
+    });
+
+    return map;
+}
+
 // Maps player # to goals and assists
 // Stored as an array where goalMap[0] is home team, goalMap[1] is away team
-const goalMap = $derived.by(() => {
-    let homeMap = new Map<number, Goals>();
-    let awayMap = new Map<number, Goals>();
+const playerMap = $derived.by(() => {
+    let homeMap = makeMap(players[0])
+    let awayMap = makeMap(players[1])
+    
     homeGoalTrack.forEach((e) => {
         if(homeMap.has(e.main)) {
             let val = homeMap.get(e.main);
             val.goals += 1;
             homeMap.set(e.main,val);
         }
-        else {
-            homeMap.set(e.main,{goals:1, assists:0});
-        }
         if(homeMap.has(e.assist)) {
             let val = homeMap.get(e.assist);
             val.assists += 1;
             homeMap.set(e.assist,val);
-        }
-        else {
-            homeMap.set(e.assist,{goals:0, assists:1});
         }
     });
 
@@ -152,59 +129,26 @@ const goalMap = $derived.by(() => {
             val.goals += 1;
             awayMap.set(e.main,val);
         }
-        else {
-            awayMap.set(e.main,{goals:1, assists:0});
-        }
         if(awayMap.has(e.assist)) {
             let val = awayMap.get(e.assist);
             val.assists += 1;
             awayMap.set(e.assist,val);
         }
-        else {
-            awayMap.set(e.assist,{goals:0, assists:1});
-        }
     });
+
+    console.log(homeMap);
+    console.log(awayMap);
 
     return [homeMap,awayMap];
 })
 
-// Maps player # to assists.
-// Stored as an array where assistMap[0] is home team, assistMap[1] is away team
-// const assistMap = $derived.by(() => {
-//     let homeMap = new Map<number, number>();
-//     let awayMap = new Map<number, number>();
-//     homeGoalTrack.forEach((e) => {
-//         if(homeMap.has(e.assist)) {
-//             let val = homeMap.get(e.assist);
-//             val += 1;
-//             homeMap.set(e.assist,val);
-//         }
-//         else {
-//             homeMap.set(e.assist,1);
-//         }
-//     });
-
-//     awayGoalTrack.forEach((e) => {
-//         if(awayMap.has(e.assist)) {
-//             let val = awayMap.get(e.assist);
-//             val += 1;
-//             awayMap.set(e.assist,val);
-//         }
-//         else {
-//             awayMap.set(e.assist,1);
-//         }
-//     });
-
-//     return [homeMap,awayMap];
-// })
-
-export function getGoalMap(side:number) {
-    return $state.snapshot(goalMap[0]);
+export function getPlayerMap(side:number) {
+    return $state.snapshot(playerMap[side]);
 }
 
-export function getGoals(side: number, player: number): Goals {
-    if(goalMap[side].get(player)) {
-        return goalMap[side].get(player);
+export function getPlayer(side: number, player: number): Player {
+    if(playerMap[side].get(player)) {
+        return playerMap[side].get(player);
     }
-    else return {goals:0,assists:0};
+    else return defaultPlayers[side];
 }

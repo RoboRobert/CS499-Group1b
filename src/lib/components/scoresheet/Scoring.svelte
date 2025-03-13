@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { getGoalMap } from "./data.svelte";
+    import { getPlayerMap } from "./data.svelte";
 
     interface Side {
         side:number,
@@ -18,12 +18,12 @@
         <div class="rowBox">P</div>
     </div>
 
-    {#each getGoalMap(side).entries() as goal}
+    {#each getPlayerMap(side).entries() as player}
         <div class="innerRow">
             <div class="rowBox">TEST</div>
             <div class="rowBox">TEST</div>
-            <div class="rowBox">{goal[1].goals}</div>
-            <div class="rowBox">{goal[1].assists}</div>
+            <div class="rowBox">{player[1].goals}</div>
+            <div class="rowBox">{player[1].assists}</div>
             <input class="field" type="text"/>
         </div>
     {/each}
