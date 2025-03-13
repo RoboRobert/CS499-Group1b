@@ -29,54 +29,8 @@
         coach: ''
     };
 
-    // Handler for form submission to add a team
-    function handleAddTeam(event: Event) {
-        event.preventDefault();
-
-        let formdata = new FormData(event.target as HTMLFormElement);
-        const name = formdata.get('team-name') as string;
-        const hometown = formdata.get('hometown') as string;
-        const state = formdata.get('state') as string;
-        const coach = formdata.get('coach-name') as string;
-
-        // Reset form errors
-        formErrors = { name: '', hometown: '',state: '', coach: '' };
-
-        // Validate form data
-        if (!name) formErrors.name = 'Team name is required';
-        if (!hometown) formErrors.hometown = 'Hometown is required';
-        if (!state) formErrors.state = 'State is required';
-        if (!coach) formErrors.coach = 'Coach name is required';
-
-         // Check for duplicate team name
-         if (teams.some(team => team.name === name)) {
-            formErrors.name = 'A team with this name already exists';
-        }
-
-        // If there are errors, do not proceed
-        if (formErrors.name || formErrors.hometown|| formErrors.state || formErrors.coach) {
-            return;
-        }
-
-        // Create a new team object; note that players is empty initially.
-        const newTeam: team = {
-            teamId: `${name}-${hometown}-${state}-${coach}`,
-            name,
-            hometown,
-            state,
-            coach,
-            players: []
-        };
-    
-        // Add the new team to the teams state
-        addTeam(newTeam);
-    
-        // Close the modal
-        closeAddModal();
-
-        
-    }
-    function handleEditTeam(event: Event) {
+    // Combined handler for form submission to add or edit a team
+    function handleTeamForm(event: Event, isEdit: boolean) {
         event.preventDefault();
 
         let formdata = new FormData(event.target as HTMLFormElement);
@@ -95,7 +49,7 @@
         if (!coach) formErrors.coach = 'Coach name is required';
 
         // Check for duplicate team name
-        if (teams.some(team => team.name === name && team !== editingTeam)) {
+        if (teams.some(team => team.name === name && (!isEdit || team !== editingTeam))) {
             formErrors.name = 'A team with this name already exists';
         }
 
@@ -104,8 +58,8 @@
             return;
         }
 
-        // Update the team object
-        if (editingTeam) {
+        if (isEdit && editingTeam) {
+            // Update the team object
             editingTeam.name = name;
             editingTeam.hometown = hometown;
             editingTeam.state = state;
@@ -116,24 +70,36 @@
             if (index !== -1) {
                 teams[index] = { ...editingTeam };
             }
+
+            // Close the edit modal
+            closeEditModal();
+        } else {
+            // Create a new team object; note that players is empty initially.
+            const newTeam: team = {
+                teamId: `${name}-${hometown}-${state}-${coach}`,
+                name,
+                hometown,
+                state,
+                coach,
+                players: []
+            };
+
+            // Add the new team to the teams state
+            addTeam(newTeam);
+
+            // Close the add modal
+            closeAddModal();
         }
-
-
-        // Close the modal
-        closeEditModal();
     }
 
     function handleDeleteTeam(team: team) {
         deleteTeam(team);
-        
     }
-
-
-  </script>
+</script>
   
-  <title>Rosters</title>
+<title>Rosters</title>
   
-  <div>
+<div>
     <section class="rosters-dash">
       <h1>Rosters</h1>
       <h3>A List of All Teams on the Website</h3>
@@ -170,7 +136,7 @@
       <div class="modal-content">
         <h2>Add Team</h2>
         <!-- Bind input values and handle form submission -->
-        <form on:submit|preventDefault={handleAddTeam}>
+        <form on:submit|preventDefault={(event) => handleTeamForm(event, false)}>
           <div class="form-group">
             <label for="team-name">Team Name:</label>
             <input type="text" name="team-name">
@@ -213,7 +179,7 @@
     <div class="modal-content">
       <h2>Edit Team</h2>
       <!-- Bind input values and handle form submission -->
-      <form on:submit|preventDefault={handleEditTeam}>
+      <form on:submit|preventDefault={(event) => handleTeamForm(event, true)}>
         <div class="form-group">
           <label for="team-name">Team Name:</label>
           <input type="text" name="team-name" value={editingTeam.name}>
@@ -243,11 +209,11 @@
           {/if}
         </div>
         <div class="modal-actions">
-          <button type="button" on:click={closeAddModal} class="cancel-button">Cancel</button>
-          <button type="submit" class="sign-in-button">Add</button>
+          <button type="button" on:click={closeEditModal} class="cancel-button">Cancel</button>
+          <button type="submit" class="sign-in-button">Add Changes</button>
         </div>
       </form>
     </div>
   </div>
 {/if}
-    
+

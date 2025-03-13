@@ -30,8 +30,8 @@
         editingPlayer = null;
     }
 
-
-    function handleAddPlayer(event: Event) {
+    // Combined handler for form submission to add or edit a player
+    function handlePlayerForm(event: Event, isEdit: boolean) {
         event.preventDefault();
 
         let formdata = new FormData(event.target as HTMLFormElement);
@@ -62,90 +62,22 @@
         if (!weight) errors.weight = "Weight is required.";
 
         if (parseInt(number) < 0 || parseInt(number) > 99) {
-        errors.number = "Player number must be between 0 and 99.";
+            errors.number = "Player number must be between 0 and 99.";
         }
 
         if (parseInt(heightFeet) < 0 || parseInt(heightInches) < 0 || parseInt(heightInches) > 11) {
-        errors.height = "Height must be valid.";
+            errors.height = "Height must be valid.";
         }
 
         if (parseInt(weight) < 0) {
-        errors.weight = "Weight must be a positive number.";
+            errors.weight = "Weight must be a positive number.";
         }
 
         if (Object.keys(errors).length > 0) {
-        return;
+            return;
         }
 
-        // Create a new player object using the current team id
-        const newPlayer: player = {
-        playerId: `${firstName}-${lastName}-${currentTeam.players.length}`,
-        firstName,
-        lastName,
-        hometown,
-        state,
-        number,
-        position,
-        class: playerClass,
-        heightFeet,
-        heightInches,
-        weight,
-        team: teamId
-        };
-
-        // Add the new player to the shared players state
-        addPlayer(currentTeam, newPlayer);
-
-        closeAddPlayerModal();
-    }
-
-    function handleEditingPlayer(event: Event) {
-        event.preventDefault();
-
-        let formdata = new FormData(event.target as HTMLFormElement);
-
-        // Validate form data
-        const firstName = formdata.get('player-first-name') as string;
-        const lastName = formdata.get('player-last-name') as string;
-        const hometown = formdata.get('player-hometown') as string;
-        const state = formdata.get('player-state') as string;
-        const number = formdata.get('player-number') as string;
-        const position = formdata.get('player-position') as string;
-        const playerClass = formdata.get('player-class') as string;
-        const heightFeet = formdata.get('player-height-feet') as string;
-        const heightInches = formdata.get('player-height-inches') as string;
-        const weight = formdata.get('player-weight') as string;
-
-        errors = {};
-
-        if (!firstName) errors.firstName = "First name is required.";
-        if (!lastName) errors.lastName = "Last name is required.";
-        if (!hometown) errors.hometown = "Hometown is required.";
-        if (!state) errors.state = "State is required.";
-        if (!number) errors.number = "Number is required.";
-        if (!position) errors.position = "Position is required.";
-        if (!playerClass) errors.playerClass = "Class is required.";
-        if (!heightFeet) errors.heightFeet = "Height (feet) is required.";
-        if (!heightInches) errors.heightInches = "Height (inches) is required.";
-        if (!weight) errors.weight = "Weight is required.";
-
-        if (parseInt(number) < 0 || parseInt(number) > 99) {
-        errors.number = "Player number must be between 0 and 99.";
-        }
-
-        if (parseInt(heightFeet) < 0 || parseInt(heightInches) < 0 || parseInt(heightInches) > 11) {
-        errors.height = "Height must be valid.";
-        }
-
-        if (parseInt(weight) < 0) {
-        errors.weight = "Weight must be a positive number.";
-        }
-
-        if (Object.keys(errors).length > 0) {
-        return;
-        }
-
-        if (editingPlayer) {
+        if (isEdit && editingPlayer) {
             editingPlayer.firstName = firstName;
             editingPlayer.lastName = lastName;
             editingPlayer.hometown = hometown;
@@ -156,20 +88,41 @@
             editingPlayer.heightFeet = heightFeet;
             editingPlayer.heightInches = heightInches;
             editingPlayer.weight = weight;
-        }
 
-        const index = currentTeam.players.findIndex(player => player.firstName === editingPlayer.firstName);
-        if (index !== -1) {
-            currentTeam.players[index] = { ...editingPlayer };
-        }
+            const index = currentTeam.players.findIndex(player => player.firstName === editingPlayer.firstName);
+            if (index !== -1) {
+                currentTeam.players[index] = { ...editingPlayer };
+            }
 
-        closeEditModal();
-        
+            closeEditModal();
+        } else {
+            const newPlayer: player = {
+                playerId: `${firstName}-${lastName}-${currentTeam.players.length}`,
+                firstName,
+                lastName,
+                hometown,
+                state,
+                number,
+                position,
+                class: playerClass,
+                heightFeet,
+                heightInches,
+                weight,
+                team: teamId
+            };
+
+            addPlayer(currentTeam, newPlayer);
+
+            closeAddPlayerModal();
+        }
     }
 
+    function handleDeletePlayer(player: player) {
+        deletePlayer(currentTeam, player);
+    }
 </script>
 
-<title>Team {currentTeam}</title>
+<title>Team {currentTeam.name}</title>
 <div>
 <a href="./">Back</a>
 <section class="home-dash">
@@ -187,7 +140,7 @@
             <p>{player.position}</p>
             </div>
         </a>
-        <button on:click={() => deletePlayer(currentTeam, player)} type="button">Delete</button>
+        <button on:click={() => handleDeletePlayer(player)} type="button">Delete</button>
         <button on:click={() => openEditModal(player)} type="button">Edit</button>
     {/each}
     </div>
@@ -199,7 +152,7 @@
 <div class="modal-backdrop">
     <div class="modal-content">
     <h2>Add Player</h2>
-    <form on:submit|preventDefault={handleAddPlayer}>
+    <form on:submit|preventDefault={(event) => handlePlayerForm(event, false)}>
         <div class="form-group">
         <label for="player-first-name">First Name:</label>
         <input type="text" name="player-first-name" >
@@ -279,7 +232,7 @@
         {/if}
         </div>
         <div class="modal-actions">
-        <button type="button" on:click={closeEditModal} class="cancel-button">Cancel</button>
+        <button type="button" on:click={closeAddPlayerModal} class="cancel-button">Cancel</button>
         <button type="submit" class="sign-in-button">Add Player</button>
         </div>
     </form>
@@ -290,8 +243,8 @@
 {#if showEditModal}
 <div class="modal-backdrop">
     <div class="modal-content">
-    <h2>Add Player</h2>
-    <form on:submit|preventDefault={handleEditingPlayer}>
+    <h2>Edit Player</h2>
+    <form on:submit|preventDefault={(event) => handlePlayerForm(event, true)}>
         <div class="form-group">
         <label for="player-first-name">First Name:</label>
         <input type="text" name="player-first-name" value={editingPlayer.firstName} >
@@ -371,8 +324,8 @@
         {/if}
         </div>
         <div class="modal-actions">
-        <button type="button" on:click={closeAddPlayerModal} class="cancel-button">Cancel</button>
-        <button type="submit" class="sign-in-button">Add Player</button>
+        <button type="button" on:click={closeEditModal} class="cancel-button">Cancel</button>
+        <button type="submit" class="sign-in-button">Save Changes</button>
         </div>
     </form>
     </div>
