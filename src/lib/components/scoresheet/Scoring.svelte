@@ -18,13 +18,16 @@
         <div class="rowBox">P</div>
     </div>
 
+    <!-- Only display players that have scored or assisted -->
     {#each getPlayerMap(side).entries() as player}
-        <div class="innerRow">
-            <div class="rowBox">TEST</div>
-            <div class="rowBox">TEST</div>
-            <div class="rowBox">{player[1].goals}</div>
-            <div class="rowBox">{player[1].assists}</div>
-            <input class="field" type="text"/>
-        </div>
+        {#if player[1].goals > 0 || player[1].assists > 0}
+            <div class="innerRow">
+                <div class="rowBox">{player[1].number}</div>
+                <div class="rowBox">{player[1].name}</div>
+                <div class="rowBox">{player[1].goals}</div>
+                <div class="rowBox">{player[1].assists}</div>
+                <input class="field" type="text"/>
+            </div>
+        {/if}
     {/each}
 </div>

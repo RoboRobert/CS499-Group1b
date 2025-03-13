@@ -22,14 +22,14 @@
     </div>
     {#each players[side] as player, i}
         <div class="innerRow">
-            <input class="field" type="text">
+            <input class="field" type="text" bind:value={players[side][i].position}>
             <input class="field" type="number" bind:value={players[side][i].number}>
-            <input class="field" type="text" style="flex:2">
-            <input class="field" type="text">
-            <input class="field" type="text">
+            <input class="field" type="text" style="flex:2" bind:value={players[side][i].name}>
+            <input class="field" type="text" bind:value={players[side][i].quarters}>
+            <input class="field" type="text" bind:value={players[side][i].shots}>
             <div class="rowBox">{getPlayer(side, players[side][i].number).goals}</div>
             <div class="rowBox">{getPlayer(side, players[side][i].number).assists}</div>
-            <input class="field" type="text">
+            <input class="field" type="text" bind:value={players[side][i].groundBalls}>
         </div>
     {/each}
 </div>

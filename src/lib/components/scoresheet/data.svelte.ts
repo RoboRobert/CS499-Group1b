@@ -107,8 +107,8 @@ function makeMap(players: Player[]): Map<number,Player> {
 // Maps player # to goals and assists
 // Stored as an array where goalMap[0] is home team, goalMap[1] is away team
 const playerMap = $derived.by(() => {
-    let homeMap = makeMap(players[0])
-    let awayMap = makeMap(players[1])
+    let homeMap = makeMap($state.snapshot(players[0]))
+    let awayMap = makeMap($state.snapshot(players[1]))
     
     homeGoalTrack.forEach((e) => {
         if(homeMap.has(e.main)) {
