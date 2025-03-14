@@ -1,183 +1,179 @@
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+}
+header {
+  background-color: #333;
+  color: white;
+  padding: 15px;
+  text-align: center;
+}
+nav {
+  background-color: tan;
+  padding: 10px;
+  margin-right: auto;
+  display: flex;
+  gap: 15px;
+}
+nav a {
+  color: white;
+  text-decoration: none;
+  margin: 8px 15px;
+  font-size: 18px;
+}
+nav a:hover {
+  color: red;
+}
+.container {
+  max-width: 1000px;
+  margin: auto;
+  padding: 20px;
+}
+.list-section-1 {
+  background-color: #f4f4f4;
+  padding: 20px;
+  margin-top: 20px;
+}
+.game {
+  padding: 10px;
+  background: white;
+  margin-bottom: 10px;
+  border-radius: 5px;
+  box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.1);
+}
 
-    body {
-        font-family: Arial, sans-serif;
-        margin: 0;
-        padding: 0;
-    }
-    header {
-        background-color: #333;
-        color: white;
-        padding: 15px;
-        text-align: center;
-    }
-    nav {
-        background-color: tan;
-        padding: 10px;
-        margin-right: auto;
-        display: flex;
-        gap: 15px
+.home-dash {
+  color: black;
+  padding: 15px;
+  text-align: center;
+}
 
-    }
-    nav a {
-        color: white;
-        text-decoration: none;
-        margin: 8px 15px;
-        font-size: 18px;
-    }
-    nav a:hover {
-        color: red;
-    }
-    .container {
-        max-width: 1000px;
-        margin: auto;
-        padding: 20px;
-    }
-    .list-section-1 {
-        background-color: #f4f4f4;
-        padding: 20px;
-        margin-top: 20px;
-        
-    }
-    .game {
-        padding: 10px;
-        background: white;
-        margin-bottom: 10px;
-        border-radius: 5px;
-        box-shadow: 0px 0px 5px rgba(0,0,0,0.1);
-    }
+.rosters-dash {
+  color: black;
+  padding: 15px;
+  text-align: center;
+}
 
-    .home-dash {
-        color: black;
-        padding: 15px;
-        text-align: center;
-    }
+.game-dash {
+  color: black;
+  padding: 15px;
+  text-align: center;
+}
 
-    .rosters-dash {
-        color: black;
-        padding: 15px;
-        text-align: center;
-    }
+.past-games-dash {
+  color: black;
+  padding: 15px;
+  text-align: center;
+}
 
-    .game-dash {
-        color: black;
-        padding: 15px;
-        text-align: center;
-    }
+.buttons {
+  display: flex;
+  gap: 10px;
+  margin-left: auto;
+}
 
-    .past-games-dash {
-        color: black;
-        padding: 15px;
-        text-align: center;
-    }
+.buttons button {
+  background-color: #333;
+  color: white;
+  padding: 8px 15px;
+  cursor: pointer;
+  border: none;
+  font-size: 16px;
+}
 
-    .buttons {
-        display: flex;
-        gap: 10px;
-        margin-left: auto;
-        
-    }
+.buttons button:hover {
+  background-color: #6c6b6b;
+}
 
-    .buttons button {
-        background-color: #333;
-        color: white;
-        padding: 8px 15px;
-        cursor: pointer;
-        border: none;
-        font-size: 16px;
-    }
+/* Modal Styles */
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 50;
+}
 
-    .buttons button:hover {
-        background-color:#6c6b6b;
-    }
+.modal-content {
+  background-color: #fff;
+  border-radius: 8px;
+  padding: 20px;
+  width: 400px;
+  max-height: 80vh; /* Set a maximum height */
+  overflow-y: auto; /* Enable vertical scrolling */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
 
-    /* Modal Styles */
-    .modal-backdrop {
-        position: fixed;
-        inset: 0;
-        background-color: rgba(0, 0, 0, 0.5);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        z-index: 50;
-    }
-    
-    .modal-content {
-        background-color: #fff;
-        border-radius: 8px;
-        padding: 20px;
-        width: 400px;
-        max-height: 80vh; /* Set a maximum height */
-        overflow-y: auto; /* Enable vertical scrolling */
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-    }
-    
-    .modal-content h2 {
-        font-size: 20px;
-        margin-bottom: 15px;
-    }
-    
-    .form-group {
-        margin-bottom: 15px;
-    }
-    
-    .form-group label {
-        display: block;
-        margin-bottom: 5px;
-    }
-    
-    .form-group input {
-        width: 100%;
-        padding: 5px;
-        border: 1px solid #ccc;
-        border-radius: 5px;
-    }
-    
-    .modal-actions {
-        display: flex;
-        justify-content: flex-end;
-        gap: 10px;
-    }
-    
-    .cancel-button {
-        background-color: transparent;
-        border: none;
-        color: #718096;
-        cursor: pointer;
-        transition: color 0.2s;
-    }
-    
-    .cancel-button:hover {
-        color: #4a5568;
-    }
-    
-    .sign-in-button {
-        background-color: #3182ce;
-        color: #fff;
-        border: none;
-        padding: 5px 15px;
-        border-radius: 5px;
-        cursor: pointer;
-        transition: background-color 0.2s;
-    }
-    
-    .sign-in-button:hover {
-        background-color: #2b6cb0;
-    }
-    .player-dash {
-        background-color:   white;
-        color:black;
-        padding: 20px;
-        border-radius: 0px;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-        margin-bottom: 20px;
-    }
+.modal-content h2 {
+  font-size: 20px;
+  margin-bottom: 15px;
+}
 
-    .player-dash h1 {
-        font-size: 2rem;
-        margin-bottom: 10px;
-    }
+.form-group {
+  margin-bottom: 15px;
+}
 
-    .player-dash h4 {
-        font-size: 1rem;
-        margin: 5px 0;
-    }
+.form-group label {
+  display: block;
+  margin-bottom: 5px;
+}
+
+.form-group input {
+  width: 100%;
+  padding: 5px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.modal-actions {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+
+.cancel-button {
+  background-color: transparent;
+  border: none;
+  color: #718096;
+  cursor: pointer;
+  transition: color 0.2s;
+}
+
+.cancel-button:hover {
+  color: #4a5568;
+}
+
+.sign-in-button {
+  background-color: #3182ce;
+  color: #fff;
+  border: none;
+  padding: 5px 15px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.sign-in-button:hover {
+  background-color: #2b6cb0;
+}
+.player-dash {
+  background-color: white;
+  color: black;
+  padding: 20px;
+  border-radius: 0px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  margin-bottom: 20px;
+}
+
+.player-dash h1 {
+  font-size: 2rem;
+  margin-bottom: 10px;
+}
+
+.player-dash h4 {
+  font-size: 1rem;
+  margin: 5px 0;
+}

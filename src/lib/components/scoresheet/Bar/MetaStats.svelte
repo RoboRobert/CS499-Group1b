@@ -27,7 +27,7 @@
   {#if showMetaStats}
     <div class="modal-backdrop">
       <div class="modal-content">
-        <h2>Edit Team</h2>
+        <h2>META STATS</h2>
         <!-- Bind input values and handle form submission -->
         <div class="form-group">
           <label for="date">Date:</label>
@@ -45,7 +45,7 @@
         </div>
         <div class="form-group">
           <label for="gameStart">Game Start:</label>
-          <input type="text" name="gameStart" bind:value={metaStats.gameStart} />
+          <input class="error" type="text" name="gameStart" bind:value={metaStats.gameStart} />
           {#if formErrors.gameStart}
             <p class="error">{formErrors.gameStart}</p>
           {/if}
@@ -58,8 +58,7 @@
           {/if}
         </div>
         <div class="modal-actions">
-          <button type="button" onclick={toggleMetaStats} class="cancel-button">Cancel</button>
-          <button class="sign-in-button">Add Changes</button>
+          <button onclick={toggleMetaStats} class="sign-in-button">Add Changes</button>
         </div>
       </div>
     </div>
