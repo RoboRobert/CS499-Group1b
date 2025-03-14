@@ -1,7 +1,7 @@
 import postgres from 'postgres'
 // import { PGUSER, PGPASSWORD, PGHOST, PGPORT, PGDATABASE } from '$env/static/private'
-import type { Team } from '$lib/Team';
-import type { Player } from '$lib/Team';
+import type { Team } from '$lib/database/Team';
+import type { Player } from '$lib/database/Team';
 
 // const sql = postgres({
 //   user: PGUSER,

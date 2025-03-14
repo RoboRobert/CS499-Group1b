@@ -26,10 +26,10 @@
             <input autocomplete="off" class="field" type="number" bind:value={players[side][i].number}>
             <input autocomplete="off" class="field" type="text" style="flex:2" bind:value={players[side][i].name}>
             <input autocomplete="off" class="field" type="text" bind:value={players[side][i].quarters}>
-            <input autocomplete="off" class="field" type="text" bind:value={players[side][i].shots}>
+            <input autocomplete="off" class="field" type="number" bind:value={players[side][i].shots}>
             <div class="rowBox">{getPlayer(side, players[side][i].number).goals}</div>
             <div class="rowBox">{getPlayer(side, players[side][i].number).assists}</div>
-            <input autocomplete="off" class="field" type="text" bind:value={players[side][i].groundBalls}>
+            <input autocomplete="off" class="field" type="number" bind:value={players[side][i].groundBalls}>
         </div>
     {/each}
 </div>
