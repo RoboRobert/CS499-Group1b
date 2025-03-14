@@ -1,8 +1,9 @@
 <script lang="ts">
-    import { players, teams } from '../../rosters.svelte';
-    export let data: {player:string};
-    let playerId = data.player
-    let currentPlayer = players.find(player => player.playerId === playerId);
+    import { type player } from '../../rosters.svelte';
+    // Maybe itll work thatd be epic but we all know that probably wont happen first try
+    export let data: {player: player};
+    let currentPlayer = data.player
+   
 
     let name = `${currentPlayer.firstName}-${currentPlayer.lastName}`;
     let hometown = currentPlayer.hometown;
