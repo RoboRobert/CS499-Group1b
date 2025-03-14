@@ -1,8 +1,11 @@
 <script lang="ts">
     import { deletePlayer, addPlayer, type player, type team, teams, players } from '../rosters.svelte';
-    export let data: { teamId: string };
-    let teamId = data.teamId;
-    let currentTeam: team = teams.find(team => team.teamId === teamId);
+    
+    // Idea is it will get the team that has been loaded and put it into the currentTeam variable
+    // May not work since the table is not the same as the interface in the frontend
+    export let data: { loadTeam: team };
+    let currentTeam: team = data.loadTeam;
+    let teamId = currentTeam.teamId;
 
     const defaultPlayer: player = {
         playerId: "",

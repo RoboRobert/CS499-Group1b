@@ -6,6 +6,14 @@
       deleteTeam,
   } from './rosters.svelte';
 
+  // Idea is that it will load in the teams that have been loaded the push those into the front end teams state rune to be used
+  // to display the teams to the page
+  // This probably wont work as indended because the table is not the same as the interface in the frontend
+  export let data: { loadedTeams: team[] };
+  for (const team of data.loadedTeams) {
+      addTeam(team);
+  }
+  
   const defaultTeam: team = {
           teamId: "",
           name: "",
