@@ -66,12 +66,12 @@ export async function dbReset() {
 
     //Not entirely sure about this for the table
   await sql`CREATE TABLE logins (
-      sheetid SERIAL PRIMARY KEY
-    );`
+            USER varchar(25),
+            PASS varchar(25),
+            primary key (USER, PASS));`
 
-  const res = await sql`INSERT INTO teams (name)
-    VALUES ('Team A'), 
-        ('Team B');`
+  const res = await sql`INSERT INTO logins (USER, PASS)
+    VALUES ('Dudebro', 'Dudebro');`
 
   return res;
 }
