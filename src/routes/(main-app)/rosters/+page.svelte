@@ -10,8 +10,13 @@
   // to display the teams to the page
   // This probably wont work as indended because the table is not the same as the interface in the frontend
   export let data: { loadedTeams: team[] };
-  for (const team of data.loadedTeams) {
-      addTeam(team);
+  console.log(data.loadedTeams);
+  if (Array.isArray(data.loadedTeams)) {
+      for (const team of data.loadedTeams) {
+          addTeam(team);
+      }
+  } else {
+      console.error('loadedTeams is not an array:', data.loadedTeams);
   }
   
   const defaultTeam: team = {
