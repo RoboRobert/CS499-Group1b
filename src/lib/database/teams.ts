@@ -1,7 +1,7 @@
 import postgres from 'postgres'
 // import { PGUSER, PGPASSWORD, PGHOST, PGPORT, PGDATABASE } from '$env/static/private'
-import type { Team } from '$lib/Team';
-import type { Player } from '$lib/Team';
+import type { Team } from '$lib/database/Team';
+import type { Player } from '$lib/database/Team';
 
 // const sql = postgres({
 //   user: PGUSER,
@@ -93,7 +93,7 @@ export async function deletePlayer(name: string) {
   return result
 }
 
-export async function dbReset() {
+export async function dbTeamsReset() {
   await sql`DO $$ 
       DECLARE
         r RECORD;
@@ -104,17 +104,41 @@ export async function dbReset() {
       END $$;
     `;
 
-  await sql`CREATE TABLE teams (
-      name VARCHAR(100) NOT NULL
-    );`
+  await sql`TEAM_NAME varchar(25),
+            Primary key (TEAM_NAME));`
+
+  const res = await sql`INSERT INTO teams (TEAM_NAME)
+    VALUES ('UAH');`
+
+  return res;
+}
+
+export async function dbPlayersReset() {
+  await sql`DO $$ 
+      DECLARE
+        r RECORD;
+      BEGIN
+        FOR r IN (SELECT tablename FROM pg_tables WHERE schemaname = 'public') LOOP
+          EXECUTE 'DROP TABLE IF EXISTS public.' || r.tablename || ' CASCADE';
+        END LOOP;
+      END $$;
+    `;
 
   await sql`CREATE TABLE players (
-      name VARCHAR(100) NOT NULL
-    );`
+            PLAYER_NAME varchar(25),
+            PLAYER_NUMBER INT NOT NULL,
+            TEAM_NAME varchar(25),
+            POSITION varchar(25),
+            QUARTERS INT,
+            ATTEMPTED_SHOTS INT,
+            GOALS INT,
+            FAILED_SHOTS INT,
+            GROUND_BALLS INT,
+            primary key(PLAYER_NAME, PLAYER_NUMBER),
+            foreign key(TEAM_NAME) references Team_Name ON DELETE CASCADE ON UPDATE CASCADE);`
 
-  const res = await sql`INSERT INTO teams (name)
-    VALUES ('Team A'), 
-        ('Team B');`
+  const res = await sql`INSERT INTO players (PLAYER_NAME, PLAYER_NUMBER, TEAM_NAME, POSITION, QUARTERS, ATTEMPTED_SHOTS, GOALS, FAILED_SHOTS, GROUND_BALLS)
+    VALUES ('Dudebro', '0', 'UAH', 'GOALIE', '0', '0', '0', '0', '0', '0');`
 
   return res;
 }

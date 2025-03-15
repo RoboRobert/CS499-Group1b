@@ -1,6 +1,6 @@
 import postgres from 'postgres'
 // import { PGUSER, PGPASSWORD, PGHOST, PGPORT, PGDATABASE } from '$env/static/private'
-import type { Timeout } from '$lib/Timeout';
+import type { Timeout } from '$lib/database/Timeout';
 
 // const sql = postgres({
 //   user: PGUSER,
@@ -69,12 +69,16 @@ export async function dbReset() {
 
     //Not entirely sure about this for the table
   await sql`CREATE TABLE timeouts (
-      sheetid SERIAL PRIMARY KEY
-    );`
+            SHEET_ID INT,
+            SIDE varchar(25),
+            HALF_1_TIME INT,
+            HALF_2_TIME INT,
+            OT_1_TIME INT,
+            OT_2_TIME INT,
+            foreign key (SHEET_ID) references Game_Stats(SHEET_ID) ON DELETE CASCADE ON UPDATE CASCADE);`
 
-  const res = await sql`INSERT INTO timeouts (name)
-    VALUES ('Team A'), 
-        ('Team B');`
+  const res = await sql`INSERT INTO timeouts (SHEET_ID, SIDE, HALF_1_TIME, HALF_2_TIME, OT_1_TIME, OT_2_TIME)
+    VALUES ('0', 'Home', '0', '0', '0', '0');;`
 
   return res;
 }

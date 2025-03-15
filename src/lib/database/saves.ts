@@ -73,13 +73,21 @@ export async function dbReset() {
       END $$;
     `;
 
-  await sql`CREATE TABLE penalty (
-      name VARCHAR(100) NOT NULL
-    );`
+  await sql`CREATE TABLE Saves(
+            SHEET_ID INT NOT NULL,
+            SIDE varchar(25),
+            PLAYER_NAME varchar(25),
+            PLAYER_NUMBER INT NOT NULL,
+            QUARTER_1 INT,
+            QUARTER_2 INT,
+            QUARTER_3 INT,
+            QUARTER_4 INT,
+            OT INT,
+            TOTAL INT,
+            foreign key (SHEET_ID) references Sheet_ID(SHEET_ID) ON DELETE CASCADE ON UPDATE CASCADE);`
 
-  const res = await sql`INSERT INTO players (name)
-    VALUES ('Team A'), 
-        ('Team B');`
+  const res = await sql`INSERT INTO players (SHEET_ID, SIDE, PLAYER_NAME, PLAYER_NUMBER, QUARTER_1, QUARTER_2, QUARTER_3, QUARTER_4, OT, TOTAL)
+    VALUES ('0', 'Home', 'Dudebro', '0', '0', '0', '0', '0', '0', '0');`
 
   return res;
 }

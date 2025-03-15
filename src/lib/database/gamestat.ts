@@ -73,9 +73,18 @@ export async function dbReset() {
     `;
 
     //Not entirely sure about this for the table
-  await sql`CREATE TABLE gamestats (
-      sheetid SERIAL PRIMARY KEY
-    );`
+  await sql`CREATE TABLE Game_Stats(
+            SHEET_ID INT,
+            SIDE varchar(25),
+            QUARTER INT,
+            SHOTS INT,
+            CLEARS_PASS INT,
+            CLEARS_FAIL INT,
+            EXTRA_MAN_SCORE INT,
+            EXTRA_MAN_FAIL INT,
+            FACEOFF_WIN INT,
+            FACEOFF_LOSS INT,
+            primary key (SHEET_ID, SIDE));`
 
   const res = await sql`INSERT INTO teams (name)
     VALUES ('Team A'), 

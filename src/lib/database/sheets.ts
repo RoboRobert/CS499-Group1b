@@ -85,7 +85,7 @@ export async function deleteGame(gameid: string) {
   return result
 }
 
-export async function dbReset() {
+export async function dbResetGame() {
   await sql`DO $$ 
       DECLARE
         r RECORD;
@@ -96,19 +96,35 @@ export async function dbReset() {
       END $$;
     `;
 
-    //Not entirely sure about this for the table
-  await sql`CREATE TABLE sheets (
-      gameid SERIAL PRIMARY KEY
-      sheetid SERIAL PRIMARY KEY
-    );`
-
   await sql`CREATE TABLE games (
-      gameid SERIAL PRIMARY KEY
-    );`
+      GAMEID INT NOT NULL,
+      primary key (GAMEID));`
 
-  const res = await sql`INSERT INTO teams (name)
-    VALUES ('Team A'), 
-        ('Team B');`
+  const res = await sql`INSERT INTO games (GAMEID)
+    VALUES ('0');`
+
+  return res;
+}
+
+export async function dbResetSheet() {
+  await sql`DO $$ 
+      DECLARE
+        r RECORD;
+      BEGIN
+        FOR r IN (SELECT tablename FROM pg_tables WHERE schemaname = 'public') LOOP
+          EXECUTE 'DROP TABLE IF EXISTS public.' || r.tablename || ' CASCADE';
+        END LOOP;
+      END $$;
+    `;
+
+  await sql`CREATE TABLE sheets (
+      SHEET_ID INT NOT NULL,
+      GAMEID INT NOT NULL,
+      PRIMARY KEY (SHEET_ID),
+      FOREIGN KEY (GAMEID) REFERENCES games(GAMEID));`
+    
+  const res = await sql`INSERT INTO sheets (GAMEID, SHEET_ID)
+    VALUES ('0', '0');`
 
   return res;
 }

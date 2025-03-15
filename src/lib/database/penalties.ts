@@ -70,13 +70,17 @@ export async function dbReset() {
       END $$;
     `;
 
-  await sql`CREATE TABLE penalty (
-      name VARCHAR(100) NOT NULL
-    );`
+  await sql`CREATE TABLE penalties(
+            SHEET_ID INT NOT NULL,
+            SIDE varchar(25),
+            PT INT NOT NULL,
+            PLAYER_NUMBER INT NOT NULL,
+            INFRACTION varchar(25),
+            TIME INT NOT NULL,
+            Foreign key (SHEET_ID) references Sheet_ID(SHEET_ID) ON DELETE CASCADE ON UPDATE CASCADE);`
 
-  const res = await sql`INSERT INTO players (name)
-    VALUES ('Team A'), 
-        ('Team B');`
+  const res = await sql`INSERT INTO players (SHEET_ID, SIDE, PT, PLAYER_NUMBER, INFRACTION, TIME)
+    VALUES ('0', 'Home', '0', '0', 'None', '0');`
 
   return res;
 }

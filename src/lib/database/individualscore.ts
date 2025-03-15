@@ -69,13 +69,18 @@ export async function dbReset() {
     `;
 
     //Not entirely sure about this for the table
-  await sql`CREATE TABLE individualscores (
-      sheetid SERIAL PRIMARY KEY
-    );`
+  await sql`CREATE TABLE individualscore(
+            SHEET_ID INT,
+            SIDE varchar(25),
+            PLAYER_NUMBER INT NOT NULL,
+            PLAYER_NAME varchar(25),
+            GOALS INT,
+            ATTEMPTS INT,
+            FAILS INT,
+            foreign key (SHEET_ID) references Game_Stats(SHEET_ID) ON DELETE CASCADE ON UPDATE CASCADE);`
 
-  const res = await sql`INSERT INTO teams (name)
-    VALUES ('Team A'), 
-        ('Team B');`
+  const res = await sql`INSERT INTO teams (SHEET_ID, SIDE, PLAYER_NUMBER, PLAYER_NAME, GOALS, ATTEMPTS, FAILS)
+    VALUES ('0', 'Home', '0', 'Dudebro', '0', '0', '0');`
 
   return res;
 }

@@ -74,12 +74,20 @@ export async function dbReset() {
     `;
 
   await sql`CREATE TABLE sheetinfos (
-      name VARCHAR(100) NOT NULL
-    );`
+            SHEET_ID INT NOT NULL,
+            DATE INT NOT NULL,
+            SITE varchar(25),
+            START_TIME INT NOT NULL,
+            SCOREKEEPER varchar(25),
+            OPPONENT_SCORE INT,
+            TIMEKEEPER VARCHAR(25),
+            HEAD_OFFICAL varchar(25),
+            UMPIRE varchar(25),
+            FIELD_JUDGE varchar(25),
+            foreign key (SHEET_ID) references Sheet_ID(SHEET_ID) ON DELETE CASCADE ON UPDATE CASCADE);`
 
-  const res = await sql`INSERT INTO players (name)
-    VALUES ('Team A'), 
-        ('Team B');`
+  const res = await sql`INSERT INTO players (SHEET_ID, DATE, SITE, START_TIME, SCOREKEEPER, OPPONENT_SCORE, TIMEKEEPER, HEAD_OFFICIAL, UMPIRE, FIELD_JUDGE)
+    VALUES ('0', '0', 'Home', '0', 'Dudebro', '0', 'Dudebro', 'Dudebro', 'Dudebro', 'Dudebro');`
 
   return res;
 }
