@@ -11,9 +11,12 @@ export const GET: RequestHandler = async (event) => {
     return json(teams)
 }
 
+// I dont know what to do with this yet
 // api/teams Post
-
-
+export const POST: RequestHandler = async (event) => {
+    console.log(event)
+    return json({message: "Post request"})
+}
 
 
 
