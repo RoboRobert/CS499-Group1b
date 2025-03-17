@@ -48,7 +48,7 @@
   };
 
   // Combined handler for form submission to add or edit a team
-  function handleTeamForm(event: Event) {
+  async function handleTeamForm(event: Event) {
       event.preventDefault();
 
       let formdata = new FormData(event.target as HTMLFormElement);
@@ -76,6 +76,8 @@
           return;
       }
 
+      let newTeam: team;
+
       if (editingTeam.teamId != "") {
           // Update the team object
           editingTeam.name = name;
@@ -88,9 +90,11 @@
           if (index !== -1) {
               teams[index] = { ...editingTeam };
           }
+
+          newTeam = editingTeam;
       } else {
           // Create a new team object; note that players is empty initially.
-          const newTeam: team = {
+          newTeam = {
               teamId: `${name}-${hometown}-${state}-${coach}`,
               name,
               hometown,
@@ -101,8 +105,25 @@
 
           // Add the new team to the teams state
           addTeam(newTeam);
-          
       }
+
+      // Send the team data to the backend API
+      try {
+          const response = await fetch('/api/teams', {
+              method: 'POST',
+              headers: {
+                  'Content-Type': 'application/json'
+              },
+              body: JSON.stringify(newTeam)
+          });
+
+          if (!response.ok) {
+              throw new Error('Failed to save team data');
+          }
+      } catch (error) {
+          console.error('Error:', error);
+      }
+
       // Close the modal
       closeEditModal();
   }

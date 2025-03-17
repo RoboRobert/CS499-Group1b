@@ -41,7 +41,7 @@
     }
 
     // Combined handler for form submission to add or edit a player
-    function handlePlayerForm(event: Event) {
+    async function handlePlayerForm(event: Event) {
         event.preventDefault();
 
         let formdata = new FormData(event.target as HTMLFormElement);
@@ -87,6 +87,8 @@
             return;
         }
 
+        let newPlayer: player;
+
         if (editingPlayer.playerId != "") {
             editingPlayer.firstName = firstName;
             editingPlayer.lastName = lastName;
@@ -105,9 +107,10 @@
                 players[index] = { ...editingPlayer };
             }
 
-            closeEditModal();
+            newPlayer = editingPlayer;
+
         } else {
-            const newPlayer: player = {
+            newPlayer = {
                 playerId: `${firstName}-${lastName}-${currentTeam.players.length}`,
                 firstName,
                 lastName,
@@ -122,10 +125,26 @@
                 team: teamId
             };
 
-            addPlayer(currentTeam, newPlayer);
-
-            closeEditModal();
+            addPlayer(currentTeam, newPlayer); 
         }
+
+        try {
+          const response = await fetch('/api/teams', {
+              method: 'POST',
+              headers: {
+                  'Content-Type': 'application/json'
+              },
+              body: JSON.stringify(newPlayer)
+          });
+
+          if (!response.ok) {
+              throw new Error('Failed to save team data');
+          }
+        } catch (error) {
+            console.error('Error:', error);
+         }
+        
+        closeEditModal();
     }
 
     function handleDeletePlayer(player: player) {
