@@ -1,5 +1,6 @@
 <script lang="ts">
     import { players, getPlayer } from "./data.svelte";
+    import { IsNumber, IsPlayerNumber } from "./checker";
 
     interface Side {
         teamName: string,
@@ -22,8 +23,8 @@
     </div>
     {#each players[side] as player, i}
         <div class="innerRow">
-            <input autocomplete="off" class="field" type="text" bind:value={players[side][i].position}>
-            <input autocomplete="off" class="field" type="number" bind:value={players[side][i].number}>
+            <input autocomplete="off" class="field" type="text" bind:value={players[side][i].position} oninput={IsNumber}>
+            <input autocomplete="off" class="field" type="text" bind:value={players[side][i].number} oninput={IsPlayerNumber}>
             <input autocomplete="off" class="field" type="text" style="flex:2" bind:value={players[side][i].name}>
             <input autocomplete="off" class="field" type="text" bind:value={players[side][i].quarters}>
             <input autocomplete="off" class="field" type="number" bind:value={players[side][i].shots}>
