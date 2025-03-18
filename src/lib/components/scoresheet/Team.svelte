@@ -23,8 +23,8 @@
     </div>
     {#each players[side] as player, i}
         <div class="innerRow">
-            <input autocomplete="off" class="field" type="text" bind:value={players[side][i].position} oninput={(event) => IsNumber(event.target)}>
-            <input autocomplete="off" class="field player{side}" type="text" bind:value={players[side][i].number} oninput={(event) => CheckPlayerNumber(event, side)}>
+            <input autocomplete="off" class="field" type="text" bind:value={players[side][i].position} oninput={IsNumber}>
+            <input id="playerNum_{side}_{i}" autocomplete="off" class="field" type="number" bind:value={players[side][i].number} oninput={(event) => CheckPlayerNumber(event, side)}>
             <input autocomplete="off" class="field" type="text" style="flex:2" bind:value={players[side][i].name}>
             <input autocomplete="off" class="field" type="text" bind:value={players[side][i].quarters}>
             <input autocomplete="off" class="field" type="number" bind:value={players[side][i].shots}>
