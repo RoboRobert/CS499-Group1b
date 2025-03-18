@@ -12,45 +12,45 @@
   <div class="headerBox">FACEOFFS</div>
   <div class="innerColumn">
     <div class="headerRow">
-      <div class="rowBox"></div>
-      <div class="rowBox">WON</div>
-      <div class="rowBox">LOST</div>
-      <div class="rowBox"></div>
+      <div class="rowBox normal"></div>
+      <div class="rowBox normal">WON</div>
+      <div class="rowBox normal">LOST</div>
+      <div class="rowBox normal"></div>
     </div>
     <div class="innerRow">
-      <div class="rowBox">QTR 1</div>
-      <input autocomplete="off" class="field" type="number" bind:value={faceoffs[side][0].won} />
-      <input autocomplete="off" class="field" type="number" bind:value={faceoffs[side][0].lost} />
-      <div class="rowBox">{faceoffs[side][0].won}/{faceoffs[side][0].lost + faceoffs[side][0].won}</div>
+      <div class="rowBox normal">QTR 1</div>
+      <input autocomplete="off" class="field normal" type="number" bind:value={faceoffs[side][0].won} />
+      <input autocomplete="off" class="field normal" type="number" bind:value={faceoffs[side][0].lost} />
+      <div class="rowBox normal">{faceoffs[side][0].won}/{faceoffs[side][0].lost + faceoffs[side][0].won}</div>
     </div>
     <div class="innerRow">
-      <div class="rowBox">QTR 2</div>
-      <input autocomplete="off" class="field" type="number" bind:value={faceoffs[side][1].won} />
-      <input autocomplete="off" class="field" type="number" bind:value={faceoffs[side][1].lost} />
-      <div class="rowBox">{faceoffs[side][1].won}/{faceoffs[side][1].lost + faceoffs[side][1].won}</div>
+      <div class="rowBox normal">QTR 2</div>
+      <input autocomplete="off" class="field normal" type="number" bind:value={faceoffs[side][1].won} />
+      <input autocomplete="off" class="field normal" type="number" bind:value={faceoffs[side][1].lost} />
+      <div class="rowBox normal">{faceoffs[side][1].won}/{faceoffs[side][1].lost + faceoffs[side][1].won}</div>
     </div>
     <div class="innerRow">
-      <div class="rowBox">QTR 3</div>
-      <input autocomplete="off" class="field" type="number" bind:value={faceoffs[side][2].won} />
-      <input autocomplete="off" class="field" type="number" bind:value={faceoffs[side][2].lost} />
-      <div class="rowBox">{faceoffs[side][2].won}/{faceoffs[side][2].lost + faceoffs[side][2].won}</div>
+      <div class="rowBox normal">QTR 3</div>
+      <input autocomplete="off" class="field normal" type="number" bind:value={faceoffs[side][2].won} />
+      <input autocomplete="off" class="field normal" type="number" bind:value={faceoffs[side][2].lost} />
+      <div class="rowBox normal">{faceoffs[side][2].won}/{faceoffs[side][2].lost + faceoffs[side][2].won}</div>
     </div>
     <div class="innerRow">
-      <div class="rowBox">QTR 4</div>
-      <input autocomplete="off" class="field" type="number" bind:value={faceoffs[side][3].won} />
-      <input autocomplete="off" class="field" type="number" bind:value={faceoffs[side][3].lost} />
-      <div class="rowBox">{faceoffs[side][3].won}/{faceoffs[side][3].lost + faceoffs[side][3].won}</div>
+      <div class="rowBox normal">QTR 4</div>
+      <input autocomplete="off" class="field normal" type="number" bind:value={faceoffs[side][3].won} />
+      <input autocomplete="off" class="field normal" type="number" bind:value={faceoffs[side][3].lost} />
+      <div class="rowBox normal">{faceoffs[side][3].won}/{faceoffs[side][3].lost + faceoffs[side][3].won}</div>
     </div>
     <div class="innerRow">
-      <div class="rowBox">O.T.</div>
-      <input autocomplete="off" class="field" type="number" bind:value={faceoffs[side][4].won} />
-      <input autocomplete="off" class="field" type="number" bind:value={faceoffs[side][4].lost} />
-      <div class="rowBox">{faceoffs[side][4].won}/{faceoffs[side][4].lost + faceoffs[side][4].won}</div>
+      <div class="rowBox normal">O.T.</div>
+      <input autocomplete="off" class="field normal" type="number" bind:value={faceoffs[side][4].won} />
+      <input autocomplete="off" class="field normal" type="number" bind:value={faceoffs[side][4].lost} />
+      <div class="rowBox normal">{faceoffs[side][4].won}/{faceoffs[side][4].lost + faceoffs[side][4].won}</div>
     </div>
     <div class="innerRow">
-      <div class="rowBox"></div>
-      <div class="rowBox" style="flex:2">TOTALS</div>
-      <div class="rowBox">
+      <div class="rowBox normal"></div>
+      <div class="rowBox wide">TOTALS</div>
+      <div class="rowBox normal">
         {faceoffs[side].reduce((sum, clear) => sum + clear.won, 0)}/{faceoffs[side].reduce((sum, clear) => sum + clear.won + clear.lost, 0)}
       </div>
     </div>

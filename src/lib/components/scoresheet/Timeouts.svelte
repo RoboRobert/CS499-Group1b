@@ -11,20 +11,20 @@
 <div class="outer">
   <div class="headerBox">TIMEOUTS</div>
   <div class="innerRow">
-    <div class="rowBox">First Half</div>
-    <div class="rowBox">Second Half</div>
-    <div class="rowBox">1 O.T.</div>
-    <div class="rowBox">2 O.T.</div>
+    <div class="rowBox normal">FIRST HALF</div>
+    <div class="rowBox normal">SECOND HALF</div>
+    <div class="rowBox thin">1 O.T.</div>
+    <div class="rowBox thin">2 O.T.</div>
   </div>
 
   <div class="innerRow">
-    <input autocomplete="off" class="field" type="text" bind:value={timeouts[side][0].minutes} />
-    <input autocomplete="off" class="field" type="text" bind:value={timeouts[side][0].period} />
-    <input autocomplete="off" class="field" type="text" bind:value={timeouts[side][1].minutes} />
-    <input autocomplete="off" class="field" type="text" bind:value={timeouts[side][1].period} />
-    <input autocomplete="off" class="field" type="text" bind:value={timeouts[side][2].minutes} />
-    <input autocomplete="off" class="field" type="text" bind:value={timeouts[side][2].period} />
-    <input autocomplete="off" class="field" type="text" bind:value={timeouts[side][3].minutes} />
-    <input autocomplete="off" class="field" type="text" bind:value={timeouts[side][3].period} />
+    <input autocomplete="off" class="field normal" type="text" bind:value={timeouts[side][0].minutes} />
+    <input autocomplete="off" class="field normal" type="text" bind:value={timeouts[side][0].period} />
+    <input autocomplete="off" class="field normal" type="text" bind:value={timeouts[side][1].minutes} />
+    <input autocomplete="off" class="field normal" type="text" bind:value={timeouts[side][1].period} />
+    <input autocomplete="off" class="field thin" type="text" bind:value={timeouts[side][2].minutes} />
+    <input autocomplete="off" class="field thin" type="text" bind:value={timeouts[side][2].period} />
+    <input autocomplete="off" class="field thin" type="text" bind:value={timeouts[side][3].minutes} />
+    <input autocomplete="off" class="field thin" type="text" bind:value={timeouts[side][3].period} />
   </div>
 </div>

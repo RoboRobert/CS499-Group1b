@@ -12,28 +12,28 @@
     <div class="headerBox">GROUND BALLS</div>
     <div class="innerColumn">
         <div class="innerRow">
-            <div class="rowBox">QTR 1</div>
-            <input autocomplete="off" class="field" type="number" bind:value={groundBalls[side][0]}>
+            <div class="rowBox normal">QTR 1</div>
+            <input autocomplete="off" class="field normal" type="number" bind:value={groundBalls[side][0]}>
         </div>
         <div class="innerRow">
-            <div class="rowBox">QTR 2</div>
-            <input autocomplete="off" class="field" type="number" bind:value={groundBalls[side][1]}>
+            <div class="rowBox normal">QTR 2</div>
+            <input autocomplete="off" class="field normal" type="number" bind:value={groundBalls[side][1]}>
         </div>
         <div class="innerRow">
-            <div class="rowBox">QTR 3</div>
-            <input autocomplete="off" class="field" type="number" bind:value={groundBalls[side][2]}>
+            <div class="rowBox normal">QTR 3</div>
+            <input autocomplete="off" class="field normal" type="number" bind:value={groundBalls[side][2]}>
         </div>
         <div class="innerRow">
-            <div class="rowBox">QTR 4</div>
-            <input autocomplete="off" class="field" type="number" bind:value={groundBalls[side][3]}>
+            <div class="rowBox normal">QTR 4</div>
+            <input autocomplete="off" class="field normal" type="number" bind:value={groundBalls[side][3]}>
         </div>
         <div class="innerRow">
-            <div class="rowBox">O.T.</div>
-            <input autocomplete="off" class="field" type="number" bind:value={groundBalls[side][4]}>
+            <div class="rowBox normal">O.T.</div>
+            <input autocomplete="off" class="field normal" type="number" bind:value={groundBalls[side][4]}>
         </div>
         <div class="innerRow">
-            <div class="rowBox">TOTALS</div>
-            <div class="rowBox">{groundBalls[side][0] + groundBalls[side][1] + groundBalls[side][2] + groundBalls[side][3] + groundBalls[side][4]}</div>
+            <div class="rowBox normal">TOTALS</div>
+            <div class="rowBox normal">{groundBalls[side][0] + groundBalls[side][1] + groundBalls[side][2] + groundBalls[side][3] + groundBalls[side][4]}</div>
         </div>        
     </div>
 </div>

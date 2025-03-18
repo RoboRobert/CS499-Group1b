@@ -13,7 +13,7 @@
       {#each Array(numGoals) as attempt, i}
         <div class="boxes">
           <input autocomplete="off" class="field" style="flex:3" type="text" bind:value={homeGoalTrack[i].time} />
-          <input autocomplete="off" class="field" type="text" bind:value={homeGoalTrack[i].type} />
+          <input autocomplete="off" class="field normal" type="text" bind:value={homeGoalTrack[i].type} />
         </div>
       {/each}
     </div>
@@ -21,8 +21,8 @@
       <input autocomplete="off" class="field bigField" type="text" placeholder="Coach" />
       {#each Array(numGoals) as attempt, i}
         <div class="boxes">
-          <input autocomplete="off" class="field" type="text" oninput={(e) => (homeGoalTrack[i].main = Number(e.currentTarget.value))} />
-          <input autocomplete="off" class="field" inputmode="numeric" oninput={(e) => (homeGoalTrack[i].assist = Number(e.currentTarget.value))} />
+          <input autocomplete="off" class="field normal" type="text" oninput={(e) => (homeGoalTrack[i].main = Number(e.currentTarget.value))} />
+          <input autocomplete="off" class="field normal" inputmode="numeric" oninput={(e) => (homeGoalTrack[i].assist = Number(e.currentTarget.value))} />
         </div>
       {/each}
     </div>
@@ -31,7 +31,7 @@
       {#each Array(numGoals) as attempt, i}
         <div class="boxes">
           <input autocomplete="off" class="field" style="flex:3" type="text" bind:value={awayGoalTrack[i].time} />
-          <input autocomplete="off" class="field" type="text" bind:value={awayGoalTrack[i].type} />
+          <input autocomplete="off" class="field normal" type="text" bind:value={awayGoalTrack[i].type} />
         </div>
       {/each}
     </div>
@@ -39,8 +39,8 @@
       <input autocomplete="off" class="field bigField" type="text" placeholder="Coach" />
       {#each Array(numGoals) as attempt, i}
         <div class="boxes">
-          <input autocomplete="off" class="field" inputmode="numeric" oninput={(e) => (awayGoalTrack[i].main = Number(e.currentTarget.value))} />
-          <input autocomplete="off" class="field" inputmode="numeric" oninput={(e) => (awayGoalTrack[i].assist = Number(e.currentTarget.value))} />
+          <input autocomplete="off" class="field normal" inputmode="numeric" oninput={(e) => (awayGoalTrack[i].main = Number(e.currentTarget.value))} />
+          <input autocomplete="off" class="field normal" inputmode="numeric" oninput={(e) => (awayGoalTrack[i].assist = Number(e.currentTarget.value))} />
         </div>
       {/each}
     </div>
