@@ -53,15 +53,13 @@ export async function deleteLogin(user: string) {
   return result
 }
 
-export async function dbReset() {
+export async function dbLoginReset() {
   await sql`DO $$ 
-      DECLARE
-        r RECORD;
-      BEGIN
-        FOR r IN (SELECT tablename FROM pg_tables WHERE schemaname = 'public') LOOP
-          EXECUTE 'DROP TABLE IF EXISTS public.' || r.tablename || ' CASCADE';
-        END LOOP;
-      END $$;
+            DECLARE
+              table_name text := 'logins';
+            BEGIN
+              EXECUTE 'DROP TABLE IF EXISTS public.' || table_name || ' CASCADE';
+            END $$;
     `;
 
     //Not entirely sure about this for the table

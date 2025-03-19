@@ -61,19 +61,17 @@ export async function deleteGameStat(sheetid: number) {
   return result
 }
 
-export async function dbReset() {
+export async function dbGameStatReset() {
   await sql`DO $$ 
-      DECLARE
-        r RECORD;
-      BEGIN
-        FOR r IN (SELECT tablename FROM pg_tables WHERE schemaname = 'public') LOOP
-          EXECUTE 'DROP TABLE IF EXISTS public.' || r.tablename || ' CASCADE';
-        END LOOP;
-      END $$;
+            DECLARE
+              table_name text := 'gamestats';
+            BEGIN
+              EXECUTE 'DROP TABLE IF EXISTS public.' || table_name || ' CASCADE';
+            END $$;
     `;
 
     //Not entirely sure about this for the table
-  await sql`CREATE TABLE Game_Stats(
+  await sql`CREATE TABLE gamestats(
             SHEET_ID INT,
             SIDE varchar(25),
             QUARTER INT,

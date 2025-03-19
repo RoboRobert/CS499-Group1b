@@ -87,13 +87,11 @@ export async function deleteGame(gameid: string) {
 
 export async function dbResetGame() {
   await sql`DO $$ 
-      DECLARE
-        r RECORD;
-      BEGIN
-        FOR r IN (SELECT tablename FROM pg_tables WHERE schemaname = 'public') LOOP
-          EXECUTE 'DROP TABLE IF EXISTS public.' || r.tablename || ' CASCADE';
-        END LOOP;
-      END $$;
+            DECLARE
+              table_name text := 'games';
+            BEGIN
+              EXECUTE 'DROP TABLE IF EXISTS public.' || table_name || ' CASCADE';
+            END $$;
     `;
 
   await sql`CREATE TABLE games (
@@ -108,13 +106,11 @@ export async function dbResetGame() {
 
 export async function dbResetSheet() {
   await sql`DO $$ 
-      DECLARE
-        r RECORD;
-      BEGIN
-        FOR r IN (SELECT tablename FROM pg_tables WHERE schemaname = 'public') LOOP
-          EXECUTE 'DROP TABLE IF EXISTS public.' || r.tablename || ' CASCADE';
-        END LOOP;
-      END $$;
+            DECLARE
+              table_name text := 'sheets';
+            BEGIN
+              EXECUTE 'DROP TABLE IF EXISTS public.' || table_name || ' CASCADE';
+            END $$;
     `;
 
   await sql`CREATE TABLE sheets (

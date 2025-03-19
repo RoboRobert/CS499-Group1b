@@ -62,18 +62,16 @@ export async function deleteSave(name: string) {
   return result
 }
 
-export async function dbReset() {
+export async function dbSaveReset() {
   await sql`DO $$ 
-      DECLARE
-        r RECORD;
-      BEGIN
-        FOR r IN (SELECT tablename FROM pg_tables WHERE schemaname = 'public') LOOP
-          EXECUTE 'DROP TABLE IF EXISTS public.' || r.tablename || ' CASCADE';
-        END LOOP;
-      END $$;
+            DECLARE
+              table_name text := 'saves';
+            BEGIN
+              EXECUTE 'DROP TABLE IF EXISTS public.' || table_name || ' CASCADE';
+            END $$;
     `;
 
-  await sql`CREATE TABLE Saves(
+  await sql`CREATE TABLE saves(
             SHEET_ID INT NOT NULL,
             SIDE varchar(25),
             PLAYER_NAME varchar(25),

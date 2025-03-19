@@ -59,15 +59,13 @@ export async function deletePenalty(name: string) {
   return result
 }
 
-export async function dbReset() {
+export async function dbPenaltyReset() {
   await sql`DO $$ 
-      DECLARE
-        r RECORD;
-      BEGIN
-        FOR r IN (SELECT tablename FROM pg_tables WHERE schemaname = 'public') LOOP
-          EXECUTE 'DROP TABLE IF EXISTS public.' || r.tablename || ' CASCADE';
-        END LOOP;
-      END $$;
+            DECLARE
+              table_name text := 'penalties';
+            BEGIN
+              EXECUTE 'DROP TABLE IF EXISTS public.' || table_name || ' CASCADE';
+            END $$;
     `;
 
   await sql`CREATE TABLE penalties(
