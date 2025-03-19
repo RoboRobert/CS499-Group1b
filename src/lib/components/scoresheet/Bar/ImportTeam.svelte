@@ -36,6 +36,8 @@
     players: awayPlayers,
   };
 
+  const teams = [homeTeam, awayTeam]
+
   // Function for the first API call
   async function importHomeTeam() {
     // try {
@@ -50,12 +52,14 @@
     //   console.error("Error fetching data1:", error);
     // }
 
-    homeTeamName.name = homeTeam.teamName;
+    const team = teams[selectedOption];
 
-    for (let i = 0; i < homeTeam.players.length; i++) {
-      players[0][i].name = homeTeam.players[i].name;
-      players[0][i].position = homeTeam.players[i].position;
-      players[0][i].number = homeTeam.players[i].number;
+    homeTeamName.name = team.teamName;
+
+    for (let i = 0; i < team.players.length; i++) {
+      players[0][i].name = team.players[i].name;
+      players[0][i].position = team.players[i].position;
+      players[0][i].number = team.players[i].number;
     }
 
     toggleImportHome();
@@ -83,22 +87,27 @@
       players[1][i].number = awayTeam.players[i].number;
     }
 
-    toggleImportHome();
+    toggleImportAway();
   }
+
+  let selectedOption = 0;
 
   let showImportHome = false;
   function toggleImportHome() {
     showImportHome = !showImportHome;
   }
 
-  let selectedOption = "";
+  let showImportAway = false;
+  function toggleImportAway() {
+    showImportAway = !showImportAway;
+  }
 
   const teamNames = [awayTeam.teamName, homeTeam.teamName];
 </script>
 
 <div style="display:flex; flex-direction:column;">
   <button onclick={toggleImportHome}>IMPORT HOME TEAM</button>
-  <button onclick={importAwayTeam}>IMPORT AWAY TEAM</button>
+  <button onclick={toggleImportAway}>IMPORT AWAY TEAM</button>
 
   {#if showImportHome}
     <div class="modal-backdrop">
@@ -106,17 +115,46 @@
         <h2>IMPORT HOME TEAM</h2>
         <div class="form-group">
           <select id="dropdown" bind:value={selectedOption}>
-            {#each teamNames as teamName}
-              <option value={teamName}>{teamName}</option>
+            {#each teamNames as teamName, i}
+              {#if teamName != awayTeamName.name}
+                <option value={i}>{teamName}</option>
+              {/if}
             {/each}
           </select>
           <p>You selected: {selectedOption}</p>
         </div>
         <div class="modal-actions">
-            <button onclick={importHomeTeam} class="sign-in-button">Complete Import</button>
-          </div>
+          <button onclick={importHomeTeam} class="sign-in-button">Complete Import</button>
+        </div>
+        <div class="modal-actions">
+          <button onclick={toggleImportHome} class="sign-in-button">Cancel</button>
         </div>
       </div>
+    </div>
+  {/if}
+
+  {#if showImportAway}
+    <div class="modal-backdrop">
+      <div class="modal-content">
+        <h2>IMPORT AWAY TEAM</h2>
+        <div class="form-group">
+          <select id="dropdown" bind:value={selectedOption}>
+            {#each teamNames as teamName, i}
+              {#if teamName != homeTeamName.name}
+                <option value={i}>{teamName}</option>
+              {/if}
+            {/each}
+          </select>
+          <p>You selected: {selectedOption}</p>
+        </div>
+        <div class="modal-actions">
+          <button onclick={importAwayTeam} class="sign-in-button">Complete Import</button>
+        </div>
+        <div class="modal-actions">
+          <button onclick={toggleImportAway} class="sign-in-button">Cancel</button>
+        </div>
+      </div>
+    </div>
   {/if}
 </div>
 
