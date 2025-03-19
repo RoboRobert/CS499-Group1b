@@ -2,15 +2,6 @@ import sql from '$lib/database/postgres';
 // import { PGUSER, PGPASSWORD, PGHOST, PGPORT, PGDATABASE } from '$env/static/private'
 import type { GameStat } from '$lib/database/GameStats';
 
-// const sql = postgres({
-//   user: PGUSER,
-//   password: PGPASSWORD,
-//   host: PGHOST,
-//   port: parseInt(PGPORT),
-//   database: PGDATABASE,
-// });
-
-
 export async function getGameStats(): Promise<GameStat[]> {
   const players = await sql<GameStat[]>`
       SELECT * FROM gamestats
