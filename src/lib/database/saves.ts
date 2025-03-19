@@ -1,24 +1,6 @@
-import postgres from 'postgres'
+import sql from '$lib/database/postgres';
 // import { PGUSER, PGPASSWORD, PGHOST, PGPORT, PGDATABASE } from '$env/static/private'
 import type { Save } from '$lib/database/Save';
-
-// const sql = postgres({
-//   user: PGUSER,
-//   password: PGPASSWORD,
-//   host: PGHOST,
-//   port: parseInt(PGPORT),
-//   database: PGDATABASE,
-// });
-
-const sql = postgres({
-  user: "postgres",
-  password: "test",
-  host: "localhost",
-  port: 5432,
-  database: "template1",
-});
-
-export default sql
 
 export async function getSaves(): Promise<Save[]> {
   const penalties = await sql<Save[]>`
