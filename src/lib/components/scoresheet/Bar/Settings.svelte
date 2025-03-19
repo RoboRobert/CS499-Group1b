@@ -11,7 +11,9 @@
   {#if settings}
     <div class="dropdown"></div>
   {/if}
+  <div>SETTINGS</div>
 </div>
+
 
 <style>
   .dropdown {

@@ -2,6 +2,7 @@
   import Goals from "./Goals.svelte";
 
   import { homeGoalTrack, awayGoalTrack } from "../data.svelte";
+  import TimeInput from "$lib/components/TimeInput.svelte";
 
   let numGoals = 30;
 </script>
@@ -12,7 +13,8 @@
       <input class="field bigField" type="text" placeholder="Home Team" />
       {#each Array(numGoals) as attempt, i}
         <div class="boxes">
-          <input autocomplete="off" class="field" style="flex:3" type="text" bind:value={homeGoalTrack[i].time} />
+          <!-- <input autocomplete="off" class="field" style="flex:3" type="text" bind:value={homeGoalTrack[i].time} /> -->
+          <TimeInput></TimeInput>
           <input autocomplete="off" class="field normal" type="text" bind:value={homeGoalTrack[i].type} />
         </div>
       {/each}

@@ -45,7 +45,7 @@
         </div>
         <div class="form-group">
           <label for="gameStart">Game Start:</label>
-          <input class="error" type="text" name="gameStart" bind:value={metaStats.gameStart} />
+          <input type="text" name="gameStart" bind:value={metaStats.gameStart} />
           {#if formErrors.gameStart}
             <p class="error">{formErrors.gameStart}</p>
           {/if}
@@ -57,12 +57,62 @@
             <p class="error">{formErrors.scorekeeper}</p>
           {/if}
         </div>
+        <div class="form-group">
+          <label for="oppScorekeeper">Away Scorekeeper:</label>
+          <input type="text" name="oppScorekeeper" bind:value={metaStats.oppScorekeeper} />
+          {#if formErrors.oppScorekeeper}
+            <p class="error">{formErrors.oppScorekeeper}</p>
+          {/if}
+        </div>
+        <div class="form-group">
+          <label for="timeKeeper">Time Keeper:</label>
+          <input type="text" name="timeKeeper" bind:value={metaStats.timeKeeper} />
+          {#if formErrors.timeKeeper}
+            <p class="error">{formErrors.timeKeeper}</p>
+          {/if}
+        </div>
+        <div class="form-group">
+          <label for="headOfficial">Head Official:</label>
+          <input type="text" name="headOfficial" bind:value={metaStats.headOfficial} />
+          {#if formErrors.headOfficial}
+            <p class="error">{formErrors.headOfficial}</p>
+          {/if}
+        </div>
+        <div class="form-group">
+          <label for="umpire">Umpire:</label>
+          <input type="text" name="umpire" bind:value={metaStats.umpire} />
+          {#if formErrors.umpire}
+            <p class="error">{formErrors.umpire}</p>
+          {/if}
+        </div>
+        <div class="form-group">
+          <label for="fieldJudge">Field Judge:</label>
+          <input type="text" name="fieldJudge" bind:value={metaStats.fieldJudge} />
+          {#if formErrors.fieldJudge}
+            <p class="error">{formErrors.fieldJudge}</p>
+          {/if}
+        </div>
+        <div class="form-group">
+          <label for="lengthOfQuarters">Length of Quarters:</label>
+          <input type="text" name="lengthOfQuarters" bind:value={metaStats.lengthOfQuarters} />
+          {#if formErrors.lengthOfQuarters}
+            <p class="error">{formErrors.lengthOfQuarters}</p>
+          {/if}
+        </div>
+        <div class="form-group">
+          <label for="weatherCondition">Weather Condition:</label>
+          <input type="text" name="weatherCondition" bind:value={metaStats.weatherCondition} />
+          {#if formErrors.weatherCondition}
+            <p class="error">{formErrors.weatherCondition}</p>
+          {/if}
+        </div>
         <div class="modal-actions">
           <button onclick={toggleMetaStats} class="sign-in-button">Add Changes</button>
         </div>
       </div>
     </div>
   {/if}
+  <div>SETTINGS</div>
 </div>
 
 <style>

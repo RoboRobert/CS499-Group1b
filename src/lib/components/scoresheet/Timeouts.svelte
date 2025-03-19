@@ -22,9 +22,7 @@
     <input autocomplete="off" class="field normal" type="text" bind:value={timeouts[side][0].period} />
     <input autocomplete="off" class="field normal" type="text" bind:value={timeouts[side][1].minutes} />
     <input autocomplete="off" class="field normal" type="text" bind:value={timeouts[side][1].period} />
-    <input autocomplete="off" class="field thin" type="text" bind:value={timeouts[side][2].minutes} />
-    <input autocomplete="off" class="field thin" type="text" bind:value={timeouts[side][2].period} />
-    <input autocomplete="off" class="field thin" type="text" bind:value={timeouts[side][3].minutes} />
-    <input autocomplete="off" class="field thin" type="text" bind:value={timeouts[side][3].period} />
+    <input autocomplete="off" class="field normal" type="text" bind:value={timeouts[side][2].minutes} />
+    <input autocomplete="off" class="field normal" type="text" bind:value={timeouts[side][2].period} />
   </div>
 </div>
