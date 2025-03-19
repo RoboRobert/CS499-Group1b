@@ -1,23 +1,7 @@
-import postgres from 'postgres'
+import sql from '$lib/database/postgres';
 // import { PGUSER, PGPASSWORD, PGHOST, PGPORT, PGDATABASE } from '$env/static/private'
 import type { Team } from '$lib/database/Team';
 import type { Player } from '$lib/database/Team';
-
-// const sql = postgres({
-//   user: PGUSER,
-//   password: PGPASSWORD,
-//   host: PGHOST,
-//   port: parseInt(PGPORT),
-//   database: PGDATABASE,
-// });
-
-const sql = postgres({
-  user: "postgres",
-  password: "test",
-  host: "localhost",
-  port: 5432,
-  database: "template1",
-});
 
 export async function getTeams(): Promise<Team[]> {
   const players = await sql<Team[]>`
