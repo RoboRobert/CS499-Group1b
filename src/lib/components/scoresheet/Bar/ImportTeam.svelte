@@ -57,6 +57,8 @@
       players[0][i].position = homeTeam.players[i].position;
       players[0][i].number = homeTeam.players[i].number;
     }
+
+    toggleImportHome();
   }
 
   // Function for the second API call
@@ -80,6 +82,8 @@
       players[1][i].position = awayTeam.players[i].position;
       players[1][i].number = awayTeam.players[i].number;
     }
+
+    toggleImportHome();
   }
 
   let showImportHome = false;
@@ -108,11 +112,11 @@
           </select>
           <p>You selected: {selectedOption}</p>
         </div>
+        <div class="modal-actions">
+            <button onclick={importHomeTeam} class="sign-in-button">Complete Import</button>
+          </div>
+        </div>
       </div>
-      <div class="modal-actions">
-        <button onclick={toggleImportHome} class="sign-in-button">Complete Import</button>
-      </div>
-    </div>
   {/if}
 </div>
 
