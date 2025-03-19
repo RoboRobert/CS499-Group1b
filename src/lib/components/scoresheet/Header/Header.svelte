@@ -1,7 +1,7 @@
 <script lang="ts">
   import Goals from "./Goals.svelte";
 
-  import { homeGoalTrack, awayGoalTrack } from "../data.svelte";
+  import { homeGoalTrack, awayGoalTrack, homeTeamName, awayTeamName } from "../data.svelte";
   import TimeInput from "$lib/components/TimeInput.svelte";
 
   let numGoals = 30;
@@ -10,7 +10,7 @@
 <div class="wideRow">
   <div class="outer noBorder">
     <div class="innerRow">
-      <input class="field bigField" type="text" placeholder="Home Team" />
+      <input class="field bigField" type="text" value={homeTeamName.name} placeholder="Home Team" />
       {#each Array(numGoals) as attempt, i}
         <div class="boxes">
           <!-- <input autocomplete="off" class="field" style="flex:3" type="text" bind:value={homeGoalTrack[i].time} /> -->
@@ -20,7 +20,7 @@
       {/each}
     </div>
     <div class="innerRow" style="margin-bottom:10px;">
-      <input autocomplete="off" class="field bigField" type="text" placeholder="Coach" />
+      <input autocomplete="off" class="field bigField" type="text" placeholder="Coach"  />
       {#each Array(numGoals) as attempt, i}
         <div class="boxes">
           <input autocomplete="off" class="field normal" type="text" oninput={(e) => (homeGoalTrack[i].main = Number(e.currentTarget.value))} />
@@ -29,7 +29,7 @@
       {/each}
     </div>
     <div class="innerRow">
-      <input autocomplete="off" class="field bigField" type="text" placeholder="Away Team" />
+      <input autocomplete="off" class="field bigField" type="text" value={awayTeamName.name} placeholder="Away Team" />
       {#each Array(numGoals) as attempt, i}
         <div class="boxes">
           <input autocomplete="off" class="field" style="flex:3" type="text" bind:value={awayGoalTrack[i].time} />

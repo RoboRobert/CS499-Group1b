@@ -16,6 +16,7 @@
   import Timer from "$lib/components/scoresheet/Bar/Timer.svelte";
   import Quarters from "$lib/components/scoresheet/Bar/Quarters.svelte";
   import Submit from "$lib/components/scoresheet/Bar/Submit.svelte";
+  import ImportTeam from "$lib/components/scoresheet/Bar/ImportTeam.svelte";
 
   let leftSheet: HTMLElement;
   let rightSheet: HTMLElement;
@@ -37,7 +38,7 @@
     <Settings></Settings>
     <MetaStats></MetaStats>
     <Quarters></Quarters>
-    <Timer></Timer>
+    <ImportTeam></ImportTeam>
     <Submit></Submit>
   </div>
   <Header></Header>

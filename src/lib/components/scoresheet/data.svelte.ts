@@ -37,6 +37,9 @@ export interface Player {
   groundBalls: number;
 }
 
+export const homeTeamName = $state({name: ""});
+export const awayTeamName = $state({name: ""});
+
 export const homeGoals = $state([0, 0, 0, 0, 0, 0]);
 export const awayGoals = $state([0, 0, 0, 0, 0, 0]);
 

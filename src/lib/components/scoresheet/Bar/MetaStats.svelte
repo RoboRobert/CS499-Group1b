@@ -112,7 +112,7 @@
       </div>
     </div>
   {/if}
-  <div>SETTINGS</div>
+  <div>META GAME STATS</div>
 </div>
 
 <style>
