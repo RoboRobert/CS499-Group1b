@@ -22,9 +22,9 @@
   {#each penalties[side] as penalty, i}
     <div class="innerRow">
       <input autocomplete="off" class="field normal" type="text" oninput={(e) => penalties[side][i].timeout = readTime(e)}/>
-      <input autocomplete="off" class="field thin" type="number" bind:value={penalties[side][i].playerno}/>
+      <input min="0" max="99" autocomplete="off" class="field thin" type="number" bind:value={penalties[side][i].playerno}/>
       <input autocomplete="off" class="field normal" type="text" bind:value={penalties[side][i].interaction}/>
-      <input autocomplete="off" class="field thin" type="number" bind:value={penalties[side][i].quarter}/>
+      <input min="0" max="6" autocomplete="off" class="field thin" type="number" bind:value={penalties[side][i].quarter}/>
       <input autocomplete="off" class="field normal" type="text" oninput={(e) => penalties[side][i].time = readTime(e)}/>
     </div>
   {/each}

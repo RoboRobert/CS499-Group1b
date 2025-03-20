@@ -19,32 +19,32 @@
     </div>
     <div class="innerRow">
       <div class="rowBox normal">QTR 1</div>
-      <input autocomplete="off" class="field normal" type="number" bind:value={clears[side][0].won} />
-      <input autocomplete="off" class="field normal" type="number" bind:value={clears[side][0].lost} />
+      <input min="0" autocomplete="off" class="field normal" type="number" bind:value={clears[side][0].won} />
+      <input min="0" autocomplete="off" class="field normal" type="number" bind:value={clears[side][0].lost} />
       <div class="rowBox normal">{clears[side][0].won}/{clears[side][0].lost + clears[side][0].won}</div>
     </div>
     <div class="innerRow">
       <div class="rowBox normal">QTR 2</div>
-      <input autocomplete="off" class="field normal" type="number" bind:value={clears[side][1].won} />
-      <input autocomplete="off" class="field normal" type="number" bind:value={clears[side][1].lost} />
+      <input min="0" autocomplete="off" class="field normal" type="number" bind:value={clears[side][1].won} />
+      <input min="0" autocomplete="off" class="field normal" type="number" bind:value={clears[side][1].lost} />
       <div class="rowBox normal">{clears[side][1].won}/{clears[side][1].lost + clears[side][1].won}</div>
     </div>
     <div class="innerRow">
       <div class="rowBox normal">QTR 3</div>
-      <input autocomplete="off" class="field normal" type="number" bind:value={clears[side][2].won} />
-      <input autocomplete="off" class="field normal" type="number" bind:value={clears[side][2].lost} />
+      <input min="0" autocomplete="off" class="field normal" type="number" bind:value={clears[side][2].won} />
+      <input min="0" autocomplete="off" class="field normal" type="number" bind:value={clears[side][2].lost} />
       <div class="rowBox normal">{clears[side][2].won}/{clears[side][2].lost + clears[side][2].won}</div>
     </div>
     <div class="innerRow">
       <div class="rowBox normal">QTR 4</div>
-      <input autocomplete="off" class="field normal" type="number" bind:value={clears[side][3].won} />
-      <input autocomplete="off" class="field normal" type="number" bind:value={clears[side][3].lost} />
+      <input min="0" autocomplete="off" class="field normal" type="number" bind:value={clears[side][3].won} />
+      <input min="0" autocomplete="off" class="field normal" type="number" bind:value={clears[side][3].lost} />
       <div class="rowBox normal">{clears[side][3].won}/{clears[side][3].lost + clears[side][3].won}</div>
     </div>
     <div class="innerRow">
       <div class="rowBox normal">O.T.</div>
-      <input autocomplete="off" class="field normal" type="number" bind:value={clears[side][4].won} />
-      <input autocomplete="off" class="field normal" type="number" bind:value={clears[side][4].lost} />
+      <input min="0" autocomplete="off" class="field normal" type="number" bind:value={clears[side][4].won} />
+      <input min="0" autocomplete="off" class="field normal" type="number" bind:value={clears[side][4].lost} />
       <div class="rowBox normal">{clears[side][4].won}/{clears[side][4].lost + clears[side][4].won}</div>
     </div>
     <div class="innerRow">

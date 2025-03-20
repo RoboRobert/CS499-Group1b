@@ -24,13 +24,13 @@
     {#each players[side] as player, i}
         <div class="innerRow">
             <input autocomplete="off" class="field thin" type="text" bind:value={players[side][i].position} oninput={IsNumber}>
-            <input id="playerNum_{side}_{i}" autocomplete="off" class="field thin" type="number" bind:value={players[side][i].number} oninput={(event) => CheckPlayerNumber(event, side)}>
+            <input min="0" max="99" id="playerNum_{side}_{i}" autocomplete="off" class="field thin" type="number" bind:value={players[side][i].number} oninput={(event) => CheckPlayerNumber(event, side)}>
             <input autocomplete="off" class="field wide" type="text" bind:value={players[side][i].name}>
             <input autocomplete="off" class="field normal" type="text" bind:value={players[side][i].quarters}>
-            <input autocomplete="off" class="field normal" type="number" bind:value={players[side][i].shots}>
+            <input min="0" autocomplete="off" class="field normal" type="number" bind:value={players[side][i].shots}>
             <div class="rowBox thin">{getPlayer(side, players[side][i].number).goals}</div>
             <div class="rowBox thin">{getPlayer(side, players[side][i].number).assists}</div>
-            <input autocomplete="off" class="field thin" type="number" bind:value={players[side][i].groundBalls}>
+            <input min="0" autocomplete="off" class="field thin" type="number" bind:value={players[side][i].groundBalls}>
         </div>
     {/each}
 </div>

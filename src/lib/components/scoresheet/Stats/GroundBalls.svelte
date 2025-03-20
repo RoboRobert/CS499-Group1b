@@ -13,23 +13,23 @@
     <div class="innerColumn">
         <div class="innerRow">
             <div class="rowBox normal">QTR 1</div>
-            <input autocomplete="off" class="field normal" type="number" bind:value={groundBalls[side][0]}>
+            <input min="0" autocomplete="off" class="field normal" type="number" bind:value={groundBalls[side][0]}>
         </div>
         <div class="innerRow">
             <div class="rowBox normal">QTR 2</div>
-            <input autocomplete="off" class="field normal" type="number" bind:value={groundBalls[side][1]}>
+            <input min="0" autocomplete="off" class="field normal" type="number" bind:value={groundBalls[side][1]}>
         </div>
         <div class="innerRow">
             <div class="rowBox normal">QTR 3</div>
-            <input autocomplete="off" class="field normal" type="number" bind:value={groundBalls[side][2]}>
+            <input min="0" autocomplete="off" class="field normal" type="number" bind:value={groundBalls[side][2]}>
         </div>
         <div class="innerRow">
             <div class="rowBox normal">QTR 4</div>
-            <input autocomplete="off" class="field normal" type="number" bind:value={groundBalls[side][3]}>
+            <input min="0" autocomplete="off" class="field normal" type="number" bind:value={groundBalls[side][3]}>
         </div>
         <div class="innerRow">
             <div class="rowBox normal">O.T.</div>
-            <input autocomplete="off" class="field normal" type="number" bind:value={groundBalls[side][4]}>
+            <input min="0" autocomplete="off" class="field normal" type="number" bind:value={groundBalls[side][4]}>
         </div>
         <div class="innerRow">
             <div class="rowBox normal">TOTALS</div>

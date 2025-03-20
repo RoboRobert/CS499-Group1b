@@ -64,3 +64,23 @@ export function readTime(e): Time | null {
   let time: Time = {minutes: Number(matches[1]), seconds: Number(matches[2])};
   return time;
 }
+
+// Validates time input
+export function readPlayerno(e): number | null {
+  let target = e.target as HTMLInputElement;
+
+  removeError(target);
+
+  if (target.value == "") {
+    return null;
+  }
+
+  let regex: RegExp = /^\d{1,2}$/;
+  let matches = target.value.match(regex);
+  if (!matches) {
+    addError(target, "Please enter a number in the range 0-99");
+    return null;
+  }
+
+  return Number(matches[0]);
+}

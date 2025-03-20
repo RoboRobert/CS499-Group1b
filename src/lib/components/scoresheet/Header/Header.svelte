@@ -3,7 +3,7 @@
 
   import { homeGoalTrack, awayGoalTrack, teamName } from "../data.svelte";
   import TimeInput from "$lib/components/TimeInput.svelte";
-  import { readTime } from "../checker.svelte";
+  import { readPlayerno, readTime } from "../checker.svelte";
 
   let numGoals = 30;
 </script>
@@ -21,11 +21,11 @@
       {/each}
     </div>
     <div class="innerRow" style="margin-bottom:10px;">
-      <input autocomplete="off" class="field bigField" type="text" placeholder="Coach"  />
+      <input autocomplete="off" class="field bigField" type="text" placeholder="Coach"/>
       {#each Array(numGoals) as attempt, i}
         <div class="boxes">
-          <input autocomplete="off" class="field normal" type="text" oninput={(e) => (homeGoalTrack[i].main = Number(e.currentTarget.value))} />
-          <input autocomplete="off" class="field normal" inputmode="numeric" oninput={(e) => (homeGoalTrack[i].assist = Number(e.currentTarget.value))} />
+          <input autocomplete="off" class="field normal" type="numeric" oninput={(e) => homeGoalTrack[i].main = readPlayerno(e)}/>
+          <input autocomplete="off" class="field normal" inputmode="numeric" oninput={(e) => homeGoalTrack[i].assist = readPlayerno(e)}/>
         </div>
       {/each}
     </div>
@@ -33,7 +33,7 @@
       <input autocomplete="off" class="field bigField" type="text" value={teamName[1]} placeholder="Away Team" />
       {#each Array(numGoals) as attempt, i}
         <div class="boxes">
-          <input autocomplete="off" class="field" style="flex:3" type="text" bind:value={awayGoalTrack[i].time} />
+          <input autocomplete="off" class="field goal" style="flex:3" type="text" oninput={(e) => awayGoalTrack[i].time = readTime(e)} />
           <input autocomplete="off" class="field normal" type="text" bind:value={awayGoalTrack[i].type} />
         </div>
       {/each}
@@ -42,8 +42,8 @@
       <input autocomplete="off" class="field bigField" type="text" placeholder="Coach" />
       {#each Array(numGoals) as attempt, i}
         <div class="boxes">
-          <input autocomplete="off" class="field normal" inputmode="numeric" oninput={(e) => (awayGoalTrack[i].main = Number(e.currentTarget.value))} />
-          <input autocomplete="off" class="field normal" inputmode="numeric" oninput={(e) => (awayGoalTrack[i].assist = Number(e.currentTarget.value))} />
+          <input autocomplete="off" class="field normal" inputmode="numeric" oninput={(e) => awayGoalTrack[i].main = readPlayerno(e)} />
+          <input autocomplete="off" class="field normal" inputmode="numeric" oninput={(e) => awayGoalTrack[i].assist = readPlayerno(e)} />
         </div>
       {/each}
     </div>
@@ -53,6 +53,10 @@
 </div>
 
 <style>
+  .goal{
+    font-size:10px;
+  }
+
   .boxes {
     flex: 1;
     max-width: 100%;

@@ -26,7 +26,7 @@
         <div class="rowBox wide">{player[1].name}</div>
         <div class="rowBox thin">{player[1].goals}</div>
         <div class="rowBox thin">{player[1].assists}</div>
-        <input autocomplete="off" class="field thin" type="text" />
+        <input min="0" autocomplete="off" class="field thin" type="number" />
       </div>
     {/if}
   {/each}
