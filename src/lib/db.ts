@@ -12,7 +12,7 @@ import type { Player } from '$lib/Player';
 
 const sql = postgres({
   user: "postgres",
-  password: "59686",
+  password: "test",
   host: "localhost",
   port: 5432,
   database: "template1",

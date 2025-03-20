@@ -129,7 +129,25 @@
   }
 
   function handleDeleteTeam(team: team) {
+      // Remove the team from the teams state
       deleteTeam(team);
+
+      // Send a DELETE request to the backend API
+      fetch(`/api/deleteTeam`, {
+          method: 'DELETE'
+          , headers: {
+          'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(team)
+      })
+      .then(response => {
+          if (!response.ok) {
+              throw new Error('Failed to delete team');
+          }
+      })
+      .catch(error => {
+          console.error('Error:', error);
+      });
   }
 </script>
 

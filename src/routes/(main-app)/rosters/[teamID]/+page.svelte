@@ -149,6 +149,22 @@
 
     function handleDeletePlayer(player: player) {
         deletePlayer(currentTeam, player);
+
+        fetch('/api/deletePlayer', {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(player)
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Failed to delete player');
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
     }
 </script>
 

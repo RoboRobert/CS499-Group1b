@@ -1,5 +1,22 @@
 <script lang="ts">
-    let games: number[] = [1, 2, 3, 4, 5]
+    import {games, type game, addGame} from "./pastgames.svelte"
+    let data = {
+        loadedGames: games
+    }
+    let game1: game = {gameId: "1"};
+    let game2: game = {gameId: "2"};
+    
+    addGame(game1);
+    addGame(game2);
+    
+    console.log(data.loadedGames);
+    if (Array.isArray(data.loadedGames)) {
+        for (const game of data.loadedGames) {
+            games.push(game);
+        }
+    } else {
+        console.error('loadedGames is not an array:', data.loadedGames);
+    }
 
 </script>
 
@@ -18,9 +35,9 @@
         </div>
         <div>
             {#each games as game }
-            <a href="/pastgames/{game}">
+            <a href="/pastgames/{game.gameId}">
                 <div class = "game">
-                    <h3>{game}</h3>
+                    <h3>{game.gameId}</h3>
                 </div>
             </a>
             {/each}
