@@ -36,7 +36,7 @@
     players: awayPlayers,
   };
 
-  const teams = [homeTeam, awayTeam]
+  const teams = [homeTeam, awayTeam];
 
   // Function for the first API call
   async function importHomeTeam() {
@@ -79,7 +79,9 @@
     //   console.error("Error fetching data2:", error);
     // }
 
-    awayTeamName.name = awayTeam.teamName;
+    const team = teams[selectedOption];
+
+    awayTeamName.name = team.teamName;
 
     for (let i = 0; i < awayTeam.players.length; i++) {
       players[1][i].name = awayTeam.players[i].name;
