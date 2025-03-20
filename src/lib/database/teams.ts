@@ -93,7 +93,7 @@ export async function dbTeamsReset() {
             Primary key (TEAM_NAME));`
 
   const res = await sql`INSERT INTO teams (TEAM_NAME)
-    VALUES ('UAH');`
+    VALUES ('None', 'None');`
 
   return res;
 }

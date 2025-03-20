@@ -69,7 +69,7 @@ export async function deleteGame(gameid: string) {
   return result
 }
 
-export async function dbResetGame() {
+export async function dbGameReset() {
   await sql`DO $$ 
             DECLARE
               table_name text := 'games';
@@ -88,7 +88,7 @@ export async function dbResetGame() {
   return res;
 }
 
-export async function dbResetSheet() {
+export async function dbSheetReset() {
   await sql`DO $$ 
             DECLARE
               table_name text := 'sheets';

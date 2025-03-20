@@ -67,7 +67,7 @@ export async function dbSaveReset() {
             foreign key (SHEET_ID) references Sheet_ID(SHEET_ID) ON DELETE CASCADE ON UPDATE CASCADE);`
 
   const res = await sql`INSERT INTO players (SHEET_ID, SIDE, PLAYER_NAME, PLAYER_NUMBER, QUARTER_1, QUARTER_2, QUARTER_3, QUARTER_4, OT, TOTAL)
-    VALUES ('0', 'Home', 'Dudebro', '0', '0', '0', '0', '0', '0', '0');`
+    VALUES ('0', 'None', 'Dudebro', '0', '0', '0', '0', '0', '0', '0');`
 
   return res;
 }

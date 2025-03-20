@@ -68,9 +68,8 @@ export async function dbGameStatReset() {
             FACEOFF_LOSS INT,
             primary key (SHEET_ID, SIDE));`
 
-  const res = await sql`INSERT INTO teams (name)
-    VALUES ('Team A'), 
-        ('Team B');`
+  const res = await sql`INSERT INTO gamestats (name)
+    VALUES ('0', 'None', '0', '0', '0', '0', '0', '0', '0', '0');`
 
   return res;
 }

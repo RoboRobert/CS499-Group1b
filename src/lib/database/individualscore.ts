@@ -63,7 +63,7 @@ export async function dbIndividualScoreReset() {
             foreign key (SHEET_ID) references Game_Stats(SHEET_ID) ON DELETE CASCADE ON UPDATE CASCADE);`
 
   const res = await sql`INSERT INTO teams (SHEET_ID, SIDE, PLAYER_NUMBER, PLAYER_NAME, GOALS, ATTEMPTS, FAILS)
-    VALUES ('0', 'Home', '0', 'Dudebro', '0', '0', '0');`
+    VALUES ('0', 'None', '0', 'Dudebro', '0', '0', '0');`
 
   return res;
 }

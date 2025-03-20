@@ -60,7 +60,7 @@ export async function dbPenaltyReset() {
             Foreign key (SHEET_ID) references Sheet_ID(SHEET_ID) ON DELETE CASCADE ON UPDATE CASCADE);`
 
   const res = await sql`INSERT INTO players (SHEET_ID, SIDE, PT, PLAYER_NUMBER, INFRACTION, TIME)
-    VALUES ('0', 'Home', '0', '0', 'None', '0');`
+    VALUES ('0', 'None', '0', '0', 'None', '0');`
 
   return res;
 }
