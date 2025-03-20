@@ -1,8 +1,9 @@
 <script lang="ts">
   import Goals from "./Goals.svelte";
 
-  import { homeGoalTrack, awayGoalTrack, homeTeamName, awayTeamName } from "../data.svelte";
+  import { homeGoalTrack, awayGoalTrack, teamName } from "../data.svelte";
   import TimeInput from "$lib/components/TimeInput.svelte";
+  import { readTime } from "../checker.svelte";
 
   let numGoals = 30;
 </script>
@@ -10,11 +11,11 @@
 <div class="wideRow">
   <div class="outer noBorder">
     <div class="innerRow">
-      <input class="field bigField" type="text" value={homeTeamName.name} placeholder="Home Team" />
+      <input class="field bigField" type="text" value={teamName[0]} placeholder="Home Team" />
       {#each Array(numGoals) as attempt, i}
         <div class="boxes">
           <!-- <input autocomplete="off" class="field" style="flex:3" type="text" bind:value={homeGoalTrack[i].time} /> -->
-          <TimeInput></TimeInput>
+          <input autocomplete="off" class="field goal" style="flex:3" type="text" oninput={(e) => homeGoalTrack[i].time = readTime(e)} />
           <input autocomplete="off" class="field normal" type="text" bind:value={homeGoalTrack[i].type} />
         </div>
       {/each}
@@ -29,7 +30,7 @@
       {/each}
     </div>
     <div class="innerRow">
-      <input autocomplete="off" class="field bigField" type="text" value={awayTeamName.name} placeholder="Away Team" />
+      <input autocomplete="off" class="field bigField" type="text" value={teamName[1]} placeholder="Away Team" />
       {#each Array(numGoals) as attempt, i}
         <div class="boxes">
           <input autocomplete="off" class="field" style="flex:3" type="text" bind:value={awayGoalTrack[i].time} />

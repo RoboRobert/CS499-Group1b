@@ -50,7 +50,7 @@
         <Saves side={0}></Saves>
       </div>
       <div class="column">
-        <Penalties></Penalties>
+        <Penalties side={0}></Penalties>
         <Scoring side={0}></Scoring>
         <Timeouts side={0}></Timeouts>
       </div>
@@ -72,7 +72,7 @@
         <Saves side={1}></Saves>
       </div>
       <div class="column">
-        <Penalties></Penalties>
+        <Penalties side={1}></Penalties>
         <Scoring side={1}></Scoring>
         <Timeouts side={1}></Timeouts>
       </div>

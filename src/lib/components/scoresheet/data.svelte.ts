@@ -1,5 +1,10 @@
+export interface Time {
+  minutes: number,
+  seconds: number,
+}
+
 export interface Goal {
-  time: number;
+  time: Time;
   type: string;
   main: number;
   assist: number;
@@ -14,6 +19,14 @@ export interface Timeout {
   minutes: number;
   seconds: number;
   period: number;
+}
+
+export interface Penalty {
+  timeout: Time,
+  playerno: number,
+  interaction: string,
+  quarter: number,
+  time: Time,
 }
 
 export interface Save {
@@ -37,8 +50,7 @@ export interface Player {
   groundBalls: number;
 }
 
-export const homeTeamName = $state({name: ""});
-export const awayTeamName = $state({name: ""});
+export const teamName = $state(["",""]);
 
 export const homeGoals = $state([0, 0, 0, 0, 0, 0]);
 export const awayGoals = $state([0, 0, 0, 0, 0, 0]);
@@ -112,8 +124,12 @@ export const timeouts: Timeout[][] = $state([
     { minutes: 0, seconds: 0, period: 0 },
     { minutes: 0, seconds: 0, period: 0 },
     { minutes: 0, seconds: 0, period: 0 },
+    { minutes: 0, seconds: 0, period: 0 },
+    { minutes: 0, seconds: 0, period: 0 },
   ],
   [
+    { minutes: 0, seconds: 0, period: 0 },
+    { minutes: 0, seconds: 0, period: 0 },
     { minutes: 0, seconds: 0, period: 0 },
     { minutes: 0, seconds: 0, period: 0 },
     { minutes: 0, seconds: 0, period: 0 },
@@ -121,11 +137,21 @@ export const timeouts: Timeout[][] = $state([
   ],
 ]);
 
+const numPenalties = 18;
+let homePenalties: Penalty[] = [];
+let awayPenalties: Penalty[] = [];
+for(let i = 0; i < numPenalties; i++) {
+  homePenalties.push({timeout: null, playerno: null, interaction: "", quarter: null, time: null});
+  awayPenalties.push({timeout: null, playerno: null, interaction: "", quarter: null, time: null});
+}
+
+export const penalties = $state([homePenalties, awayPenalties]);
+
 let homeArr: Goal[] = [];
 let awayArr: Goal[] = [];
 for (let i = 0; i < 30; i++) {
-  homeArr.push({ time: undefined, type: "", main: undefined, assist: undefined });
-  awayArr.push({ time: undefined, type: "", main: undefined, assist: undefined });
+  homeArr.push({ time: null, type: "", main: undefined, assist: undefined });
+  awayArr.push({ time: null, type: "", main: undefined, assist: undefined });
 }
 
 export const homeGoalTrack = $state(homeArr);
@@ -152,6 +178,8 @@ for (let i = 0; i < numPlayers; i++) {
   homePlayers.push(defaultPlayers[0]);
   awayPlayers.push(defaultPlayers[1]);
 }
+
+export const emptyPlayers = [homePlayers, awayPlayers];
 
 export const players = $state([homePlayers, awayPlayers]);
 
