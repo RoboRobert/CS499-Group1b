@@ -18,6 +18,28 @@
   } else {
       console.error('loadedTeams is not an array:', data.loadedTeams);
   }
+
+  // DUMMY TEAMS FOR TESTING PURPOSES
+  let team1: team = {
+      teamId: "1",
+      name: "Team 1",
+      hometown: "Hometown 1",
+      state: "State 1",
+      coach: "Coach 1",
+      players: []
+  };
+
+  let team2: team = {
+      teamId: "2",
+      name: "Team 2",
+      hometown: "Hometown 2",
+      state: "State 2",
+      coach: "Coach 2",
+      players: []
+  };
+
+  addTeam(team1);
+  addTeam(team2);
   
   const defaultTeam: team = {
           teamId: "",
