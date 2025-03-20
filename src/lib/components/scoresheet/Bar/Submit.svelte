@@ -14,8 +14,11 @@
     penalties,
     players,
     shots,
+    teamName,
     timeouts,
   } from "../data.svelte";
+  import type { SheetErr } from "$lib/backendChecker";
+  import { addIDError } from "../frontendChecker.svelte";
 
   let showConfirmModal = false;
   let showConfirmButton = false;
@@ -30,6 +33,7 @@
 
   async function checkScoresheet() {
     const scoresheetData = {
+      teamName: teamName,
       players: players,
       homeGoals: homeGoals,
       awayGoals: awayGoals,
@@ -58,20 +62,26 @@
 
       // Await the JSON data resolution
       const data = await result.json();
+      
+      let errors: SheetErr[] = data.errors;
+      console.log(errors);
+      if(errors.length > 0) {
+        showConfirmModal = true;
 
-      // Check if the response is ok (status 200-299)
-      if (!result.ok) {
-        throw new Error(`HTTP error! Status: ${result.status}`);
+        // Mark all the errors found by the backend validator
+        for(const error of errors) {
+          addIDError(error.elementID, error.message);
+        }
+
+        message = `${errors.length} errors detected in the scoresheet.\nAll errors have been marked in red on the sheet.`
       }
+      else {
+        showConfirmModal = true;
+        showConfirmButton = true;
 
-      // Access the message after resolving the promise
-      message = data.message;
-
-      console.log(result);
-      showConfirmModal = true;
-      showConfirmButton = true;
+        message = "No errors detected in the scoresheet."
+      }
     } catch (error) {
-      showConfirmModal = true;
       console.error(error);
     }
   }

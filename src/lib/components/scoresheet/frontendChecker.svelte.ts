@@ -12,6 +12,13 @@ export function addError(target: HTMLInputElement, message: string) {
   target.setAttribute("title", message);
 }
 
+export function addIDError(elementId: string, message: string) {
+  let target = document.getElementById(elementId);
+
+  target.classList.add("error");
+  target.setAttribute("title", message);
+}
+
 // Checks if the event target value is an integer.
 export function IsNumber(event: any): boolean {
   const target = event.target as HTMLInputElement;
