@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { readTime } from "./checker.svelte";
+  import { readTime } from "./frontendChecker.svelte";
   import { timeouts, type Time } from "./data.svelte";
 
   interface Side {

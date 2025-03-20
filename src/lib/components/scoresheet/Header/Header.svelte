@@ -3,7 +3,7 @@
 
   import { homeGoalTrack, awayGoalTrack, teamName } from "../data.svelte";
   import TimeInput from "$lib/components/TimeInput.svelte";
-  import { readPlayerno, readTime } from "../checker.svelte";
+  import { readPlayerno, readTime } from "../frontendChecker.svelte";
 
   let numGoals = 30;
 </script>
