@@ -24,16 +24,16 @@
   </div>
 
   <div class="innerRow">
-    <input autocomplete="off" class="field time" type="text" oninput={(e) => setTimeout(0,readTime(e))} />
-    <input min="0" autocomplete="off" class="field period" type="number" bind:value={timeouts[side][0].period} />
-    <input autocomplete="off" class="field time" type="text" oninput={(e) => setTimeout(1,readTime(e))} />
-    <input min="0" autocomplete="off" class="field period" type="number" bind:value={timeouts[side][1].period} />
-    <input autocomplete="off" class="field time" type="text" oninput={(e) => setTimeout(2,readTime(e))} />
-    <input min="0" autocomplete="off" class="field period" type="number" bind:value={timeouts[side][2].period} />
-    <input autocomplete="off" class="field time" type="text" oninput={(e) => setTimeout(3,readTime(e))} />
-    <input min="0" autocomplete="off" class="field period" type="number" bind:value={timeouts[side][3].period} />
-    <input autocomplete="off" class="field normal" type="text" oninput={(e) => setTimeout(4,readTime(e))} />
-    <input autocomplete="off" class="field normal" type="text" oninput={(e) => setTimeout(5,readTime(e))} />
+    <input id="timeout-{side}-0" autocomplete="off" class="field time" type="text" oninput={(e) => setTimeout(0,readTime(e))} />
+    <input id="timeout-{side}-1" min="0" autocomplete="off" class="field period" type="number" bind:value={timeouts[side][0].period} />
+    <input id="timeout-{side}-2" autocomplete="off" class="field time" type="text" oninput={(e) => setTimeout(1,readTime(e))} />
+    <input id="timeout-{side}-3" min="0" autocomplete="off" class="field period" type="number" bind:value={timeouts[side][1].period} />
+    <input id="timeout-{side}-4" autocomplete="off" class="field time" type="text" oninput={(e) => setTimeout(2,readTime(e))} />
+    <input id="timeout-{side}-5" min="0" autocomplete="off" class="field period" type="number" bind:value={timeouts[side][2].period} />
+    <input id="timeout-{side}-6" autocomplete="off" class="field time" type="text" oninput={(e) => setTimeout(3,readTime(e))} />
+    <input id="timeout-{side}-7" min="0" autocomplete="off" class="field period" type="number" bind:value={timeouts[side][3].period} />
+    <input id="timeout-{side}-8" autocomplete="off" class="field normal" type="text" oninput={(e) => setTimeout(4,readTime(e))} />
+    <input id="timeout-{side}-9" autocomplete="off" class="field normal" type="text" oninput={(e) => setTimeout(5,readTime(e))} />
   </div>
 </div>
 

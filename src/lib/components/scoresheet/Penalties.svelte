@@ -21,11 +21,11 @@
 
   {#each penalties[side] as penalty, i}
     <div class="innerRow">
-      <input autocomplete="off" class="field normal" type="text" oninput={(e) => penalties[side][i].timeout = readTime(e)}/>
-      <input min="0" max="99" autocomplete="off" class="field thin" type="number" bind:value={penalties[side][i].playerno}/>
-      <input autocomplete="off" class="field normal" type="text" bind:value={penalties[side][i].interaction}/>
-      <input min="1" max="6" autocomplete="off" class="field thin" type="number" bind:value={penalties[side][i].quarter}/>
-      <input autocomplete="off" class="field normal" type="text" oninput={(e) => penalties[side][i].time = readTime(e)}/>
+      <input id="penaltyTimeout-{side}-{i}" autocomplete="off" class="field normal" type="text" oninput={(e) => penalties[side][i].timeout = readTime(e)}/>
+      <input id="penaltyNumber-{side}-{i}" min="0" max="99" autocomplete="off" class="field thin" type="number" bind:value={penalties[side][i].playerno}/>
+      <input id="penaltyInteraction-{side}-{i}" autocomplete="off" class="field normal" type="text" bind:value={penalties[side][i].interaction}/>
+      <input id="penaltyQuarter-{side}-{i}" min="1" max="6" autocomplete="off" class="field thin" type="number" bind:value={penalties[side][i].quarter}/>
+      <input id="penaltyTime-{side}-{i}" autocomplete="off" class="field normal" type="text" oninput={(e) => penalties[side][i].time = readTime(e)}/>
     </div>
   {/each}
 </div>

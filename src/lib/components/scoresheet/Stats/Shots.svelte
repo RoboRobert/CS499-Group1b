@@ -13,23 +13,23 @@
   <div class="innerColumn">
     <div class="innerRow">
       <div class="rowBox normal">QTR 1</div>
-      <input min="0" autocomplete="off" class="field normal" type="number" bind:value={shots[side][0]} />
+      <input id="shots-{side}-0" min="0" autocomplete="off" class="field normal" type="number" bind:value={shots[side][0]} />
     </div>
     <div class="innerRow">
       <div class="rowBox normal">QTR 2</div>
-      <input min="0" autocomplete="off" class="field normal" type="number" bind:value={shots[side][1]} />
+      <input id="shots-{side}-1" min="0" autocomplete="off" class="field normal" type="number" bind:value={shots[side][1]} />
     </div>
     <div class="innerRow">
       <div class="rowBox normal">QTR 3</div>
-      <input min="0" autocomplete="off" class="field normal" type="number" bind:value={shots[side][2]} />
+      <input id="shots-{side}-2" min="0" autocomplete="off" class="field normal" type="number" bind:value={shots[side][2]} />
     </div>
     <div class="innerRow">
       <div class="rowBox normal">QTR 4</div>
-      <input min="0" autocomplete="off" class="field normal" type="number" bind:value={shots[side][3]} />
+      <input id="shots-{side}-3" min="0" autocomplete="off" class="field normal" type="number" bind:value={shots[side][3]} />
     </div>
     <div class="innerRow">
       <div class="rowBox normal">O.T.</div>
-      <input min="0" autocomplete="off" class="field normal" type="number" bind:value={shots[side][4]} />
+      <input id="shots-{side}-4" min="0" autocomplete="off" class="field normal" type="number" bind:value={shots[side][4]} />
     </div>
     <div class="innerRow">
       <div class="rowBox normal">TOTALS</div>
