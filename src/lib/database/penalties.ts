@@ -1,4 +1,4 @@
-import sql from '$lib/database/postgres';
+import sql from '$lib/database/postgres.server';
 // import { PGUSER, PGPASSWORD, PGHOST, PGPORT, PGDATABASE } from '$env/static/private'
 import type { Penalty } from '$lib/database/Penalty';
 
