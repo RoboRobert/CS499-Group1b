@@ -1,4 +1,4 @@
-import type { Player, Save } from "./components/scoresheet/data.svelte";
+import type { Penalty, Player, Save, Stat } from "./components/scoresheet/data.svelte";
 
 export interface SheetErr {
     elementID: string,
@@ -62,6 +62,109 @@ export function checkSheet(data: any): SheetErr[] {
             }
             if(save.ot == null) {
                 errors.push({elementID: `savesOT-${i}-${j}`, message: "Field cannot be empty."});
+            }
+        }
+    }
+
+    // Check all the penalties
+    for(let i = 0; i < data.penalties.length; i++) {
+        for(let j = 0; j < data.penalties[i].length; j++) {
+            let penalty: Penalty = data.penalties[i][j];
+            // If the penalty is empty, ignore it.
+            if(!penalty.interaction && penalty.playerno == null && !penalty.quarter && !penalty.time && !penalty.timeout) {
+                continue;
+            }
+
+            if(!penalty.timeout) {
+                errors.push({elementID: `penaltyTimeout-${i}-${j}`, message: "Field cannot be empty."});
+            }
+
+            if(penalty.playerno == null) {
+                errors.push({elementID: `penaltyNumber-${i}-${j}`, message: "Field cannot be empty."});
+            }
+
+            if(!penalty.interaction) {
+                errors.push({elementID: `penaltyInteraction-${i}-${j}`, message: "Field cannot be empty."});
+            }
+
+            if(!penalty.quarter) {
+                errors.push({elementID: `penaltyQuarter-${i}-${j}`, message: "Field cannot be empty."});
+            }
+
+            if(!penalty.time) {
+                errors.push({elementID: `penaltyTime-${i}-${j}`, message: "Field cannot be empty."});
+            }
+        }
+    }
+
+    // TODO: Check all the timeouts
+    // for(let i = 0; i < data.penalties.length; i++) {
+    //     for(let j = 0; j < data.penalties[i].length; j++) {
+    // }
+
+    // Check all the ground balls
+    for(let i = 0; i < data.groundBalls.length; i++) {
+        for(let j = 0; j < data.groundBalls[i].length; j++) {
+            let groundBall: number = data.groundBalls[i][j];
+            // If the groundBall field is empty, mark it on the sheet.
+            if(groundBall == null) {
+                errors.push({elementID: `groundBalls-${i}-${j}`, message: "Field cannot be empty."});
+            }
+        }
+    }
+
+    // Check all the shots
+    for(let i = 0; i < data.shots.length; i++) {
+        for(let j = 0; j < data.shots[i].length; j++) {
+            let groundBall: number = data.shots[i][j];
+            // If the groundBall field is empty, mark it on the sheet.
+            if(groundBall == null) {
+                errors.push({elementID: `shots-${i}-${j}`, message: "Field cannot be empty."});
+            }
+        }
+    }
+
+    // Check all the clears
+    for(let i = 0; i < data.clears.length; i++) {
+        for(let j = 0; j < data.clears[i].length; j++) {
+            let clear: Stat = data.clears[i][j];
+            // If the clear field is empty, mark it on the sheet.
+            if(clear.won == null) {
+                errors.push({elementID: `clearsWon-${i}-${j}`, message: "Field cannot be empty."});
+            }
+
+            if(clear.lost == null) {
+                errors.push({elementID: `clearsLost-${i}-${j}`, message: "Field cannot be empty."});
+            }
+        }
+    }
+
+    // Check all the extra man
+    for(let i = 0; i < data.extraMan.length; i++) {
+        for(let j = 0; j < data.extraMan[i].length; j++) {
+            let extraMan: Stat = data.extraMan[i][j];
+            // If any extra man field is empty, mark it on the sheet.
+            if(extraMan.won == null) {
+                errors.push({elementID: `extraManWon-${i}-${j}`, message: "Field cannot be empty."});
+            }
+
+            if(extraMan.lost == null) {
+                errors.push({elementID: `extraManLost-${i}-${j}`, message: "Field cannot be empty."});
+            }
+        }
+    }
+
+    // Check all the faceoffs
+    for(let i = 0; i < data.faceoffs.length; i++) {
+        for(let j = 0; j < data.faceoffs[i].length; j++) {
+            let faceoff: Stat = data.faceoffs[i][j];
+            // If any faceoff field is empty, mark it on the sheet.
+            if(faceoff.won == null) {
+                errors.push({elementID: `faceoffsWon-${i}-${j}`, message: "Field cannot be empty."});
+            }
+
+            if(faceoff.lost == null) {
+                errors.push({elementID: `faceoffsLost-${i}-${j}`, message: "Field cannot be empty."});
             }
         }
     }
