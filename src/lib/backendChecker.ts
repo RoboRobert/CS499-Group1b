@@ -5,6 +5,8 @@ export interface SheetErr {
     message: string,
 }
 
+const validNumberMsg = "Field must contain an integer.";
+
 export function checkSheet(data: any): SheetErr[] {
     let errors: SheetErr[] = [];
 
@@ -108,7 +110,7 @@ export function checkSheet(data: any): SheetErr[] {
             let groundBall: number = data.groundBalls[i][j];
             // If the groundBall field is empty, mark it on the sheet.
             if(groundBall == null) {
-                errors.push({elementID: `groundBalls-${i}-${j}`, message: "Field cannot be empty."});
+                errors.push({elementID: `groundBalls-${i}-${j}`, message: validNumberMsg});
             }
         }
     }
@@ -119,7 +121,7 @@ export function checkSheet(data: any): SheetErr[] {
             let groundBall: number = data.shots[i][j];
             // If the groundBall field is empty, mark it on the sheet.
             if(groundBall == null) {
-                errors.push({elementID: `shots-${i}-${j}`, message: "Field cannot be empty."});
+                errors.push({elementID: `shots-${i}-${j}`, message: validNumberMsg});
             }
         }
     }
@@ -130,11 +132,11 @@ export function checkSheet(data: any): SheetErr[] {
             let clear: Stat = data.clears[i][j];
             // If the clear field is empty, mark it on the sheet.
             if(clear.won == null) {
-                errors.push({elementID: `clearsWon-${i}-${j}`, message: "Field cannot be empty."});
+                errors.push({elementID: `clearsWon-${i}-${j}`, message: validNumberMsg});
             }
 
             if(clear.lost == null) {
-                errors.push({elementID: `clearsLost-${i}-${j}`, message: "Field cannot be empty."});
+                errors.push({elementID: `clearsLost-${i}-${j}`, message: validNumberMsg});
             }
         }
     }
@@ -145,11 +147,11 @@ export function checkSheet(data: any): SheetErr[] {
             let extraMan: Stat = data.extraMan[i][j];
             // If any extra man field is empty, mark it on the sheet.
             if(extraMan.won == null) {
-                errors.push({elementID: `extraManWon-${i}-${j}`, message: "Field cannot be empty."});
+                errors.push({elementID: `extraManWon-${i}-${j}`, message: validNumberMsg});
             }
 
             if(extraMan.lost == null) {
-                errors.push({elementID: `extraManLost-${i}-${j}`, message: "Field cannot be empty."});
+                errors.push({elementID: `extraManLost-${i}-${j}`, message: validNumberMsg});
             }
         }
     }
@@ -160,11 +162,11 @@ export function checkSheet(data: any): SheetErr[] {
             let faceoff: Stat = data.faceoffs[i][j];
             // If any faceoff field is empty, mark it on the sheet.
             if(faceoff.won == null) {
-                errors.push({elementID: `faceoffsWon-${i}-${j}`, message: "Field cannot be empty."});
+                errors.push({elementID: `faceoffsWon-${i}-${j}`, message: validNumberMsg});
             }
 
             if(faceoff.lost == null) {
-                errors.push({elementID: `faceoffsLost-${i}-${j}`, message: "Field cannot be empty."});
+                errors.push({elementID: `faceoffsLost-${i}-${j}`, message: validNumberMsg});
             }
         }
     }
