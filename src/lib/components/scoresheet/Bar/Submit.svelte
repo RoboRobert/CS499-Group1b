@@ -13,6 +13,7 @@
     metaStats,
     penalties,
     players,
+    saves,
     shots,
     teamName,
     timeouts,
@@ -35,6 +36,7 @@
     const scoresheetData = {
       teamName: teamName,
       players: players,
+      saves: saves,
       homeGoals: homeGoals,
       awayGoals: awayGoals,
       homeGoalTrack: homeGoalTrack,
@@ -49,6 +51,8 @@
       metaStats: metaStats,
     };
     const scoresheetJSON = JSON.stringify(scoresheetData);
+
+    console.log(scoresheetJSON);
 
     // Ask the scoresheet/check endpoint if the scoresheet is valid.
     try {
