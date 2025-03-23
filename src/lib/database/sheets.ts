@@ -1,22 +1,6 @@
-import postgres from 'postgres'
+import sql from '$lib/database/postgres.server';
 // import { PGUSER, PGPASSWORD, PGHOST, PGPORT, PGDATABASE } from '$env/static/private'
 import type { Sheet, Game } from '$lib/database/Sheet';
-
-// const sql = postgres({
-//   user: PGUSER,
-//   password: PGPASSWORD,
-//   host: PGHOST,
-//   port: parseInt(PGPORT),
-//   database: PGDATABASE,
-// });
-
-const sql = postgres({
-  user: "postgres",
-  password: "test",
-  host: "localhost",
-  port: 5432,
-  database: "template1",
-});
 
 export async function getSheets(): Promise<Sheet[]> {
   const sheets = await sql<Sheet[]>`
@@ -85,30 +69,42 @@ export async function deleteGame(gameid: string) {
   return result
 }
 
-export async function dbReset() {
+export async function dbGameReset() {
   await sql`DO $$ 
-      DECLARE
-        r RECORD;
-      BEGIN
-        FOR r IN (SELECT tablename FROM pg_tables WHERE schemaname = 'public') LOOP
-          EXECUTE 'DROP TABLE IF EXISTS public.' || r.tablename || ' CASCADE';
-        END LOOP;
-      END $$;
+            DECLARE
+              table_name text := 'games';
+            BEGIN
+              EXECUTE 'DROP TABLE IF EXISTS public.' || table_name || ' CASCADE';
+            END $$;
     `;
 
-    //Not entirely sure about this for the table
-  await sql`CREATE TABLE sheets (
-      gameid SERIAL PRIMARY KEY
-      sheetid SERIAL PRIMARY KEY
-    );`
-
   await sql`CREATE TABLE games (
-      gameid SERIAL PRIMARY KEY
-    );`
+      GAMEID INT NOT NULL,
+      primary key (GAMEID));`
 
-  const res = await sql`INSERT INTO teams (name)
-    VALUES ('Team A'), 
-        ('Team B');`
+  const res = await sql`INSERT INTO games (GAMEID)
+    VALUES ('0');`
+
+  return res;
+}
+
+export async function dbSheetReset() {
+  await sql`DO $$ 
+            DECLARE
+              table_name text := 'sheets';
+            BEGIN
+              EXECUTE 'DROP TABLE IF EXISTS public.' || table_name || ' CASCADE';
+            END $$;
+    `;
+
+  await sql`CREATE TABLE sheets (
+      SHEET_ID INT NOT NULL,
+      GAMEID INT NOT NULL,
+      PRIMARY KEY (SHEET_ID),
+      FOREIGN KEY (GAMEID) REFERENCES games(GAMEID));`
+    
+  const res = await sql`INSERT INTO sheets (GAMEID, SHEET_ID)
+    VALUES ('0', '0');`
 
   return res;
 }

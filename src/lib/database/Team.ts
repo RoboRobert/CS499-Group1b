@@ -1,5 +1,6 @@
 export interface Team {
     name: string, //Player inherits
+    id: string,
 }
 
 export interface Player {

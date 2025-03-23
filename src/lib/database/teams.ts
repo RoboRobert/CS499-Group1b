@@ -1,23 +1,7 @@
-import postgres from 'postgres'
+import sql from '$lib/database/postgres.server';
 // import { PGUSER, PGPASSWORD, PGHOST, PGPORT, PGDATABASE } from '$env/static/private'
 import type { Team } from '$lib/database/Team';
 import type { Player } from '$lib/database/Team';
-
-// const sql = postgres({
-//   user: PGUSER,
-//   password: PGPASSWORD,
-//   host: PGHOST,
-//   port: parseInt(PGPORT),
-//   database: PGDATABASE,
-// });
-
-const sql = postgres({
-  user: "postgres",
-  password: "test",
-  host: "localhost",
-  port: 5432,
-  database: "template1",
-});
 
 export async function getTeams(): Promise<Team[]> {
   const players = await sql<Team[]>`
@@ -53,8 +37,9 @@ export async function getPlayer(name: string): Promise<Player> {
 
 export async function addTeam(teams: Team) {
   let name = teams.name;
+  let id = teams.id;
   const result = await sql`
-    INSERT INTO teams (name) VALUES (${name}) RETURNING *
+    INSERT INTO teams (name) (id) VALUES (${name}) (${id}) RETURNING *
   `
 
   return result
@@ -93,28 +78,50 @@ export async function deletePlayer(name: string) {
   return result
 }
 
-export async function dbReset() {
+export async function dbTeamsReset() {
   await sql`DO $$ 
-      DECLARE
-        r RECORD;
-      BEGIN
-        FOR r IN (SELECT tablename FROM pg_tables WHERE schemaname = 'public') LOOP
-          EXECUTE 'DROP TABLE IF EXISTS public.' || r.tablename || ' CASCADE';
-        END LOOP;
-      END $$;
+            DECLARE
+              table_name text := 'teams';
+            BEGIN
+              EXECUTE 'DROP TABLE IF EXISTS public.' || table_name || ' CASCADE';
+            END $$;
     `;
 
-  await sql`CREATE TABLE teams (
-      name VARCHAR(100) NOT NULL
-    );`
+  await sql`CREATE TABLE teams(
+            TEAM_NAME varchar(25),
+            TEAM_ID varchar(25),
+            Primary key (TEAM_NAME));`
+
+  const res = await sql`INSERT INTO teams (TEAM_NAME)
+    VALUES ('None', 'None');`
+
+  return res;
+}
+
+export async function dbPlayersReset() {
+  await sql`DO $$ 
+            DECLARE
+              table_name text := 'players';
+            BEGIN
+              EXECUTE 'DROP TABLE IF EXISTS public.' || table_name || ' CASCADE';
+            END $$;
+    `;
 
   await sql`CREATE TABLE players (
-      name VARCHAR(100) NOT NULL
-    );`
+            PLAYER_NAME varchar(25),
+            PLAYER_NUMBER INT NOT NULL,
+            TEAM_NAME varchar(25),
+            POSITION varchar(25),
+            QUARTERS INT,
+            ATTEMPTED_SHOTS INT,
+            GOALS INT,
+            FAILED_SHOTS INT,
+            GROUND_BALLS INT,
+            primary key(PLAYER_NAME, PLAYER_NUMBER),
+            foreign key(TEAM_NAME) references Team_Name ON DELETE CASCADE ON UPDATE CASCADE);`
 
-  const res = await sql`INSERT INTO teams (name)
-    VALUES ('Team A'), 
-        ('Team B');`
+  const res = await sql`INSERT INTO players (PLAYER_NAME, PLAYER_NUMBER, TEAM_NAME, POSITION, QUARTERS, ATTEMPTED_SHOTS, GOALS, FAILED_SHOTS, GROUND_BALLS)
+    VALUES ('Dudebro', '0', 'UAH', 'GOALIE', '0', '0', '0', '0', '0', '0');`
 
   return res;
 }
