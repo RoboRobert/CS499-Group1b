@@ -6,6 +6,41 @@
       deleteTeam,
   } from './rosters.svelte';
 
+  // Idea is that it will load in the teams that have been loaded the push those into the front end teams state rune to be used
+  // to display the teams to the page
+  // This probably wont work as indended because the table is not the same as the interface in the frontend
+  export let data: { loadedTeams: team[] };
+  console.log(data.loadedTeams);
+  if (Array.isArray(data.loadedTeams)) {
+      for (const team of data.loadedTeams) {
+          addTeam(team);
+      }
+  } else {
+      console.error('loadedTeams is not an array:', data.loadedTeams);
+  }
+
+  // DUMMY TEAMS FOR TESTING PURPOSES
+  let team1: team = {
+      teamId: "1",
+      name: "Team 1",
+      hometown: "Hometown 1",
+      state: "State 1",
+      coach: "Coach 1",
+      players: []
+  };
+
+  let team2: team = {
+      teamId: "2",
+      name: "Team 2",
+      hometown: "Hometown 2",
+      state: "State 2",
+      coach: "Coach 2",
+      players: []
+  };
+
+  addTeam(team1);
+  addTeam(team2);
+  
   const defaultTeam: team = {
           teamId: "",
           name: "",
@@ -35,7 +70,7 @@
   };
 
   // Combined handler for form submission to add or edit a team
-  function handleTeamForm(event: Event) {
+  async function handleTeamForm(event: Event) {
       event.preventDefault();
 
       let formdata = new FormData(event.target as HTMLFormElement);
@@ -63,6 +98,8 @@
           return;
       }
 
+      let newTeam: team;
+
       if (editingTeam.teamId != "") {
           // Update the team object
           editingTeam.name = name;
@@ -75,9 +112,11 @@
           if (index !== -1) {
               teams[index] = { ...editingTeam };
           }
+
+          newTeam = editingTeam;
       } else {
           // Create a new team object; note that players is empty initially.
-          const newTeam: team = {
+          newTeam = {
               teamId: `${name}-${hometown}-${state}-${coach}`,
               name,
               hometown,
@@ -88,14 +127,49 @@
 
           // Add the new team to the teams state
           addTeam(newTeam);
-          
       }
+
+      // Send the team data to the backend API
+      try {
+          const response = await fetch('/api/teams', {
+              method: 'POST',
+              headers: {
+                  'Content-Type': 'application/json'
+              },
+              body: JSON.stringify(newTeam)
+          });
+
+          if (!response.ok) {
+              throw new Error('Failed to save team data');
+          }
+      } catch (error) {
+          console.error('Error:', error);
+      }
+
       // Close the modal
       closeEditModal();
   }
 
   function handleDeleteTeam(team: team) {
+      // Remove the team from the teams state
       deleteTeam(team);
+
+      // Send a DELETE request to the backend API
+      fetch(`/api/deleteTeam`, {
+          method: 'DELETE'
+          , headers: {
+          'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(team)
+      })
+      .then(response => {
+          if (!response.ok) {
+              throw new Error('Failed to delete team');
+          }
+      })
+      .catch(error => {
+          console.error('Error:', error);
+      });
   }
 </script>
 
@@ -124,8 +198,10 @@
               <p>{team.state}</p>
               <p>Coach: {team.coach}</p>
               </a>
+          <div class = "button-container">
             <button on:click={() => openEditModal(team)} type="button">Edit</button>
             <button on:click={() => handleDeleteTeam(team)} type="button">Delete</button>
+          </div>
           </div>
       {/each}
     </div>
@@ -135,7 +211,7 @@
 {#if showEditModal}
 <div class="modal-backdrop">
   <div class="modal-content">
-    <h2>Edit Team</h2>
+    <h2>Add Team</h2>
     <!-- Bind input values and handle form submission -->
     <form on:submit|preventDefault={(event) => handleTeamForm(event)}>
       <div class="form-group">
@@ -174,3 +250,4 @@
   </div>
 </div>
 {/if}
+

@@ -1,8 +1,57 @@
 <script lang="ts">
     import { deletePlayer, addPlayer, type player, type team, teams, players } from '../rosters.svelte';
-    export let data: { teamId: string };
-    let teamId = data.teamId;
-    let currentTeam: team = teams.find(team => team.teamId === teamId);
+    
+    // Idea is it will get the team that has been loaded and put it into the currentTeam variable
+    // May not work since the table is not the same as the interface in the frontend
+    export let data: { loadTeam: team };
+    let currentTeam: team = data.loadTeam;
+    let teamId = currentTeam.teamId;
+
+    currentTeam.players =[
+        {
+            playerId: "1",
+            firstName: "John",
+            lastName: "Doe",
+            hometown: "Springfield",
+            state: "IL",
+            number: "10",
+            position: "Attack",
+            class: "Senior",
+            heightFeet: "6",
+            heightInches: "2",
+            weight: "180",
+            team: teamId
+        },
+        {
+            playerId: "2",
+            firstName: "Jane",
+            lastName: "Smith",
+            hometown: "Riverside",
+            state: "CA",
+            number: "22",
+            position: "Midfield",
+            class: "Junior",
+            heightFeet: "5",
+            heightInches: "8",
+            weight: "150",
+            team: teamId
+        },
+        {
+            playerId: "3",
+            firstName: "Mike",
+            lastName: "Johnson",
+            hometown: "Dallas",
+            state: "TX",
+            number: "33",
+            position: "Defense",
+            class: "Sophomore",
+            heightFeet: "6",
+            heightInches: "0",
+            weight: "190",
+            team: teamId
+        }
+    
+    ]
 
     const defaultPlayer: player = {
         playerId: "",
@@ -38,7 +87,7 @@
     }
 
     // Combined handler for form submission to add or edit a player
-    function handlePlayerForm(event: Event) {
+    async function handlePlayerForm(event: Event) {
         event.preventDefault();
 
         let formdata = new FormData(event.target as HTMLFormElement);
@@ -84,6 +133,8 @@
             return;
         }
 
+        let newPlayer: player;
+
         if (editingPlayer.playerId != "") {
             editingPlayer.firstName = firstName;
             editingPlayer.lastName = lastName;
@@ -102,9 +153,10 @@
                 players[index] = { ...editingPlayer };
             }
 
-            closeEditModal();
+            newPlayer = editingPlayer;
+
         } else {
-            const newPlayer: player = {
+            newPlayer = {
                 playerId: `${firstName}-${lastName}-${currentTeam.players.length}`,
                 firstName,
                 lastName,
@@ -119,14 +171,46 @@
                 team: teamId
             };
 
-            addPlayer(currentTeam, newPlayer);
-
-            closeEditModal();
+            addPlayer(currentTeam, newPlayer); 
         }
+
+        try {
+          const response = await fetch('/api/teams', {
+              method: 'POST',
+              headers: {
+                  'Content-Type': 'application/json'
+              },
+              body: JSON.stringify(newPlayer)
+          });
+
+          if (!response.ok) {
+              throw new Error('Failed to save team data');
+          }
+        } catch (error) {
+            console.error('Error:', error);
+         }
+        
+        closeEditModal();
     }
 
     function handleDeletePlayer(player: player) {
         deletePlayer(currentTeam, player);
+
+        fetch('/api/deletePlayer', {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(player)
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Failed to delete player');
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
     }
 </script>
 
@@ -143,14 +227,16 @@
     <button on:click={() => openEditModal(defaultPlayer)} type="button">Add Player</button>
     <div>
     {#each currentTeam.players as player}
+        <div class="game">
         <a href="/rosters/teamID/{player.playerId}">
-            <div class="game">
             <h3>{player.firstName}</h3>
             <p>{player.position}</p>
-            </div>
         </a>
-        <button on:click={() => handleDeletePlayer(player)} type="button">Delete</button>
+        <div class = "button-container">
         <button on:click={() => openEditModal(player)} type="button">Edit</button>
+        <button on:click={() => handleDeletePlayer(player)} type="button">Delete</button>
+        </div>
+        </div>
     {/each}
     </div>
     
