@@ -17,6 +17,7 @@
   import Quarters from "$lib/components/scoresheet/Bar/Quarters.svelte";
   import Submit from "$lib/components/scoresheet/Bar/Submit.svelte";
   import ImportTeam from "$lib/components/scoresheet/Bar/ImportTeam.svelte";
+  import HomeButton from "$lib/components/scoresheet/Bar/HomeButton.svelte";
 
   let leftSheet: HTMLElement;
   let rightSheet: HTMLElement;
@@ -35,6 +36,7 @@
 
 <div class="main">
   <div class="wideRow">
+    <HomeButton></HomeButton>
     <Settings></Settings>
     <MetaStats></MetaStats>
     <Quarters></Quarters>

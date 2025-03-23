@@ -1,21 +1,21 @@
-import sql from '$lib/database/postgres.server';
+import sql from "$lib/database/postgres.server";
 // import { PGUSER, PGPASSWORD, PGHOST, PGPORT, PGDATABASE } from '$env/static/private'
-import type { GameStat } from '$lib/database/GameStats';
+import type { GameStat } from "$lib/database/GameStats";
 
 export async function getGameStats(): Promise<GameStat[]> {
   const players = await sql<GameStat[]>`
       SELECT * FROM gamestats
-    `
+    `;
 
-  return players
+  return players;
 }
 
 export async function getGameStat(sheetid: number): Promise<GameStat> {
   const players = await sql<GameStat[]>`
       SELECT * FROM gamestats WHERE sheetid = ${sheetid}
-    `
+    `;
 
-  return players[0]
+  return players[0];
 }
 
 export async function addGameStat(gamestat: GameStat) {
@@ -32,17 +32,17 @@ export async function addGameStat(gamestat: GameStat) {
   let faceoffloss = gamestat.faceoffloss;
   const result = await sql`
     INSERT INTO gamestats (sheetid, side, quarter, ground, shots, clearpass, clearfail, extrascore, extrafail, faceoffwin, faceoffloss) VALUES (${sheetID}, ${side}, ${quarter}, ${ground}, ${shots}, ${clearpass}, ${clearfail}, ${extrascore}, ${extrafail}, ${faceoffwin}, ${faceoffloss}) RETURNING *
-  `
+  `;
 
-  return result
+  return result;
 }
 
 export async function deleteGameStat(sheetid: number) {
   const result = await sql`
       DELETE FROM gamestats WHERE sheetid = ${sheetid}
-    `
+    `;
 
-  return result
+  return result;
 }
 
 export async function dbGameStatReset() {
@@ -54,9 +54,9 @@ export async function dbGameStatReset() {
             END $$;
     `;
 
-    //Not entirely sure about this for the table
+  //Not entirely sure about this for the table
   await sql`CREATE TABLE gamestats(
-            SHEET_ID INT,
+            SHEET_ID INT UNIQUE,
             SIDE varchar(25),
             QUARTER INT,
             SHOTS INT,
@@ -66,10 +66,11 @@ export async function dbGameStatReset() {
             EXTRA_MAN_FAIL INT,
             FACEOFF_WIN INT,
             FACEOFF_LOSS INT,
-            primary key (SHEET_ID, SIDE));`
+            primary key (SHEET_ID, SIDE));`;
 
-  const res = await sql`INSERT INTO gamestats (name)
-    VALUES ('0', 'None', '0', '0', '0', '0', '0', '0', '0', '0');`
+  const res = await sql`INSERT INTO gamestats 
+            (SHEET_ID, SIDE, QUARTER, SHOTS, CLEARS_PASS, CLEARS_FAIL, EXTRA_MAN_SCORE, EXTRA_MAN_FAIL, FACEOFF_WIN, FACEOFF_LOSS)
+            VALUES (0, 'None', 0, 0, 0, 0, 0, 0, 0, 0);`;
 
   return res;
 }

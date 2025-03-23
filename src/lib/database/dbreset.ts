@@ -12,12 +12,12 @@ import { dbTimeoutReset } from '$lib/database/timeouts'
 export async function dbReset() {
     await dbLoginReset();
     await dbGameStatReset();
+    await dbTeamsReset();
     await dbIndividualScoreReset();
     await dbPenaltyReset();
     await dbSaveReset();
     await dbGameReset();
     await dbSheetReset();
     await dbPlayersReset();
-    await dbTeamsReset();
     await dbTimeoutReset();
 }

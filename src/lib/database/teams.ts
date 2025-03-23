@@ -92,8 +92,8 @@ export async function dbTeamsReset() {
             TEAM_ID varchar(25),
             Primary key (TEAM_NAME));`
 
-  const res = await sql`INSERT INTO teams (TEAM_NAME)
-    VALUES ('None', 'None');`
+  const res = await sql`INSERT INTO teams (TEAM_NAME, TEAM_ID)
+    VALUES ('UAH', 'None');`
 
   return res;
 }
@@ -118,10 +118,10 @@ export async function dbPlayersReset() {
             FAILED_SHOTS INT,
             GROUND_BALLS INT,
             primary key(PLAYER_NAME, PLAYER_NUMBER),
-            foreign key(TEAM_NAME) references Team_Name ON DELETE CASCADE ON UPDATE CASCADE);`
+            foreign key(TEAM_NAME) references teams(TEAM_NAME) ON DELETE CASCADE ON UPDATE CASCADE);`
 
   const res = await sql`INSERT INTO players (PLAYER_NAME, PLAYER_NUMBER, TEAM_NAME, POSITION, QUARTERS, ATTEMPTED_SHOTS, GOALS, FAILED_SHOTS, GROUND_BALLS)
-    VALUES ('Dudebro', '0', 'UAH', 'GOALIE', '0', '0', '0', '0', '0', '0');`
+    VALUES ('Dudebro', '0', 'UAH', 'GOALIE', '0', '0', '0', '0', '0');`
 
   return res;
 }

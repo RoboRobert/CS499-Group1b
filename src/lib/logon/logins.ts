@@ -48,11 +48,11 @@ export async function dbLoginReset() {
 
     //Not entirely sure about this for the table
   await sql`CREATE TABLE logins (
-            USER varchar(25),
-            PASS varchar(25),
-            primary key (USER, PASS));`
+            username varchar(25),
+            password varchar(25),
+            primary key (username, password));`
 
-  const res = await sql`INSERT INTO logins (USER, PASS)
+  const res = await sql`INSERT INTO logins (username, password)
     VALUES ('Dudebro', 'Dudebro');`
 
   return res;

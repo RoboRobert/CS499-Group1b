@@ -64,9 +64,9 @@ export async function dbSaveReset() {
             QUARTER_4 INT,
             OT INT,
             TOTAL INT,
-            foreign key (SHEET_ID) references Sheet_ID(SHEET_ID) ON DELETE CASCADE ON UPDATE CASCADE);`
+            foreign key (SHEET_ID) references gamestats(SHEET_ID) ON DELETE CASCADE ON UPDATE CASCADE);`
 
-  const res = await sql`INSERT INTO players (SHEET_ID, SIDE, PLAYER_NAME, PLAYER_NUMBER, QUARTER_1, QUARTER_2, QUARTER_3, QUARTER_4, OT, TOTAL)
+  const res = await sql`INSERT INTO saves (SHEET_ID, SIDE, PLAYER_NAME, PLAYER_NUMBER, QUARTER_1, QUARTER_2, QUARTER_3, QUARTER_4, OT, TOTAL)
     VALUES ('0', 'None', 'Dudebro', '0', '0', '0', '0', '0', '0', '0');`
 
   return res;
