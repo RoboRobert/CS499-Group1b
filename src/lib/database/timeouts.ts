@@ -1,22 +1,6 @@
-import postgres from 'postgres'
+import sql from '$lib/database/postgres.server';
 // import { PGUSER, PGPASSWORD, PGHOST, PGPORT, PGDATABASE } from '$env/static/private'
-import type { Timeout } from '$lib/Timeout';
-
-// const sql = postgres({
-//   user: PGUSER,
-//   password: PGPASSWORD,
-//   host: PGHOST,
-//   port: parseInt(PGPORT),
-//   database: PGDATABASE,
-// });
-
-const sql = postgres({
-  user: "postgres",
-  password: "test",
-  host: "localhost",
-  port: 5432,
-  database: "template1",
-});
+import type { Timeout } from '$lib/database/Timeout';
 
 export async function getTimeouts(): Promise<Timeout[]> {
   const players = await sql<Timeout[]>`
@@ -56,25 +40,26 @@ export async function deleteTimeout(sheetid: number) {
   return result
 }
 
-export async function dbReset() {
+export async function dbTimeoutReset() {
   await sql`DO $$ 
-      DECLARE
-        r RECORD;
-      BEGIN
-        FOR r IN (SELECT tablename FROM pg_tables WHERE schemaname = 'public') LOOP
-          EXECUTE 'DROP TABLE IF EXISTS public.' || r.tablename || ' CASCADE';
-        END LOOP;
-      END $$;
+            DECLARE
+              table_name text := 'timeouts';
+            BEGIN
+              EXECUTE 'DROP TABLE IF EXISTS public.' || table_name || ' CASCADE';
+            END $$;
     `;
 
-    //Not entirely sure about this for the table
   await sql`CREATE TABLE timeouts (
-      sheetid SERIAL PRIMARY KEY
-    );`
+            SHEET_ID INT,
+            SIDE varchar(25),
+            HALF_1_TIME INT,
+            HALF_2_TIME INT,
+            OT_1_TIME INT,
+            OT_2_TIME INT,
+            foreign key (SHEET_ID) references Game_Stats(SHEET_ID) ON DELETE CASCADE ON UPDATE CASCADE);`
 
-  const res = await sql`INSERT INTO timeouts (name)
-    VALUES ('Team A'), 
-        ('Team B');`
+  const res = await sql`INSERT INTO timeouts (SHEET_ID, SIDE, HALF_1_TIME, HALF_2_TIME, OT_1_TIME, OT_2_TIME)
+    VALUES ('0', 'None', '0', '0', '0', '0');;`
 
   return res;
 }

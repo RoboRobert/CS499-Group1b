@@ -1,22 +1,6 @@
-import postgres from 'postgres'
+import sql from '$lib/database/postgres.server';
 // import { PGUSER, PGPASSWORD, PGHOST, PGPORT, PGDATABASE } from '$env/static/private'
 import type { GameStat } from '$lib/database/GameStats';
-
-// const sql = postgres({
-//   user: PGUSER,
-//   password: PGPASSWORD,
-//   host: PGHOST,
-//   port: parseInt(PGPORT),
-//   database: PGDATABASE,
-// });
-
-const sql = postgres({
-  user: "postgres",
-  password: "test",
-  host: "localhost",
-  port: 5432,
-  database: "template1",
-});
 
 export async function getGameStats(): Promise<GameStat[]> {
   const players = await sql<GameStat[]>`
@@ -61,25 +45,31 @@ export async function deleteGameStat(sheetid: number) {
   return result
 }
 
-export async function dbReset() {
+export async function dbGameStatReset() {
   await sql`DO $$ 
-      DECLARE
-        r RECORD;
-      BEGIN
-        FOR r IN (SELECT tablename FROM pg_tables WHERE schemaname = 'public') LOOP
-          EXECUTE 'DROP TABLE IF EXISTS public.' || r.tablename || ' CASCADE';
-        END LOOP;
-      END $$;
+            DECLARE
+              table_name text := 'gamestats';
+            BEGIN
+              EXECUTE 'DROP TABLE IF EXISTS public.' || table_name || ' CASCADE';
+            END $$;
     `;
 
     //Not entirely sure about this for the table
-  await sql`CREATE TABLE gamestats (
-      sheetid SERIAL PRIMARY KEY
-    );`
+  await sql`CREATE TABLE gamestats(
+            SHEET_ID INT,
+            SIDE varchar(25),
+            QUARTER INT,
+            SHOTS INT,
+            CLEARS_PASS INT,
+            CLEARS_FAIL INT,
+            EXTRA_MAN_SCORE INT,
+            EXTRA_MAN_FAIL INT,
+            FACEOFF_WIN INT,
+            FACEOFF_LOSS INT,
+            primary key (SHEET_ID, SIDE));`
 
-  const res = await sql`INSERT INTO teams (name)
-    VALUES ('Team A'), 
-        ('Team B');`
+  const res = await sql`INSERT INTO gamestats (name)
+    VALUES ('0', 'None', '0', '0', '0', '0', '0', '0', '0', '0');`
 
   return res;
 }
