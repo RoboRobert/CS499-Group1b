@@ -211,7 +211,7 @@
 {#if showEditModal}
 <div class="modal-backdrop">
   <div class="modal-content">
-    <h2>Edit Team</h2>
+    <h2>Add Team</h2>
     <!-- Bind input values and handle form submission -->
     <form on:submit|preventDefault={(event) => handleTeamForm(event)}>
       <div class="form-group">
