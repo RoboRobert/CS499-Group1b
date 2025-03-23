@@ -198,8 +198,10 @@
               <p>{team.state}</p>
               <p>Coach: {team.coach}</p>
               </a>
+          <div class = "button-container">
             <button on:click={() => openEditModal(team)} type="button">Edit</button>
             <button on:click={() => handleDeleteTeam(team)} type="button">Delete</button>
+          </div>
           </div>
       {/each}
     </div>
@@ -248,3 +250,4 @@
   </div>
 </div>
 {/if}
+

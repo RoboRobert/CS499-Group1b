@@ -7,7 +7,12 @@
     let currentGame: game = data.loadedGame;
     let gameScoresheets: scoresheet[] = data.loadedScoresheets;
 
-   
+    if (gameScoresheets.length === 0) {
+        gameScoresheets = [
+            { gameId: currentGame.gameId, sheetId: 'Dummy Score 1' },
+            { gameId: currentGame.gameId, sheetId: 'Dummy Score 2' }
+        ];
+    }
 </script>
 
 <title>Team {currentGame.gameId}</title>

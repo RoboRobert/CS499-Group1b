@@ -1,11 +1,21 @@
 import type { PageServerLoad } from './$types';
-import type {game} from './pastgames.svelte'
+import type { game } from './pastgames.svelte';
+import { error } from "@sveltejs/kit";
 
 export const load: PageServerLoad = async ({ fetch }) => {
-    const response = await fetch(`/api/games`);
-    const games:game = await response.json();
-
-    return {
-        games
-    };
-}
+    try {
+        const response = await fetch(`/api/games`);
+        if (!response.ok) {
+            throw error(response.status, 'Failed to fetch games');
+        }
+        const games: game[] = await response.json();
+        return {
+            games
+        };
+    } catch (err) {
+        console.error('Failed to fetch games:', err);
+        return {
+            games: [] // Return an empty array or a default value
+        };
+    }
+};

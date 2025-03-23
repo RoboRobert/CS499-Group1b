@@ -7,6 +7,52 @@
     let currentTeam: team = data.loadTeam;
     let teamId = currentTeam.teamId;
 
+    currentTeam.players =[
+        {
+            playerId: "1",
+            firstName: "John",
+            lastName: "Doe",
+            hometown: "Springfield",
+            state: "IL",
+            number: "10",
+            position: "Attack",
+            class: "Senior",
+            heightFeet: "6",
+            heightInches: "2",
+            weight: "180",
+            team: teamId
+        },
+        {
+            playerId: "2",
+            firstName: "Jane",
+            lastName: "Smith",
+            hometown: "Riverside",
+            state: "CA",
+            number: "22",
+            position: "Midfield",
+            class: "Junior",
+            heightFeet: "5",
+            heightInches: "8",
+            weight: "150",
+            team: teamId
+        },
+        {
+            playerId: "3",
+            firstName: "Mike",
+            lastName: "Johnson",
+            hometown: "Dallas",
+            state: "TX",
+            number: "33",
+            position: "Defense",
+            class: "Sophomore",
+            heightFeet: "6",
+            heightInches: "0",
+            weight: "190",
+            team: teamId
+        }
+    
+    ]
+
     const defaultPlayer: player = {
         playerId: "",
         firstName: "",
@@ -181,14 +227,16 @@
     <button on:click={() => openEditModal(defaultPlayer)} type="button">Add Player</button>
     <div>
     {#each currentTeam.players as player}
+        <div class="game">
         <a href="/rosters/teamID/{player.playerId}">
-            <div class="game">
             <h3>{player.firstName}</h3>
             <p>{player.position}</p>
-            </div>
         </a>
-        <button on:click={() => handleDeletePlayer(player)} type="button">Delete</button>
+        <div class = "button-container">
         <button on:click={() => openEditModal(player)} type="button">Edit</button>
+        <button on:click={() => handleDeletePlayer(player)} type="button">Delete</button>
+        </div>
+        </div>
     {/each}
     </div>
     
