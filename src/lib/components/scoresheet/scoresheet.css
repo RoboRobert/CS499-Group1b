@@ -24,8 +24,9 @@
   /* border-bottom: 3px dotted red; */
   /* border-bottom: 3px solid red inset; */
 
-  outline: 2px solid red;
-  outline-offset: -2px;
+  outline: 3px solid red;
+  outline-offset: -3px;
+  /* background-color: tomato; */
 }
 
 .rowBox {
@@ -93,8 +94,10 @@
   border-radius: 8px;
   padding: 20px;
   width: 400px;
-  max-height: 80vh; /* Set a maximum height */
-  overflow-y: auto; /* Enable vertical scrolling */
+  max-height: 80vh;
+  /* Set a maximum height */
+  overflow-y: auto;
+  /* Enable vertical scrolling */
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
 }
 
@@ -147,10 +150,10 @@
 
 .timeInput {
   min-width: 0;
-  min-height:0;
+  min-height: 0;
   outline: none;
-  border:none;
-  margin:none;
+  border: none;
+  margin: none;
 }
 
 .normal {
@@ -162,11 +165,11 @@
 }
 
 .wide {
-  flex:2;
+  flex: 2;
 }
 
 .xl {
-  flex:3;
+  flex: 3;
 }
 
 .border {
