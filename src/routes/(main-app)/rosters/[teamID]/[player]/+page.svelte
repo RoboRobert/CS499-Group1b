@@ -30,7 +30,7 @@
 <title>Player</title>
 
 <div>
-    <a href="..">Back</a>
+    <a href="/rosters/{player.team_name}">Back</a>
     <section class= "player-dash">
         <h1>{player.player_name}</h1>
         <!-- <h4>Class: {playerClass}</h4>
