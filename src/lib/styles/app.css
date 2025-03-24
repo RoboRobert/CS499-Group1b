@@ -45,18 +45,16 @@
         border-radius: 5px;
         box-shadow: 0px 0px 5px rgba(0,0,0,0.1);
         display: flex; 
-        justify-content: space-between;
+        
     } 
-   
+   .team-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+   }
   
-    .button-container {
-        display: flex;
-        gap: 10px;
-    }
-  
-    .button-container button {
-        margin-left: auto;
-    }
 
     .home-dash {
         color: black;
