@@ -19,25 +19,41 @@ export async function getPlayers(): Promise<Player[]> {
   return players
 }
 
-export async function getTeam(name: string): Promise<Team> {
+export async function getTeam(id: string): Promise<Team> {
   const players = await sql<Team[]>`
-      SELECT * FROM teams WHERE name = ${name}
+      SELECT * FROM teams WHERE team_id = ${id}
     `
 
   return players[0]
 }
 
-export async function getPlayer(name: string): Promise<Player> {
+export async function getPlayer(id: string): Promise<Player> {
   const players = await sql<Player[]>`
-      SELECT * FROM players WHERE name = ${name}
+      SELECT * FROM players WHERE name = ${id}
+    `
+
+  return players[0]
+}
+
+export async function getPlayerByName(name: string): Promise<Player> {
+  const players = await sql<Player[]>`
+      SELECT * FROM players WHERE player_name = ${name}
+    `
+
+  return players[0]
+}
+
+export async function getPlayerFromTeam(teamID: string): Promise<Player> {
+  const players = await sql<Player[]>`
+      SELECT * FROM players WHERE team_name = ${teamID}
     `
 
   return players[0]
 }
 
 export async function addTeam(teams: Team) {
-  let name = teams.name;
-  let id = teams.id;
+  let name = teams.team_name;
+  let id = teams.team_id;
   const result = await sql`
     INSERT INTO teams (name) (id) VALUES (${name}) (${id}) RETURNING *
   `
@@ -46,9 +62,9 @@ export async function addTeam(teams: Team) {
 }
 
 export async function addPlayer(players: Player) {
-  let team = players.team;
-  let name = players.name;
-  let number = players.number;
+  let team = players.team_name;
+  let name = players.player_name;
+  let number = players.player_number;
   let position = players.position;
   let quarter = players.quarter;
   let shots = players.shots;
@@ -90,10 +106,13 @@ export async function dbTeamsReset() {
   await sql`CREATE TABLE teams(
             TEAM_NAME varchar(25),
             TEAM_ID varchar(25),
+            HOMETOWN varchar(25),
+            STATE varchar(25),
+            COACH varchar(25),
             Primary key (TEAM_NAME));`
 
-  const res = await sql`INSERT INTO teams (TEAM_NAME, TEAM_ID)
-    VALUES ('UAH', 'None');`
+  const res = await sql`INSERT INTO teams (TEAM_NAME, TEAM_ID, HOMETOWN, STATE, COACH)
+    VALUES ('UAH', '1', 'Huntsville', 'AL', 'Mark Frey');`
 
   return res;
 }

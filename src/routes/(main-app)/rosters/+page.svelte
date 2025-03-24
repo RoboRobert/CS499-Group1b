@@ -4,6 +4,8 @@
 
 	let { data }: PageProps = $props();
 
+  let teams = data.teams;
+
   // import {
   //     type team,
   //     teams,
@@ -46,19 +48,18 @@
   // addTeam(team1);
   // addTeam(team2);
   
-  // const defaultTeam: team = {
-  //         teamId: "",
-  //         name: "",
-  //         hometown: "",
-  //         state: "",
-  //         coach: "",
-  //         players: []
-  //     };
+  const defaultTeam: Team = {
+          team_id: "",
+          team_name: "",
+          hometown: "",
+          state: "",
+          coach: "",
+      };
 
-  let editingTeam: team;
+  let editingTeam: Team;
   let showEditModal = false;
 
-  const openEditModal = (team: team) => {
+  const openEditModal = (team: Team) => {
       editingTeam = team;
       showEditModal = true;
   };
@@ -94,7 +95,7 @@
       if (!coach) formErrors.coach = 'Coach name is required';
 
       // Check for duplicate team name
-      if (teams.some(team => team.name === name && (team !== editingTeam))) {
+      if (teams.some(team => team.team_name === name && (team !== editingTeam))) {
           formErrors.name = 'A team with this name already exists';
       }
 
@@ -103,11 +104,11 @@
           return;
       }
 
-      let newTeam: team;
+      let newTeam: Team;
 
-      if (editingTeam.teamId != "") {
+      if (editingTeam.team_id != "") {
           // Update the team object
-          editingTeam.name = name;
+          editingTeam.team_name = name;
           editingTeam.hometown = hometown;
           editingTeam.state = state;
           editingTeam.coach = coach;
@@ -122,16 +123,15 @@
       } else {
           // Create a new team object; note that players is empty initially.
           newTeam = {
-              teamId: `${name}-${hometown}-${state}-${coach}`,
-              name,
+              team_id: `${name}-${hometown}-${state}-${coach}`,
+              team_name: name,
               hometown,
               state,
               coach,
-              players: []
           };
 
           // Add the new team to the teams state
-          addTeam(newTeam);
+          // addTeam(newTeam);
       }
 
       // Send the team data to the backend API
@@ -155,10 +155,7 @@
       closeEditModal();
   }
 
-  function handleDeleteTeam(team: team) {
-      // Remove the team from the teams state
-      deleteTeam(team);
-
+  function handleDeleteTeam(team: Team) {
       // Send a DELETE request to the backend API
       fetch(`/api/deleteTeam`, {
           method: 'DELETE'
@@ -197,8 +194,8 @@
       {#each teams as team}
         <!-- Using team.name in the href and display -->
           <div class="game">
-              <a href="/rosters/{team.teamId}">
-              <h3>{team.name}</h3>
+              <a href="/rosters/{team.team_id}">
+              <h3>{team.team_name}</h3>
               <p>{team.hometown}</p>
               <p>{team.state}</p>
               <p>Coach: {team.coach}</p>
@@ -221,7 +218,7 @@
     <form on:submit|preventDefault={(event) => handleTeamForm(event)}>
       <div class="form-group">
         <label for="team-name">Team Name:</label>
-        <input type="text" name="team-name" value={editingTeam.name}>
+        <input type="text" name="team-name" value={editingTeam.team_name}>
         {#if formErrors.name}
           <p class="error">{formErrors.name}</p>
         {/if}

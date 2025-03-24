@@ -1,7 +1,6 @@
 import { sql } from './postgres.server';
 // import { PGUSER, PGPASSWORD, PGHOST, PGPORT, PGDATABASE } from '$env/static/private'
 import type { Penalty } from '$lib/database/Penalty';
-import type postgres from 'postgres';
 
 export async function getPenalties(): Promise<Penalty[]> {
   const penalties = await sql<Penalty[]>`
@@ -42,7 +41,7 @@ export async function deletePenalty(name: string) {
   return result
 }
 
-export async function dbPenaltyReset(sql: postgres.Sql<{}>) {
+export async function dbPenaltyReset() {
   await sql`DO $$ 
             DECLARE
               table_name text := 'penalties';

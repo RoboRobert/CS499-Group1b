@@ -1,4 +1,3 @@
-import type { team } from "./rosters.svelte";
 import type { PageServerLoad } from "./$types";
 import type { Team } from "$lib/database/Team";
 
