@@ -1,20 +1,30 @@
 
 <script lang="ts">
-    export let data: { gameId: string };
-    let gameId = data.gameId;  
-    let scoresheets: string[] = ["scoresheet 1","scoresheet 2"]
+    import type {game, scoresheet} from "../pastgames.svelte"
+    
+    
+    export let data: { loadedGame:  game; loadedScoresheets: scoresheet[] }  
+    let currentGame: game = data.loadedGame;
+    let gameScoresheets: scoresheet[] = data.loadedScoresheets;
+
+    if (gameScoresheets.length === 0) {
+        gameScoresheets = [
+            { gameId: currentGame.gameId, sheetId: 'Dummy Score 1' },
+            { gameId: currentGame.gameId, sheetId: 'Dummy Score 2' }
+        ];
+    }
 </script>
 
-<title>Team {gameId}</title>
+<title>Team {currentGame.gameId}</title>
 
 <div>
     <a href="./">Back</a>
     <section class= "game-dash">
-        <h1>Game {gameId} Details</h1>
-        <p>This is the detailed page for game {gameId}.</p>
+        <h1>Game {currentGame.gameId} Details</h1>
+        <p>This is the detailed page for game {currentGame.gameId}.</p>
     </section>
     <section class="list-section-1">
-        {#each scoresheets as scoresheet }
+        {#each gameScoresheets as scoresheet }
         <a href=" ">
             <div class = "game">
                 <h3>{scoresheet}</h3>

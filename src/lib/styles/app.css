@@ -44,7 +44,17 @@
         margin-bottom: 10px;
         border-radius: 5px;
         box-shadow: 0px 0px 5px rgba(0,0,0,0.1);
-    }
+        display: flex; 
+        
+    } 
+   .team-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+   }
+  
 
     .home-dash {
         color: black;

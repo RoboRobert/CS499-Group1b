@@ -1,5 +1,5 @@
 <script lang="ts">
-    let games: number[] = [1, 2, 3]
+    let games: string[] = ["Game 3", "Game 2", "Game 1"]
 
 </script>
 

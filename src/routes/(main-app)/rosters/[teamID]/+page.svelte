@@ -1,8 +1,57 @@
 <script lang="ts">
     import { deletePlayer, addPlayer, type player, type team, teams, players } from '../rosters.svelte';
-    export let data: { teamId: string };
-    let teamId = data.teamId;
-    let currentTeam: team = teams.find(team => team.teamId === teamId);
+    
+    // Idea is it will get the team that has been loaded and put it into the currentTeam variable
+    // May not work since the table is not the same as the interface in the frontend
+    export let data: { loadTeam: team };
+    let currentTeam: team = data.loadTeam;
+    let teamId = currentTeam.teamId;
+
+    currentTeam.players =[
+        {
+            playerId: "1",
+            firstName: "John",
+            lastName: "Doe",
+            hometown: "Springfield",
+            state: "IL",
+            number: "10",
+            position: "Attack",
+            class: "Senior",
+            heightFeet: "6",
+            heightInches: "2",
+            weight: "180",
+            team: teamId
+        },
+        {
+            playerId: "2",
+            firstName: "Jane",
+            lastName: "Smith",
+            hometown: "Riverside",
+            state: "CA",
+            number: "22",
+            position: "Midfield",
+            class: "Junior",
+            heightFeet: "5",
+            heightInches: "8",
+            weight: "150",
+            team: teamId
+        },
+        {
+            playerId: "3",
+            firstName: "Mike",
+            lastName: "Johnson",
+            hometown: "Dallas",
+            state: "TX",
+            number: "33",
+            position: "Defense",
+            class: "Sophomore",
+            heightFeet: "6",
+            heightInches: "0",
+            weight: "190",
+            team: teamId
+        }
+    
+    ]
 
     const defaultPlayer: player = {
         playerId: "",
@@ -38,7 +87,7 @@
     }
 
     // Combined handler for form submission to add or edit a player
-    function handlePlayerForm(event: Event) {
+    async function handlePlayerForm(event: Event) {
         event.preventDefault();
 
         let formdata = new FormData(event.target as HTMLFormElement);
@@ -84,6 +133,8 @@
             return;
         }
 
+        let newPlayer: player;
+
         if (editingPlayer.playerId != "") {
             editingPlayer.firstName = firstName;
             editingPlayer.lastName = lastName;
@@ -102,9 +153,10 @@
                 players[index] = { ...editingPlayer };
             }
 
-            closeEditModal();
+            newPlayer = editingPlayer;
+
         } else {
-            const newPlayer: player = {
+            newPlayer = {
                 playerId: `${firstName}-${lastName}-${currentTeam.players.length}`,
                 firstName,
                 lastName,
@@ -119,14 +171,46 @@
                 team: teamId
             };
 
-            addPlayer(currentTeam, newPlayer);
-
-            closeEditModal();
+            addPlayer(currentTeam, newPlayer); 
         }
+
+        try {
+          const response = await fetch('/api/teams', {
+              method: 'POST',
+              headers: {
+                  'Content-Type': 'application/json'
+              },
+              body: JSON.stringify(newPlayer)
+          });
+
+          if (!response.ok) {
+              throw new Error('Failed to save team data');
+          }
+        } catch (error) {
+            console.error('Error:', error);
+         }
+        
+        closeEditModal();
     }
 
     function handleDeletePlayer(player: player) {
         deletePlayer(currentTeam, player);
+
+        fetch('/api/deletePlayer', {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(player)
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Failed to delete player');
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
     }
 </script>
 
@@ -139,18 +223,24 @@
     <h3>{currentTeam.coach}</h3>
 </section>
 <section class="list-section-1">
-    <h2>Players</h2>
+    <div class= "buttons">
     <button on:click={() => openEditModal(defaultPlayer)} type="button">Add Player</button>
+    </div>
+    <div>
+    <h2>Players</h2>
+    </div>
     <div>
     {#each currentTeam.players as player}
+        <div class="game">
         <a href="/rosters/teamID/{player.playerId}">
-            <div class="game">
             <h3>{player.firstName}</h3>
             <p>{player.position}</p>
-            </div>
         </a>
-        <button on:click={() => handleDeletePlayer(player)} type="button">Delete</button>
+        <div class = "buttons">
         <button on:click={() => openEditModal(player)} type="button">Edit</button>
+        <button on:click={() => handleDeletePlayer(player)} type="button">Delete</button>
+        </div>
+        </div>
     {/each}
     </div>
     
@@ -187,7 +277,59 @@
         </div>
         <div class="form-group">
         <label for="player-state">State:</label>
-        <input type="text" name="player-state" value={editingPlayer.state} >
+        <select name="state" value={editingPlayer.state}>
+            <option value="">Select a state</option>
+            <option value="AL">AL</option>
+            <option value="AK">AK</option>
+            <option value="AZ">AZ</option>
+            <option value="AR">AR</option>
+            <option value="CA">CA</option>
+            <option value="CO">CO</option>
+            <option value="CT">CT</option>
+            <option value="DE">DE</option>
+            <option value="FL">FL</option>
+            <option value="GA">GA</option>
+            <option value="HI">HI</option>
+            <option value="ID">ID</option>
+            <option value="IL">IL</option>
+            <option value="IN">IN</option>
+            <option value="IA">IA</option>
+            <option value="KS">KS</option>
+            <option value="KY">KY</option>
+            <option value="LA">LA</option>
+            <option value="ME">ME</option>
+            <option value="MD">MD</option>
+            <option value="MA">MA</option>
+            <option value="MI">MI</option>
+            <option value="MN">MN</option>
+            <option value="MS">MS</option>
+            <option value="MO">MO</option>
+            <option value="MT">MT</option>
+            <option value="NE">NE</option>
+            <option value="NV">NV</option>
+            <option value="NH">NH</option>
+            <option value="NJ">NJ</option>
+            <option value="NM">NM</option>
+            <option value="NY">NY</option>
+            <option value="NC">NC</option>
+            <option value="ND">ND</option>
+            <option value="OH">OH</option>
+            <option value="OK">OK</option>
+            <option value="OR">OR</option>
+            <option value="PA">PA</option>
+            <option value="RI">RI</option>
+            <option value="SC">SC</option>
+            <option value="SD">SD</option>
+            <option value="TN">TN</option>
+            <option value="TX">TX</option>
+            <option value="UT">UT</option>
+            <option value="VT">VT</option>
+            <option value="VA">VA</option>
+            <option value="WA">WA</option>
+            <option value="WV">WV</option>
+            <option value="WI">WI</option>
+            <option value="WY">WY</option>
+          </select>
         {#if errors.state}
             <p class="error">{errors.state}</p>
         {/if}
@@ -202,6 +344,7 @@
         <div class="form-group">
         <label for="player-position">Position:</label>
         <select name="player-position" value={editingPlayer.position} >
+            <option value="">Select a position</option>
             <option value="Attack">Attack</option>
             <option value="Midfield">Midfield</option>
             <option value="Defense">Defense</option>
@@ -216,6 +359,7 @@
         <div class="form-group">
         <label for="player-class">Class:</label>
         <select name="player-class" value={editingPlayer.class} >
+            <option value="">Select a class</option>
             <option value="Freshman">Freshman</option>
             <option value="Sophomore">Sophomore</option>
             <option value="Junior">Junior</option>
