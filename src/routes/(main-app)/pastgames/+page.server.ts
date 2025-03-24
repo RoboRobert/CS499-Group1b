@@ -1,5 +1,5 @@
+import type { Game } from '$lib/database/Sheet';
 import type { PageServerLoad } from './$types';
-import type { game } from './pastgames.svelte';
 import { error } from "@sveltejs/kit";
 
 export const load: PageServerLoad = async ({ fetch }) => {
@@ -8,7 +8,7 @@ export const load: PageServerLoad = async ({ fetch }) => {
         if (!response.ok) {
             throw error(response.status, 'Failed to fetch games');
         }
-        const games: game[] = await response.json();
+        const games: Game[] = await response.json();
         return {
             games
         };

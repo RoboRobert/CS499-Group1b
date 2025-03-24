@@ -1,24 +1,7 @@
 <script lang="ts">
-    import {games, type game, addGame} from "./pastgames.svelte"
-    let data = {
-        loadedGames: games
-    }
-    let game1: game = {gameId: "1"};
-    let game2: game = {gameId: "2"};
-    
-    addGame(game1);
-    addGame(game2);
-    
-    console.log(data.loadedGames);
-    if (Array.isArray(data.loadedGames)) {
-        for (const game of data.loadedGames) {
-            games.push(game);
-        }
-    } else {
-        console.error('loadedGames is not an array:', data.loadedGames);
-    }
-    
+    import type { PageProps } from './$types';
 
+	let { data }: PageProps = $props();
 </script>
 
 <title>Past Games</title>
@@ -35,10 +18,10 @@
             <h1>Past Games</h1>
         </div>
         <div>
-            {#each games as game }
-            <a href="/pastgames/{game.gameId}">
+            {#each data.games as game }
+            <a href="/pastgames/{game.gameid}">
                 <div class = "game">
-                    <h3>{game.gameId}</h3>
+                    <h3>{game.gameid}</h3>
                 </div>
             </a>
             {/each}

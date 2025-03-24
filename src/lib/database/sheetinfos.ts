@@ -66,7 +66,7 @@ export async function dbSheetInfoReset() {
             FIELD_JUDGE varchar(25),
             foreign key (SHEET_ID) references Sheet_ID(SHEET_ID) ON DELETE CASCADE ON UPDATE CASCADE);`
 
-  const res = await sql`INSERT INTO players (SHEET_ID, DATE, SITE, START_TIME, SCOREKEEPER, OPPONENT_SCORE, TIMEKEEPER, HEAD_OFFICIAL, UMPIRE, FIELD_JUDGE)
+  const res = await sql`INSERT INTO shetinfos (SHEET_ID, DATE, SITE, START_TIME, SCOREKEEPER, OPPONENT_SCORE, TIMEKEEPER, HEAD_OFFICIAL, UMPIRE, FIELD_JUDGE)
     VALUES ('0', '0', 'None', '0', 'Dudebro', '0', 'Dudebro', 'Dudebro', 'Dudebro', 'Dudebro');`
 
   return res;

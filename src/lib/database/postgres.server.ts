@@ -1,12 +1,20 @@
 import postgres from 'postgres'
 import { env } from '$env/dynamic/private'
 
-const sql = postgres({
+export const sql = postgres({
   user: env.DBUSER,
   password: env.PGPASSWORD,
   host: env.PGHOST,
   port: parseInt(env.PGPORT),
   database: env.PGDATABASE,
+});
+
+export const testSQL = postgres({
+  user: env.DBUSER,
+  password: env.PGPASSWORD,
+  host: env.PGHOST,
+  port: parseInt(env.PGPORT),
+  database: env.PGTESTDATABASE,
 });
 
 // const sql = postgres({
@@ -17,4 +25,4 @@ const sql = postgres({
 //   database: "template1",
 // });
 
-export default sql
+export default sql;

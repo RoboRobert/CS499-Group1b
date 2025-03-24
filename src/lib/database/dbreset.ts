@@ -8,13 +8,14 @@ import { dbSheetReset } from '$lib/database/sheets'
 import { dbPlayersReset } from '$lib/database/teams'
 import { dbTeamsReset } from '$lib/database/teams'
 import { dbTimeoutReset } from '$lib/database/timeouts'
+import { sql, testSQL } from './postgres.server'
 
 export async function dbReset() {
     await dbLoginReset();
     await dbGameStatReset();
     await dbTeamsReset();
     await dbIndividualScoreReset();
-    await dbPenaltyReset();
+    await dbPenaltyReset(sql);
     await dbSaveReset();
     await dbGameReset();
     await dbSheetReset();

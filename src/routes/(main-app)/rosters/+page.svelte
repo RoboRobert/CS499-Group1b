@@ -1,54 +1,59 @@
 <script lang="ts">
-  import {
-      type team,
-      teams,
-      addTeam,
-      deleteTeam,
-  } from './rosters.svelte';
+  import type { Team } from "$lib/database/Team";
+  import type { PageProps } from './$types';
+
+	let { data }: PageProps = $props();
+
+  // import {
+  //     type team,
+  //     teams,
+  //     addTeam,
+  //     deleteTeam,
+  // } from './rosters.svelte';
 
   // Idea is that it will load in the teams that have been loaded the push those into the front end teams state rune to be used
   // to display the teams to the page
   // This probably wont work as indended because the table is not the same as the interface in the frontend
-  export let data: { loadedTeams: team[] };
-  console.log(data.loadedTeams);
-  if (Array.isArray(data.loadedTeams)) {
-      for (const team of data.loadedTeams) {
-          addTeam(team);
-      }
-  } else {
-      console.error('loadedTeams is not an array:', data.loadedTeams);
-  }
+  // export let data: { loadedTeams: Team[] };
+  // console.log(data.loadedTeams);
+  // if (Array.isArray(data.loadedTeams)) {
+  //     for (const team of data.loadedTeams) {
+  //         addTeam(team);
+  //     }
+  // } else {
+  //     console.error('loadedTeams is not an array:', data.loadedTeams);
+  // }
 
-  // DUMMY TEAMS FOR TESTING PURPOSES
-  let team1: team = {
-      teamId: "1",
-      name: "Team 1",
-      hometown: "Hometown 1",
-      state: "State 1",
-      coach: "Coach 1",
-      players: []
-  };
+  // // DUMMY TEAMS FOR TESTING PURPOSES
+  // let team1: team = {
+  //     teamId: "1",
+  //     name: "Team 1",
+  //     hometown: "Hometown 1",
+  //     state: "State 1",
+  //     coach: "Coach 1",
+  //     players: []
+  // };
 
-  let team2: team = {
-      teamId: "2",
-      name: "Team 2",
-      hometown: "Hometown 2",
-      state: "State 2",
-      coach: "Coach 2",
-      players: []
-  };
+  // let team2: team = {
+  //     teamId: "2",
+  //     name: "Team 2",
+  //     hometown: "Hometown 2",
+  //     state: "State 2",
+  //     coach: "Coach 2",
+  //     players: []
+  // };
 
-  addTeam(team1);
-  addTeam(team2);
+  // addTeam(team1);
+  // addTeam(team2);
   
-  const defaultTeam: team = {
-          teamId: "",
-          name: "",
-          hometown: "",
-          state: "",
-          coach: "",
-          players: []
-      };
+  // const defaultTeam: team = {
+  //         teamId: "",
+  //         name: "",
+  //         hometown: "",
+  //         state: "",
+  //         coach: "",
+  //         players: []
+  //     };
 
   let editingTeam: team;
   let showEditModal = false;
