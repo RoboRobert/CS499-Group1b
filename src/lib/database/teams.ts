@@ -1,53 +1,54 @@
-import sql from '$lib/database/postgres.server';
-import type { Team } from '$lib/database/Team';
-import type { Player } from '$lib/database/Team';
+import sql from "$lib/database/postgres.server";
+import type { Team } from "$lib/database/Team";
+import type { Player } from "$lib/database/Team";
+import { auburnLacrosseRoster, uahLacrosseRoster } from "./teamData";
 
 export async function getTeams(): Promise<Team[]> {
   const players = await sql<Team[]>`
       SELECT * FROM teams
-    `
+    `;
 
-  return players
+  return players;
 }
 
 export async function getPlayers(): Promise<Player[]> {
   const players = await sql<Player[]>`
       SELECT * FROM players
-    `
+    `;
 
-  return players
+  return players;
 }
 
 export async function getTeam(id: string): Promise<Team> {
   const players = await sql<Team[]>`
       SELECT * FROM teams WHERE team_id = ${id}
-    `
+    `;
 
-  return players[0]
+  return players[0];
 }
 
 export async function getPlayer(id: string): Promise<Player> {
   const players = await sql<Player[]>`
       SELECT * FROM players WHERE name = ${id}
-    `
+    `;
 
-  return players[0]
+  return players[0];
 }
 
 export async function getPlayerByName(name: string): Promise<Player> {
   const players = await sql<Player[]>`
       SELECT * FROM players WHERE player_name = ${name}
-    `
+    `;
 
-  return players[0]
+  return players[0];
 }
 
-export async function getPlayerFromTeam(teamID: string): Promise<Player> {
+export async function getPlayersByTeam(team_name: string): Promise<Player[]> {
   const players = await sql<Player[]>`
-      SELECT * FROM players WHERE team_name = ${teamID}
-    `
+      SELECT * FROM players WHERE team_name = ${team_name}
+    `;
 
-  return players[0]
+  return players;
 }
 
 export async function addTeam(team: Team) {
@@ -56,9 +57,9 @@ export async function addTeam(team: Team) {
     (${team.team_name}) (${team.team_id}) (${team.hometown}) (${team.state}) (${team.coach})
     RETURNING *
     
-  `
+  `;
 
-  return result
+  return result;
 }
 
 // Same as addTeam for now
@@ -68,9 +69,9 @@ export async function updateTeam(team: Team) {
     INSERT INTO teams (TEAM_NAME, TEAM_ID, HOMETOWN, STATE, COACH) VALUES 
     (${team.team_name}, ${team.team_id}, ${team.hometown}, ${team.state}, ${team.coach})
     RETURNING *;
-  `
+  `;
 
-  return result
+  return result;
 }
 
 export async function addPlayer(players: Player) {
@@ -85,25 +86,25 @@ export async function addPlayer(players: Player) {
   let ground = players.ground;
   const result = await sql`
     INSERT INTO players (PLAYER_NAME, PLAYER_NUMBER, TEAM_NAME, POSITION, QUARTERS, ATTEMPTED_SHOTS, GOALS, FAILED_SHOTS, GROUND_BALLS) VALUES (${name}, ${number}, ${team}, ${position}, ${quarter}, ${shots}, ${goals}, ${miss}, ${ground}) RETURNING *
-  `
+  `;
 
-  return result
+  return result;
 }
 
 export async function deleteTeam(teamId: string) {
   const result = await sql`
       DELETE FROM teams WHERE TEAM_ID = ${teamId}
-    `
+    `;
 
-  return result
+  return result;
 }
 
 export async function deletePlayer(name: string) {
   const result = await sql`
       DELETE FROM players WHERE PLAYER_NAME = ${name}
-    `
+    `;
 
-  return result
+  return result;
 }
 
 export async function dbTeamsReset() {
@@ -115,16 +116,29 @@ export async function dbTeamsReset() {
             END $$;
     `;
 
-  await sql`CREATE TABLE teams(
-            TEAM_NAME varchar(25),
-            TEAM_ID varchar(25),
-            HOMETOWN varchar(25),
-            STATE varchar(25),
-            COACH varchar(25),
-            Primary key (TEAM_NAME));`
+  const res = await sql`CREATE TABLE teams(
+            TEAM_NAME varchar(100),
+            TEAM_ID varchar(100),
+            HOMETOWN varchar(100),
+            STATE varchar(100),
+            COACH varchar(100),
+            Primary key (TEAM_NAME));`;
 
-  const res = await sql`INSERT INTO teams (TEAM_NAME, TEAM_ID, HOMETOWN, STATE, COACH)
-    VALUES ('UAH', '1', 'Huntsville', 'AL', 'Mark Frey');`
+  updateTeam({
+    team_id: "uah-mlax-001",
+    team_name: "UAH Men's Lacrosse",
+    hometown: "Huntsville",
+    state: "AL",
+    coach: "Mark Frey",
+  });
+
+  updateTeam({
+    team_id: "auburn-mlax-001",
+    team_name: "Auburn University Men's Lacrosse",
+    hometown: "Auburn",
+    state: "AL",
+    coach: "JJ Arminio",
+  });
 
   return res;
 }
@@ -138,21 +152,26 @@ export async function dbPlayersReset() {
             END $$;
     `;
 
-  await sql`CREATE TABLE players (
-            PLAYER_NAME varchar(25),
+  const res = await sql`CREATE TABLE players (
+            PLAYER_NAME varchar(100),
             PLAYER_NUMBER INT NOT NULL,
-            TEAM_NAME varchar(25),
-            POSITION varchar(25),
+            TEAM_NAME varchar(100),
+            POSITION varchar(100),
             QUARTERS INT,
             ATTEMPTED_SHOTS INT,
             GOALS INT,
             FAILED_SHOTS INT,
             GROUND_BALLS INT,
             primary key(PLAYER_NAME, PLAYER_NUMBER),
-            foreign key(TEAM_NAME) references teams(TEAM_NAME) ON DELETE CASCADE ON UPDATE CASCADE);`
+            foreign key(TEAM_NAME) references teams(TEAM_NAME) ON DELETE CASCADE ON UPDATE CASCADE);`;
 
-  const res = await sql`INSERT INTO players (PLAYER_NAME, PLAYER_NUMBER, TEAM_NAME, POSITION, QUARTERS, ATTEMPTED_SHOTS, GOALS, FAILED_SHOTS, GROUND_BALLS)
-    VALUES ('Dudebro', '0', 'UAH', 'GOALIE', '0', '0', '0', '0', '0');`
+  for(const player of auburnLacrosseRoster) {
+    addPlayer(player);
+  }
+
+  for(const player of uahLacrosseRoster) {
+    addPlayer(player);
+  }
 
   return res;
 }

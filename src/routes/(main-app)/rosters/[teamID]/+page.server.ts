@@ -19,7 +19,7 @@ export const load: PageServerLoad = async ({ params, fetch }) => {
         }
 
         // Gets all players from the api
-        const response2 = await fetch(`/api/players`);
+        const response2 = await fetch(`/api/teamPlayers/${team.team_name}`);
         if (!response2.ok) {
             throw new Error('Failed to fetch players');
         }
