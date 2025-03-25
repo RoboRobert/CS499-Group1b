@@ -1,5 +1,6 @@
 <script lang="ts">
-    let games: string[] = ["Game 3", "Game 2", "Game 1"]
+    import type { PageProps } from './$types';
+    let { data }: PageProps = $props();
 
 </script>
 
@@ -16,10 +17,10 @@
     <section class = "list-section-1">
         <h2>Recent Games</h2>
         <div>
-        {#each games as game }
+        {#each data.games as game }
         <a href="/pastgames/{game}">
             <div class = "game">
-                <h3>{game}</h3>
+                <h3>{game.gameid}</h3>
             </div>
         </a>
         {/each}
