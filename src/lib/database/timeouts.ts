@@ -1,5 +1,4 @@
 import sql from '$lib/database/postgres.server';
-// import { PGUSER, PGPASSWORD, PGHOST, PGPORT, PGDATABASE } from '$env/static/private'
 import type { Timeout } from '$lib/database/Timeout';
 
 export async function getTimeouts(): Promise<Timeout[]> {

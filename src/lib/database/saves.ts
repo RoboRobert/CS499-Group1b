@@ -1,5 +1,4 @@
 import sql from '$lib/database/postgres.server';
-// import { PGUSER, PGPASSWORD, PGHOST, PGPORT, PGDATABASE } from '$env/static/private'
 import type { Save } from '$lib/database/Save';
 
 export async function getSaves(): Promise<Save[]> {

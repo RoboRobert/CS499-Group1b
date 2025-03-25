@@ -4,21 +4,11 @@
 </script>
 
 <title>Home Page</title>
-<style>
-    a:link{
-        color:black;
-    }
-    a {
-        text-decoration: none;
-        color:black;
-    }
-    a:hover{
-        color:gold;
-    }
-</style>
 
 <div>
     <section class = "home-dash">
+        <!-- <img class="smegol" src="/LOGO.png" alt="Project Logo"/> -->
+        <img class="smegol" src="/LOGO_NO_LEGS.png" alt="Project Logo"/>
         <h1>SMEGOL</h1>
         <h3>Stats Made Easy, Game Operator's Log</h3>
     </section>
@@ -38,3 +28,20 @@
        
     </section>
 </div>
+
+<style>
+    a:link{
+        color:black;
+    }
+    a {
+        text-decoration: none;
+        color:black;
+    }
+    a:hover{
+        color:gold;
+    }
+
+    .smegol {
+        width:400px;
+    }
+</style>

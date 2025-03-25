@@ -1,5 +1,4 @@
 import { sql } from './postgres.server';
-// import { PGUSER, PGPASSWORD, PGHOST, PGPORT, PGDATABASE } from '$env/static/private'
 import type { Penalty } from '$lib/database/Penalty';
 
 export async function getPenalties(): Promise<Penalty[]> {

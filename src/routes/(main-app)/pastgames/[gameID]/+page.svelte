@@ -1,35 +1,27 @@
-
 <script lang="ts">
-    import type {game, scoresheet} from "../pastgames.svelte"
-    
-    
-    export let data: { loadedGame:  game; loadedScoresheets: scoresheet[] }  
-    let currentGame: game = data.loadedGame;
-    let gameScoresheets: scoresheet[] = data.loadedScoresheets;
+  import type { PageProps } from "./$types";
 
-    if (gameScoresheets.length === 0) {
-        gameScoresheets = [
-            { gameId: currentGame.gameId, sheetId: 'Dummy Score 1' },
-            { gameId: currentGame.gameId, sheetId: 'Dummy Score 2' }
-        ];
-    }
+  let { data }: PageProps = $props();
+
+  let currentGame = data.game;
+  let gameScoresheets = data.scoresheets;
 </script>
 
-<title>Team {currentGame.gameId}</title>
+<title>Team {currentGame.gameid}</title>
 
 <div>
-    <a href="./">Back</a>
-    <section class= "game-dash">
-        <h1>Game {currentGame.gameId} Details</h1>
-        <p>This is the detailed page for game {currentGame.gameId}.</p>
-    </section>
-    <section class="list-section-1">
-        {#each gameScoresheets as scoresheet }
-        <a href=" ">
-            <div class = "game">
-                <h3>{scoresheet}</h3>
-            </div>
-        </a>
-        {/each}
-    </section>
+  <a href="./">Back</a>
+  <section class="game-dash">
+    <h1>Game {currentGame.gameid} Details</h1>
+    <p>This is the detailed page for game {currentGame.gameid}.</p>
+  </section>
+  <section class="list-section-1">
+    {#each gameScoresheets as scoresheet}
+      <a href=" ">
+        <div class="game">
+          <h3>{scoresheet.sheet_id}</h3>
+        </div>
+      </a>
+    {/each}
+  </section>
 </div>

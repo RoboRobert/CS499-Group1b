@@ -20,3 +20,9 @@ export const POST: RequestHandler = async ({request}) => {
 
     return json({message: "Post request"})
 }
+
+export const DELETE: RequestHandler = async (event) => {
+    console.log(event)
+    const players = await getPlayers()
+    return json(players)
+}

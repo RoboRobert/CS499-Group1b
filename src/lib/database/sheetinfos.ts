@@ -1,5 +1,4 @@
 import sql from '$lib/database/postgres.server';
-// import { PGUSER, PGPASSWORD, PGHOST, PGPORT, PGDATABASE } from '$env/static/private'
 import type { SheetInfo } from '$lib/database/SheetInfo';
 
 export async function getSheetInfos(): Promise<SheetInfo[]> {

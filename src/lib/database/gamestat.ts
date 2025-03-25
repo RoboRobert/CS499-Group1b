@@ -1,5 +1,4 @@
 import sql from "$lib/database/postgres.server";
-// import { PGUSER, PGPASSWORD, PGHOST, PGPORT, PGDATABASE } from '$env/static/private'
 import type { GameStat } from "$lib/database/GameStats";
 
 export async function getGameStats(): Promise<GameStat[]> {

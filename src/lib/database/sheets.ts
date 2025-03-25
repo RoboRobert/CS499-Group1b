@@ -1,5 +1,4 @@
 import sql from '$lib/database/postgres.server';
-// import { PGUSER, PGPASSWORD, PGHOST, PGPORT, PGDATABASE } from '$env/static/private'
 import type { Sheet, Game } from '$lib/database/Sheet';
 
 export async function getSheets(): Promise<Sheet[]> {
@@ -20,10 +19,18 @@ export async function getGames(): Promise<Game[]> {
 
 export async function getSheet(sheetid: string): Promise<Sheet> {
   const sheets = await sql<Sheet[]>`
-      SELECT * FROM sheets WHERE sheetid = ${sheetid}
+      SELECT * FROM sheets WHERE sheet_id = ${sheetid}
     `
 
   return sheets[0]
+}
+
+export async function getGameSheets(gameId: string): Promise<Sheet[]> {
+  const sheets = await sql<Sheet[]>`
+      SELECT * FROM sheets WHERE GAMEID = ${gameId}
+    `
+
+  return sheets
 }
 
 export async function getGame(gameid: string): Promise<Game> {
@@ -36,9 +43,9 @@ export async function getGame(gameid: string): Promise<Game> {
 
 export async function addSheet(sheet: Sheet) {
   let gameid = sheet.gameid;
-  let sheetid = sheet.sheetid;
+  let sheetid = sheet.sheet_id;
   const result = await sql`
-    INSERT INTO sheets (gameid, sheetid) VALUES (${gameid}, ${sheetid}) RETURNING *
+    INSERT INTO sheets (gameid, sheet_id) VALUES (${gameid}, ${sheetid}) RETURNING *
   `
 
   return result
@@ -55,7 +62,7 @@ export async function addGame(sheet: Game) {
 
 export async function deleteSheet(sheetid: string) {
   const result = await sql`
-      DELETE FROM sheets WHERE sheetid = ${sheetid}
+      DELETE FROM sheets WHERE sheet_id = ${sheetid}
     `
 
   return result
@@ -97,14 +104,14 @@ export async function dbSheetReset() {
             END $$;
     `;
 
-  await sql`CREATE TABLE sheets (
+  const res = await sql`CREATE TABLE sheets (
       SHEET_ID INT NOT NULL,
       GAMEID INT NOT NULL,
       PRIMARY KEY (SHEET_ID),
       FOREIGN KEY (GAMEID) REFERENCES games(GAMEID));`
     
-  const res = await sql`INSERT INTO sheets (GAMEID, SHEET_ID)
-    VALUES ('0', '0');`
+  addSheet({gameid: "0", sheet_id: "0"})
+  addSheet({gameid: "0", sheet_id: "1"})
 
   return res;
 }
