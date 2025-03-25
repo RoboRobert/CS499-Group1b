@@ -50,11 +50,24 @@ export async function getPlayerFromTeam(teamID: string): Promise<Player> {
   return players[0]
 }
 
-export async function addTeam(teams: Team) {
-  let name = teams.team_name;
-  let id = teams.team_id;
+export async function addTeam(team: Team) {
   const result = await sql`
-    INSERT INTO teams (name) (id) VALUES (${name}) (${id}) RETURNING *
+    INSERT INTO teams (TEAM_NAME, TEAM_ID, HOMETOWN, STATE, COACH) VALUES 
+    (${team.team_name}) (${team.team_id}) (${team.hometown}) (${team.state}) (${team.coach})
+    RETURNING *
+    
+  `
+
+  return result
+}
+
+// Same as addTeam for now
+export async function updateTeam(team: Team) {
+  console.log(team);
+  const result = await sql`
+    INSERT INTO teams (TEAM_NAME, TEAM_ID, HOMETOWN, STATE, COACH) VALUES 
+    (${team.team_name}, ${team.team_id}, ${team.hometown}, ${team.state}, ${team.coach})
+    RETURNING *;
   `
 
   return result
@@ -77,9 +90,9 @@ export async function addPlayer(players: Player) {
   return result
 }
 
-export async function deleteTeam(name: string) {
+export async function deleteTeam(teamId: string) {
   const result = await sql`
-      DELETE FROM teams WHERE name = ${name}
+      DELETE FROM teams WHERE TEAM_ID = ${teamId}
     `
 
   return result
