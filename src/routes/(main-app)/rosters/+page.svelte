@@ -97,7 +97,7 @@
         throw new Error("Failed to save team data");
       }
 
-      setTimeout(async () => invalidateAll(), 20);
+      setTimeout(async () => invalidateAll(), 100);
     } catch (error) {
       console.error("Error:", error);
     }
@@ -124,7 +124,7 @@
         console.error("Error:", error);
       });
 
-      setTimeout(async () => invalidateAll(), 20);
+      setTimeout(async () => invalidateAll(), 100);
   }
 </script>
 
