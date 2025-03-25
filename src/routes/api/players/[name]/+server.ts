@@ -14,7 +14,7 @@ export async function GET({ params }) {
 // api/teams Post
 export const POST: RequestHandler = async ({request}) => {
     console.log(request)
-    const {player} = await request.json()
+    const player = await request.json()
     addPlayer(player)
 
     return json({message: "Post request"})

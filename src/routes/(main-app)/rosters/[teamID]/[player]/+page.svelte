@@ -3,9 +3,6 @@
 
     let { data }: PageProps = $props();
 
-    let player = data.player;
-   
-
     // let name = `${currentPlayer.firstName}-${currentPlayer.lastName}`;
     // let hometown = currentPlayer.hometown;
     // let number = currentPlayer.number;
@@ -30,14 +27,14 @@
 <title>Player</title>
 
 <div>
-    <a href="/rosters/{player.team_name}">Back</a>
+    <a href="/rosters/{data.player.team_name}">Back</a>
     <section class= "player-dash">
-        <h1>{player.player_name}</h1>
+        <h1>{data.player.player_name}</h1>
         <!-- <h4>Class: {playerClass}</h4>
-        <h4>Hometown: {hometown}</h4>
-        <h4>Number: {number}</h4>
-        <h4>Position: {position}</h4>
-        <h4>Height: {height}</h4>
+        <h4>Hometown: {hometown}</h4> -->
+        <h4>Number: {data.player.player_number}</h4>
+        <h4>Position: {data.player.position}</h4>
+        <!-- <h4>Height: {height}</h4>
         <h4>Weight: {weight}</h4> -->
     </section>
     <section class="list-section-1">

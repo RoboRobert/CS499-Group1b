@@ -15,14 +15,14 @@ export const GET: RequestHandler = async (event) => {
 // api/teams Post
 export const POST: RequestHandler = async ({request}) => {
     console.log(request)
-    const {player} = await request.json()
+    const player = await request.json()
     addPlayer(player)
 
     return json({message: "Post request"})
 }
 
 export const DELETE: RequestHandler = async ({request}) => {
-    const { player } = await request.json();
-    const response = deletePlayer(player.playerId);
+    const playerID = await request.json();
+    const response = deletePlayer(playerID);
     return new Response(JSON.stringify(response));
 }

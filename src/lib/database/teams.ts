@@ -84,7 +84,7 @@ export async function addPlayer(players: Player) {
   let miss = players.miss;
   let ground = players.ground;
   const result = await sql`
-    INSERT INTO teams (team, name, number, position, quarter, shots, goals, miss, ground) VALUES (${team}, ${name}, ${number}, ${position}, ${quarter}, ${shots}, ${goals}, ${miss}, ${ground}) RETURNING *
+    INSERT INTO players (PLAYER_NAME, PLAYER_NUMBER, TEAM_NAME, POSITION, QUARTERS, ATTEMPTED_SHOTS, GOALS, FAILED_SHOTS, GROUND_BALLS) VALUES (${name}, ${number}, ${team}, ${position}, ${quarter}, ${shots}, ${goals}, ${miss}, ${ground}) RETURNING *
   `
 
   return result
@@ -100,7 +100,7 @@ export async function deleteTeam(teamId: string) {
 
 export async function deletePlayer(name: string) {
   const result = await sql`
-      DELETE FROM players WHERE name = ${name}
+      DELETE FROM players WHERE PLAYER_NAME = ${name}
     `
 
   return result

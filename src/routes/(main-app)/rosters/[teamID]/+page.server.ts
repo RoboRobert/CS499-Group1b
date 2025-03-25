@@ -24,12 +24,9 @@ export const load: PageServerLoad = async ({ params, fetch }) => {
             throw new Error('Failed to fetch players');
         }
         const players: Player[] = await response2.json();
-        console.log(players)
-        // Filters out the players that are in the team
-        const teamPlayers = players.filter(player => player.team_name === team.team_name);
 
         return {
-            team, teamPlayers
+            team, players
         };
     } catch (err) {
         console.error('Error loading data:', err);
