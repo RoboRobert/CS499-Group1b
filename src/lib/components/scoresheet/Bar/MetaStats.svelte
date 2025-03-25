@@ -1,7 +1,7 @@
 <script lang="ts">
   import { metaStats } from "../data.svelte";
 
-  let showMetaStats = false;
+  let showMetaStats = true;
   function toggleMetaStats() {
     showMetaStats = !showMetaStats;
   }

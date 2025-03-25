@@ -1,52 +1,14 @@
 <script lang="ts">
-  import { teamName, players, type Player, emptyPlayers } from "../data.svelte";
+  import type { Team, Player } from "$lib/database/Team";
+  import { teamName, players, emptyPlayers } from "../data.svelte";
+  import { onMount } from 'svelte';
 
-  const homePlayers = [
-    {
-      position: "LMAO",
-      name: "Noob McGee",
-      number: 69,
-    },
-    {
-      position: "XD",
-      name: "Dude Guy",
-      number: 40,
-    },
-    {
-      position: "XD",
-      name: "Dude Guy",
-      number: 40,
-    },
-    {
-      position: "XD",
-      name: "Dude Guy",
-      number: 40,
-    },
-  ];
-  const homeTeam = {
-    teamName: "Wishful Thinkers",
-    players: homePlayers,
-  };
-
-  const awayPlayers = [
-    {
-      position: "GG",
-      name: "Mr. Prime",
-      number: 11,
-    },
-    {
-      position: "ROFL",
-      name: "Jake Paul",
-      number: 13,
-    },
-  ];
-
-  const awayTeam = {
-    teamName: "Insane Ibises",
-    players: awayPlayers,
-  };
-
-  const teams = [homeTeam, awayTeam];
+  let teams: Team[] = [];
+  // This function will run when the component is mounted
+  onMount(async () => {
+    const response = await fetch("/api/teams")
+    teams = await response.json()
+  });
 
   // Replaces the selected side's team with the information gotten from the API.
   async function importTeam(side: number) {
@@ -64,16 +26,19 @@
 
     const team = teams[option];
 
-    teamName[side] = team.teamName;
+    teamName[side] = team.team_name;
 
     // Clear the current players on the team.
     players[side] = emptyPlayers[side];
 
+    const response = await fetch(`/api/teamPlayers/${team.team_name}`);
+    let teamPlayers: Player[] = await response.json()
+
     // Replace each slot with the team member from the new team.
-    for (let i = 0; i < teams[option].players.length; i++) {
-      players[side][i].name = teams[option].players[i].name;
-      players[side][i].position = teams[option].players[i].position;
-      players[side][i].number = teams[option].players[i].number;
+    for (let i = 0; i < teamPlayers.length; i++) {
+      players[side][i].name = teamPlayers[i].player_name;
+      players[side][i].position = teamPlayers[i].position;
+      players[side][i].number = teamPlayers[i].player_number;
     }
 
     // Toggle the corresponding modal.
@@ -95,8 +60,6 @@
   function toggleImportAway() {
     showImportAway = !showImportAway;
   }
-
-  const teamNames = [homeTeam.teamName, awayTeam.teamName];
 </script>
 
 <div style="display:flex; flex-direction:column;">
@@ -109,9 +72,9 @@
         <h2>IMPORT HOME TEAM</h2>
         <div class="form-group">
           <select id="dropdown" bind:value={option}>
-            {#each teamNames as name, i}
-              {#if name != teamName[1]}
-                <option value={i}>{name}</option>
+            {#each teams as team, i}
+              {#if team.team_name != teamName[1]}
+                <option value={i}>{team.team_name}</option>
               {/if}
             {/each}
           </select>
@@ -132,9 +95,9 @@
         <h2>IMPORT AWAY TEAM</h2>
         <div class="form-group">
           <select id="dropdown" bind:value={option}>
-            {#each teamNames as name, i}
-              {#if name != teamName[0]}
-                <option value={i}>{name}</option>
+            {#each teams as team, i}
+              {#if team.team_name != teamName[0]}
+                <option value={i}>{team.team_name}</option>
               {/if}
             {/each}
           </select>
