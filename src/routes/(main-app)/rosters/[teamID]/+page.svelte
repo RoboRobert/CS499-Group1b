@@ -143,7 +143,7 @@
         body: JSON.stringify(newPlayer),
       });
 
-      setTimeout(async () => invalidateAll(), 100);
+      setTimeout(async () => invalidateAll(), 20);
 
       if (!response.ok) {
         throw new Error("Failed to save team data");
@@ -172,7 +172,7 @@
         console.error("Error:", error);
       });
 
-    setTimeout(async () => invalidateAll(), 100);
+    setTimeout(async () => invalidateAll(), 20);
   }
 </script>
 

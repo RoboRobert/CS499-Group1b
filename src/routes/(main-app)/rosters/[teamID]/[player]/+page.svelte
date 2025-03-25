@@ -2,26 +2,6 @@
     import type { PageProps } from './$types';
 
     let { data }: PageProps = $props();
-
-    // let name = `${currentPlayer.firstName}-${currentPlayer.lastName}`;
-    // let hometown = currentPlayer.hometown;
-    // let number = currentPlayer.number;
-    // let position = currentPlayer.position;
-    // let height = `${currentPlayer.heightFeet}-${currentPlayer.heightInches}`;
-    // let weight = currentPlayer.weight;
-    // let playerClass = currentPlayer.class;
-    
-    // Filler stats
-    // let stats = {
-    //     gamesPlayed: 10,
-    //     points: 150,
-    //     assists: 30,
-    //     rebounds: 50,
-    //     steals: 20,
-    //     blocks: 10
-    // };
-
-    
 </script>
 
 <title>Player</title>
