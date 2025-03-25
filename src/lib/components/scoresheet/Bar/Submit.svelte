@@ -20,6 +20,7 @@
   } from "../data.svelte";
   import type { SheetErr } from "$lib/backendChecker";
   import { addIDError } from "../frontendChecker.svelte";
+  import { goto } from "$app/navigation";
 
   let showConfirmModal = false;
   let showConfirmButton = false;
@@ -29,7 +30,9 @@
   // First checks if the scoresheet is valid.
   // If the scoresheet is valid, sends it to the scoresheet/add endpoint.
   async function confirmScoresheet() {
-    checkScoresheet();
+    // checkScoresheet();
+
+    goto("/");
   }
 
   async function checkScoresheet() {

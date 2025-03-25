@@ -19,7 +19,7 @@
     {#each gameScoresheets as scoresheet}
       <a href=" ">
         <div class="game">
-          <h3>{scoresheet.sheet_id}</h3>
+          <h3>Scoresheet #{scoresheet.sheet_id}</h3>
         </div>
       </a>
     {/each}

@@ -12,18 +12,6 @@
 
   // Replaces the selected side's team with the information gotten from the API.
   async function importTeam(side: number) {
-    // try {
-    //   const response = await fetch("https://api.example.com/data2");
-    //   if (response.ok) {
-    //     data2 = await response.json();
-    //     console.log("Data 2:", data2);
-    //   } else {
-    //     console.error("Error fetching data2:", response.status);
-    //   }
-    // } catch (error) {
-    //   console.error("Error fetching data2:", error);
-    // }
-
     const team = teams[option];
 
     teamName[side] = team.team_name;
@@ -35,7 +23,7 @@
     let teamPlayers: Player[] = await response.json()
 
     // Replace each slot with the team member from the new team.
-    for (let i = 0; i < teamPlayers.length; i++) {
+    for (let i = 0; i < players[side].length && i < teamPlayers.length; i++) {
       players[side][i].name = teamPlayers[i].player_name;
       players[side][i].position = teamPlayers[i].position;
       players[side][i].number = teamPlayers[i].player_number;

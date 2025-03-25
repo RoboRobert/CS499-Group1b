@@ -3,7 +3,7 @@
 
   import { homeGoalTrack, awayGoalTrack, teamName } from "../data.svelte";
   import TimeInput from "$lib/components/TimeInput.svelte";
-  import { readPlayerno, readTime } from "../frontendChecker.svelte";
+  import { notEmpty, readPlayerno, readTime } from "../frontendChecker.svelte";
 
   let numGoals = 30;
 </script>
@@ -11,7 +11,7 @@
 <div class="wideRow">
   <div class="outer noBorder">
     <div class="innerRow">
-      <input id="teamName-0" class="field bigField" type="text" value={teamName[0]} placeholder="Home Team" />
+      <input id="teamName-0" class="field bigField" type="text" value={teamName[0]} placeholder="Home Team" oninput={(e) => notEmpty(e)} />
       {#each Array(numGoals) as attempt, i}
         <div class="boxes">
           <!-- <input autocomplete="off" class="field" style="flex:3" type="text" bind:value={homeGoalTrack[i].time} /> -->
@@ -30,7 +30,7 @@
       {/each}
     </div>
     <div class="innerRow">
-      <input id="teamName-1" autocomplete="off" class="field bigField" type="text" value={teamName[1]} placeholder="Away Team" />
+      <input id="teamName-1" autocomplete="off" class="field bigField" type="text" value={teamName[1]} placeholder="Away Team" oninput={(e) => notEmpty(e)} />
       {#each Array(numGoals) as attempt, i}
         <div class="boxes">
           <input autocomplete="off" class="field goal" style="flex:3" type="text" oninput={(e) => awayGoalTrack[i].time = readTime(e)} />
