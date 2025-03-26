@@ -1,83 +1,181 @@
-* {
-    /* box-sizing: border-box; */
-}
-
-/* body {
-    background-color: antiquewhite;
-}
-
-input {
-    background-color: antiquewhite;
-} */
-
 .outer {
-    border: 1px solid black;
-    resize:both;
-    overflow:hidden;
-    max-width:100%;
-    margin-bottom:10px;
-    display: flex;
-    flex-direction:column;
+  border: 1px solid black;
+  resize: both;
+  overflow: hidden;
+  max-width: 100%;
+  margin-bottom: 10px;
+  display: flex;
+  flex-direction: column;
 }
 
 .noBorder {
-    flex:1;
-    border: none;
+  flex: 1;
+  border: none;
 }
 
 .field {
-    text-align: center;
-    flex: 1;
-    min-width: 0;
-    min-height:0;
-    border: 1px solid black;
+  text-align: center;
+  min-width: 0;
+  min-height: 0;
+  border: 1px solid black;
+}
+
+.error {
+  /* border-bottom: 3px dotted red; */
+  /* border-bottom: 3px solid red inset; */
+
+  outline: 3px solid red;
+  outline-offset: -3px;
+  /* background-color: tomato; */
 }
 
 .rowBox {
-    flex: 1;
-    text-align: center;
-    border: 1px solid black;
-    overflow:hidden;
-    align-content:center;
+  text-align: center;
+  border: 1px solid black;
+  overflow: hidden;
+  align-content: center;
 }
 
 .headerBox {
-    text-align: center;
-    border: 1px solid black;
+  text-align: center;
+  border: 1px solid black;
 }
 
 .headerRow {
-    display: flex;
-    flex-direction:row;
+  display: flex;
+  flex-direction: row;
 }
 
 .innerRow {
-    flex:1;
-    display: flex;
-    flex-direction: row;
-    min-height:0;
+  flex: 1;
+  display: flex;
+  flex-direction: row;
+  min-height: 0;
+  min-width: 0;
 }
 
 .innerColumn {
-    flex:1;
-    display:flex;
-    flex-direction:column;
-    min-height:0;
-    min-width:0;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  min-width: 0;
 }
 
 .wideRow {
-    max-width:100%;
-    display:flex;
-    flex-direction: row;
-    margin-top:10px;
+  max-width: 100%;
+  display: flex;
+  flex-direction: row;
+  margin-top: 10px;
 }
 
 .svg {
-    width:50px;
-    height:50px;
+  width: 50px;
+  height: 50px;
 }
 
 .svg:hover {
-    background-color: lightgray;
+  background-color: lightgray;
+}
+
+/* Modal Styles */
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 50;
+}
+
+.modal-content {
+  background-color: #fff;
+  border-radius: 8px;
+  padding: 20px;
+  width: 400px;
+  max-height: 80vh;
+  /* Set a maximum height */
+  overflow-y: auto;
+  /* Enable vertical scrolling */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.modal-content h2 {
+  font-size: 20px;
+  margin-bottom: 15px;
+}
+
+.form-group {
+  margin-bottom: 15px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 5px;
+}
+
+.form-group input {
+  width: 100%;
+  padding: 5px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.modal-actions {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+
+.buttons {
+  display: flex;
+  gap: 10px;
+  margin-left: auto;
+}
+
+.sign-in-button {
+  background-color: #3182ce;
+  color: #fff;
+  border: none;
+  padding: 5px 15px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.sign-in-button:hover {
+  background-color: #2b6cb0;
+}
+
+.timeInput {
+  min-width: 0;
+  min-height: 0;
+  outline: none;
+  border: none;
+  margin: none;
+}
+
+.normal {
+  flex: 1;
+}
+
+.thin {
+  flex: 0.5;
+}
+
+.wide {
+  flex: 2;
+}
+
+.xl {
+  flex: 3;
+}
+
+.border {
+  border: 1px solid black;
+}
+
+.thickBorder {
+  border: 2px solid black;
 }

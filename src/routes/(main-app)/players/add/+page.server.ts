@@ -1,16 +1,16 @@
-import * as db from '$lib/db';
-import type { Player } from '$lib/Player';
-import type { Actions, PageServerLoad } from './$types';
+// import * as db from '$lib/db';
+// import type { Player } from '$lib/Player';
+// import type { Actions, PageServerLoad } from './$types';
 
-export const load: PageServerLoad = async ({ params }) => {
+// export const load: PageServerLoad = async ({ params }) => {
 
-};
+// };
 
-export const actions = {
-    addPlayer: async ({ cookies, request }) => {
-        const data = await request.formData();
-        let player: Player = {name: data.get('name').toString(), team: data.get('team').toString()};
+// export const actions = {
+//     addPlayer: async ({ cookies, request }) => {
+//         const data = await request.formData();
+//         let player: Player = {name: data.get('name').toString(), team: data.get('team').toString()};
 
-        db.addPlayer(player);
-    }
-} satisfies Actions;
+//         db.addPlayer(player);
+//     }
+// } satisfies Actions;

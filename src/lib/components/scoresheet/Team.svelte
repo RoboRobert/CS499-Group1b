@@ -1,5 +1,6 @@
 <script lang="ts">
     import { players, getPlayer } from "./data.svelte";
+    import { IsNumber, CheckPlayerNumber } from "./frontendChecker.svelte";
 
     interface Side {
         teamName: string,
@@ -11,25 +12,25 @@
 <div class="outer">
     <div class="headerBox">{teamName}</div>
     <div class="headerRow">
-        <div class="rowBox">PO</div>
-        <div class="rowBox">#</div>
-        <div class="rowBox" style="flex:2">Name</div>
-        <div class="rowBox">Quarters</div>
-        <div class="rowBox">Shots</div>
-        <div class="rowBox">G</div>
-        <div class="rowBox">A</div>
-        <div class="rowBox">GBS</div>
+        <div class="rowBox thin">PO</div>
+        <div class="rowBox thin">#</div>
+        <div class="rowBox wide">NAME</div>
+        <div class="rowBox normal">QUARTERS</div>
+        <div class="rowBox normal">SHOTS</div>
+        <div class="rowBox thin">G</div>
+        <div class="rowBox thin">A</div>
+        <div class="rowBox thin">GBS</div>
     </div>
     {#each players[side] as player, i}
         <div class="innerRow">
-            <input autocomplete="off" class="field" type="text" bind:value={players[side][i].position}>
-            <input autocomplete="off" class="field" type="number" bind:value={players[side][i].number}>
-            <input autocomplete="off" class="field" type="text" style="flex:2" bind:value={players[side][i].name}>
-            <input autocomplete="off" class="field" type="text" bind:value={players[side][i].quarters}>
-            <input autocomplete="off" class="field" type="text" bind:value={players[side][i].shots}>
-            <div class="rowBox">{getPlayer(side, players[side][i].number).goals}</div>
-            <div class="rowBox">{getPlayer(side, players[side][i].number).assists}</div>
-            <input autocomplete="off" class="field" type="text" bind:value={players[side][i].groundBalls}>
+            <input id="playerPosition-{side}-{i}" autocomplete="off" class="field thin" type="text" bind:value={players[side][i].position}>
+            <input id="playerNumber-{side}-{i}" min="0" max="99" autocomplete="off" class="field thin" type="number" bind:value={players[side][i].number} oninput={(event) => CheckPlayerNumber(event, side)}>
+            <input id="playerName-{side}-{i}" autocomplete="off" class="field wide" type="text" bind:value={players[side][i].name}>
+            <input id="playerQuarters-{side}-{i}" autocomplete="off" class="field normal" type="text" bind:value={players[side][i].quarters}>
+            <input id="playerShots-{side}-{i}" min="0" autocomplete="off" class="field normal" type="number" bind:value={players[side][i].shots}>
+            <div class="rowBox thin">{getPlayer(side, players[side][i].number).goals}</div>
+            <div class="rowBox thin">{getPlayer(side, players[side][i].number).assists}</div>
+            <input id="playerGBs-{side}-{i}" min="0" autocomplete="off" class="field thin" type="number" bind:value={players[side][i].groundBalls}>
         </div>
     {/each}
 </div>

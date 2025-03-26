@@ -1,24 +1,5 @@
-import postgres from 'postgres'
-// import { PGUSER, PGPASSWORD, PGHOST, PGPORT, PGDATABASE } from '$env/static/private'
+import { sql } from './postgres.server';
 import type { Penalty } from '$lib/database/Penalty';
-
-// const sql = postgres({
-//   user: PGUSER,
-//   password: PGPASSWORD,
-//   host: PGHOST,
-//   port: parseInt(PGPORT),
-//   database: PGDATABASE,
-// });
-
-const sql = postgres({
-  user: "postgres",
-  password: "test",
-  host: "localhost",
-  port: 5432,
-  database: "template1",
-});
-
-export default sql
 
 export async function getPenalties(): Promise<Penalty[]> {
   const penalties = await sql<Penalty[]>`
@@ -59,24 +40,26 @@ export async function deletePenalty(name: string) {
   return result
 }
 
-export async function dbReset() {
+export async function dbPenaltyReset() {
   await sql`DO $$ 
-      DECLARE
-        r RECORD;
-      BEGIN
-        FOR r IN (SELECT tablename FROM pg_tables WHERE schemaname = 'public') LOOP
-          EXECUTE 'DROP TABLE IF EXISTS public.' || r.tablename || ' CASCADE';
-        END LOOP;
-      END $$;
+            DECLARE
+              table_name text := 'penalties';
+            BEGIN
+              EXECUTE 'DROP TABLE IF EXISTS public.' || table_name || ' CASCADE';
+            END $$;
     `;
 
-  await sql`CREATE TABLE penalty (
-      name VARCHAR(100) NOT NULL
-    );`
+  await sql`CREATE TABLE penalties(
+            SHEET_ID INT NOT NULL,
+            SIDE varchar(25),
+            PT INT NOT NULL,
+            PLAYER_NUMBER INT NOT NULL,
+            INFRACTION varchar(25),
+            TIME INT NOT NULL,
+            Foreign key (SHEET_ID) references gamestats(SHEET_ID) ON DELETE CASCADE ON UPDATE CASCADE);`
 
-  const res = await sql`INSERT INTO players (name)
-    VALUES ('Team A'), 
-        ('Team B');`
+  const res = await sql`INSERT INTO penalties (SHEET_ID, SIDE, PT, PLAYER_NUMBER, INFRACTION, TIME)
+    VALUES ('0', 'None', '0', '0', 'None', '0');`
 
   return res;
 }

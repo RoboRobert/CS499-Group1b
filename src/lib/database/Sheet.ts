@@ -1,6 +1,6 @@
 export interface Sheet {
     gameid: string,
-    sheetid: string,
+    sheet_id: string,
 }
 
 export interface Game {

@@ -1,22 +1,6 @@
-import postgres from 'postgres'
-// import { PGUSER, PGPASSWORD, PGHOST, PGPORT, PGDATABASE } from '$env/static/private'
+import sql from '$lib/database/postgres.server';
 import type { IndividualScore } from '$lib/database/IndividualScores';
 
-// const sql = postgres({
-//   user: PGUSER,
-//   password: PGPASSWORD,
-//   host: PGHOST,
-//   port: parseInt(PGPORT),
-//   database: PGDATABASE,
-// });
-
-const sql = postgres({
-  user: "postgres",
-  password: "test",
-  host: "localhost",
-  port: 5432,
-  database: "template1",
-});
 
 export async function getIndividualScores(): Promise<IndividualScore[]> {
   const players = await sql<IndividualScore[]>`
@@ -57,25 +41,28 @@ export async function deleteIndividualScore(sheetid: number) {
   return result
 }
 
-export async function dbReset() {
+export async function dbIndividualScoreReset() {
   await sql`DO $$ 
-      DECLARE
-        r RECORD;
-      BEGIN
-        FOR r IN (SELECT tablename FROM pg_tables WHERE schemaname = 'public') LOOP
-          EXECUTE 'DROP TABLE IF EXISTS public.' || r.tablename || ' CASCADE';
-        END LOOP;
-      END $$;
+            DECLARE
+              table_name text := 'individualscore';
+            BEGIN
+              EXECUTE 'DROP TABLE IF EXISTS public.' || table_name || ' CASCADE';
+            END $$;
     `;
 
     //Not entirely sure about this for the table
-  await sql`CREATE TABLE individualscores (
-      sheetid SERIAL PRIMARY KEY
-    );`
+  await sql`CREATE TABLE individualscore(
+            SHEET_ID INT,
+            SIDE varchar(25),
+            PLAYER_NUMBER INT NOT NULL,
+            PLAYER_NAME varchar(25),
+            GOALS INT,
+            ATTEMPTS INT,
+            FAILS INT,
+            FOREIGN KEY (SHEET_ID) REFERENCES gamestats(SHEET_ID) ON DELETE CASCADE ON UPDATE CASCADE);`
 
-  const res = await sql`INSERT INTO teams (name)
-    VALUES ('Team A'), 
-        ('Team B');`
+  const res = await sql`INSERT INTO individualscore (SHEET_ID, SIDE, PLAYER_NUMBER, PLAYER_NAME, GOALS, ATTEMPTS, FAILS)
+    VALUES ('0', 'None', '0', 'Dudebro', '0', '0', '0');`
 
   return res;
 }

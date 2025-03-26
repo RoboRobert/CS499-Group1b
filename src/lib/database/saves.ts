@@ -1,24 +1,5 @@
-import postgres from 'postgres'
-// import { PGUSER, PGPASSWORD, PGHOST, PGPORT, PGDATABASE } from '$env/static/private'
+import sql from '$lib/database/postgres.server';
 import type { Save } from '$lib/database/Save';
-
-// const sql = postgres({
-//   user: PGUSER,
-//   password: PGPASSWORD,
-//   host: PGHOST,
-//   port: parseInt(PGPORT),
-//   database: PGDATABASE,
-// });
-
-const sql = postgres({
-  user: "postgres",
-  password: "test",
-  host: "localhost",
-  port: 5432,
-  database: "template1",
-});
-
-export default sql
 
 export async function getSaves(): Promise<Save[]> {
   const penalties = await sql<Save[]>`
@@ -62,24 +43,30 @@ export async function deleteSave(name: string) {
   return result
 }
 
-export async function dbReset() {
+export async function dbSaveReset() {
   await sql`DO $$ 
-      DECLARE
-        r RECORD;
-      BEGIN
-        FOR r IN (SELECT tablename FROM pg_tables WHERE schemaname = 'public') LOOP
-          EXECUTE 'DROP TABLE IF EXISTS public.' || r.tablename || ' CASCADE';
-        END LOOP;
-      END $$;
+            DECLARE
+              table_name text := 'saves';
+            BEGIN
+              EXECUTE 'DROP TABLE IF EXISTS public.' || table_name || ' CASCADE';
+            END $$;
     `;
 
-  await sql`CREATE TABLE penalty (
-      name VARCHAR(100) NOT NULL
-    );`
+  await sql`CREATE TABLE saves(
+            SHEET_ID INT NOT NULL,
+            SIDE varchar(25),
+            PLAYER_NAME varchar(25),
+            PLAYER_NUMBER INT NOT NULL,
+            QUARTER_1 INT,
+            QUARTER_2 INT,
+            QUARTER_3 INT,
+            QUARTER_4 INT,
+            OT INT,
+            TOTAL INT,
+            foreign key (SHEET_ID) references gamestats(SHEET_ID) ON DELETE CASCADE ON UPDATE CASCADE);`
 
-  const res = await sql`INSERT INTO players (name)
-    VALUES ('Team A'), 
-        ('Team B');`
+  const res = await sql`INSERT INTO saves (SHEET_ID, SIDE, PLAYER_NAME, PLAYER_NUMBER, QUARTER_1, QUARTER_2, QUARTER_3, QUARTER_4, OT, TOTAL)
+    VALUES ('0', 'None', 'Dudebro', '0', '0', '0', '0', '0', '0', '0');`
 
   return res;
 }
