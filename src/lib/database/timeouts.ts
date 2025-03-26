@@ -27,7 +27,13 @@ export async function addTimeout(timeouts: Timeout) {
   let ottwo = timeouts.ottwo;
   const result = await sql`
     INSERT INTO timeouts (sheetid, side, halfone, halftwo, otone, ottwo) VALUES (${sheetid}, ${side}, ${halfone}, ${halftwo}, ${otone}, ${ottwo}) RETURNING *
-  `
+    INSERT INTO timeouts (sheetid, side, halfone, halftwo, otone, ottwo) VALUES
+    (701, 'Home', 1, 1, 0, 0),
+    (701, 'Away', 1, 0, 1, 0),
+    (702, 'Home', 0, 1, 1, 1),
+    (702, 'Away', 1, 1, 0, 0),
+    (703, 'Home', 1, 0, 0, 0),
+    (703, 'Away', 0, 1, 1, 0);`
 
   return result
 }
@@ -56,7 +62,7 @@ export async function dbTimeoutReset() {
             HALF_2_TIME INT,
             OT_1_TIME INT,
             OT_2_TIME INT,
-            foreign key (SHEET_ID) references Game_Stats(SHEET_ID) ON DELETE CASCADE ON UPDATE CASCADE);`
+            foreign key (SHEET_ID) references game_stats(SHEET_ID) ON DELETE CASCADE ON UPDATE CASCADE);`
 
   const res = await sql`INSERT INTO timeouts (SHEET_ID, SIDE, HALF_1_TIME, HALF_2_TIME, OT_1_TIME, OT_2_TIME)
     VALUES ('0', 'Home', '0', '0', '0', '0');;`

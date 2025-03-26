@@ -31,7 +31,11 @@ export async function addSheetInfo(sheetinfos: SheetInfo) {
   let fieldjudge = sheetinfos.fieldjudge;
   const result = await sql`
     INSERT INTO sheetinfos (sheetid, date, site, start, scorekeeper, oppscorekeeper, timekeeper, headofficial, umpire, fieldjudge) VALUES (${sheetid}, ${date}, ${site}, ${start}, ${scorekeeper}, ${oppscorekeeper}, ${timekeeper}, ${headofficial}, ${umpire}, ${fieldjudge}) RETURNING *
-  `
+    INSERT INTO sheetinfos (sheetid, date, site, start, scorekeeper, oppscorekeeper, timekeeper, headofficial, umpire, fieldjudge) VALUES
+    (601, '2025-03-10', 'Maple Stadium', 1400, 'Emily White', 'Liam Brooks', 'Olivia Green', 'David Smith', 'James Lee', 'Rachel Adams'),
+    (602, '2025-03-11', 'River Park Arena', 1500, 'Lucas Johnson', 'Sophia King', 'Ethan Wright', 'Michael Brown', 'Grace Hall', 'Daniel Scott'),
+    (603, '2025-03-12', 'Sunset Field', 1330, 'Chloe Kim', 'Ryan Davis', 'Ava Martin', 'Benjamin Moore', 'Natalie Clark', 'Andrew Lewis'),
+    (604, '2025-03-13', 'Oceanview Grounds', 1600, 'Isabella Young', 'Jacob Hill', 'Mia Allen', 'Christopher Evans', 'Hannah Turner', 'Logan Baker');`
 
   return result
 }
@@ -64,7 +68,7 @@ export async function dbSheetInfoReset() {
             HEAD_OFFICAL varchar(25),
             UMPIRE varchar(25),
             FIELD_JUDGE varchar(25),
-            foreign key (SHEET_ID) references Sheet_ID(SHEET_ID) ON DELETE CASCADE ON UPDATE CASCADE);`
+            foreign key (SHEET_ID) references sheet_id(SHEET_ID) ON DELETE CASCADE ON UPDATE CASCADE);`
 
   const res = await sql`INSERT INTO players (SHEET_ID, DATE, SITE, START_TIME, SCOREKEEPER, OPPONENT_SCORE, TIMEKEEPER, HEAD_OFFICIAL, UMPIRE, FIELD_JUDGE)
     VALUES ('0', '0', 'Home', '0', 'Dudebro', '0', 'Dudebro', 'Dudebro', 'Dudebro', 'Dudebro');`

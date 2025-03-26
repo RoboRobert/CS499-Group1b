@@ -24,6 +24,15 @@ export async function addLogin(login: Login) {
 
   const result = await sql`
     INSERT INTO gamestats (user, pass) VALUES (${user}, ${pass}) RETURNING *
+    INSERT INTO logins (user, pass) VALUES
+    ('alex.carter', 'pass1234'),
+    ('sam.jordan', 'securePass!'),
+    ('jake.lee', 'qwerty2025'),
+    ('liam.davis', 'LiamPass789'),
+    ('chris.nguyen', 'Nguyen#456'),
+    ('noah.kim', 'KimSecure99'),
+    ('ryan.moore', 'Moore@321'),
+    ('daniel.smith', 'Smith!2025');
   `
 
   return result

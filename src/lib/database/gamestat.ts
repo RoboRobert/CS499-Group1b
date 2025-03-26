@@ -30,9 +30,10 @@ export async function addGameStat(gamestat: GameStat) {
   let extrafail = gamestat.extrafail;
   let faceoffwin = gamestat.faceoffwin;
   let faceoffloss = gamestat.faceoffloss;
-  
+
   const result = await sql`  "make dummy data"
-    INSERT INTO gamestats (sheetid, side, quarter, ground, shots, clearpass, clearfail, extrascore, extrafail, faceoffwin, faceoffloss) VALUES (${sheetID}, ${side}, ${quarter}, ${ground}, ${shots}, ${clearpass}, ${clearfail}, ${extrascore}, ${extrafail}, ${faceoffwin}, ${faceoffloss}) RETURNING *
+    INSERT INTO gamestats (sheetid, side, quarter, ground, shots, clearpass, clearfail, extrascore, extrafail, faceoffwin, faceoffloss) VALUES (${sheetID}, ${side}, ${quarter}, ${ground}, ${shots}, ${clearpass}, ${clearfail}, ${extrascore}, ${extrafail}, ${faceoffwin}, ${faceoffloss}) RETURNING *]
+    
 
   `
 

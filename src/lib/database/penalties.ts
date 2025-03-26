@@ -28,7 +28,18 @@ export async function addPenalty(penalties: Penalty) {
   let time = penalties.time;
   const result = await sql`
     INSERT INTO teams (sheetid, side, pt, playerno, infraction, quarter, time) VALUES (${sheetid}, ${side}, ${pt}, ${playerno}, ${infraction}, ${quarter}, ${time}) RETURNING *
-  `
+    INSERT INTO penalties (sheetid, side, pt, playerno, infraction, quarter, time) VALUES
+      (401, 'Home', 1, 7, 'Holding', 1, 120),
+      (402, 'Away', 2, 11, 'Slashing', 2, 305),
+      (403, 'Home', 3, 5, 'Tripping', 2, 450),
+      (404, 'Away', 4, 14, 'Cross-checking', 3, 615),
+      (405, 'Home', 5, 3, 'Interference', 3, 730),
+      (406, 'Away', 6, 10, 'Delay of game', 4, 840),
+      (407, 'Home', 7, 6, 'Unsportsmanlike conduct', 4, 950),
+      (408, 'Away', 8, 8, 'High-sticking', 1, 110),
+      (409, 'Home', 9, 2, 'Hooking', 2, 250),
+      (410, 'Away', 10, 12, 'Boarding', 3, 670);
+        `
 
   return result
 }

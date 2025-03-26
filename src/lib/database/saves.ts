@@ -31,7 +31,13 @@ export async function addSave(saves: Save) {
   let total = saves.total;
   const result = await sql`
     INSERT INTO teams (sheetid, side, player, playerno, quarterone, quartertwo, quarterthree, quarterfour, ot, total) VALUES (${sheetid}, ${side}, ${player}, ${playerno}, ${quarterone}, ${quartertwo}, ${quarterthree}, ${quarterfour}, ${ot}, ${total}) RETURNING *
-  `
+    INSERT INTO saves (sheetid, side, player, playerno, quarterone, quartertwo, quarterthree, quarterfour, ot, total) VALUES
+    (501, 'Home', 'Alex Carter', 1, 3, 4, 5, 2, 1, 15),
+    (502, 'Away', 'Jake Lee', 12, 2, 3, 4, 3, 0, 12),
+    (503, 'Home', 'Chris Nguyen', 5, 1, 2, 3, 2, 0, 8),
+    (504, 'Away', 'Liam Davis', 9, 4, 5, 4, 4, 1, 18),
+    (505, 'Home', 'Sam Jordan', 7, 2, 2, 2, 2, 1, 9),
+    (506, 'Away', 'Noah Kim', 10, 3, 3, 3, 3, 0, 12);`
 
   return result
 }
@@ -64,7 +70,7 @@ export async function dbSaveReset() {
             QUARTER_4 INT,
             OT INT,
             TOTAL INT,
-            foreign key (SHEET_ID) references Sheet_ID(SHEET_ID) ON DELETE CASCADE ON UPDATE CASCADE);`
+            foreign key (SHEET_ID) references sheet_ID(SHEET_ID) ON DELETE CASCADE ON UPDATE CASCADE);`
 
   const res = await sql`INSERT INTO players (SHEET_ID, SIDE, PLAYER_NAME, PLAYER_NUMBER, QUARTER_1, QUARTER_2, QUARTER_3, QUARTER_4, OT, TOTAL)
     VALUES ('0', 'Home', 'Dudebro', '0', '0', '0', '0', '0', '0', '0');`
