@@ -24,7 +24,7 @@
     <a href="/pastgames ">Past Games</a>
     <a href="/run/1">Run Mode</a>
   </div>
-  <div class="buttons signIn">
+  <div class="buttons">
     <button on:click={openRegModal} type="button">Register</button>
     <button on:click={openSignInModal} type="button">Sign In</button>
   </div>
@@ -80,8 +80,8 @@
 <slot></slot>
 
 <style>
-  nav {
-    height:70px;
+  nav{ 
+    height: 50px;
   }
 
   .smegol {
@@ -90,12 +90,8 @@
 
   .navLeft {
     display: flex;
-    flex-direction: row;
-    align-items: center;
-    height:100%;
+    margin-right: 20px
   }
 
-  .signIn {
-    margin-left:auto;
-  }
+ 
 </style>

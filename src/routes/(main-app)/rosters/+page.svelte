@@ -147,18 +147,20 @@
       {#each data.teams as team}
         <!-- Using team.name in the href and display -->
         <div class="game">
-          <a href="/rosters/{team.team_id}">
-            <h3>{team.team_name}</h3>
-            <div class="team-bar">
-              <p>{team.hometown}</p>
-              <p>{team.state}</p>
-              <p>Coach: {team.coach}</p>
-            </div>
-          </a>
-          <div class="buttons">
-            <button onclick={() => openEditModal(team)} type="button">Edit</button>
-            <button onclick={() => handleDeleteTeam(team)} type="button">Delete</button>
+          <div class="team-bar">
+            <a href="/rosters/{team.team_id}">
+                <h3>{team.team_name}</h3>
+                <div class="team-bar">
+                <p>{team.hometown}</p>
+                <p>{team.state}</p>
+                <p>Coach: {team.coach}</p>
+                </div>
+            </a>
           </div>
+          <div class= "buttons">
+              <button onclick={() => openEditModal(team)} type="button">Edit</button>
+              <button onclick={() => handleDeleteTeam(team)} type="button">Delete</button>
+          </div> 
         </div>
       {/each}
     </div>

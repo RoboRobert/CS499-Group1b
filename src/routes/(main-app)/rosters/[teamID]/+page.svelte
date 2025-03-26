@@ -10,6 +10,12 @@
     player_name: "",
     player_number: 0,
     position: "",
+    player_class: "",
+    hometown: "",
+    state: "",
+    height_feet: 0,
+    height_inches: 0,
+    weight: 0,
     quarter: 0,
     shots: 0,
     goals: 0,
@@ -17,7 +23,6 @@
     ground: 0,
   };
 
-  // Modal state for adding a new player
   let showEditModal = $state(false);
   let errors: { [key: string]: string } = $state({});
 
@@ -33,100 +38,60 @@
     editingPlayer = null;
   }
 
-  // Combined handler for form submission to add or edit a player
   async function handlePlayerForm(event: Event) {
     event.preventDefault();
 
     let formdata = new FormData(event.target as HTMLFormElement);
 
-    // Validate form data
     const firstName = formdata.get("player-first-name") as string;
-    // const lastName = formdata.get("player-last-name") as string;
-    // const hometown = formdata.get("player-hometown") as string;
-    // const state = formdata.get("player-state") as string;
+    const hometown = formdata.get("player-hometown") as string;
+    const state = formdata.get("player-state") as string;
     const playerNumber = formdata.get("player-number") as string;
-    // const position = formdata.get("player-position") as string;
-    // const playerClass = formdata.get("player-class") as string;
-    // const heightFeet = formdata.get("player-height-feet") as string;
-    // const heightInches = formdata.get("player-height-inches") as string;
-    // const weight = formdata.get("player-weight") as string;
+    const position = formdata.get("player-position") as string;
+    const player_class = formdata.get("player-class") as string;
+    const heightFeet = formdata.get("player-height-feet") as string;
+    const heightInches = formdata.get("player-height-inches") as string;
+    const weight = formdata.get("player-weight") as string;
 
     errors = {};
 
-    // if (!firstName) errors.firstName = "First name is required.";
-    // if (!lastName) errors.lastName = "Last name is required.";
-    // if (!hometown) errors.hometown = "Hometown is required.";
-    // if (!state) errors.state = "State is required.";
-    // if (!number) errors.number = "Number is required.";
-    // if (!position) errors.position = "Position is required.";
-    // if (!playerClass) errors.playerClass = "Class is required.";
-    // if (!heightFeet) errors.heightFeet = "Height (feet) is required.";
-    // if (!heightInches) errors.heightInches = "Height (inches) is required.";
-    // if (!weight) errors.weight = "Weight is required.";
+    if (!firstName) errors.firstName = "First name is required.";
+    if (!hometown) errors.hometown = "Hometown is required.";
+    if (!state) errors.state = "State is required.";
+    if (!playerNumber) errors.number = "Number is required.";
+    if (!position) errors.position = "Position is required.";
+    if(!player_class) errors.class = "Class is required."
+    if (!heightFeet) errors.heightFeet = "Height (feet) is required.";
+    if (!heightInches) errors.heightInches = "Height (inches) is required.";
+    if (!weight) errors.weight = "Weight is required.";
 
     if (parseInt(playerNumber) < 0 || parseInt(playerNumber) > 99) {
       errors.number = "Player number must be between 0 and 99.";
     }
 
-    // if (
-    //     parseInt(heightFeet) < 0 ||
-    //     parseInt(heightInches) < 0 ||
-    //     parseInt(heightInches) > 11
-    // ) {
-    //     errors.height = "Height must be valid.";
-    // }
+    if (parseInt(heightFeet) < 0 || parseInt(heightInches) < 0 || parseInt(heightInches) > 11) {
+      errors.height = "Height must be valid.";
+    }
 
-    // if (parseInt(weight) < 0) {
-    //     errors.weight = "Weight must be a positive number.";
-    // }
+    if (parseInt(weight) < 0) {
+      errors.weight = "Weight must be a positive number.";
+    }
 
     if (Object.keys(errors).length > 0) {
       return;
     }
 
-    let newPlayer: Player;
-
-    // if (editingPlayer.playerId != "") {
-    //     editingPlayer.firstName = firstName;
-    //     editingPlayer.lastName = lastName;
-    //     editingPlayer.hometown = hometown;
-    //     editingPlayer.state = state;
-    //     editingPlayer.number = number;
-    //     editingPlayer.position = position;
-    //     editingPlayer.class = playerClass;
-    //     editingPlayer.heightFeet = heightFeet;
-    //     editingPlayer.heightInches = heightInches;
-    //     editingPlayer.weight = weight;
-
-    //     const index = currentTeam.players.findIndex(player => player.firstName === editingPlayer.firstName);
-    //     if (index !== -1) {
-    //         currentTeam.players[index] = { ...editingPlayer };
-    //         players[index] = { ...editingPlayer };
-    //     }
-
-    //     newPlayer = editingPlayer;
-
-    // } else {
-    //     newPlayer = {
-    //         playerId: `${firstName}-${lastName}-${currentTeam.players.length}`,
-    //         firstName,
-    //         lastName,
-    //         hometown,
-    //         state,
-    //         number,
-    //         position,
-    //         class: playerClass,
-    //         heightFeet,
-    //         heightInches,
-    //         weight,
-    //         team: teamId
-    //     };
-
-    newPlayer = {
+    let newPlayer: Player = {
       player_name: firstName,
       player_number: parseInt(playerNumber),
       team_name: data.team.team_name,
-      position: "ATTACK",
+      position: position,
+      player_class: player_class,
+      hometown: hometown,
+      state: state,
+      height_feet: parseInt(heightFeet),
+      height_inches: parseInt(heightInches),
+      weight: parseInt(weight),
       quarter: 0,
       shots: 0,
       goals: 0,
@@ -146,7 +111,7 @@
       setTimeout(async () => invalidateAll(), 100);
 
       if (!response.ok) {
-        throw new Error("Failed to save team data");
+        throw new Error("Failed to save player data");
       }
     } catch (error) {
       console.error("Error:", error);
@@ -185,20 +150,23 @@
     <h3>{data.team.coach}</h3>
   </section>
   <section class="list-section-1">
-    <h2>Players</h2>
     <div class="buttons">
       <button onclick={() => openEditModal(defaultPlayer)} type="button">Add Player</button>
     </div>
     <div>
-      <h2>Players</h2>
+      <h2>All Players</h2>
     </div>
     <div>
       {#each data.players as player}
         <div class="game">
+          <div class="team-bar">
           <a href="/rosters/{player.team_name}/{player.player_name}">
             <h3>{player.player_name}</h3>
+            <div class="team-bar">
             <p>{player.position}</p>
+            </div>
           </a>
+          </div>
           <div class="buttons">
             <button onclick={() => openEditModal(player)} type="button">Edit</button>
             <button onclick={() => handleDeletePlayer(player)} type="button">Delete</button>
@@ -228,29 +196,7 @@
             <p class="error">{errors.player_number}</p>
           {/if}
         </div>
-        <!-- <div class="form-group">
-                    <label for="player-first-name">First Name:</label>
-                    <input
-                        type="text"
-                        name="player-first-name"
-                        value={editingPlayer.firstName}
-                    />
-                    {#if errors.firstName}
-                        <p class="error">{errors.firstName}</p>
-                    {/if}
-                </div>
-                <div class="form-group">
-                    <label for="player-last-name">Last Name:</label>
-                    <input
-                        type="text"
-                        name="player-last-name"
-                        value={editingPlayer.lastName}
-                    />
-                    {#if errors.lastName}
-                        <p class="error">{errors.lastName}</p>
-                    {/if}
-                </div> -->
-        <!-- <div class="form-group">
+        <div class="form-group">
                     <label for="player-hometown">Hometown:</label>
                     <input
                         type="text"
@@ -263,26 +209,61 @@
                 </div>
                 <div class="form-group">
                     <label for="player-state">State:</label>
-                    <input
-                        type="text"
-                        name="player-state"
-                        value={editingPlayer.state}
-                    />
+                    <select name="player-state" value={editingPlayer.state}>
+                      <option value="">Select a state</option>
+                      <option value="AL">AL</option>
+                      <option value="AK">AK</option>
+                      <option value="AZ">AZ</option>
+                      <option value="AR">AR</option>
+                      <option value="CA">CA</option>
+                      <option value="CO">CO</option>
+                      <option value="CT">CT</option>
+                      <option value="DE">DE</option>
+                      <option value="FL">FL</option>
+                      <option value="GA">GA</option>
+                      <option value="HI">HI</option>
+                      <option value="ID">ID</option>
+                      <option value="IL">IL</option>
+                      <option value="IN">IN</option>
+                      <option value="IA">IA</option>
+                      <option value="KS">KS</option>
+                      <option value="KY">KY</option>
+                      <option value="LA">LA</option>
+                      <option value="ME">ME</option>
+                      <option value="MD">MD</option>
+                      <option value="MA">MA</option>
+                      <option value="MI">MI</option>
+                      <option value="MN">MN</option>
+                      <option value="MS">MS</option>
+                      <option value="MO">MO</option>
+                      <option value="MT">MT</option>
+                      <option value="NE">NE</option>
+                      <option value="NV">NV</option>
+                      <option value="NH">NH</option>
+                      <option value="NJ">NJ</option>
+                      <option value="NM">NM</option>
+                      <option value="NY">NY</option>
+                      <option value="NC">NC</option>
+                      <option value="ND">ND</option>
+                      <option value="OH">OH</option>
+                      <option value="OK">OK</option>
+                      <option value="OR">OR</option>
+                      <option value="PA">PA</option>
+                      <option value="RI">RI</option>
+                      <option value="SC">SC</option>
+                      <option value="SD">SD</option>
+                      <option value="TN">TN</option>
+                      <option value="TX">TX</option>
+                      <option value="UT">UT</option>
+                      <option value="VT">VT</option>
+                      <option value="VA">VA</option>
+                      <option value="WA">WA</option>
+                      <option value="WV">WV</option>
+                      <option value="WI">WI</option>
+                      <option value="WY">WY</option>
+                    </select>
                     {#if errors.state}
                         <p class="error">{errors.state}</p>
-                    {/if}
-                </div>
-                <div class="form-group">
-                    <label for="player-number">Number:</label>
-                    <input
-                        type="number"
-                        name="player-number"
-                        min="0"
-                        max="99"
-                        value={editingPlayer.number}
-                    />
-                    {#if errors.number}
-                        <p class="error">{errors.number}</p>
                     {/if}
                 </div>
                 <div class="form-group">
@@ -308,7 +289,7 @@
                 </div>
                 <div class="form-group">
                     <label for="player-class">Class:</label>
-                    <select name="player-class" value={editingPlayer.class}>
+                    <select name="player-class" value={editingPlayer.player_class}>
                         <option value="Freshman">Freshman</option>
                         <option value="Sophomore">Sophomore</option>
                         <option value="Junior">Junior</option>
@@ -326,7 +307,7 @@
                             name="player-height-feet"
                             placeholder="Feet"
                             min="0"
-                            value={editingPlayer.heightFeet}
+                            value={editingPlayer.height_feet}
                         />
                         <input
                             type="number"
@@ -334,7 +315,7 @@
                             placeholder="Inches"
                             min="0"
                             max="11"
-                            value={editingPlayer.heightInches}
+                            value={editingPlayer.height_inches}
                         />
                     </div>
                     {#if errors.height}
@@ -352,7 +333,7 @@
                     {#if errors.weight}
                         <p class="error">{errors.weight}</p>
                     {/if}
-                </div> -->
+                </div>
         <div class="modal-actions">
           <button type="button" onclick={closeEditModal} class="cancel-button">Cancel</button>
           <button type="submit" class="sign-in-button">Save Changes</button>

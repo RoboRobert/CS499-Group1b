@@ -79,13 +79,19 @@ export async function addPlayer(players: Player) {
   let name = players.player_name;
   let number = players.player_number;
   let position = players.position;
+  let player_class = players.player_class;
+  let hometown = players.hometown;
+  let state = players.state;
+  let height_feet = players.height_feet || 0;
+  let height_inches = players.height_inches || 0;
+  let weight = players.weight || 0;
   let quarter = players.quarter;
   let shots = players.shots;
   let goals = players.goals;
   let miss = players.miss;
   let ground = players.ground;
   const result = await sql`
-    INSERT INTO players (PLAYER_NAME, PLAYER_NUMBER, TEAM_NAME, POSITION, QUARTERS, ATTEMPTED_SHOTS, GOALS, FAILED_SHOTS, GROUND_BALLS) VALUES (${name}, ${number}, ${team}, ${position}, ${quarter}, ${shots}, ${goals}, ${miss}, ${ground}) RETURNING *
+    INSERT INTO players (PLAYER_NAME, PLAYER_NUMBER, TEAM_NAME, POSITION, PLAYER_CLASS, HOMETOWN, STATE, HEIGHT_FEET, HEIGHT_INCHES, WEIGHT, QUARTERS, ATTEMPTED_SHOTS, GOALS, FAILED_SHOTS, GROUND_BALLS) VALUES (${name}, ${number}, ${team}, ${position},${player_class}, ${hometown}, ${state}, ${height_feet}, ${height_inches}, ${weight}, ${quarter}, ${shots}, ${goals}, ${miss}, ${ground}) RETURNING *
   `;
 
   return result;
@@ -124,21 +130,21 @@ export async function dbTeamsReset() {
             COACH varchar(100),
             Primary key (TEAM_NAME));`;
 
-  updateTeam({
-    team_id: "uah-mlax-001",
-    team_name: "UAH Men's Lacrosse",
-    hometown: "Huntsville",
-    state: "AL",
-    coach: "Mark Frey",
-  });
+  // updateTeam({
+  //   team_id: "uah-mlax-001",
+  //   team_name: "UAH Men's Lacrosse",
+  //   hometown: "Huntsville",
+  //   state: "AL",
+  //   coach: "Mark Frey",
+  // });
 
-  updateTeam({
-    team_id: "auburn-mlax-001",
-    team_name: "Auburn University Men's Lacrosse",
-    hometown: "Auburn",
-    state: "AL",
-    coach: "JJ Arminio",
-  });
+  // updateTeam({
+  //   team_id: "auburn-mlax-001",
+  //   team_name: "Auburn University Men's Lacrosse",
+  //   hometown: "Auburn",
+  //   state: "AL",
+  //   coach: "JJ Arminio",
+  // });
 
   return res;
 }
@@ -157,6 +163,12 @@ export async function dbPlayersReset() {
             PLAYER_NUMBER INT NOT NULL,
             TEAM_NAME varchar(100),
             POSITION varchar(100),
+            PLAYER_CLASS varchar(100),
+            HOMETOWN varchar(100),
+            STATE varchar(100),
+            HEIGHT_FEET INT,
+            HEIGHT_INCHES INT,
+            WEIGHT INT,
             QUARTERS INT,
             ATTEMPTED_SHOTS INT,
             GOALS INT,
@@ -165,13 +177,13 @@ export async function dbPlayersReset() {
             primary key(PLAYER_NAME, PLAYER_NUMBER),
             foreign key(TEAM_NAME) references teams(TEAM_NAME) ON DELETE CASCADE ON UPDATE CASCADE);`;
 
-  for(const player of auburnLacrosseRoster) {
-    addPlayer(player);
-  }
+  // for(const player of auburnLacrosseRoster) {
+  //   addPlayer(player);
+  // }
 
-  for(const player of uahLacrosseRoster) {
-    addPlayer(player);
-  }
+  // for(const player of uahLacrosseRoster) {
+  //   addPlayer(player);
+  // }
 
   return res;
 }
