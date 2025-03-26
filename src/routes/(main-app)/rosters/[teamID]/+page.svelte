@@ -186,7 +186,12 @@
   </section>
   <section class="list-section-1">
     <h2>Players</h2>
-    <button onclick={() => openEditModal(defaultPlayer)} type="button">Add Player</button>
+    <div class="buttons">
+      <button onclick={() => openEditModal(defaultPlayer)} type="button">Add Player</button>
+    </div>
+    <div>
+      <h2>Players</h2>
+    </div>
     <div>
       {#each data.players as player}
         <div class="game">
@@ -194,7 +199,7 @@
             <h3>{player.player_name}</h3>
             <p>{player.position}</p>
           </a>
-          <div class="button-container">
+          <div class="buttons">
             <button onclick={() => openEditModal(player)} type="button">Edit</button>
             <button onclick={() => handleDeletePlayer(player)} type="button">Delete</button>
           </div>

@@ -49,6 +49,14 @@ nav a:hover {
   text-align: center;
 }
 
+.team-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+ }
+
 .rosters-dash {
   color: black;
   padding: 15px;
