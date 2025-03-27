@@ -11,6 +11,12 @@ export interface Player {
     player_name: string,
     player_number: number,
     position: string,
+    player_class: string
+    hometown: string,
+    state: string,
+    height_feet: number,
+    height_inches: number,
+    weight: number,
     quarter: number,
     shots: number,
     goals: number,

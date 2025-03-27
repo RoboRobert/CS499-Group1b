@@ -23,7 +23,7 @@ nav a {
   font-size: 18px;
 }
 nav a:hover {
-  color: red;
+  color: gold;
 }
 .container {
   max-width: 1000px;
@@ -37,10 +37,26 @@ nav a:hover {
 }
 .game {
   padding: 10px;
-  background: white;
   margin-bottom: 10px;
   border-radius: 5px;
   box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.1);
+  display:flex;
+  justify-content: space-between;
+  z-index: 1;
+}
+
+.game a{
+  z-index: 1;
+  text-decoration: none;
+  color:black;
+}
+
+.game a:link{
+  color:black;
+}
+
+.game a:hover{
+  color:gold;
 }
 
 .home-dash {
@@ -50,12 +66,23 @@ nav a:hover {
 }
 
 .team-bar {
-  display: flex;
-  justify-content: space-between;
   align-items: center;
   gap: 10px;
+  height: 100%;
   width: 100%;
+  z-index: 2;
+  display: flex;
+  
  }
+
+ .team-bar a {
+  align-items: center;
+  width: 100%;
+}
+
+.team-bar a h3, .team-bar a div {
+  margin: 0;
+}
 
 .rosters-dash {
   color: black;
@@ -78,6 +105,9 @@ nav a:hover {
 .buttons {
   display: flex;
   gap: 10px;
+  margin-left: auto;
+  flex-shrink:0;
+  z-index: 3;
 }
 
 .buttons button {

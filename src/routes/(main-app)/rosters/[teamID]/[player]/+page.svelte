@@ -10,12 +10,13 @@
     <a href="/rosters/{data.player.team_name}">Back</a>
     <section class= "player-dash">
         <h1>{data.player.player_name}</h1>
-        <!-- <h4>Class: {playerClass}</h4>
-        <h4>Hometown: {hometown}</h4> -->
+        <h4>Class: {data.player.player_class}</h4>
+        <h4>Hometown: {data.player.hometown}</h4>
+        <h4>State: {data.player.state}</h4>
         <h4>Number: {data.player.player_number}</h4>
         <h4>Position: {data.player.position}</h4>
-        <!-- <h4>Height: {height}</h4>
-        <h4>Weight: {weight}</h4> -->
+        <h4>Height: {data.player.height_feet}ft, {data.player.height_inches}in.</h4>
+        <h4>Weight: {data.player.weight}lbs</h4>
     </section>
     <section class="list-section-1">
         <h3>Player Stats</h3>
