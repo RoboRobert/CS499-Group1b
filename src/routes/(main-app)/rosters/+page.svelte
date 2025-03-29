@@ -3,6 +3,7 @@
   import type { Team } from "$lib/database/Team";
   import type { PageProps } from "./$types";
 
+
   let { data }: PageProps = $props();
 
   const defaultTeam: Team = {
@@ -22,6 +23,7 @@
 
   let editingTeam: Team = $state(defaultTeam);
   let showEditModal = $state(false);
+  let showDeleteConfirm = $state(false);
 
   const openEditModal = (team: Team) => {
     editingTeam = team;
@@ -29,6 +31,15 @@
   };
   const closeEditModal = () => {
     showEditModal = false;
+    editingTeam = defaultTeam;
+  };
+
+  const openDeleteModal = (team: Team) => {
+    editingTeam = team;
+    showDeleteConfirm = true;
+  }
+  const closeDeleteModal = () => {
+    showDeleteConfirm = false;
     editingTeam = defaultTeam;
   };
 
@@ -125,6 +136,8 @@
       });
 
     setTimeout(async () => invalidateAll(), 100);
+    // Close the delete confirmation modal
+    closeDeleteModal();
   }
 </script>
 
@@ -159,7 +172,7 @@
           </div>
           <div class= "buttons">
               <button onclick={() => openEditModal(team)} type="button">Edit</button>
-              <button onclick={() => handleDeleteTeam(team)} type="button">Delete</button>
+              <button onclick={() => openDeleteModal(team)} type="button">Delete</button>
           </div> 
         </div>
       {/each}
@@ -260,4 +273,18 @@
       </form>
     </div>
   </div>
+{/if}
+
+
+{#if showDeleteConfirm}
+<div class="modal-backdrop">
+  <div class="modal-content">
+    <h2>Are you sure you want to delete this team?</h2>
+    <div class="modal-actions">
+      <button type="button" onclick={closeDeleteModal} class="cancel-button">Cancel</button>
+      <button type="button" onclick={() => handleDeleteTeam(editingTeam)} class="sign-in-button">Delete</button>
+    </div>
+
+  </div>
+</div>
 {/if}

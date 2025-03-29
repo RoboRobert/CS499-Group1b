@@ -25,6 +25,7 @@
 
   let showEditModal = $state(false);
   let errors: { [key: string]: string } = $state({});
+  let showDeleteConfirm = $state(false);
 
   let editingPlayer: Player | null = $state(defaultPlayer);
 
@@ -37,6 +38,15 @@
     showEditModal = false;
     editingPlayer = null;
   }
+
+  const openDeleteModal = (player: Player) => {
+    editingPlayer = player;
+    showDeleteConfirm = true;
+  }
+  const closeDeleteModal = () => {
+    showDeleteConfirm = false;
+    editingPlayer = null;
+  };
 
   async function handlePlayerForm(event: Event) {
     event.preventDefault();
@@ -138,6 +148,7 @@
       });
 
     setTimeout(async () => invalidateAll(), 100);
+    closeDeleteModal();
   }
 </script>
 
@@ -169,7 +180,7 @@
           </div>
           <div class="buttons">
             <button onclick={() => openEditModal(player)} type="button">Edit</button>
-            <button onclick={() => handleDeletePlayer(player)} type="button">Delete</button>
+            <button onclick={() => openDeleteModal(player)} type="button">Delete</button>
           </div>
         </div>
       {/each}
@@ -341,4 +352,18 @@
       </form>
     </div>
   </div>
+{/if}
+
+
+{#if showDeleteConfirm}
+<div class="modal-backdrop">
+  <div class="modal-content">
+    <h2>Are you sure you want to delete this team?</h2>
+    <div class="modal-actions">
+      <button type="button" onclick={closeDeleteModal} class="cancel-button">Cancel</button>
+      <button type="button" onclick={() => handleDeletePlayer(editingPlayer)} class="sign-in-button">Delete</button>
+    </div>
+
+  </div>
+</div>
 {/if}

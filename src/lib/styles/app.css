@@ -43,6 +43,7 @@ nav a:hover {
   display:flex;
   justify-content: space-between;
   z-index: 1;
+  background-color: white;
 }
 
 .game a{
