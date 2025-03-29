@@ -160,6 +160,7 @@
     <h3>{data.team.hometown}</h3>
     <h3>{data.team.coach}</h3>
   </section>
+
   <section class="list-section-1">
     <div class="buttons">
       <button onclick={() => openEditModal(defaultPlayer)} type="button">Add Player</button>
@@ -173,15 +174,20 @@
           <div class="team-bar">
           <a href="/rosters/{player.team_name}/{player.player_name}">
             <h3>{player.player_name}</h3>
-            <div class="team-bar">
+            <section class="team-info">
             <p>{player.position}</p>
-            </div>
+            <p>#{player.player_number}</p>
+            <p>{player.player_class}</p>
+            <p>Height: {player.height_feet}' {player.height_inches}"</p>
+            <p>Weight: {player.weight} lbs</p>
+            </section>
           </a>
-          </div>
-          <div class="buttons">
+         
+          <section class="list-buttons">
             <button onclick={() => openEditModal(player)} type="button">Edit</button>
             <button onclick={() => openDeleteModal(player)} type="button">Delete</button>
-          </div>
+          </section>
+         </div>
         </div>
       {/each}
     </div>

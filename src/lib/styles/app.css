@@ -1,20 +1,63 @@
+/* Color Vars */
+:root{
+/** Base colors */
+--clr-dark-a0: #000000;
+--clr-light-a0: #ffffff;
+
+/** Theme primary colors */
+--clr-primary-a0: #006aff;
+--clr-primary-a10: #4b79ff;
+--clr-primary-a20: #6c88ff;
+--clr-primary-a30: #8698ff;
+--clr-primary-a40: #9da9ff;
+--clr-primary-a50: #b2b9ff;
+
+/** Theme surface colors */
+--clr-surface-a0: #212121;
+--clr-surface-a10: #363636;
+--clr-surface-a20: #4c4c4c;
+--clr-surface-a30: #636363;
+--clr-surface-a40: #7b7b7b;
+--clr-surface-a50: #949494;
+
+/** Theme tonal surface colors */
+--clr-surface-tonal-a0: #272834;
+--clr-surface-tonal-a10: #3b3c48;
+--clr-surface-tonal-a20: #51525c;
+--clr-surface-tonal-a30: #686872;
+--clr-surface-tonal-a40: #7f8088;
+--clr-surface-tonal-a50: #97989e;
+
+}
+
+/* Global Styles */
 body {
   font-family: Arial, sans-serif;
   margin: 0;
   padding: 0;
+  background-color: var(--clr-surface-a0);
 }
+
 header {
-  background-color: #333;
+  background-color: var(--clr-surface-a0);
   color: white;
   padding: 15px;
   text-align: center;
 }
+
+.container {
+  max-width: 1000px;
+  margin: auto;
+  padding: 20px;
+}
+
 nav {
-  background-color: tan;
+  background-color: var(--clr-surface-a0);
   padding: 10px;
   margin-right: auto;
   display: flex;
   gap: 15px;
+    
 }
 nav a {
   color: white;
@@ -23,86 +66,60 @@ nav a {
   font-size: 18px;
 }
 nav a:hover {
-  color: gold;
-}
-.container {
-  max-width: 1000px;
-  margin: auto;
-  padding: 20px;
-}
-.list-section-1 {
-  background-color: #f4f4f4;
-  padding: 20px;
-  margin-top: 20px;
-}
-.game {
-  padding: 10px;
-  margin-bottom: 10px;
-  border-radius: 5px;
-  box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.1);
-  display:flex;
-  justify-content: space-between;
-  z-index: 1;
-  background-color: white;
+  color: var(--clr-primary-a20);
 }
 
-.game a{
-  z-index: 1;
-  text-decoration: none;
-  color:black;
-}
 
-.game a:link{
-  color:black;
-}
-
-.game a:hover{
-  color:gold;
-}
-
+/* Dash Boards */
 .home-dash {
-  color: black;
+  color: var(--clr-light-a0);
   padding: 15px;
   text-align: center;
-}
-
-.team-bar {
-  align-items: center;
-  gap: 10px;
-  height: 100%;
-  width: 100%;
-  z-index: 2;
-  display: flex;
-  
- }
-
- .team-bar a {
-  align-items: center;
-  width: 100%;
-}
-
-.team-bar a h3, .team-bar a div {
-  margin: 0;
+  box-shadow: 0 4px 8px rgba(255, 255, 255, 0.2);
 }
 
 .rosters-dash {
-  color: black;
+  color: var(--clr-light-a0);
   padding: 15px;
   text-align: center;
+  box-shadow: 0 4px 8px rgba(255, 255, 255, 0.2);
 }
 
 .game-dash {
-  color: black;
+  color:  var(--clr-light-a0);
   padding: 15px;
   text-align: center;
+  box-shadow: 0 4px 8px rgba(255, 255, 255, 0.2);
+
 }
 
 .past-games-dash {
-  color: black;
+  color: var(--clr-light-a0);
   padding: 15px;
   text-align: center;
+  box-shadow: 0 4px 8px rgba(255, 255, 255, 0.2);
 }
 
+.player-dash {
+ 
+  color: var(--clr-light-a0);
+  padding: 20px;
+  border-radius: 0px;
+  box-shadow: 0 4px 8px rgba(255, 255, 255, 0.2);
+  margin-bottom: 20px;
+}
+.player-dash h1 {
+  font-size: 2rem;
+  margin-bottom: 10px;
+}
+.player-dash h4 {
+  font-size: 1rem;
+  margin: 5px 0;
+}
+
+
+
+/* Buttons */
 .buttons {
   display: flex;
   gap: 10px;
@@ -110,19 +127,85 @@ nav a:hover {
   flex-shrink:0;
   z-index: 3;
 }
-
 .buttons button {
-  background-color: #333;
+  background-color: var(--clr-primary-a20);
   color: white;
   padding: 8px 15px;
   cursor: pointer;
   border: none;
   font-size: 16px;
+  border-radius: 5px;
+}
+.buttons button:hover {
+  background-color: var(--clr-primary-a40);
 }
 
-.buttons button:hover {
-  background-color: #6c6b6b;
+.list-buttons {
+  display: flex;
+  gap: 10px;
+  margin-left: auto;
+  flex-shrink:0;
+  z-index: 3;
+  align-items: stretch;
+  
 }
+.list-buttons button {
+  background-color: var(--clr-primary-a20); /* Use primary color for buttons */
+  color: white;
+  padding: 8px 15px;
+  cursor: pointer;
+  border: none;
+  font-size: 16px;
+  height: 80px; /* Set a fixed height for the buttons */
+  border-radius: 5px;
+  margin-top: 0; /* Align buttons to the top */
+  margin-bottom: 0; /* Align buttons to the top */
+}
+.list-buttons button:hover {
+  background-color: var(--clr-primary-a40);
+}
+
+.cancel-button {
+  background-color: transparent;
+  border: none;
+  color: #718096;
+  cursor: pointer;
+  transition: color 0.2s;
+}
+.cancel-button:hover {
+  color: #4a5568;
+}
+
+.sign-in-button {
+  background-color: #3182ce;
+  color: #fff;
+  border: none;
+  padding: 5px 15px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+.sign-in-button:hover {
+  background-color: #2b6cb0;
+}
+
+/* Form Styles */
+.form-group {
+  margin-bottom: 15px;
+}
+.form-group label {
+  display: block;
+  margin-bottom: 5px;
+}
+.form-group input {
+  width: 100%;
+  padding: 5px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+
+
 
 /* Modal Styles */
 .modal-backdrop {
@@ -140,30 +223,13 @@ nav a:hover {
   border-radius: 8px;
   padding: 20px;
   width: 400px;
-  max-height: 80vh; /* Set a maximum height */
-  overflow-y: auto; /* Enable vertical scrolling */
+  max-height: 80vh; 
+  overflow-y: auto; 
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
 }
-
 .modal-content h2 {
   font-size: 20px;
   margin-bottom: 15px;
-}
-
-.form-group {
-  margin-bottom: 15px;
-}
-
-.form-group label {
-  display: block;
-  margin-bottom: 5px;
-}
-
-.form-group input {
-  width: 100%;
-  padding: 5px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
 }
 
 .modal-actions {
@@ -172,46 +238,77 @@ nav a:hover {
   gap: 10px;
 }
 
-.cancel-button {
-  background-color: transparent;
-  border: none;
-  color: #718096;
-  cursor: pointer;
-  transition: color 0.2s;
-}
 
-.cancel-button:hover {
-  color: #4a5568;
-}
-
-.sign-in-button {
-  background-color: #3182ce;
-  color: #fff;
-  border: none;
-  padding: 5px 15px;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: background-color 0.2s;
-}
-
-.sign-in-button:hover {
-  background-color: #2b6cb0;
-}
-.player-dash {
-  background-color: white;
-  color: black;
+/* Lists */
+.list-section-1 {
+  background-color: var(--clr-surface-tonal-a10);
   padding: 20px;
-  border-radius: 0px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  margin-bottom: 20px;
+  margin: 20px;
+  border-radius: 5px;
+  color: var(--clr-light-a0)
 }
 
-.player-dash h1 {
-  font-size: 2rem;
+.game {
+  /* padding: 10px; */
   margin-bottom: 10px;
+  border-radius: 5px;
+  box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.1);
+  display:flex;
+  justify-content: space-between;
+
+  background-color: var(--clr-surface-tonal-a20);
+  position: relative;
+}
+.game a{
+
+  text-decoration: none;
+  color:var(--clr-light-a0);
+  width: 100%; 
+  height: 100%;
+}
+.game a:link{
+  color:var(--clr-light-a0);
+}
+.game a:hover{
+  color: var(--clr-primary-a0);
+}
+.game div:hover{
+  border: var(--clr-primary-a0) solid 2px;
+  border-radius: 5px;
+  background-color:rgba(178, 185, 255, 0.5);
+  
+  cursor: pointer;
+
 }
 
-.player-dash h4 {
-  font-size: 1rem;
-  margin: 5px 0;
+.team-bar {
+  padding: 10px;
+  align-items: center;
+  gap: 10px;
+  height: 100%;
+  width: 100%;
+
+  display: flex;
+ }
+ .team-bar a {
+  align-items: center;
+  width: 100%;
+  height: 100%;
+}
+.team-bar a h3, .team-bar a div {
+  margin: 0;
+}
+
+.team-info {
+  display: flex;
+  flex-direction: row;
+  align-items: left;
+  justify-content: left;
+  text-align: center;
+  margin-left: 10px;
+  gap: 10px;
+}
+.team-info div:hover{
+  border: none;
+  
 }

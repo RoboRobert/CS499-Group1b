@@ -18,11 +18,14 @@
         <h2>Recent Games</h2>
         <div>
         {#each data.games as game }
-        <a href="/pastgames/{game}">
-            <div class = "game">
+        <div class="game">
+        <div class="team-bar">
+            <a href="/pastgames/{game}">
                 <h3>{game.gameid}</h3>
-            </div>
-        </a>
+                
+            </a>
+        </div>
+        </div>
         {/each}
         </div>
             
@@ -31,17 +34,7 @@
 </div>
 
 <style>
-    a:link{
-        color:black;
-    }
-    a {
-        text-decoration: none;
-        color:black;
-    }
-    a:hover{
-        color:gold;
-    }
-
+  
     .smegol {
         width:400px;
     }

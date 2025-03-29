@@ -163,17 +163,18 @@
           <div class="team-bar">
             <a href="/rosters/{team.team_id}">
                 <h3>{team.team_name}</h3>
-                <div class="team-bar">
+                <section class="team-info">
                 <p>{team.hometown}</p>
                 <p>{team.state}</p>
                 <p>Coach: {team.coach}</p>
-                </div>
+                </section>
             </a>
-          </div>
-          <div class= "buttons">
+          
+          <section class= "list-buttons">
               <button onclick={() => openEditModal(team)} type="button">Edit</button>
               <button onclick={() => openDeleteModal(team)} type="button">Delete</button>
-          </div> 
+          </section> 
+          </div>
         </div>
       {/each}
     </div>

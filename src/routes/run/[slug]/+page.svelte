@@ -90,7 +90,10 @@
 </div>
 
 <style>
+
+
   .main {
+    background-color: white;
     display: flex;
     flex-direction: column;
     max-height: 98vh;
