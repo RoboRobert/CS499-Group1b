@@ -145,7 +145,7 @@
 
 <div>
   <section class="rosters-dash">
-    <h1>Rosters</h1>
+    <h1><strong>Rosters</strong></h1>
     <h3>A List of All Teams on the Website</h3>
   </section>
 
@@ -154,26 +154,21 @@
       <button onclick={() => openEditModal(defaultTeam)} type="button">Add Teams</button>
     </div>
     <div>
-      <h1>All Teams</h1>
+      <h2>All Teams</h2>
     </div>
-    <div>
+    <div class="teams-bars">
       {#each data.teams as team}
-        <!-- Using team.name in the href and display -->
-        <div class="game">
-          <div class="team-bar">
-            <a href="/rosters/{team.team_id}">
-                <h3>{team.team_name}</h3>
-                <section class="team-info">
-                <p>{team.hometown}</p>
-                <p>{team.state}</p>
-                <p>Coach: {team.coach}</p>
-                </section>
+        <div class="team-bar">
+          <div >
+            <a href="/rosters/{team.team_id}" class="team-link">
+              <h3 class="team-name">{team.team_name}</h3>
+              <p>{team.hometown}, {team.state}</p>
+              <p>Coach: {team.coach}</p>
             </a>
-          
-          <section class= "list-buttons">
-              <button onclick={() => openEditModal(team)} type="button">Edit</button>
-              <button onclick={() => openDeleteModal(team)} type="button">Delete</button>
-          </section> 
+          </div>
+          <div class="team-actions">
+            <button onclick={() => openEditModal(team)} type="button" class="edit-button">Edit</button>
+            <button onclick={() => openDeleteModal(team)} type="button" class="delete-button">Delete</button>
           </div>
         </div>
       {/each}

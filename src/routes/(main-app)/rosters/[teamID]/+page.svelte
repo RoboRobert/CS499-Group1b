@@ -153,46 +153,39 @@
 </script>
 
 <title>Team {data.team.team_name}</title>
-<div>
-  <a href="./">Back</a>
-  <section class="home-dash">
-    <h1>{data.team.team_name}</h1>
-    <h3>{data.team.hometown}</h3>
-    <h3>{data.team.coach}</h3>
-  </section>
+<div class="team-page">
+  <!-- <a href="./" class="back-link">← Back to Rosters</a> -->
 
-  <section class="list-section-1">
-    <div class="buttons">
-      <button onclick={() => openEditModal(defaultPlayer)} type="button">Add Player</button>
-    </div>
-    <div>
-      <h2>All Players</h2>
-    </div>
-    <div>
+  <section class="team-header">
+    <h1>{data.team.team_name}</h1>
+    <p class="team-info"> {data.team.hometown}, {data.team.state} <br> 
+      Coach: {data.team.coach}</p>
+    
+  </section>
+  <section class="players-section">
+    <button onclick={() => openEditModal(defaultPlayer)} class="add-player-button">Add Player</button>
+    <h2>All Players</h2>
+    <div class="players-grid">
       {#each data.players as player}
-        <div class="game">
-          <div class="team-bar">
-          <a href="/rosters/{player.team_name}/{player.player_name}">
-            <h3>{player.player_name}</h3>
-            <section class="team-info">
-            <p>{player.position}</p>
-            <p>#{player.player_number}</p>
-            <p>{player.player_class}</p>
-            <p>Height: {player.height_feet}' {player.height_inches}"</p>
-            <p>Weight: {player.weight} lbs</p>
-            </section>
+        <div class="player-card">
+          <a href="/rosters/{player.team_name}/{player.player_name}" class="player-link">
+            <h3 class="player-name">{player.player_name}</h3>
+            <p class="player-details">
+              <strong>Position:</strong> {player.position} <br />
+              <strong>Number:</strong> #{player.player_number} <br />
+              <strong>Class:</strong> {player.player_class} <br />
+              <strong>Height:</strong> {player.height_feet}' {player.height_inches}" <br />
+              <strong>Weight:</strong> {player.weight} lbs
+            </p>
           </a>
-         
-          <section class="list-buttons">
-            <button onclick={() => openEditModal(player)} type="button">Edit</button>
-            <button onclick={() => openDeleteModal(player)} type="button">Delete</button>
-          </section>
-         </div>
+          <div class="player-actions">
+            <button onclick={() => openEditModal(player)} class="edit-button">Edit</button>
+            <button onclick={() => openDeleteModal(player)} class="delete-button">Delete</button>
+          </div>
         </div>
       {/each}
     </div>
   </section>
-</div>
 
 {#if showEditModal}
   <div class="modal-backdrop">
@@ -373,3 +366,5 @@
   </div>
 </div>
 {/if}
+</div>
+
