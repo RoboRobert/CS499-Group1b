@@ -130,21 +130,21 @@ export async function dbTeamsReset() {
             COACH varchar(100),
             Primary key (TEAM_NAME));`;
 
-  // updateTeam({
-  //   team_id: "uah-mlax-001",
-  //   team_name: "UAH Men's Lacrosse",
-  //   hometown: "Huntsville",
-  //   state: "AL",
-  //   coach: "Mark Frey",
-  // });
+  updateTeam({
+    team_id: "uah-mlax-001",
+    team_name: "UAH Men's Lacrosse",
+    hometown: "Huntsville",
+    state: "AL",
+    coach: "Mark Frey",
+  });
 
-  // updateTeam({
-  //   team_id: "auburn-mlax-001",
-  //   team_name: "Auburn University Men's Lacrosse",
-  //   hometown: "Auburn",
-  //   state: "AL",
-  //   coach: "JJ Arminio",
-  // });
+  updateTeam({
+    team_id: "auburn-mlax-001",
+    team_name: "Auburn University Men's Lacrosse",
+    hometown: "Auburn",
+    state: "AL",
+    coach: "JJ Arminio",
+  });
 
   return res;
 }
@@ -177,13 +177,13 @@ export async function dbPlayersReset() {
             primary key(PLAYER_NAME, PLAYER_NUMBER),
             foreign key(TEAM_NAME) references teams(TEAM_NAME) ON DELETE CASCADE ON UPDATE CASCADE);`;
 
-  // for(const player of auburnLacrosseRoster) {
-  //   addPlayer(player);
-  // }
+  for(const player of auburnLacrosseRoster) {
+    addPlayer(player);
+  }
 
-  // for(const player of uahLacrosseRoster) {
-  //   addPlayer(player);
-  // }
+  for(const player of uahLacrosseRoster) {
+    addPlayer(player);
+  }
 
   return res;
 }

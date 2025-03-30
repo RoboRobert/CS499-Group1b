@@ -11,6 +11,12 @@ export const auburnLacrosseRoster: Player[] = [
     goals: 0,
     miss: 0,
     ground: 0,
+    player_class: "",
+    hometown: "",
+    state: "",
+    height_feet: 0,
+    height_inches: 0,
+    weight: 0
   },
   {
     team_name: "Auburn University Men's Lacrosse",
@@ -22,6 +28,12 @@ export const auburnLacrosseRoster: Player[] = [
     goals: 0,
     miss: 0,
     ground: 0,
+    player_class: "",
+    hometown: "",
+    state: "",
+    height_feet: 0,
+    height_inches: 0,
+    weight: 0
   },
   {
     team_name: "Auburn University Men's Lacrosse",
@@ -33,6 +45,12 @@ export const auburnLacrosseRoster: Player[] = [
     goals: 0,
     miss: 0,
     ground: 0,
+    player_class: "",
+    hometown: "",
+    state: "",
+    height_feet: 0,
+    height_inches: 0,
+    weight: 0
   },
   {
     team_name: "Auburn University Men's Lacrosse",
@@ -44,6 +62,12 @@ export const auburnLacrosseRoster: Player[] = [
     goals: 0,
     miss: 0,
     ground: 0,
+    player_class: "",
+    hometown: "",
+    state: "",
+    height_feet: 0,
+    height_inches: 0,
+    weight: 0
   },
   {
     team_name: "Auburn University Men's Lacrosse",
@@ -55,6 +79,12 @@ export const auburnLacrosseRoster: Player[] = [
     goals: 0,
     miss: 0,
     ground: 0,
+    player_class: "",
+    hometown: "",
+    state: "",
+    height_feet: 0,
+    height_inches: 0,
+    weight: 0
   },
   {
     team_name: "Auburn University Men's Lacrosse",
@@ -66,6 +96,12 @@ export const auburnLacrosseRoster: Player[] = [
     goals: 0,
     miss: 0,
     ground: 0,
+    player_class: "",
+    hometown: "",
+    state: "",
+    height_feet: 0,
+    height_inches: 0,
+    weight: 0
   },
   {
     team_name: "Auburn University Men's Lacrosse",
@@ -77,6 +113,12 @@ export const auburnLacrosseRoster: Player[] = [
     goals: 0,
     miss: 0,
     ground: 0,
+    player_class: "",
+    hometown: "",
+    state: "",
+    height_feet: 0,
+    height_inches: 0,
+    weight: 0
   },
   {
     team_name: "Auburn University Men's Lacrosse",
@@ -88,6 +130,12 @@ export const auburnLacrosseRoster: Player[] = [
     goals: 0,
     miss: 0,
     ground: 0,
+    player_class: "",
+    hometown: "",
+    state: "",
+    height_feet: 0,
+    height_inches: 0,
+    weight: 0
   },
   {
     team_name: "Auburn University Men's Lacrosse",
@@ -99,6 +147,12 @@ export const auburnLacrosseRoster: Player[] = [
     goals: 0,
     miss: 0,
     ground: 0,
+    player_class: "",
+    hometown: "",
+    state: "",
+    height_feet: 0,
+    height_inches: 0,
+    weight: 0
   },
   {
     team_name: "Auburn University Men's Lacrosse",
@@ -110,6 +164,12 @@ export const auburnLacrosseRoster: Player[] = [
     goals: 0,
     miss: 0,
     ground: 0,
+    player_class: "",
+    hometown: "",
+    state: "",
+    height_feet: 0,
+    height_inches: 0,
+    weight: 0
   },
   {
     team_name: "Auburn University Men's Lacrosse",
@@ -121,6 +181,12 @@ export const auburnLacrosseRoster: Player[] = [
     goals: 0,
     miss: 0,
     ground: 0,
+    player_class: "",
+    hometown: "",
+    state: "",
+    height_feet: 0,
+    height_inches: 0,
+    weight: 0
   },
   {
     team_name: "Auburn University Men's Lacrosse",
@@ -132,6 +198,12 @@ export const auburnLacrosseRoster: Player[] = [
     goals: 0,
     miss: 0,
     ground: 0,
+    player_class: "",
+    hometown: "",
+    state: "",
+    height_feet: 0,
+    height_inches: 0,
+    weight: 0
   },
   {
     team_name: "Auburn University Men's Lacrosse",
@@ -143,6 +215,12 @@ export const auburnLacrosseRoster: Player[] = [
     goals: 0,
     miss: 0,
     ground: 0,
+    player_class: "",
+    hometown: "",
+    state: "",
+    height_feet: 0,
+    height_inches: 0,
+    weight: 0
   },
   {
     team_name: "Auburn University Men's Lacrosse",
@@ -154,6 +232,12 @@ export const auburnLacrosseRoster: Player[] = [
     goals: 0,
     miss: 0,
     ground: 0,
+    player_class: "",
+    hometown: "",
+    state: "",
+    height_feet: 0,
+    height_inches: 0,
+    weight: 0
   },
   {
     team_name: "Auburn University Men's Lacrosse",
@@ -165,6 +249,12 @@ export const auburnLacrosseRoster: Player[] = [
     goals: 0,
     miss: 0,
     ground: 0,
+    player_class: "",
+    hometown: "",
+    state: "",
+    height_feet: 0,
+    height_inches: 0,
+    weight: 0
   },
   {
     team_name: "Auburn University Men's Lacrosse",
@@ -176,6 +266,12 @@ export const auburnLacrosseRoster: Player[] = [
     goals: 0,
     miss: 0,
     ground: 0,
+    player_class: "",
+    hometown: "",
+    state: "",
+    height_feet: 0,
+    height_inches: 0,
+    weight: 0
   },
   {
     team_name: "Auburn University Men's Lacrosse",
@@ -187,6 +283,12 @@ export const auburnLacrosseRoster: Player[] = [
     goals: 0,
     miss: 0,
     ground: 0,
+    player_class: "",
+    hometown: "",
+    state: "",
+    height_feet: 0,
+    height_inches: 0,
+    weight: 0
   },
   {
     team_name: "Auburn University Men's Lacrosse",
@@ -198,6 +300,12 @@ export const auburnLacrosseRoster: Player[] = [
     goals: 0,
     miss: 0,
     ground: 0,
+    player_class: "",
+    hometown: "",
+    state: "",
+    height_feet: 0,
+    height_inches: 0,
+    weight: 0
   },
   {
     team_name: "Auburn University Men's Lacrosse",
@@ -209,6 +317,12 @@ export const auburnLacrosseRoster: Player[] = [
     goals: 0,
     miss: 0,
     ground: 0,
+    player_class: "",
+    hometown: "",
+    state: "",
+    height_feet: 0,
+    height_inches: 0,
+    weight: 0
   },
   {
     team_name: "Auburn University Men's Lacrosse",
@@ -220,6 +334,12 @@ export const auburnLacrosseRoster: Player[] = [
     goals: 0,
     miss: 0,
     ground: 0,
+    player_class: "",
+    hometown: "",
+    state: "",
+    height_feet: 0,
+    height_inches: 0,
+    weight: 0
   },
   {
     team_name: "Auburn University Men's Lacrosse",
@@ -231,6 +351,12 @@ export const auburnLacrosseRoster: Player[] = [
     goals: 0,
     miss: 0,
     ground: 0,
+    player_class: "",
+    hometown: "",
+    state: "",
+    height_feet: 0,
+    height_inches: 0,
+    weight: 0
   },
   {
     team_name: "Auburn University Men's Lacrosse",
@@ -242,6 +368,12 @@ export const auburnLacrosseRoster: Player[] = [
     goals: 0,
     miss: 0,
     ground: 0,
+    player_class: "",
+    hometown: "",
+    state: "",
+    height_feet: 0,
+    height_inches: 0,
+    weight: 0
   },
   {
     team_name: "Auburn University Men's Lacrosse",
@@ -253,6 +385,12 @@ export const auburnLacrosseRoster: Player[] = [
     goals: 0,
     miss: 0,
     ground: 0,
+    player_class: "",
+    hometown: "",
+    state: "",
+    height_feet: 0,
+    height_inches: 0,
+    weight: 0
   },
   {
     team_name: "Auburn University Men's Lacrosse",
@@ -264,6 +402,12 @@ export const auburnLacrosseRoster: Player[] = [
     goals: 0,
     miss: 0,
     ground: 0,
+    player_class: "",
+    hometown: "",
+    state: "",
+    height_feet: 0,
+    height_inches: 0,
+    weight: 0
   },
   {
     team_name: "Auburn University Men's Lacrosse",
@@ -275,6 +419,12 @@ export const auburnLacrosseRoster: Player[] = [
     goals: 0,
     miss: 0,
     ground: 0,
+    player_class: "",
+    hometown: "",
+    state: "",
+    height_feet: 0,
+    height_inches: 0,
+    weight: 0
   },
   {
     team_name: "Auburn University Men's Lacrosse",
@@ -286,6 +436,12 @@ export const auburnLacrosseRoster: Player[] = [
     goals: 0,
     miss: 0,
     ground: 0,
+    player_class: "",
+    hometown: "",
+    state: "",
+    height_feet: 0,
+    height_inches: 0,
+    weight: 0
   },
   {
     team_name: "Auburn University Men's Lacrosse",
@@ -297,6 +453,12 @@ export const auburnLacrosseRoster: Player[] = [
     goals: 0,
     miss: 0,
     ground: 0,
+    player_class: "",
+    hometown: "",
+    state: "",
+    height_feet: 0,
+    height_inches: 0,
+    weight: 0
   },
   {
     team_name: "Auburn University Men's Lacrosse",
@@ -308,6 +470,12 @@ export const auburnLacrosseRoster: Player[] = [
     goals: 0,
     miss: 0,
     ground: 0,
+    player_class: "",
+    hometown: "",
+    state: "",
+    height_feet: 0,
+    height_inches: 0,
+    weight: 0
   },
   {
     team_name: "Auburn University Men's Lacrosse",
@@ -319,6 +487,12 @@ export const auburnLacrosseRoster: Player[] = [
     goals: 0,
     miss: 0,
     ground: 0,
+    player_class: "",
+    hometown: "",
+    state: "",
+    height_feet: 0,
+    height_inches: 0,
+    weight: 0
   },
   {
     team_name: "Auburn University Men's Lacrosse",
@@ -330,6 +504,12 @@ export const auburnLacrosseRoster: Player[] = [
     goals: 0,
     miss: 0,
     ground: 0,
+    player_class: "",
+    hometown: "",
+    state: "",
+    height_feet: 0,
+    height_inches: 0,
+    weight: 0
   },
   {
     team_name: "Auburn University Men's Lacrosse",
@@ -341,6 +521,12 @@ export const auburnLacrosseRoster: Player[] = [
     goals: 0,
     miss: 0,
     ground: 0,
+    player_class: "",
+    hometown: "",
+    state: "",
+    height_feet: 0,
+    height_inches: 0,
+    weight: 0
   },
   {
     team_name: "Auburn University Men's Lacrosse",
@@ -352,6 +538,12 @@ export const auburnLacrosseRoster: Player[] = [
     goals: 0,
     miss: 0,
     ground: 0,
+    player_class: "",
+    hometown: "",
+    state: "",
+    height_feet: 0,
+    height_inches: 0,
+    weight: 0
   },
   {
     team_name: "Auburn University Men's Lacrosse",
@@ -363,6 +555,12 @@ export const auburnLacrosseRoster: Player[] = [
     goals: 0,
     miss: 0,
     ground: 0,
+    player_class: "",
+    hometown: "",
+    state: "",
+    height_feet: 0,
+    height_inches: 0,
+    weight: 0
   },
   {
     team_name: "Auburn University Men's Lacrosse",
@@ -374,6 +572,12 @@ export const auburnLacrosseRoster: Player[] = [
     goals: 0,
     miss: 0,
     ground: 0,
+    player_class: "",
+    hometown: "",
+    state: "",
+    height_feet: 0,
+    height_inches: 0,
+    weight: 0
   },
   {
     team_name: "Auburn University Men's Lacrosse",
@@ -385,6 +589,12 @@ export const auburnLacrosseRoster: Player[] = [
     goals: 0,
     miss: 0,
     ground: 0,
+    player_class: "",
+    hometown: "",
+    state: "",
+    height_feet: 0,
+    height_inches: 0,
+    weight: 0
   },
   {
     team_name: "Auburn University Men's Lacrosse",
@@ -396,6 +606,12 @@ export const auburnLacrosseRoster: Player[] = [
     goals: 0,
     miss: 0,
     ground: 0,
+    player_class: "",
+    hometown: "",
+    state: "",
+    height_feet: 0,
+    height_inches: 0,
+    weight: 0
   },
   {
     team_name: "Auburn University Men's Lacrosse",
@@ -407,6 +623,12 @@ export const auburnLacrosseRoster: Player[] = [
     goals: 0,
     miss: 0,
     ground: 0,
+    player_class: "",
+    hometown: "",
+    state: "",
+    height_feet: 0,
+    height_inches: 0,
+    weight: 0
   },
   {
     team_name: "Auburn University Men's Lacrosse",
@@ -418,6 +640,12 @@ export const auburnLacrosseRoster: Player[] = [
     goals: 0,
     miss: 0,
     ground: 0,
+    player_class: "",
+    hometown: "",
+    state: "",
+    height_feet: 0,
+    height_inches: 0,
+    weight: 0
   },
   {
     team_name: "Auburn University Men's Lacrosse",
@@ -429,6 +657,12 @@ export const auburnLacrosseRoster: Player[] = [
     goals: 0,
     miss: 0,
     ground: 0,
+    player_class: "",
+    hometown: "",
+    state: "",
+    height_feet: 0,
+    height_inches: 0,
+    weight: 0
   },
   {
     team_name: "Auburn University Men's Lacrosse",
@@ -440,6 +674,12 @@ export const auburnLacrosseRoster: Player[] = [
     goals: 0,
     miss: 0,
     ground: 0,
+    player_class: "",
+    hometown: "",
+    state: "",
+    height_feet: 0,
+    height_inches: 0,
+    weight: 0
   },
   {
     team_name: "Auburn University Men's Lacrosse",
@@ -451,6 +691,12 @@ export const auburnLacrosseRoster: Player[] = [
     goals: 0,
     miss: 0,
     ground: 0,
+    player_class: "",
+    hometown: "",
+    state: "",
+    height_feet: 0,
+    height_inches: 0,
+    weight: 0
   },
 ];
 
@@ -465,6 +711,12 @@ export const uahLacrosseRoster: Player[] = [
     goals: 0,
     miss: 0,
     ground: 0,
+    player_class: "",
+    hometown: "",
+    state: "",
+    height_feet: 0,
+    height_inches: 0,
+    weight: 0
   },
   {
     team_name: "UAH Men's Lacrosse",
@@ -476,6 +728,12 @@ export const uahLacrosseRoster: Player[] = [
     goals: 0,
     miss: 0,
     ground: 0,
+    player_class: "",
+    hometown: "",
+    state: "",
+    height_feet: 0,
+    height_inches: 0,
+    weight: 0
   },
   {
     team_name: "UAH Men's Lacrosse",
@@ -487,6 +745,12 @@ export const uahLacrosseRoster: Player[] = [
     goals: 0,
     miss: 0,
     ground: 0,
+    player_class: "",
+    hometown: "",
+    state: "",
+    height_feet: 0,
+    height_inches: 0,
+    weight: 0
   },
   {
     team_name: "UAH Men's Lacrosse",
@@ -498,6 +762,12 @@ export const uahLacrosseRoster: Player[] = [
     goals: 0,
     miss: 0,
     ground: 0,
+    player_class: "",
+    hometown: "",
+    state: "",
+    height_feet: 0,
+    height_inches: 0,
+    weight: 0
   },
   {
     team_name: "UAH Men's Lacrosse",
@@ -509,6 +779,12 @@ export const uahLacrosseRoster: Player[] = [
     goals: 0,
     miss: 0,
     ground: 0,
+    player_class: "",
+    hometown: "",
+    state: "",
+    height_feet: 0,
+    height_inches: 0,
+    weight: 0
   },
   {
     team_name: "UAH Men's Lacrosse",
@@ -520,6 +796,12 @@ export const uahLacrosseRoster: Player[] = [
     goals: 0,
     miss: 0,
     ground: 0,
+    player_class: "",
+    hometown: "",
+    state: "",
+    height_feet: 0,
+    height_inches: 0,
+    weight: 0
   },
   {
     team_name: "UAH Men's Lacrosse",
@@ -531,6 +813,12 @@ export const uahLacrosseRoster: Player[] = [
     goals: 0,
     miss: 0,
     ground: 0,
+    player_class: "",
+    hometown: "",
+    state: "",
+    height_feet: 0,
+    height_inches: 0,
+    weight: 0
   },
   {
     team_name: "UAH Men's Lacrosse",
@@ -542,6 +830,12 @@ export const uahLacrosseRoster: Player[] = [
     goals: 0,
     miss: 0,
     ground: 0,
+    player_class: "",
+    hometown: "",
+    state: "",
+    height_feet: 0,
+    height_inches: 0,
+    weight: 0
   },
   {
     team_name: "UAH Men's Lacrosse",
@@ -553,6 +847,12 @@ export const uahLacrosseRoster: Player[] = [
     goals: 0,
     miss: 0,
     ground: 0,
+    player_class: "",
+    hometown: "",
+    state: "",
+    height_feet: 0,
+    height_inches: 0,
+    weight: 0
   },
   {
     team_name: "UAH Men's Lacrosse",
@@ -564,6 +864,12 @@ export const uahLacrosseRoster: Player[] = [
     goals: 0,
     miss: 0,
     ground: 0,
+    player_class: "",
+    hometown: "",
+    state: "",
+    height_feet: 0,
+    height_inches: 0,
+    weight: 0
   },
   {
     team_name: "UAH Men's Lacrosse",
@@ -575,6 +881,12 @@ export const uahLacrosseRoster: Player[] = [
     goals: 0,
     miss: 0,
     ground: 0,
+    player_class: "",
+    hometown: "",
+    state: "",
+    height_feet: 0,
+    height_inches: 0,
+    weight: 0
   },
   {
     team_name: "UAH Men's Lacrosse",
@@ -586,6 +898,12 @@ export const uahLacrosseRoster: Player[] = [
     goals: 0,
     miss: 0,
     ground: 0,
+    player_class: "",
+    hometown: "",
+    state: "",
+    height_feet: 0,
+    height_inches: 0,
+    weight: 0
   },
   {
     team_name: "UAH Men's Lacrosse",
@@ -597,6 +915,12 @@ export const uahLacrosseRoster: Player[] = [
     goals: 0,
     miss: 0,
     ground: 0,
+    player_class: "",
+    hometown: "",
+    state: "",
+    height_feet: 0,
+    height_inches: 0,
+    weight: 0
   },
   {
     team_name: "UAH Men's Lacrosse",
@@ -608,6 +932,12 @@ export const uahLacrosseRoster: Player[] = [
     goals: 0,
     miss: 0,
     ground: 0,
+    player_class: "",
+    hometown: "",
+    state: "",
+    height_feet: 0,
+    height_inches: 0,
+    weight: 0
   },
   {
     team_name: "UAH Men's Lacrosse",
@@ -619,6 +949,12 @@ export const uahLacrosseRoster: Player[] = [
     goals: 0,
     miss: 0,
     ground: 0,
+    player_class: "",
+    hometown: "",
+    state: "",
+    height_feet: 0,
+    height_inches: 0,
+    weight: 0
   },
   {
     team_name: "UAH Men's Lacrosse",
@@ -630,6 +966,12 @@ export const uahLacrosseRoster: Player[] = [
     goals: 0,
     miss: 0,
     ground: 0,
+    player_class: "",
+    hometown: "",
+    state: "",
+    height_feet: 0,
+    height_inches: 0,
+    weight: 0
   },
   {
     team_name: "UAH Men's Lacrosse",
@@ -641,6 +983,12 @@ export const uahLacrosseRoster: Player[] = [
     goals: 0,
     miss: 0,
     ground: 0,
+    player_class: "",
+    hometown: "",
+    state: "",
+    height_feet: 0,
+    height_inches: 0,
+    weight: 0
   },
   {
     team_name: "UAH Men's Lacrosse",
@@ -652,6 +1000,12 @@ export const uahLacrosseRoster: Player[] = [
     goals: 0,
     miss: 0,
     ground: 0,
+    player_class: "",
+    hometown: "",
+    state: "",
+    height_feet: 0,
+    height_inches: 0,
+    weight: 0
   },
   {
     team_name: "UAH Men's Lacrosse",
@@ -663,6 +1017,12 @@ export const uahLacrosseRoster: Player[] = [
     goals: 0,
     miss: 0,
     ground: 0,
+    player_class: "",
+    hometown: "",
+    state: "",
+    height_feet: 0,
+    height_inches: 0,
+    weight: 0
   },
   {
     team_name: "UAH Men's Lacrosse",
@@ -674,6 +1034,12 @@ export const uahLacrosseRoster: Player[] = [
     goals: 0,
     miss: 0,
     ground: 0,
+    player_class: "",
+    hometown: "",
+    state: "",
+    height_feet: 0,
+    height_inches: 0,
+    weight: 0
   },
   {
     team_name: "UAH Men's Lacrosse",
@@ -685,6 +1051,12 @@ export const uahLacrosseRoster: Player[] = [
     goals: 0,
     miss: 0,
     ground: 0,
+    player_class: "",
+    hometown: "",
+    state: "",
+    height_feet: 0,
+    height_inches: 0,
+    weight: 0
   },
   {
     team_name: "UAH Men's Lacrosse",
@@ -696,6 +1068,12 @@ export const uahLacrosseRoster: Player[] = [
     goals: 0,
     miss: 0,
     ground: 0,
+    player_class: "",
+    hometown: "",
+    state: "",
+    height_feet: 0,
+    height_inches: 0,
+    weight: 0
   },
   {
     team_name: "UAH Men's Lacrosse",
@@ -707,5 +1085,11 @@ export const uahLacrosseRoster: Player[] = [
     goals: 0,
     miss: 0,
     ground: 0,
+    player_class: "",
+    hometown: "",
+    state: "",
+    height_feet: 0,
+    height_inches: 0,
+    weight: 0
   },
 ];
