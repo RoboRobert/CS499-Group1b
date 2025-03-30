@@ -29,9 +29,10 @@ export async function getLoginPass(user: string, pass: string): Promise<Login> {
 export async function addLogin(login: Login) {
   let user = login.user;
   let pass = login.pass;
+  let key = login.key
 
   const result = await sql`
-    INSERT INTO logins (user, pass) VALUES (${user}, ${pass}) RETURNING *
+    INSERT INTO logins (user, pass, key) VALUES (${user}, ${pass}, ${key}) RETURNING *
   `
 
   return result
@@ -58,6 +59,7 @@ export async function dbLoginReset() {
   await sql`CREATE TABLE logins (
             username varchar(25),
             password varchar(25),
+            key varchar(20),
             primary key (username, password));`
 
   const res = await sql`INSERT INTO logins (username, password)
