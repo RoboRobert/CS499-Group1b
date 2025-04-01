@@ -21,12 +21,8 @@
 }
 
 .error {
-  /* border-bottom: 3px dotted red; */
-  /* border-bottom: 3px solid red inset; */
-
   outline: 3px solid red;
   outline-offset: -3px;
-  /* background-color: tomato; */
 }
 
 .rowBox {
