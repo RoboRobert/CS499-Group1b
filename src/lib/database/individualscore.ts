@@ -27,7 +27,7 @@ export async function addIndividualScore(indiv: IndividualScore) {
   let attempts = indiv.attempts;
   let fails = indiv.fails;
   const result = await sql`
-    INSERT INTO individualscores (sheetid, side, playerno, player, goals, attempts, fails) VALUES (${sheetID}, ${side}, ${playerno}, ${player}, ${goals}, ${attempts}, ${fails}) RETURNING *
+    INSERT INTO individualscores (SHEET_ID, side, playerno, player, goals, attempts, fails) VALUES (${sheetID}, ${side}, ${playerno}, ${player}, ${goals}, ${attempts}, ${fails}) RETURNING *
   `
 
   return result
