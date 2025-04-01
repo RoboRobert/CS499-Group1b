@@ -6,21 +6,22 @@
   let { data }: PageProps = $props();
 
   const defaultPlayer: Player = {
-    team_name: "",
-    player_name: "",
-    player_number: 0,
-    position: "",
-    player_class: "",
-    hometown: "",
-    state: "",
-    height_feet: 0,
-    height_inches: 0,
-    weight: 0,
-    quarter: 0,
-    shots: 0,
-    goals: 0,
-    miss: 0,
-    ground: 0,
+      team_id: data.team.team_id,
+      player_name: "",
+      player_number: 0,
+      position: "",
+      player_class: "",
+      hometown: "",
+      state: "",
+      height_feet: 0,
+      height_inches: 0,
+      weight: 0,
+      quarter: 0,
+      shots: 0,
+      goals: 0,
+      miss: 0,
+      ground: 0,
+      team_name: data.team.team_name
   };
 
   let showEditModal = $state(false);
@@ -96,6 +97,7 @@
     if(editingPlayer.player_name != ""){
       editingPlayer.player_name = firstName;
       editingPlayer.player_number = parseInt(playerNumber);
+      editingPlayer.team_id = data.team.team_id;
       editingPlayer.team_name = data.team.team_name;
       editingPlayer.position = position;
       editingPlayer.player_class = player_class;
@@ -128,6 +130,7 @@
       newPlayer = {
       player_name: firstName,
       player_number: parseInt(playerNumber),
+      team_id: data.team.team_id,
       team_name: data.team.team_name,
       position: position,
       player_class: player_class,
@@ -203,7 +206,7 @@
     <div class="players-grid">
       {#each data.players as player}
         <div class="player-card">
-          <a href="/rosters/{player.team_name}/{player.player_name}" class="player-link">
+          <a href="/rosters/{player.team_id}/{player.player_name}" class="player-link">
             <h3 class="player-name">{player.player_name}</h3>
             <p class="player-details">
               <strong>Position:</strong> {player.position} <br />

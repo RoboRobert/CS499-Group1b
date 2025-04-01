@@ -2,6 +2,7 @@
   import { invalidateAll } from "$app/navigation";
   import type { Team } from "$lib/database/Team";
   import type { PageProps } from "./$types";
+  import {v4 as uuidv4} from "uuid"
 
   let { data }: PageProps = $props();
 
@@ -116,7 +117,7 @@
     } else {
       // Create a new team object; note that players is empty initially.
       newTeam = {
-        team_id: `${name}-${hometown}-${state}-${coach}`,
+        team_id: uuidv4(),
         team_name: name,
         hometown: hometown,
         state: state,
