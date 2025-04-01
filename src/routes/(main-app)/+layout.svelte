@@ -68,6 +68,10 @@
           <label for="password">Password:</label>
           <input type="password" id="password" required />
         </div>
+        <div class="form-group">
+          <label for="key">Key:</label>
+          <input type="key" id="key" name="key" required />
+        </div>
         <div class="modal-actions">
           <button type="button" on:click={closeRegModal} class="cancel-button">Cancel</button>
           <button type="submit" class="sign-in-button">Register</button>

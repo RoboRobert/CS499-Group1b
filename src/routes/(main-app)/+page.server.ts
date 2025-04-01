@@ -1,10 +1,8 @@
 import type { PageServerLoad } from "./$types";
 import type { Actions } from './$types';
-import type { Login } from '$lib/logon/Login';
 import { getLoginPass } from '$lib/logon/logins';
 import { getLoginUser } from "$lib/logon/logins";
 import { addLogin } from '$lib/logon/logins';
-import type { Team } from "$lib/database/Team";
 import type { Game } from "$lib/database/Sheet";
 
 
@@ -42,9 +40,10 @@ export const actions = {
         const formData = await request.formData();
         const username = formData.get('username') as string;
         const password = formData.get('password') as string;
+        const key = formData.get('key') as string;
 
         //add login
-        addLogin({user: username, pass: password});
+        addLogin({user: username, pass: password, key: key});
         return { success: true };
 	}
 
