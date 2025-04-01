@@ -384,7 +384,7 @@ h6 {
   transform: scale(1.02);
   background-color: rgba(178, 185, 255, 1);
   color: var(--clr-primary-a0);
-  border: var(--clr-primary-a10) solid 2px;
+  border: var(--clr-primary-a10) solid 1px;
   /* Change border color on hover */
   transition: box-shadow 0.5s, transform 0.5s, background-color 0.5s, color 0.5s, border 0.5s;
 }
@@ -447,7 +447,6 @@ h6 {
 
 
 /* Roster Page */
-/* Team Page */
 .roster-page {
   font-family: Arial, sans-serif;
   max-width: 1500px;
@@ -483,15 +482,17 @@ h6 {
   /* Use a surface color for the border */
   border-radius: 5px;
   transition: background-color 0.3s, box-shadow 0.3s;
+  position: relative;
 }
 
 .team-bar:hover {
   background-color: rgba(178, 185, 255, 1);
   ;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  border: 2px solid var(--clr-primary-a0);
+  border: 1px solid var(--clr-primary-a0);
   /* Change border color on hover */
   transition: box-shadow 0.5s, transform 0.5s, background-color 0.5s, color 0.5s, border 0.5s;
+  
 }
 
 .team-info {
@@ -501,6 +502,8 @@ h6 {
 .team-link {
   text-decoration: none;
   color: inherit;
+  width: 100%;
+  height: 100%;
 }
 
 .team-link:hover {

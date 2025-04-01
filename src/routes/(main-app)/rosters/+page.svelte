@@ -192,13 +192,13 @@
     <div class="teams-bars">
       {#each data.teams as team}
         <div class="team-bar">
-          <div>
+          
             <a href="/rosters/{team.team_id}" class="team-link">
               <h3 class="team-name">{team.team_name}</h3>
               <p>{team.hometown}, {team.state}</p>
               <p>Coach: {team.coach}</p>
             </a>
-          </div>
+          
           <div class="team-actions">
             <button
               onclick={() => openEditModal(team)}

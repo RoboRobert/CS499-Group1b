@@ -209,13 +209,13 @@ export async function dbPlayersReset() {
             primary key(PLAYER_NAME, PLAYER_NUMBER),
             foreign key(TEAM_ID) references teams(TEAM_ID) ON DELETE CASCADE ON UPDATE CASCADE);`;
 
-  // for(const player of auburnLacrosseRoster) {
-  //   addPlayer(player);
-  // }
+  for(const player of auburnLacrosseRoster) {
+    addPlayer(player);
+  }
 
-  // for(const player of uahLacrosseRoster) {
-  //   addPlayer(player);
-  // }
+  for(const player of uahLacrosseRoster) {
+    addPlayer(player);
+  }
 
   return res;
 }
