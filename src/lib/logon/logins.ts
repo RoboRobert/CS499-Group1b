@@ -10,9 +10,17 @@ export async function getLogins(): Promise<Login[]> {
   return users
 }
 
-export async function getLogin(user: string): Promise<Login> {
+export async function getLoginUser(user: string): Promise<Login> {
   const logins = await sql<Login[]>`
-      SELECT * FROM gamestats WHERE sheetid = ${user}
+      SELECT * FROM logins WHERE username = ${user}
+    `
+
+  return logins[0]
+}
+
+export async function getLoginPass(user: string, pass: string): Promise<Login> {
+  const logins = await sql<Login[]>`
+      SELECT * FROM logins WHERE password = ${pass} and username = ${user}
     `
 
   return logins[0]
@@ -21,9 +29,10 @@ export async function getLogin(user: string): Promise<Login> {
 export async function addLogin(login: Login) {
   let user = login.user;
   let pass = login.pass;
+  let key = login.key
 
   const result = await sql`
-    INSERT INTO gamestats (user, pass) VALUES (${user}, ${pass}) RETURNING *
+    INSERT INTO logins (username, password, key) VALUES (${user}, ${pass}, ${key}) RETURNING *
   `
 
   return result
@@ -31,7 +40,7 @@ export async function addLogin(login: Login) {
 
 export async function deleteLogin(user: string) {
   const result = await sql`
-      DELETE FROM gamestats WHERE sheetid = ${user}
+      DELETE FROM logins WHERE username = ${user}
     `
 
   return result
@@ -50,6 +59,7 @@ export async function dbLoginReset() {
   await sql`CREATE TABLE logins (
             username varchar(25),
             password varchar(25),
+            key varchar(20),
             primary key (username, password));`
 
   const res = await sql`INSERT INTO logins (username, password)
