@@ -12,7 +12,7 @@ export async function getLogins(): Promise<Login[]> {
 
 export async function getLoginUser(user: string): Promise<Login> {
   const logins = await sql<Login[]>`
-      SELECT * FROM logins WHERE user = ${user}
+      SELECT * FROM logins WHERE username = ${user}
     `
 
   return logins[0]
@@ -20,7 +20,7 @@ export async function getLoginUser(user: string): Promise<Login> {
 
 export async function getLoginPass(user: string, pass: string): Promise<Login> {
   const logins = await sql<Login[]>`
-      SELECT * FROM logins WHERE pass = ${pass} and user = ${user}
+      SELECT * FROM logins WHERE password = ${pass} and username = ${user}
     `
 
   return logins[0]
@@ -32,7 +32,7 @@ export async function addLogin(login: Login) {
   let key = login.key
 
   const result = await sql`
-    INSERT INTO logins (user, pass, key) VALUES (${user}, ${pass}, ${key}) RETURNING *
+    INSERT INTO logins (username, password, key) VALUES (${user}, ${pass}, ${key}) RETURNING *
   `
 
   return result
@@ -40,7 +40,7 @@ export async function addLogin(login: Login) {
 
 export async function deleteLogin(user: string) {
   const result = await sql`
-      DELETE FROM logins WHERE sheetid = ${user}
+      DELETE FROM logins WHERE username = ${user}
     `
 
   return result
