@@ -10,6 +10,11 @@
     <a href="./">Back</a>
     <section class= "player-dash">
         <div class="player-header">
+            <img 
+            src={'./$lib/_defaultMug.jpg'} 
+            alt="{data.player.player_name}" 
+            class="player-image"
+        />
             <h4 class="player-number">#{data.player.player_number}</h4>
             <h1 class="player-name">{data.player.player_name}</h1>
         </div>
