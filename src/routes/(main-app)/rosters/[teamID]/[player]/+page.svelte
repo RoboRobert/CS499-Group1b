@@ -1,5 +1,7 @@
 <script lang="ts">
     import type { PageProps } from './$types';
+    import defaultMug from '$lib/_defaultMug.jpg'; // Import the image properly
+
 
     let { data }: PageProps = $props();
 </script>
@@ -11,7 +13,7 @@
     <section class= "player-dash">
         <div class="player-header">
             <img 
-            src={'./$lib/_defaultMug.jpg'} 
+            src="{defaultMug}" 
             alt="{data.player.player_name}" 
             class="player-image"
         />
