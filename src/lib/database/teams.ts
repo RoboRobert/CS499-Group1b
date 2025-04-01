@@ -52,22 +52,29 @@ export async function getPlayersByTeam(team_name: string): Promise<Player[]> {
 }
 
 export async function addTeam(team: Team) {
+  //console.log(team);
+  console.log(team);
   const result = await sql`
     INSERT INTO teams (TEAM_NAME, TEAM_ID, HOMETOWN, STATE, COACH) VALUES 
-    (${team.team_name}) (${team.team_id}) (${team.hometown}) (${team.state}) (${team.coach})
-    RETURNING *
-    
+    (${team.team_name}, ${team.team_id}, ${team.hometown}, ${team.state}, ${team.coach})
+    RETURNING *;
   `;
 
   return result;
+
 }
 
 // Same as addTeam for now
 export async function updateTeam(team: Team) {
   console.log(team);
   const result = await sql`
-    INSERT INTO teams (TEAM_NAME, TEAM_ID, HOMETOWN, STATE, COACH) VALUES 
-    (${team.team_name}, ${team.team_id}, ${team.hometown}, ${team.state}, ${team.coach})
+    UPDATE teams 
+    SET 
+      TEAM_NAME = ${team.team_name}, 
+      HOMETOWN = ${team.hometown}, 
+      STATE = ${team.state}, 
+      COACH = ${team.coach}
+    WHERE TEAM_ID = ${team.team_id}
     RETURNING *;
   `;
 
@@ -92,6 +99,28 @@ export async function addPlayer(players: Player) {
   let ground = players.ground;
   const result = await sql`
     INSERT INTO players (PLAYER_NAME, PLAYER_NUMBER, TEAM_NAME, POSITION, PLAYER_CLASS, HOMETOWN, STATE, HEIGHT_FEET, HEIGHT_INCHES, WEIGHT, QUARTERS, ATTEMPTED_SHOTS, GOALS, FAILED_SHOTS, GROUND_BALLS) VALUES (${name}, ${number}, ${team}, ${position},${player_class}, ${hometown}, ${state}, ${height_feet}, ${height_inches}, ${weight}, ${quarter}, ${shots}, ${goals}, ${miss}, ${ground}) RETURNING *
+  `;
+
+  return result;
+}
+
+export async function updatePlayer(player: Player) {
+  console.log(player);
+  const result = await sql`
+    UPDATE players
+    SET 
+      PLAYER_NAME = ${player.player_name},
+      PLAYER_NUMBER = ${player.player_number},
+      TEAM_NAME = ${player.team_name},
+      POSITION = ${player.position},
+      PLAYER_CLASS = ${player.player_class},
+      HOMETOWN = ${player.hometown},
+      STATE = ${player.state},
+      HEIGHT_FEET = ${player.height_feet || 0},
+      HEIGHT_INCHES = ${player.height_inches || 0},
+      WEIGHT = ${player.weight || 0}
+    WHERE PLAYER_NAME = ${player.player_name} AND PLAYER_NUMBER = ${player.player_number}
+    RETURNING *;
   `;
 
   return result;
@@ -130,7 +159,7 @@ export async function dbTeamsReset() {
             COACH varchar(100),
             Primary key (TEAM_NAME));`;
 
-  updateTeam({
+  addTeam({
     team_id: "uah-mlax-001",
     team_name: "UAH Men's Lacrosse",
     hometown: "Huntsville",
@@ -138,7 +167,7 @@ export async function dbTeamsReset() {
     coach: "Mark Frey",
   });
 
-  updateTeam({
+  addTeam({
     team_id: "auburn-mlax-001",
     team_name: "Auburn University Men's Lacrosse",
     hometown: "Auburn",

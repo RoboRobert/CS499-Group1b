@@ -27,7 +27,7 @@
   let errors: { [key: string]: string } = $state({});
   let showDeleteConfirm = $state(false);
 
-  let editingPlayer: Player | null = $state(defaultPlayer);
+  let editingPlayer: Player = $state(defaultPlayer);
 
   function openEditModal(player: Player) {
     showEditModal = true;
@@ -91,7 +91,41 @@
       return;
     }
 
-    let newPlayer: Player = {
+    let newPlayer:Player;
+
+    if(editingPlayer.player_name != ""){
+      editingPlayer.player_name = firstName;
+      editingPlayer.player_number = parseInt(playerNumber);
+      editingPlayer.team_name = data.team.team_name;
+      editingPlayer.position = position;
+      editingPlayer.player_class = player_class;
+      editingPlayer.hometown = hometown;
+      editingPlayer.state = state;
+      editingPlayer.height_feet = parseInt(heightFeet);
+      editingPlayer.height_inches = parseInt(heightInches);
+      editingPlayer.weight = parseInt(weight);
+     
+     
+      try {
+          const response = await fetch("/api/editPlayers", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(editingPlayer),
+          });
+
+          setTimeout(async () => invalidateAll(), 100);
+
+          if (!response.ok) {
+            throw new Error("Failed to save player data");
+          }
+        } catch (error) {
+          console.error("Error:", error);
+        }
+    } else{
+
+      newPlayer = {
       player_name: firstName,
       player_number: parseInt(playerNumber),
       team_name: data.team.team_name,
@@ -110,23 +144,24 @@
     };
 
     try {
-      const response = await fetch("/api/players", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(newPlayer),
-      });
+          const response = await fetch("/api/players", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(newPlayer),
+          });
 
-      setTimeout(async () => invalidateAll(), 100);
+          setTimeout(async () => invalidateAll(), 100);
 
-      if (!response.ok) {
-        throw new Error("Failed to save player data");
-      }
-    } catch (error) {
-      console.error("Error:", error);
+          if (!response.ok) {
+            throw new Error("Failed to save player data");
+          }
+        } catch (error) {
+          console.error("Error:", error);
+        }
     }
-
+  
     closeEditModal();
   }
 
