@@ -1,8 +1,6 @@
 <script lang="ts">
+  import Scoresheet from "$lib/components/scoresheet/Scoresheet.svelte";
+
 </script>
 
-<title>Scoresheet #1</title>
-
-<div>
-  
-</div>
+<Scoresheet></Scoresheet>

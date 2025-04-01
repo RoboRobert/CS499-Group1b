@@ -22,6 +22,8 @@
     const response = await fetch(`/api/teamPlayers/${team.team_name}`);
     let teamPlayers: Player[] = await response.json()
 
+    teamPlayers.sort((a, b) => (a.position < b.position ? -1 : 1))
+
     // Replace each slot with the team member from the new team.
     for (let i = 0; i < players[side].length && i < teamPlayers.length; i++) {
       players[side][i].name = teamPlayers[i].player_name;

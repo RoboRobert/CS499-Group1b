@@ -16,8 +16,8 @@
     <p>This is the detailed page for game {currentGame.gameid}.</p>
   </section>
   <section class="list-section-1">
-    {#each gameScoresheets as scoresheet}
-      <a href=" ">
+    {#each gameScoresheets as scoresheet, i}
+      <a href="/pastgames/{currentGame.gameid}/{i}">
         <div class="game">
           <h3>Scoresheet #{scoresheet.sheet_id}</h3>
         </div>
