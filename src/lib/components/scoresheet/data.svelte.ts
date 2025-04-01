@@ -1,3 +1,21 @@
+export interface SheetData {
+  teamName: string[],
+  players: Player[][],
+  saves: Save[][],
+  homeGoals: number[],
+  awayGoals: number[],
+  homeGoalTrack: Goal[],
+  awayGoalTrack: Goal[],
+  groundBalls: number[][],
+  shots: number[][],
+  clears: Stat[][],
+  faceoffs: Stat[][],
+  extraMan: Stat[][],
+  timeouts: Timeout[][],
+  penalties: Penalty[][],
+  metaStats: MetaStats,
+}
+
 export interface Time {
   minutes: number,
   seconds: number,

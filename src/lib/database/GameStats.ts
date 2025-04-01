@@ -1,6 +1,6 @@
 export interface GameStat {
     sheetid: number,
-    side: string,
+    side: number,
     quarter: number,
     ground: number,
     shots: number,

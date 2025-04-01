@@ -2,7 +2,7 @@ export interface SheetInfo {
     sheetid: number,
     date: string,
     site: string,
-    start: number,
+    start: string,
     scorekeeper: string,
     oppscorekeeper: string,
     timekeeper: string,

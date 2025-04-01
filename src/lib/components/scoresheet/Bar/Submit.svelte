@@ -17,6 +17,7 @@
     shots,
     teamName,
     timeouts,
+    type SheetData,
   } from "../data.svelte";
   import type { SheetErr } from "$lib/backendChecker";
   import { addIDError } from "../frontendChecker.svelte";
@@ -27,12 +28,48 @@
 
   let message = "";
 
-  // First checks if the scoresheet is valid.
-  // If the scoresheet is valid, sends it to the scoresheet/add endpoint.
+  // Sends the scoresheet to the add endpoint
   async function confirmScoresheet() {
-    // checkScoresheet();
+    uploadScoresheet();
 
     goto("/");
+  }
+
+  async function uploadScoresheet() {
+    const scoresheetData: SheetData = {
+      teamName: teamName,
+      players: players,
+      saves: saves,
+      homeGoals: homeGoals,
+      awayGoals: awayGoals,
+      homeGoalTrack: homeGoalTrack,
+      awayGoalTrack: awayGoalTrack,
+      groundBalls: groundBalls,
+      shots: shots,
+      clears: clears,
+      faceoffs: faceoffs,
+      extraMan: extraMan,
+      timeouts: timeouts,
+      penalties: penalties,
+      metaStats: metaStats,
+    };
+    const scoresheetJSON = JSON.stringify(scoresheetData);
+
+    // Send the scoresheet data to the scoresheet/add endpoint
+    try {
+      const result = await fetch("/api/scoresheet/add", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: scoresheetJSON,
+      });
+
+      // Await the JSON data resolution
+      const data = await result.json();
+    } catch (error) {
+      console.error(error);
+    }
   }
 
   async function checkScoresheet() {
@@ -54,8 +91,6 @@
       metaStats: metaStats,
     };
     const scoresheetJSON = JSON.stringify(scoresheetData);
-
-    console.log(scoresheetJSON);
 
     // Ask the scoresheet/check endpoint if the scoresheet is valid.
     try {

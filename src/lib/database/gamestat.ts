@@ -9,12 +9,12 @@ export async function getGameStats(): Promise<GameStat[]> {
   return players;
 }
 
-export async function getGameStat(sheetid: number): Promise<GameStat> {
-  const players = await sql<GameStat[]>`
-      SELECT * FROM gamestats WHERE sheetid = ${sheetid}
+export async function getGameStat(sheetid: string): Promise<GameStat[]> {
+  const gameStats = await sql<GameStat[]>`
+      SELECT * FROM gamestats WHERE sheet_id = ${sheetid}
     `;
 
-  return players[0];
+  return gameStats;
 }
 
 export async function addGameStat(gamestat: GameStat) {
@@ -55,8 +55,8 @@ export async function dbGameStatReset() {
 
   //Not entirely sure about this for the table
   await sql`CREATE TABLE gamestats(
-            SHEET_ID INT UNIQUE,
-            SIDE varchar(25),
+            SHEET_ID INT,
+            SIDE INT,
             QUARTER INT,
             SHOTS INT,
             CLEARS_PASS INT,
@@ -69,7 +69,7 @@ export async function dbGameStatReset() {
 
   const res = await sql`INSERT INTO gamestats 
             (SHEET_ID, SIDE, QUARTER, SHOTS, CLEARS_PASS, CLEARS_FAIL, EXTRA_MAN_SCORE, EXTRA_MAN_FAIL, FACEOFF_WIN, FACEOFF_LOSS)
-            VALUES (0, 'None', 0, 0, 0, 0, 0, 0, 0, 0);`;
+            VALUES (0, 0, 0, 0, 0, 0, 0, 0, 0, 0);`;
 
   return res;
 }
