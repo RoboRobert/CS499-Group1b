@@ -1,4 +1,9 @@
 <script lang="ts">
+  import { invalidateAll } from "$app/navigation";
+  import HomeButton from "$lib/components/scoresheet/Bar/HomeButton.svelte";
+  import MetaStats from "$lib/components/scoresheet/Bar/MetaStats.svelte";
+  import Settings from "$lib/components/scoresheet/Bar/Settings.svelte";
+  import Header from "$lib/components/scoresheet/Header/Header.svelte";
   import Penalties from "$lib/components/scoresheet/Penalties.svelte";
   import Saves from "$lib/components/scoresheet/Saves.svelte";
   import Scoring from "$lib/components/scoresheet/Scoring.svelte";
@@ -9,14 +14,7 @@
   import Shots from "$lib/components/scoresheet/Stats/Shots.svelte";
   import Team from "$lib/components/scoresheet/Team.svelte";
   import Timeouts from "$lib/components/scoresheet/Timeouts.svelte";
-  import HomeButton from "$lib/components/scoresheet/Bar/HomeButton.svelte";
-  import MetaStats from "$lib/components/scoresheet/Bar/MetaStats.svelte";
-  import Settings from "$lib/components/scoresheet/Bar/Settings.svelte";
-  import Header from "$lib/components/scoresheet/Header/Header.svelte";
   import ExitSheet from "./ExitSheet.svelte";
-  import { onMount } from "svelte";
-  import { shots } from "../scoresheet/data.svelte";
-  import { gameStatsToStats, sheetInfoToMetaData } from "$lib/conversion/dbToSheet";
 
   let leftSheet: HTMLElement;
   let rightSheet: HTMLElement;
@@ -31,15 +29,6 @@
     leftCover.classList.toggle("inactive");
     rightCover.classList.toggle("inactive");
   }
-
-  onMount(async() => {
-    const response = await fetch(`/api/scoresheet/get/0`);
-    let data = await response.json();
-    console.log(data);
-
-    gameStatsToStats(data.gameStats);
-    sheetInfoToMetaData(data.sheetInfo);
-  });
 </script>
 
 <div class="main">

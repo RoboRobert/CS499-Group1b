@@ -32,5 +32,3 @@ export function sheetInfoToMetaData(sheetInfo: SheetInfo) {
   metaStats.lengthOfQuarters = sheetInfo.lengthofquarters;
   metaStats.weatherCondition = sheetInfo.weathercondition;
 }
-
-
