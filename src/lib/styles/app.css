@@ -29,39 +29,45 @@
   --clr-surface-tonal-a40: #7f8088;
   --clr-surface-tonal-a50: #97989e;
 
-
+  --clr-home: white;
+  --clr-button:#6c88ff;
+  --clr-button-hover: #4b79ff;
+  --clr-input: #686872;
 }
 
 :root[data-theme="light"] {
-  /** Base colors */
-  --clr-dark-a0: white;
-  --clr-light-a0: black;;
+ /** Base colors */
+--clr-dark-a0: #000000;
+--clr-light-a0: #ffffff;
 
-  /** Theme primary colors */
-  --clr-primary-a0: #006aff;
-  --clr-primary-a10: #4b79ff;
-  --clr-primary-a20: #6c88ff;
-  --clr-primary-a30: #8698ff;
-  --clr-primary-a40: #9da9ff;
-  --clr-primary-a50: #b2b9ff;
+/** Theme primary colors */
+--clr-primary-a0: #006aff;
+--clr-primary-a10: #366cf1;
+--clr-primary-a20: #4b6ee2;
+--clr-primary-a30: #5a71d4;
+--clr-primary-a40: #6473c6;
+--clr-primary-a50: #6d76b8;
 
-  /** Theme surface colors */
-  --clr-surface-a0: white;
-  --clr-surface-a10: #363636;
-  --clr-surface-a20: #4c4c4c;
-  --clr-surface-a30: #636363;
-  --clr-surface-a40: #7b7b7b;
-  --clr-surface-a50: #949494;
+/** Theme surface colors */
+--clr-surface-a0: #eeefff;
+--clr-surface-a10: #6c88ff;
+--clr-surface-a20: #4b6ee2;
+--clr-surface-a30: #636363;
+--clr-surface-a40: #c5c5c5;
+--clr-surface-a50: #b6b6b6;
 
-  /** Theme tonal surface colors */
-  --clr-surface-tonal-a0: #272834;
-  --clr-surface-tonal-a10: #4b79ff;
-  --clr-surface-tonal-a20: #6c88ff;
-  --clr-surface-tonal-a30: #686872;
-  --clr-surface-tonal-a40: #7f8088;
-  --clr-surface-tonal-a50: #97989e;
+/** Theme tonal surface colors */
+--clr-surface-tonal-a0: #eeefff;
+--clr-surface-tonal-a10: #e1e2f0;
+--clr-surface-tonal-a20: #d5d5e1;
+--clr-surface-tonal-a30: #c8c9d3;
+--clr-surface-tonal-a40: #bcbcc5;
+--clr-surface-tonal-a50: #afb0b6;
 
-
+--clr-home: black;
+--clr-button:#636363;
+--clr-button-hover: #4c4c4c;
+--clr-input: white;
 }
 
 /* Global Styles */
@@ -86,7 +92,7 @@ header {
 }
 
 nav {
-  background-color: var(--clr-surface-a0);
+  background-color: var(--clr-surface-a10);
   padding: 10px;
   margin-right: auto;
   display: flex;
@@ -123,15 +129,23 @@ h6 {
 
 /* Dash Boards */
 .home-dash {
-  color: var(--clr-light-a0);
   padding: 15px;
   text-align: center;
-  box-shadow: 0 4px 8px rgba(255, 255, 255, 0.2);
+  /* box-shadow: 0 4px 8px rgba(255, 255, 255, 0.2); */
+  color:var(--clr-home);
+}
+
+.rosters-dash {
+  padding: 15px;
+  text-align: center;
+  /* box-shadow: 0 4px 8px rgba(255, 255, 255, 0.2); */
+  color:var(--clr-home);
 }
 
 
+
 .game-dash {
-  color: var(--clr-light-a0);
+  color: var(--clr-home);
   padding: 15px;
   text-align: center;
   box-shadow: 0 4px 8px rgba(255, 255, 255, 0.2);
@@ -139,7 +153,7 @@ h6 {
 }
 
 .team-dash {
-  color: var(--clr-light-a0);
+  color: var(--clr-home);
   padding: 15px;
   margin-left: auto;
   text-align: left;
@@ -147,7 +161,7 @@ h6 {
 }
 
 .past-games-dash {
-  color: var(--clr-light-a0);
+  color: var(--clr-home);
   padding: 15px;
   text-align: center;
   box-shadow: 0 4px 8px rgba(255, 255, 255, 0.2);
@@ -166,7 +180,7 @@ h6 {
 }
 
 .buttons button {
-  background-color: var(--clr-primary-a20);
+  background-color: var(--clr-button);
   color: var(--clr-light-a0);
   padding: 8px 15px;
   cursor: pointer;
@@ -176,7 +190,7 @@ h6 {
 }
 
 .buttons button:hover {
-  background-color: var(--clr-primary-a10);
+  background-color: var(--clr-button-hover);
 }
 
 .cancel-button {
@@ -193,7 +207,7 @@ h6 {
 
 .sign-in-button {
   background-color: #3182ce;
-  color: clr;
+  color: white;
   border: none;
   padding: 5px 15px;
   border-radius: 5px;
@@ -218,8 +232,14 @@ h6 {
 .form-group input {
   width: 100%;
   padding: 5px;
-  border: 1px solid #ccc;
   border-radius: 5px;
+  background-color: var(--clr-input);
+  color:var(--clr-home);
+}
+.form-group select{
+  background-color: var(--clr-input);
+  border-radius: 8px;
+  color: var(--clr-home)
 }
 
 
@@ -238,6 +258,7 @@ h6 {
 
 .modal-content {
   background-color: var(--clr-surface-a0);
+  color: var(--clr-home);
   border-radius: 8px;
   padding: 20px;
   width: 400px;
@@ -245,7 +266,6 @@ h6 {
   overflow-y: auto;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
 }
-
 .modal-content h2 {
   font-size: 20px;
   margin-bottom: 15px;
@@ -260,9 +280,9 @@ h6 {
 
 /* Lists */
 .list-section-1 {
-  background-color: var(--clr-surface-tonal-a10);
+  background-color: var(--clr-surface-a10);
   padding: 20px;
-  margin: 20px;
+  margin-top: 20px ;
   border-radius: 5px;
   color: var(--clr-light-a0);
 }
@@ -287,7 +307,7 @@ h6 {
   margin: 20px 20px auto;
 
   padding: 20px;
-  background-color: var(--clr-surface-tonal-a20);
+  background-color: var(--clr-surface-a20);
   border-radius: 8px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
@@ -334,7 +354,7 @@ h6 {
   padding: 10px;
   border-radius: 4px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  background-color: var(--clr-surface-tonal-a30);
+  background-color: var(--clr-surface-a30);
   color: var(--clr-light-a0)
 }
 
@@ -354,7 +374,7 @@ h6 {
 .team-header {
   text-align: center;
   margin-bottom: 30px;
-  color: var(--clr-light-a0)
+  color: var(--clr-home)
 }
 
 .team-info {
@@ -368,21 +388,21 @@ h6 {
   padding: 10px 20px;
   font-size: 1rem;
   color: #fff;
-  background-color: var(--clr-primary-a20);
+  background-color: var(--clr-button);
   border: none;
   border-radius: 4px;
   cursor: pointer;
 }
 
 .add-player-button:hover {
-  background-color: var(--clr-primary-a10);
+  background-color: var(--clr-button-hover);
   transition: background-color 0.2s;
 }
 
 
 .players-section {
   margin-top: 40px;
-  background-color: var(--clr-surface-tonal-a10);
+  background-color: var(--clr-surface-a10);
   border-radius: 8px;
 }
 
@@ -403,14 +423,15 @@ h6 {
 }
 
 .player-card {
-  background-color: var(--clr-surface-tonal-a30);
+  background-color: var(--clr-surface-a30);
   color: var(--clr-light-a0);
   border-radius: 8px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   padding: 15px;
   text-align: center;
-  border: var(--clr-surface-tonal-a20) solid 1px;
+  border: var(--clr-surface-a30) solid 1px;
   margin-bottom: 20px;
+  position: relative;
 }
 
 .player-card:hover {
@@ -424,25 +445,19 @@ h6 {
 }
 
 .player-link {
-  display: block;
-  overflow: auto;
+  width: 100%;
+  height: 100%;
   text-decoration: none;
   color: var(--clr-light-a0);
+
 }
 
 .player-link:hover {
   text-decoration: none;
   color: var(--clr-primary-a0);
 }
-
-.player-name {
-  font-size: 1.5rem;
-  font-weight: bold;
-  margin-bottom: 10px;
-}
-
-.player-details {
-  font-size: 1rem;
+.player-name{
+  font-size: 1.75rem;
 }
 
 .player-actions {
@@ -492,7 +507,7 @@ h6 {
 }
 
 .rosters-dash {
-  color: var(--clr-light-a0);
+ 
   padding: 15px;
   text-align: center;
   margin-bottom: 20px;
@@ -512,7 +527,7 @@ h6 {
   align-items: stretch;
   padding: 15px 20px;
   background-color: var(--clr-surface-a30);
-  border: 1px solid var(--clr-surface-a20);
+  border: 1px solid var(--clr-surface-a30);
   /* Use a surface color for the border */
   border-radius: 5px;
   transition: background-color 0.3s, box-shadow 0.3s;

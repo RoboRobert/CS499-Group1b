@@ -320,6 +320,7 @@
                         name="player-position"
                         value={editingPlayer.position}
                     >
+                        <option value="">Select a Position</option>
                         <option value="Attack">Attack</option>
                         <option value="Midfield">Midfield</option>
                         <option value="Defense">Defense</option>
@@ -338,6 +339,7 @@
                 <div class="form-group">
                     <label for="player-class">Class:</label>
                     <select name="player-class" value={editingPlayer.player_class}>
+                        <option value="">Select a Class</option>
                         <option value="Freshman">Freshman</option>
                         <option value="Sophomore">Sophomore</option>
                         <option value="Junior">Junior</option>

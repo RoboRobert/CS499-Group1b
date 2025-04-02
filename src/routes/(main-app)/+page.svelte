@@ -6,7 +6,7 @@
 
 <title>Home Page</title>
 
-<div>
+<div class="team-page">
     <section class = "home-dash">
         <!-- <img class="smegol" src="/LOGO.png" alt="Project Logo"/> -->
         <img class="smegol" src="/LOGO_NO_LEGS.png" alt="Project Logo"/>
@@ -17,15 +17,15 @@
     <section class = "list-section-1">
         <h2>Recent Games</h2>
         <div class="team-bars">
-        {#each data.games as game }
-        
-        <div class="team-bar">
-            <a href="/pastgames/{game}" class="team-link">
-                <h3>{game.gameid}</h3>
-                
-            </a>
-        </div>
-        {/each}
+            {#each data.games as game }
+            
+                <div class="team-bar">
+                    <a href="/pastgames/{game}" class="team-link">
+                        <h3>{game.gameid}</h3>
+                        
+                    </a>
+                </div>
+            {/each}
         </div>
             
        
