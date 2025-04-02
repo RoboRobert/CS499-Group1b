@@ -70,7 +70,11 @@
         </div>
         <div class="form-group">
           <label for="key">Key:</label>
-          <input type="key" id="key" name="key" required />
+          <select id="key" name="key" required>
+            <option value="scorekeeper">Scorekeeper</option>
+            <option value="coach">Coach</option>
+            <option value="webmaster">Webmaster</option>
+          </select>
         </div>
         <div class="modal-actions">
           <button type="button" on:click={closeRegModal} class="cancel-button">Cancel</button>
