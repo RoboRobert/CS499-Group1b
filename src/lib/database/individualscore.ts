@@ -55,14 +55,14 @@ export async function dbIndividualScoreReset() {
             SHEET_ID INT,
             SIDE INT,
             PLAYER_NUMBER INT NOT NULL,
-            PLAYER_NAME varchar(25),
+            PLAYER_NAME varchar(100),
             GOALS INT,
             ATTEMPTS INT,
             FAILS INT,
             FOREIGN KEY (SHEET_ID) REFERENCES gamestats(SHEET_ID) ON DELETE CASCADE ON UPDATE CASCADE);`
 
   const res = await sql`INSERT INTO individualscore (SHEET_ID, SIDE, PLAYER_NUMBER, PLAYER_NAME, GOALS, ATTEMPTS, FAILS)
-    VALUES ('0', '0', '0', 'Dudebro', '0', '0', '0');`
+    VALUES (0, 0, '0', 'Dudebro', '0', '0', '0');`
 
   return res;
 }

@@ -55,7 +55,7 @@ export async function dbGameStatReset() {
 
   //Not entirely sure about this for the table
   await sql`CREATE TABLE gamestats(
-            SHEET_ID INT,
+            SHEET_ID INT UNIQUE,
             SIDE INT,
             QUARTER INT,
             SHOTS INT,
