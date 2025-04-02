@@ -1,5 +1,6 @@
-import { clears, extraMan, faceoffs, groundBalls, metaStats, shots } from "$lib/components/scoresheet/data.svelte";
+import { clears, extraMan, faceoffs, groundBalls, metaStats, saves, shots } from "$lib/components/scoresheet/data.svelte";
 import type { GameStat } from "$lib/database/GameStats";
+import type { Save } from "$lib/database/Save";
 import type { SheetInfo } from "$lib/database/SheetInfo";
 
 export function gameStatsToStats(gameStats: GameStat[]) {
@@ -31,4 +32,16 @@ export function sheetInfoToMetaData(sheetInfo: SheetInfo) {
   metaStats.fieldJudge = sheetInfo.field_judge;
   metaStats.lengthOfQuarters = sheetInfo.lengthofquarters;
   metaStats.weatherCondition = sheetInfo.weathercondition;
+}
+
+export function dbSavesToSaves(dbSaves: Save[]) {
+  for(let i = 0; i < dbSaves.length && i < saves.length; i++) {
+    const save = dbSaves[i];
+    saves[save.side][i].goalie = save.player_number;
+    saves[save.side][i].qtr1 = save.quarter_1;
+    saves[save.side][i].qtr2 = save.quarter_2;
+    saves[save.side][i].qtr3 = save.quarter_3;
+    saves[save.side][i].qtr4 = save.quarter_4;
+    saves[save.side][i].ot = save.ot;
+  }
 }

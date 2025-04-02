@@ -1,4 +1,4 @@
-import { gameStatsToStats, sheetInfoToMetaData } from "$lib/conversion/dbToSheet";
+import { dbSavesToSaves, gameStatsToStats, sheetInfoToMetaData } from "$lib/conversion/dbToSheet";
 import type { PageLoad } from "./$types";
 
 export const ssr = false;
@@ -13,6 +13,7 @@ export const load: PageLoad = async ({ params, fetch }) => {
 
         gameStatsToStats(data.gameStats);
         sheetInfoToMetaData(data.sheetInfo);
+        dbSavesToSaves(data.saves);
 
         return {};
     } catch (err) {

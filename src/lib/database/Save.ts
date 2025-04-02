@@ -1,12 +1,10 @@
 export interface Save {
     sheetid: number,
-    side: string,
-    player: string,
-    playerno: number,
-    quarterone: number,
-    quartertwo: number,
-    quarterthree: number,
-    quarterfour: number,
+    side: number,
+    player_number: number,
+    quarter_1: number,
+    quarter_2: number,
+    quarter_3: number,
+    quarter_4: number,
     ot: number,
-    total: number,
 }
