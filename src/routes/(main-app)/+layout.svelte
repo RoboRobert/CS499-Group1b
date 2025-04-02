@@ -24,7 +24,7 @@
     <a href="/pastgames ">Past Games</a>
     <a href="/run/1">Run Mode</a>
   </div>
-  <div class="buttons signIn">
+  <div class="buttons">
     <button on:click={openRegModal} type="button">Register</button>
     <button on:click={openSignInModal} type="button">Sign In</button>
   </div>
@@ -36,14 +36,14 @@
     <!-- Modal Content -->
     <div class="modal-content">
       <h2>Sign In</h2>
-      <form>
+      <form method="POST" action = "?/login">
         <div class="form-group">
           <label for="username">Username:</label>
-          <input type="text" id="username" required />
+          <input type="text" id="username" name="username" required />
         </div>
         <div class="form-group">
           <label for="password">Password:</label>
-          <input type="password" id="password" required />
+          <input type="password" id="password" name="password" required />
         </div>
         <div class="modal-actions">
           <button type="button" on:click={closeSignInModal} class="cancel-button">Cancel</button>
@@ -59,14 +59,18 @@
     <!-- Modal Content -->
     <div class="modal-content">
       <h2>Register</h2>
-      <form>
+      <form method="POST" action = "?/register">
         <div class="form-group">
           <label for="username">Username:</label>
-          <input type="text" id="username" required />
+          <input type="text" id="username" name="username" required />
         </div>
         <div class="form-group">
           <label for="password">Password:</label>
-          <input type="password" id="password" required />
+          <input type="password" id="password" name="password" required />
+        </div>
+        <div class="form-group">
+          <label for="key">Key:</label>
+          <input type="key" id="key" name="key" required />
         </div>
         <div class="modal-actions">
           <button type="button" on:click={closeRegModal} class="cancel-button">Cancel</button>
@@ -80,8 +84,8 @@
 <slot></slot>
 
 <style>
-  nav {
-    height:70px;
+  nav{ 
+    height: 50px;
   }
 
   .smegol {
@@ -90,12 +94,8 @@
 
   .navLeft {
     display: flex;
-    flex-direction: row;
-    align-items: center;
-    height:100%;
+    margin-right: 20px
   }
 
-  .signIn {
-    margin-left:auto;
-  }
+ 
 </style>

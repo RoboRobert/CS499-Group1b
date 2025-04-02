@@ -20,7 +20,7 @@ export const POST: RequestHandler = async ({request}) => {
         console.error("Team is invalid!");
         return;
     }
-    updateTeam(team)
+    addTeam(team)
     return json({message: "Post request"})
 }
 
