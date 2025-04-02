@@ -19,12 +19,13 @@ export async function getGoal(sheetid: number): Promise<Goal> {
 
 export async function addGoal(goal: Goal) {
   let sheetid = goal.sheetid;
+  let side = goal.side;
   let time = goal.time;
   let playerno_score = goal.playerscore;
   let playerno_assist = goal.playerassist;
   let goaltype = goal.goaltype;
   const result = await sql`
-    INSERT INTO goals (sheetid, time, playerno_score, playerno_assist, goaltype) VALUES (${sheetid}, ${time}, ${playerno_score}, ${playerno_assist}, ${goaltype}) RETURNING *
+    INSERT INTO goals (sheetid, side, time, playerno_score, playerno_assist, goaltype) VALUES (${sheetid}, ${side}, ${time}, ${playerno_score}, ${playerno_assist}, ${goaltype}) RETURNING *
   `;
 
   return result;
@@ -50,6 +51,7 @@ export async function dbGoalReset() {
   //Not entirely sure about this for the table
   await sql`CREATE TABLE goals(
             SHEET_ID INT,
+            SIDE varchar(25),
             TIME INT,
             PLAYERNO_SCORE INT,
             PLAYERNO_ASSIST INT,
@@ -58,7 +60,7 @@ export async function dbGoalReset() {
 
   const res = await sql`INSERT INTO gamestats 
             (SHEET_ID, TIME, PLAYERNO_SCORE, PLAYERNO_ASSIST, GOALTYPE)
-            VALUES (0, 0, 0, 0, X);`;
+            VALUES (0, X, 0, 0, 0, X);`;
 
   return res;
 }
