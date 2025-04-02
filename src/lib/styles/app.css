@@ -1,6 +1,6 @@
 /* Color Vars */
 /* hello */
-:root {
+:root[data-theme="dark"] {
   /** Base colors */
   --clr-dark-a0: #000000;
   --clr-light-a0: #ffffff;
@@ -29,6 +29,39 @@
   --clr-surface-tonal-a40: #7f8088;
   --clr-surface-tonal-a50: #97989e;
 
+
+}
+
+:root[data-theme="light"] {
+  /** Base colors */
+  --clr-dark-a0: white;
+  --clr-light-a0: black;;
+
+  /** Theme primary colors */
+  --clr-primary-a0: #006aff;
+  --clr-primary-a10: #4b79ff;
+  --clr-primary-a20: #6c88ff;
+  --clr-primary-a30: #8698ff;
+  --clr-primary-a40: #9da9ff;
+  --clr-primary-a50: #b2b9ff;
+
+  /** Theme surface colors */
+  --clr-surface-a0: white;
+  --clr-surface-a10: #363636;
+  --clr-surface-a20: #4c4c4c;
+  --clr-surface-a30: #636363;
+  --clr-surface-a40: #7b7b7b;
+  --clr-surface-a50: #949494;
+
+  /** Theme tonal surface colors */
+  --clr-surface-tonal-a0: #272834;
+  --clr-surface-tonal-a10: #4b79ff;
+  --clr-surface-tonal-a20: #6c88ff;
+  --clr-surface-tonal-a30: #686872;
+  --clr-surface-tonal-a40: #7f8088;
+  --clr-surface-tonal-a50: #97989e;
+
+
 }
 
 /* Global Styles */
@@ -41,7 +74,7 @@ body {
 
 header {
   background-color: var(--clr-surface-a0);
-  color: white;
+  color: var(--clr-light-a0);
   padding: 15px;
   text-align: center;
 }
@@ -62,7 +95,7 @@ nav {
 }
 
 nav a {
-  color: white;
+  color: var(--clr-light-a0);
   text-decoration: none;
   margin: 8px 15px;
   font-size: 18px;
@@ -134,7 +167,7 @@ h6 {
 
 .buttons button {
   background-color: var(--clr-primary-a20);
-  color: white;
+  color: var(--clr-light-a0);
   padding: 8px 15px;
   cursor: pointer;
   border: none;
@@ -160,7 +193,7 @@ h6 {
 
 .sign-in-button {
   background-color: #3182ce;
-  color: #fff;
+  color: clr;
   border: none;
   padding: 5px 15px;
   border-radius: 5px;
@@ -204,7 +237,7 @@ h6 {
 }
 
 .modal-content {
-  background-color: #fff;
+  background-color: var(--clr-surface-a0);
   border-radius: 8px;
   padding: 20px;
   width: 400px;
@@ -231,7 +264,7 @@ h6 {
   padding: 20px;
   margin: 20px;
   border-radius: 5px;
-  color: var(--clr-light-a0)
+  color: var(--clr-light-a0);
 }
 
 
