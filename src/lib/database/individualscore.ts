@@ -53,7 +53,7 @@ export async function dbIndividualScoreReset() {
     //Not entirely sure about this for the table
   await sql`CREATE TABLE individualscore(
             SHEET_ID INT,
-            SIDE varchar(25),
+            SIDE INT,
             PLAYER_NUMBER INT NOT NULL,
             PLAYER_NAME varchar(25),
             GOALS INT,
@@ -62,7 +62,7 @@ export async function dbIndividualScoreReset() {
             FOREIGN KEY (SHEET_ID) REFERENCES gamestats(SHEET_ID) ON DELETE CASCADE ON UPDATE CASCADE);`
 
   const res = await sql`INSERT INTO individualscore (SHEET_ID, SIDE, PLAYER_NUMBER, PLAYER_NAME, GOALS, ATTEMPTS, FAILS)
-    VALUES ('0', 'None', '0', 'Dudebro', '0', '0', '0');`
+    VALUES ('0', '0', '0', 'Dudebro', '0', '0', '0');`
 
   return res;
 }

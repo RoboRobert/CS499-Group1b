@@ -1,6 +1,5 @@
 <script lang="ts">
-  import Scoresheet from "$lib/components/scoresheet/Scoresheet.svelte";
-
+  import PastGame from "$lib/components/pastgame/PastGame.svelte";
 </script>
 
-<Scoresheet></Scoresheet>
+<PastGame></PastGame>
