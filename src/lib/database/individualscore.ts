@@ -59,7 +59,7 @@ export async function dbIndividualScoreReset() {
             GOALS INT,
             ATTEMPTS INT,
             FAILS INT,
-            FOREIGN KEY (SHEET_ID) REFERENCES gamestats(SHEET_ID) ON DELETE CASCADE ON UPDATE CASCADE);`
+            PRIMARY KEY (PLAYER_NUMBER, SIDE));`;
 
   const res = await sql`INSERT INTO individualscore (SHEET_ID, SIDE, PLAYER_NUMBER, PLAYER_NAME, GOALS, ATTEMPTS, FAILS)
     VALUES (0, 0, '0', 'Dudebro', '0', '0', '0');`

@@ -53,9 +53,8 @@ export async function dbGameStatReset() {
             END $$;
     `;
 
-  //Not entirely sure about this for the table
   await sql`CREATE TABLE gamestats(
-            SHEET_ID INT UNIQUE,
+            SHEET_ID INT,
             SIDE INT,
             QUARTER INT,
             SHOTS INT,
@@ -65,11 +64,15 @@ export async function dbGameStatReset() {
             EXTRA_MAN_FAIL INT,
             FACEOFF_WIN INT,
             FACEOFF_LOSS INT,
-            primary key (SHEET_ID, SIDE));`;
+            primary key (QUARTER, SIDE));`;
 
   const res = await sql`INSERT INTO gamestats 
             (SHEET_ID, SIDE, QUARTER, SHOTS, CLEARS_PASS, CLEARS_FAIL, EXTRA_MAN_SCORE, EXTRA_MAN_FAIL, FACEOFF_WIN, FACEOFF_LOSS)
-            VALUES (0, 0, 0, 0, 0, 0, 0, 0, 0, 0);`;
+            VALUES (0, 0, 1, 3, 4, 5, 7, 8, 9, 2);`;
+
+    await sql`INSERT INTO gamestats 
+    (SHEET_ID, SIDE, QUARTER, SHOTS, CLEARS_PASS, CLEARS_FAIL, EXTRA_MAN_SCORE, EXTRA_MAN_FAIL, FACEOFF_WIN, FACEOFF_LOSS)
+    VALUES (0, 0, 2, 4, 5, 2, 1, 5, 1, 9);`;
 
   return res;
 }

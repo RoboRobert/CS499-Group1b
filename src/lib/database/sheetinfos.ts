@@ -60,12 +60,12 @@ export async function dbSheetInfoReset() {
             SCOREKEEPER varchar(25),
             OPPONENT_SCORE INT,
             TIMEKEEPER VARCHAR(25),
-            HEAD_OFFICAL varchar(25),
+            HEAD_OFFICIAL varchar(25),
             UMPIRE varchar(25),
             FIELD_JUDGE varchar(25),
-            foreign key (SHEET_ID) references Sheet_ID(SHEET_ID) ON DELETE CASCADE ON UPDATE CASCADE);`
+            PRIMARY KEY (SHEET_ID));`
 
-  const res = await sql`INSERT INTO shetinfos (SHEET_ID, DATE, SITE, START_TIME, SCOREKEEPER, OPPONENT_SCORE, TIMEKEEPER, HEAD_OFFICIAL, UMPIRE, FIELD_JUDGE)
+  const res = await sql`INSERT INTO sheetinfos (SHEET_ID, DATE, SITE, START_TIME, SCOREKEEPER, OPPONENT_SCORE, TIMEKEEPER, HEAD_OFFICIAL, UMPIRE, FIELD_JUDGE)
     VALUES ('0', '0', 'None', '0', 'Dudebro', '0', 'Dudebro', 'Dudebro', 'Dudebro', 'Dudebro');`
 
   return res;

@@ -63,7 +63,7 @@ export async function dbSaveReset() {
             QUARTER_4 INT,
             OT INT,
             TOTAL INT,
-            foreign key (SHEET_ID) references gamestats(SHEET_ID) ON DELETE CASCADE ON UPDATE CASCADE);`
+            primary key (SHEET_ID, SIDE));`;
 
   const res = await sql`INSERT INTO saves (SHEET_ID, SIDE, PLAYER_NAME, PLAYER_NUMBER, QUARTER_1, QUARTER_2, QUARTER_3, QUARTER_4, OT, TOTAL)
     VALUES ('0', 'None', 'Dudebro', '0', '0', '0', '0', '0', '0', '0');`

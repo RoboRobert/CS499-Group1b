@@ -55,7 +55,7 @@ export async function dbTimeoutReset() {
             HALF_2_TIME INT,
             OT_1_TIME INT,
             OT_2_TIME INT,
-            foreign key (SHEET_ID) references gamestats(SHEET_ID) ON DELETE CASCADE ON UPDATE CASCADE);`
+            PRIMARY KEY (SHEET_ID));`;
 
   const res = await sql`INSERT INTO timeouts (SHEET_ID, SIDE, HALF_1_TIME, HALF_2_TIME, OT_1_TIME, OT_2_TIME)
     VALUES ('0', 'None', '0', '0', '0', '0');`
