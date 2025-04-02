@@ -1,5 +1,9 @@
-<script>
+<script lang="ts">
+  import { enhance } from "$app/forms";
+  import {page} from "$app/stores";
   import "$lib/styles/app.css";
+  import type { SubmitFunction } from "./$types";
+  
 
   // State to control modal visibility
   let showSignInModal = false;
@@ -14,6 +18,13 @@
   const openRegModal = () => (showRegModal = true);
   // Function to close the Register modal
   const closeRegModal = () => (showRegModal = false);
+
+  const submitUpdateTheme: SubmitFunction = ({ action }) => {
+    const theme = action.searchParams.get('theme');
+    if(theme){
+      document.documentElement.setAttribute('data-theme', theme);
+    }
+  }
 </script>
 
 <nav>
@@ -23,11 +34,31 @@
     <a href="/rosters ">Rosters</a>
     <a href="/pastgames ">Past Games</a>
     <a href="/run/1">Run Mode</a>
+  </div> 
+  <div>
+    <ul>
+      <li>
+        <button> Set Theme</button>
+        <ul>
+          <form method="POST" use:enhance={submitUpdateTheme}>
+            <li>
+              <button formaction="/?/setTheme&theme=dark&redirectTo={$page.url.pathname}">Dark</button>
+            </li>
+            <li>
+              <button formaction="/?/setTheme&theme=light&redirectTo={$page.url.pathname}">Light</button>
+            </li>
+          </form>
+        </ul>
+      </li>
+    </ul>
   </div>
   <div class="buttons">
     <button on:click={openRegModal} type="button">Register</button>
     <button on:click={openSignInModal} type="button">Sign In</button>
   </div>
+
+ 
+
 </nav>
 
 <!-- Modal Backdrop -->
