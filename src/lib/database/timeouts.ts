@@ -9,7 +9,7 @@ import type { Timeout } from '$lib/database/Timeout';
 //   return players
 // }
 
-export async function getTimeout(sheetid: string): Promise<Timeout[]> {
+export async function getTimeouts(sheetid: string): Promise<Timeout[]> {
   const timeouts = await sql<Timeout[]>`
       SELECT * FROM timeouts WHERE sheet_id = ${sheetid}
     `
@@ -20,12 +20,12 @@ export async function getTimeout(sheetid: string): Promise<Timeout[]> {
 export async function addTimeout(timeouts: Timeout) {
   let sheetid = timeouts.sheetid;
   let side = timeouts.side;
-  let halfone = timeouts.halfone;
-  let halftwo = timeouts.halftwo;
-  let otone = timeouts.otone;
-  let ottwo = timeouts.ottwo;
+  let halfone = timeouts.half_1_time;
+  let halftwo = timeouts.half_2_time;
+  let otone = timeouts.ot_1_time;
+  let ottwo = timeouts.ot_2_time;
   const result = await sql`
-    INSERT INTO timeouts (sheetid, side, halfone, halftwo, otone, ottwo) VALUES (${sheetid}, ${side}, ${halfone}, ${halftwo}, ${otone}, ${ottwo}) RETURNING *
+    INSERT INTO timeouts (sheet_id, side, HALF_1_TIME, HALF_2_TIME, OT_1_TIME, OT_2_TIME) VALUES (${sheetid}, ${side}, ${halfone}, ${halftwo}, ${otone}, ${ottwo}) RETURNING *
   `
 
   return result
@@ -50,15 +50,21 @@ export async function dbTimeoutReset() {
 
   await sql`CREATE TABLE timeouts (
             SHEET_ID INT,
-            SIDE varchar(25),
-            HALF_1_TIME INT,
-            HALF_2_TIME INT,
-            OT_1_TIME INT,
-            OT_2_TIME INT,
-            PRIMARY KEY (SHEET_ID));`;
+            SIDE INT,
+            HALF_1_TIME VARCHAR(25),
+            HALF_2_TIME VARCHAR(25),
+            OT_1_TIME VARCHAR(25),
+            OT_2_TIME VARCHAR(25),
+            PRIMARY KEY (SHEET_ID, SIDE));`;
 
-  const res = await sql`INSERT INTO timeouts (SHEET_ID, SIDE, HALF_1_TIME, HALF_2_TIME, OT_1_TIME, OT_2_TIME)
-    VALUES ('0', 'None', '0', '0', '0', '0');`
+  const res = await addTimeout({
+    sheetid: 0,
+    side: 0,
+    half_1_time: '3:30',
+    half_2_time: '4:20',
+    ot_1_time: '06:90',
+    ot_2_time: '1:20'
+  })
 
   return res;
 }

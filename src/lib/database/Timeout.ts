@@ -1,8 +1,8 @@
 export interface Timeout {
     sheetid: number,
-    side: string,
-    halfone: number,
-    halftwo: number,
-    otone: number,
-    ottwo: number,
+    side: number,
+    half_1_time: string,
+    half_2_time: string,
+    ot_1_time: string,
+    ot_2_time: string,
 }

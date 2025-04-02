@@ -17,7 +17,7 @@
   </section>
   <section class="list-section-1">
     {#each gameScoresheets as scoresheet, i}
-      <a href="/sheets/{i}">
+      <a data-sveltekit-reload href="/sheets/{i}">
         <div class="game">
           <h3>Scoresheet #{scoresheet.sheet_id}</h3>
         </div>

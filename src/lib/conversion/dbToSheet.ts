@@ -1,7 +1,8 @@
-import { clears, extraMan, faceoffs, groundBalls, metaStats, saves, shots } from "$lib/components/scoresheet/data.svelte";
+import { clears, extraMan, faceoffs, groundBalls, metaStats, saves, shots, timeouts } from "$lib/components/scoresheet/data.svelte";
 import type { GameStat } from "$lib/database/GameStats";
 import type { Save } from "$lib/database/Save";
 import type { SheetInfo } from "$lib/database/SheetInfo";
+import type { Timeout } from "$lib/database/Timeout";
 
 export function gameStatsToStats(gameStats: GameStat[]) {
   for (const gameStat of gameStats) {
@@ -43,5 +44,12 @@ export function dbSavesToSaves(dbSaves: Save[]) {
     saves[save.side][i].qtr3 = save.quarter_3;
     saves[save.side][i].qtr4 = save.quarter_4;
     saves[save.side][i].ot = save.ot;
+  }
+}
+
+export function dbTimeoutsToTimeouts(dbTimeouts: Timeout[]) {
+  for(let i = 0; i < dbTimeouts.length && i < saves.length; i++) {
+    const save = dbTimeouts[i];
+    timeouts
   }
 }

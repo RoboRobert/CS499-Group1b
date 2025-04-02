@@ -3,7 +3,7 @@ import type { Goal } from "$lib/database/Goal";
 
 export async function getGoals(sheetid: string): Promise<Goal[]> {
   const goals = await sql<Goal[]>`
-        SELECT * FROM goals WHERE sheetid = ${sheetid}
+        SELECT * FROM goals WHERE sheet_id = ${sheetid}
       `;
   return goals;
 }
