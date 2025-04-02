@@ -1,13 +1,13 @@
 import sql from "$lib/database/postgres.server";
 import type { GameStat } from "$lib/database/GameStats";
 
-export async function getGameStats(): Promise<GameStat[]> {
-  const players = await sql<GameStat[]>`
-      SELECT * FROM gamestats
-    `;
+// export async function getGameStats(): Promise<GameStat[]> {
+//   const players = await sql<GameStat[]>`
+//       SELECT * FROM gamestats
+//     `;
 
-  return players;
-}
+//   return players;
+// }
 
 export async function getGameStat(sheetid: string): Promise<GameStat[]> {
   const gameStats = await sql<GameStat[]>`
@@ -18,19 +18,19 @@ export async function getGameStat(sheetid: string): Promise<GameStat[]> {
 }
 
 export async function addGameStat(gamestat: GameStat) {
-  let sheetID = gamestat.sheetid;
+  let sheetID = gamestat.sheet_id;
   let side = gamestat.side;
   let quarter = gamestat.quarter;
   let ground = gamestat.ground;
   let shots = gamestat.shots;
-  let clearpass = gamestat.clearpass;
-  let clearfail = gamestat.clearfail;
-  let extrascore = gamestat.extrascore;
-  let extrafail = gamestat.extrafail;
-  let faceoffwin = gamestat.faceoffwin;
-  let faceoffloss = gamestat.faceoffloss;
+  let clearpass = gamestat.clears_pass;
+  let clearfail = gamestat.clears_fail;
+  let extrascore = gamestat.extra_man_score;
+  let extrafail = gamestat.extra_man_fail;
+  let faceoffwin = gamestat.faceoff_win;
+  let faceoffloss = gamestat.faceoff_loss;
   const result = await sql`
-    INSERT INTO gamestats (sheetid, side, quarter, ground, shots, clearpass, clearfail, extrascore, extrafail, faceoffwin, faceoffloss) VALUES (${sheetID}, ${side}, ${quarter}, ${ground}, ${shots}, ${clearpass}, ${clearfail}, ${extrascore}, ${extrafail}, ${faceoffwin}, ${faceoffloss}) RETURNING *
+    INSERT INTO gamestats (sheet_id, side, quarter, ground, shots, CLEARS_PASS, CLEARS_FAIL, EXTRA_MAN_SCORE, EXTRA_MAN_FAIL, FACEOFF_WIN, FACEOFF_LOSS) VALUES (${sheetID}, ${side}, ${quarter}, ${ground}, ${shots}, ${clearpass}, ${clearfail}, ${extrascore}, ${extrafail}, ${faceoffwin}, ${faceoffloss}) RETURNING *
   `;
 
   return result;
@@ -57,6 +57,7 @@ export async function dbGameStatReset() {
             SHEET_ID INT,
             SIDE INT,
             QUARTER INT,
+            GROUND INT,
             SHOTS INT,
             CLEARS_PASS INT,
             CLEARS_FAIL INT,
@@ -64,15 +65,21 @@ export async function dbGameStatReset() {
             EXTRA_MAN_FAIL INT,
             FACEOFF_WIN INT,
             FACEOFF_LOSS INT,
-            primary key (QUARTER, SIDE));`;
+            PRIMARY KEY (QUARTER, SIDE));`;
 
-  const res = await sql`INSERT INTO gamestats 
-            (SHEET_ID, SIDE, QUARTER, SHOTS, CLEARS_PASS, CLEARS_FAIL, EXTRA_MAN_SCORE, EXTRA_MAN_FAIL, FACEOFF_WIN, FACEOFF_LOSS)
-            VALUES (0, 0, 1, 3, 4, 5, 7, 8, 9, 2);`;
-
-    await sql`INSERT INTO gamestats 
-    (SHEET_ID, SIDE, QUARTER, SHOTS, CLEARS_PASS, CLEARS_FAIL, EXTRA_MAN_SCORE, EXTRA_MAN_FAIL, FACEOFF_WIN, FACEOFF_LOSS)
-    VALUES (0, 0, 2, 4, 5, 2, 1, 5, 1, 9);`;
+  const res = addGameStat({
+    sheet_id: 0,
+    side: 0,
+    quarter: 1,
+    ground: 3,
+    shots: 4,
+    clears_pass: 5,
+    clears_fail: 7,
+    extra_man_score: 8,
+    extra_man_fail: 9,
+    faceoff_win: 2,
+    faceoff_loss: 1
+  })
 
   return res;
 }

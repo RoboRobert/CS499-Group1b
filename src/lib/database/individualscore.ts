@@ -2,20 +2,20 @@ import sql from '$lib/database/postgres.server';
 import type { IndividualScore } from '$lib/database/IndividualScores';
 
 
-export async function getIndividualScores(): Promise<IndividualScore[]> {
+// export async function getIndividualScores(): Promise<IndividualScore[]> {
+//   const players = await sql<IndividualScore[]>`
+//       SELECT * FROM individualscores
+//     `
+
+//   return players
+// }
+
+export async function getIndividualScores(sheetid: string): Promise<IndividualScore[]> {
   const players = await sql<IndividualScore[]>`
-      SELECT * FROM individualscores
+      SELECT * FROM individualscore WHERE sheet_id = ${sheetid}
     `
 
-  return players
-}
-
-export async function getIndividualScore(sheetid: number): Promise<IndividualScore> {
-  const players = await sql<IndividualScore[]>`
-      SELECT * FROM individualscores WHERE sheetid = ${sheetid}
-    `
-
-  return players[0]
+  return players;
 }
 
 export async function addIndividualScore(indiv: IndividualScore) {
@@ -27,7 +27,7 @@ export async function addIndividualScore(indiv: IndividualScore) {
   let attempts = indiv.attempts;
   let fails = indiv.fails;
   const result = await sql`
-    INSERT INTO individualscores (sheetid, side, playerno, player, goals, attempts, fails) VALUES (${sheetID}, ${side}, ${playerno}, ${player}, ${goals}, ${attempts}, ${fails}) RETURNING *
+    INSERT INTO individualscore (sheetid, side, playerno, player, goals, attempts, fails) VALUES (${sheetID}, ${side}, ${playerno}, ${player}, ${goals}, ${attempts}, ${fails}) RETURNING *
   `
 
   return result
@@ -35,7 +35,7 @@ export async function addIndividualScore(indiv: IndividualScore) {
 
 export async function deleteIndividualScore(sheetid: number) {
   const result = await sql`
-      DELETE FROM individualscores WHERE name = ${sheetid}
+      DELETE FROM individualscore WHERE name = ${sheetid}
     `
 
   return result

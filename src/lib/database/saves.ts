@@ -1,20 +1,20 @@
 import sql from '$lib/database/postgres.server';
 import type { Save } from '$lib/database/Save';
 
-export async function getSaves(): Promise<Save[]> {
-  const penalties = await sql<Save[]>`
-      SELECT * FROM saves
-    `
+// export async function getSaves(): Promise<Save[]> {
+//   const penalties = await sql<Save[]>`
+//       SELECT * FROM saves
+//     `
 
-  return penalties
-}
+//   return penalties
+// }
 
-export async function getSave(sheetid: string): Promise<Save> {
+export async function getSaves(sheetid: string): Promise<Save[]> {
   const saves = await sql<Save[]>`
-      SELECT * FROM saves WHERE sheetid = ${sheetid}
+      SELECT * FROM saves WHERE sheet_id = ${sheetid}
     `
 
-  return saves[0]
+  return saves;
 }
 
 export async function addSave(saves: Save) {
@@ -63,7 +63,7 @@ export async function dbSaveReset() {
             QUARTER_4 INT,
             OT INT,
             TOTAL INT,
-            primary key (SHEET_ID, SIDE));`;
+            PRIMARY KEY (PLAYER_NUMBER, SIDE));`;
 
   const res = await sql`INSERT INTO saves (SHEET_ID, SIDE, PLAYER_NAME, PLAYER_NUMBER, QUARTER_1, QUARTER_2, QUARTER_3, QUARTER_4, OT, TOTAL)
     VALUES ('0', 'None', 'Dudebro', '0', '0', '0', '0', '0', '0', '0');`

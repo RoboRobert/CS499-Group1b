@@ -32,13 +32,15 @@ export const POST = async ({ request }) => {
       sheetid: 0,
       date: data.metaStats.date,
       site: data.metaStats.site,
-      start: data.metaStats.gameStart,
+      start_time: data.metaStats.gameStart,
       scorekeeper: data.metaStats.scorekeeper,
       oppscorekeeper: data.metaStats.oppScorekeeper,
       timekeeper: data.metaStats.timeKeeper,
-      headofficial: data.metaStats.headOfficial,
+      head_official: data.metaStats.headOfficial,
       umpire: data.metaStats.umpire,
-      fieldjudge: data.metaStats.fieldJudge
+      field_judge: data.metaStats.fieldJudge,
+      lengthofquarters: "",
+      weathercondition: ""
   };
 
 //   const gameStats = statsToGameStats()

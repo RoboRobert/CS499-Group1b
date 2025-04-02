@@ -1,20 +1,20 @@
 import sql from '$lib/database/postgres.server';
 import type { Timeout } from '$lib/database/Timeout';
 
-export async function getTimeouts(): Promise<Timeout[]> {
-  const players = await sql<Timeout[]>`
-      SELECT * FROM timeouts
-    `
+// export async function getTimeouts(): Promise<Timeout[]> {
+//   const players = await sql<Timeout[]>`
+//       SELECT * FROM timeouts
+//     `
 
-  return players
-}
+//   return players
+// }
 
-export async function getTimeout(sheetid: number): Promise<Timeout> {
+export async function getTimeout(sheetid: string): Promise<Timeout[]> {
   const timeouts = await sql<Timeout[]>`
-      SELECT * FROM timeouts WHERE sheetid = ${sheetid}
+      SELECT * FROM timeouts WHERE sheet_id = ${sheetid}
     `
 
-  return timeouts[0]
+  return timeouts;
 }
 
 export async function addTimeout(timeouts: Timeout) {

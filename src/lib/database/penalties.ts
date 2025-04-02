@@ -1,20 +1,20 @@
 import { sql } from './postgres.server';
 import type { Penalty } from '$lib/database/Penalty';
 
-export async function getPenalties(): Promise<Penalty[]> {
+// export async function getPenalties(): Promise<Penalty[]> {
+//   const penalties = await sql<Penalty[]>`
+//       SELECT * FROM penalties
+//     `
+
+//   return penalties
+// }
+
+export async function getPenalties(sheetid: string): Promise<Penalty[]> {
   const penalties = await sql<Penalty[]>`
-      SELECT * FROM penalties
+      SELECT * FROM penalties WHERE sheet_id = ${sheetid}
     `
 
-  return penalties
-}
-
-export async function getPenalty(sheetid: string): Promise<Penalty> {
-  const penalties = await sql<Penalty[]>`
-      SELECT * FROM penalties WHERE sheetid = ${sheetid}
-    `
-
-  return penalties[0]
+  return penalties;
 }
 
 export async function addPenalty(penalties: Penalty) {

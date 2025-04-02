@@ -16,7 +16,7 @@
   import ExitSheet from "./ExitSheet.svelte";
   import { onMount } from "svelte";
   import { shots } from "../scoresheet/data.svelte";
-  import { gameStatsToStats } from "$lib/conversion/dbToSheet";
+  import { gameStatsToStats, sheetInfoToMetaData } from "$lib/conversion/dbToSheet";
 
   let leftSheet: HTMLElement;
   let rightSheet: HTMLElement;
@@ -37,7 +37,8 @@
     let data = await response.json();
     console.log(data);
 
-    shots
+    gameStatsToStats(data.gameStats);
+    sheetInfoToMetaData(data.sheetInfo);
   });
 </script>
 
