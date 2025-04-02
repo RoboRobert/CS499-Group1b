@@ -31,8 +31,16 @@ export const actions = {
                     const sessionID = '${username}-${key}-${new Date().getTime()}';
 
                      // Set the session ID and role as cookies
-                     //I have no idea what any of this does I just know it's a COOKIE WOO
                     cookies.set('sessionID', sessionID, {
+                        path: '/',  // The cookie is valid for all paths
+                        sameSite: 'strict',  // Prevents the cookie from being sent on cross-site requests
+                        httpOnly: true,  // For security, prevent access to the cookie via JavaScript
+                        secure: process.env.NODE_ENV === 'production', // Set the secure flag in production
+                        maxAge: 60 * 60 * 24,  // Cookie expires in 1 day (adjust as needed)
+                    });
+
+                    //Set a cookie for the user's key
+                    cookies.set('key', key, {
                         path: '/',  // The cookie is valid for all paths
                         sameSite: 'strict',  // Prevents the cookie from being sent on cross-site requests
                         httpOnly: true,  // For security, prevent access to the cookie via JavaScript
