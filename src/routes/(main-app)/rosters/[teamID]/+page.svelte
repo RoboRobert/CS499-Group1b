@@ -397,7 +397,7 @@
 {#if showDeleteConfirm}
 <div class="modal-backdrop">
   <div class="modal-content">
-    <h2>Are you sure you want to delete this team?</h2>
+    <h2>Are you sure you want to delete this player?</h2>
     <div class="modal-actions">
       <button type="button" onclick={closeDeleteModal} class="cancel-button">Cancel</button>
       <button type="button" onclick={() => handleDeletePlayer(editingPlayer)} class="sign-in-button">Delete</button>
