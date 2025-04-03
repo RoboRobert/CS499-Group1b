@@ -1,5 +1,5 @@
-import { sql } from './postgres.server';
-import type { Penalty } from '$lib/database/Penalty';
+import { sql } from "./postgres.server";
+import type { Penalty } from "$lib/database/Penalty";
 
 // export async function getPenalties(): Promise<Penalty[]> {
 //   const penalties = await sql<Penalty[]>`
@@ -12,32 +12,32 @@ import type { Penalty } from '$lib/database/Penalty';
 export async function getPenalties(sheetid: string): Promise<Penalty[]> {
   const penalties = await sql<Penalty[]>`
       SELECT * FROM penalties WHERE sheet_id = ${sheetid}
-    `
+    `;
 
   return penalties;
 }
 
 export async function addPenalty(penalties: Penalty) {
-  let sheetid = penalties.sheetid;
+  let sheetid = penalties.sheet_id;
   let side = penalties.side;
-  let pt = penalties.pt;
-  let playerno = penalties.playerno;
-  let infraction = penalties.infraction;
+  let pt = penalties.timeout;
+  let playerno = penalties.player_number;
+  let infraction = penalties.interaction;
   let quarter = penalties.quarter;
   let time = penalties.time;
   const result = await sql`
-    INSERT INTO teams (sheetid, side, pt, playerno, infraction, quarter, time) VALUES (${sheetid}, ${side}, ${pt}, ${playerno}, ${infraction}, ${quarter}, ${time}) RETURNING *
-  `
+    INSERT INTO penalties (sheet_id, side, timeout, player_number, interaction, quarter, time) VALUES (${sheetid}, ${side}, ${pt}, ${playerno}, ${infraction}, ${quarter}, ${time}) RETURNING *
+  `;
 
-  return result
+  return result;
 }
 
 export async function deletePenalty(name: string) {
   const result = await sql`
       DELETE FROM penalties WHERE name = ${name}
-    `
+    `;
 
-  return result
+  return result;
 }
 
 export async function dbPenaltyReset() {
@@ -51,15 +51,33 @@ export async function dbPenaltyReset() {
 
   await sql`CREATE TABLE penalties(
             SHEET_ID INT NOT NULL,
-            SIDE varchar(25),
-            PT INT NOT NULL,
+            SIDE INT,
+            TIMEOUT varchar(5),
             PLAYER_NUMBER INT NOT NULL,
-            INFRACTION varchar(25),
-            TIME INT NOT NULL,
+            INTERACTION varchar(25),
+            TIME varchar(5),
+            QUARTER INT,
             PRIMARY KEY (PLAYER_NUMBER, SIDE));`;
 
-  const res = await sql`INSERT INTO penalties (SHEET_ID, SIDE, PT, PLAYER_NUMBER, INFRACTION, TIME)
-    VALUES ('0', 'None', '0', '0', 'None', '0');`
+  await addPenalty({
+    sheet_id: 0,
+    side: 0,
+    timeout: "3:20",
+    player_number: 20,
+    interaction: "Crosscheck",
+    quarter: 2,
+    time: "4:20",
+  });
+
+  const res = await addPenalty({
+    sheet_id: 0,
+    side: 0,
+    timeout: "3:20",
+    player_number: 69,
+    interaction: "Crosscheck",
+    quarter: 2,
+    time: "4:20",
+  });
 
   return res;
 }

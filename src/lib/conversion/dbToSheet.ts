@@ -1,10 +1,11 @@
-import { clears, extraMan, faceoffs, groundBalls, metaStats, saves, shots, timeouts } from "$lib/components/scoresheet/data.svelte";
+import { clears, extraMan, faceoffs, groundBalls, metaStats, penalties, saves, shots, timeouts, toTime, toTimeString, type Time } from "$lib/components/scoresheet/data.svelte";
 import type { GameStat } from "$lib/database/GameStats";
+import type { Penalty } from "$lib/database/Penalty";
 import type { Save } from "$lib/database/Save";
 import type { SheetInfo } from "$lib/database/SheetInfo";
 import type { Timeout } from "$lib/database/Timeout";
 
-export function gameStatsToStats(gameStats: GameStat[]) {
+export function dbStatsToStats(gameStats: GameStat[]) {
   for (const gameStat of gameStats) {
     shots[gameStat.side][gameStat.quarter - 1] = gameStat.shots;
 
@@ -21,7 +22,7 @@ export function gameStatsToStats(gameStats: GameStat[]) {
   }
 }
 
-export function sheetInfoToMetaData(sheetInfo: SheetInfo) {
+export function dbDataToSheetData(sheetInfo: SheetInfo) {
   metaStats.date = sheetInfo.date;
   metaStats.site = sheetInfo.site;
   metaStats.gameStart = sheetInfo.start_time;
@@ -49,7 +50,39 @@ export function dbSavesToSaves(dbSaves: Save[]) {
 
 export function dbTimeoutsToTimeouts(dbTimeouts: Timeout[]) {
   for(let i = 0; i < dbTimeouts.length && i < saves.length; i++) {
-    const save = dbTimeouts[i];
-    timeouts
+    const timeout = dbTimeouts[i];
+    const time1 = toTime(timeout.first_1_time);
+    const time2 = toTime(timeout.first_2_time);
+    const time3 = toTime(timeout.second_1_time);
+    const time4 = toTime(timeout.second_2_time);
+    const time5 = toTime(timeout.ot_1_time);
+    const time6 = toTime(timeout.ot_2_time);
+
+    timeouts[timeout.side][0].period = timeout.first_1_period;
+    timeouts[timeout.side][0].time = time1;
+    
+    timeouts[timeout.side][1].period = timeout.first_2_period;
+    timeouts[timeout.side][1].time = time2;
+    
+    timeouts[timeout.side][2].period = timeout.second_1_period;
+    timeouts[timeout.side][2].time = time3;
+
+    timeouts[timeout.side][3].period = timeout.second_2_period;
+    timeouts[timeout.side][3].time = time4;
+    
+    timeouts[timeout.side][4].time = time5;
+
+    timeouts[timeout.side][5].time = time6;
+  }
+}
+
+export function dbPenaltiesToPenalties(dbPenalties: Penalty[]) {
+  for(let i = 0; i < dbPenalties.length && i < penalties.length; i++) {
+    const penalty = dbPenalties[i];
+    penalties[penalty.side][i].timeout = toTime(penalty.timeout);
+    penalties[penalty.side][i].playerno = penalty.player_number;
+    penalties[penalty.side][i].interaction = penalty.interaction;
+    penalties[penalty.side][i].quarter = penalty.quarter;
+    penalties[penalty.side][i].time = toTime(penalty.time);
   }
 }

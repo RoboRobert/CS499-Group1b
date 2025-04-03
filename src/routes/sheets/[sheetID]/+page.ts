@@ -1,4 +1,4 @@
-import { dbSavesToSaves, gameStatsToStats, sheetInfoToMetaData } from "$lib/conversion/dbToSheet";
+import { dbSavesToSaves, dbTimeoutsToTimeouts, dbStatsToStats, dbDataToSheetData, dbPenaltiesToPenalties } from "$lib/conversion/dbToSheet";
 import type { PageLoad } from "./$types";
 
 export const ssr = false;
@@ -11,9 +11,11 @@ export const load: PageLoad = async ({ params, fetch }) => {
         let data = await response.json();
         console.log(data);
 
-        gameStatsToStats(data.gameStats);
-        sheetInfoToMetaData(data.sheetInfo);
+        dbStatsToStats(data.gameStats);
+        dbDataToSheetData(data.sheetInfo);
         dbSavesToSaves(data.saves);
+        dbTimeoutsToTimeouts(data.timeouts);
+        dbPenaltiesToPenalties(data.penalties);
 
         return {};
     } catch (err) {

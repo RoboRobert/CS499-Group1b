@@ -1,24 +1,40 @@
 export interface SheetData {
-  teamName: string[],
-  players: Player[][],
-  saves: Save[][],
-  homeGoals: number[],
-  awayGoals: number[],
-  homeGoalTrack: Goal[],
-  awayGoalTrack: Goal[],
-  groundBalls: number[][],
-  shots: number[][],
-  clears: Stat[][],
-  faceoffs: Stat[][],
-  extraMan: Stat[][],
-  timeouts: Timeout[][],
-  penalties: Penalty[][],
-  metaStats: MetaStats,
+  teamName: string[];
+  players: Player[][];
+  saves: Save[][];
+  homeGoals: number[];
+  awayGoals: number[];
+  homeGoalTrack: Goal[];
+  awayGoalTrack: Goal[];
+  groundBalls: number[][];
+  shots: number[][];
+  clears: Stat[][];
+  faceoffs: Stat[][];
+  extraMan: Stat[][];
+  timeouts: Timeout[][];
+  penalties: Penalty[][];
+  metaStats: MetaStats;
 }
 
 export interface Time {
-  minutes: number,
-  seconds: number,
+  minutes: number;
+  seconds: number;
+}
+
+export function toTime(input: string): Time {
+  let regex: RegExp = /^(\d{1,2}):(\d{2})$/;
+  let matches = input.match(regex);
+
+  let time: Time = { minutes: Number(matches[1]), seconds: Number(matches[2]) };
+  return time;
+}
+
+export function toTimeString(time: Time): string {
+  if (!time) {
+    return "";
+  }
+
+  return `${time.minutes}:${time.seconds}`;
 }
 
 export interface Goal {
@@ -34,17 +50,16 @@ export interface Stat {
 }
 
 export interface Timeout {
-  minutes: number;
-  seconds: number;
+  time: Time;
   period: number;
 }
 
 export interface Penalty {
-  timeout: Time,
-  playerno: number,
-  interaction: string,
-  quarter: number,
-  time: Time,
+  timeout: Time;
+  playerno: number;
+  interaction: string;
+  quarter: number;
+  time: Time;
 }
 
 export interface Save {
@@ -68,7 +83,7 @@ export interface Player {
   groundBalls: number;
 }
 
-export const teamName = $state(["",""]);
+export const teamName = $state(["", ""]);
 
 export const homeGoals = $state([0, 0, 0, 0, 0, 0]);
 export const awayGoals = $state([0, 0, 0, 0, 0, 0]);
@@ -138,29 +153,29 @@ export const extraMan: Stat[][] = $state([
 
 export const timeouts: Timeout[][] = $state([
   [
-    { minutes: 0, seconds: 0, period: 0 },
-    { minutes: 0, seconds: 0, period: 0 },
-    { minutes: 0, seconds: 0, period: 0 },
-    { minutes: 0, seconds: 0, period: 0 },
-    { minutes: 0, seconds: 0, period: 0 },
-    { minutes: 0, seconds: 0, period: 0 },
+    { time: null, period: 0 },
+    { time: null, seconds: 0, period: 0 },
+    { time: null, seconds: 0, period: 0 },
+    { time: null, seconds: 0, period: 0 },
+    { time: null, seconds: 0, period: 0 },
+    { time: null, seconds: 0, period: 0 },
   ],
   [
-    { minutes: 0, seconds: 0, period: 0 },
-    { minutes: 0, seconds: 0, period: 0 },
-    { minutes: 0, seconds: 0, period: 0 },
-    { minutes: 0, seconds: 0, period: 0 },
-    { minutes: 0, seconds: 0, period: 0 },
-    { minutes: 0, seconds: 0, period: 0 },
+    { time: null, seconds: 0, period: 0 },
+    { time: null, seconds: 0, period: 0 },
+    { time: null, seconds: 0, period: 0 },
+    { time: null, seconds: 0, period: 0 },
+    { time: null, seconds: 0, period: 0 },
+    { time: null, seconds: 0, period: 0 },
   ],
 ]);
 
 const numPenalties = 18;
 let homePenalties: Penalty[] = [];
 let awayPenalties: Penalty[] = [];
-for(let i = 0; i < numPenalties; i++) {
-  homePenalties.push({timeout: null, playerno: null, interaction: "", quarter: null, time: null});
-  awayPenalties.push({timeout: null, playerno: null, interaction: "", quarter: null, time: null});
+for (let i = 0; i < numPenalties; i++) {
+  homePenalties.push({ timeout: null, playerno: null, interaction: "", quarter: null, time: null });
+  awayPenalties.push({ timeout: null, playerno: null, interaction: "", quarter: null, time: null });
 }
 
 export const penalties = $state([homePenalties, awayPenalties]);
