@@ -20,6 +20,21 @@ import { addSave } from '../database/saves';
 import type { Player } from '../database/Team';
 import { addPlayer } from '../database/teams';
 
+
+async function Complete_Insert_test(){
+  dbinsert_Game();
+  dbinsert_Sheet();
+  dbinsert_Teams();
+  dbinsert_Players();
+  dbinsert_SheetInfo();
+  dbinsert_Timeouts();
+  dbinsert_Saves();
+  dbinsert_Penalties();
+  dbinsert_IndividualScore();
+  dbinsert_GameStat();
+  
+}
+
 async function dbinsert_Players() {
   const players: Player[] = [
     
