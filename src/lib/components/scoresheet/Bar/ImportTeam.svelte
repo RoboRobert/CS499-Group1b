@@ -1,6 +1,6 @@
 <script lang="ts">
   import type { Team, Player } from "$lib/database/Team";
-  import { teamName, players, emptyPlayers } from "../data.svelte";
+  import { teamName, players, emptyPlayers, coachName } from "../data.svelte";
   import { onMount } from 'svelte';
 
   let teams: Team[] = [];
@@ -14,7 +14,10 @@
   async function importTeam(side: number) {
     const team = teams[option];
 
+    console.log(team);
+
     teamName[side] = team.team_name;
+    coachName[side] = team.coach;
 
     // Clear the current players on the team.
     players[side] = emptyPlayers[side];

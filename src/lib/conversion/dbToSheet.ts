@@ -1,4 +1,4 @@
-import { clears, extraMan, faceoffs, goals, goalTrack, groundBalls, metaStats, penalties, players, saves, shots, timeouts, toTime } from "$lib/components/scoresheet/data.svelte";
+import { clears, coachName, extraMan, faceoffs, goalTrack, groundBalls, metaStats, penalties, players, saves, shots, teamName, timeouts, toTime } from "$lib/components/scoresheet/data.svelte";
 import type { GameStat } from "$lib/database/GameStats";
 import type { Goal } from "$lib/database/Goal";
 import type { Penalty } from "$lib/database/Penalty";
@@ -24,6 +24,11 @@ export function dbStatsToStats(gameStats: GameStat[]) {
 }
 
 export function dbDataToSheetData(sheetInfo: SheetInfo) {
+  teamName[0] = sheetInfo.hometeam;
+  teamName[1] = sheetInfo.awayteam;
+  coachName[0] = sheetInfo.homecoach;
+  coachName[1] = sheetInfo.awaycoach;
+
   metaStats.date = sheetInfo.date;
   metaStats.site = sheetInfo.site;
   metaStats.gameStart = sheetInfo.start_time;

@@ -1,5 +1,6 @@
 export interface SheetData {
   teamName: string[];
+  coachName: string[];
   players: Player[][];
   saves: Save[][];
   goals: number[][]
@@ -82,6 +83,8 @@ export interface Player {
 }
 
 export const teamName = $state(["", ""]);
+
+export const coachName = $state(["", ""]);
 
 export const goals = $state([
   [0, 0, 0, 0, 0, 0],

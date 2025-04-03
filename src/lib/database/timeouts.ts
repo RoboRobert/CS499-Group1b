@@ -73,7 +73,7 @@ export async function dbTimeoutReset() {
             PRIMARY KEY (SHEET_ID, SIDE));`;
 
   const res = await addTimeout({
-    sheet_id: 0,
+    sheet_id: "first",
     side: 0,
     first_1_time: '03:30',
     first_1_period: 3,

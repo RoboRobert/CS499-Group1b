@@ -1,5 +1,5 @@
 export interface Timeout {
-    sheet_id: number,
+    sheet_id: string,
     side: number,
     first_1_time: string,
     first_1_period: number,

@@ -19,6 +19,7 @@
     lengthOfQuarters: "",
     weatherCondition: "",
   };
+  
 </script>
 
 <div class="noBorder">
@@ -45,7 +46,7 @@
         </div>
         <div class="form-group">
           <label for="gameStart">Game Start:</label>
-          <input type="text" name="gameStart" bind:value={metaStats.gameStart} />
+          <input type="time" name="gameStart" bind:value={metaStats.gameStart} />
           {#if formErrors.gameStart}
             <p class="error">{formErrors.gameStart}</p>
           {/if}

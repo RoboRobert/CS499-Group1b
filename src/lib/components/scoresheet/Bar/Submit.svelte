@@ -16,6 +16,7 @@
     teamName,
     timeouts,
     type SheetData,
+    coachName,
   } from "../data.svelte";
   import type { SheetErr } from "$lib/backendChecker";
   import { addIDError } from "../frontendChecker.svelte";
@@ -35,6 +36,7 @@
 
   async function uploadScoresheet() {
     const scoresheetData: SheetData = {
+      coachName: coachName,
       teamName: teamName,
       players: players,
       saves: saves,
@@ -70,6 +72,7 @@
 
   async function checkScoresheet() {
     const scoresheetData: SheetData = {
+      coachName: coachName,
       teamName: teamName,
       players: players,
       saves: saves,

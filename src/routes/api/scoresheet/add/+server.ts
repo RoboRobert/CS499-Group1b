@@ -29,7 +29,7 @@ export const POST = async ({ request }) => {
   };
 
   const sheetInfo: SheetInfo = {
-      sheetid: 0,
+      sheet_id: 0,
       date: data.metaStats.date,
       site: data.metaStats.site,
       start_time: data.metaStats.gameStart,

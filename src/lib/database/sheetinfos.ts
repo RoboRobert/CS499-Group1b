@@ -11,7 +11,11 @@ export async function getSheetInfo(sheetid: string): Promise<SheetInfo> {
 }
 
 export async function addSheetInfo(sheetinfo: SheetInfo) {
-  let sheetid = sheetinfo.sheetid;
+  let sheetid = sheetinfo.sheet_id;
+  let homecoach = sheetinfo.homecoach;
+  let awaycoach = sheetinfo.awaycoach;
+  let hometeam = sheetinfo.hometeam;
+  let awayteam = sheetinfo.awayteam;
   let date = sheetinfo.date;
   let site = sheetinfo.site;
   let start = sheetinfo.start_time;
@@ -24,7 +28,9 @@ export async function addSheetInfo(sheetinfo: SheetInfo) {
   let weatherCondition = sheetinfo.weathercondition;
   let lengthOfQuarters = sheetinfo.lengthofquarters;
   const result = await sql`
-    INSERT INTO sheetinfo (SHEET_ID, DATE, SITE, START_TIME, SCOREKEEPER, OPPSCOREKEEPER, TIMEKEEPER, HEAD_OFFICIAL, UMPIRE, FIELD_JUDGE, WEATHERCONDITION, LENGTHOFQUARTERS) VALUES (${sheetid}, ${date}, ${site}, ${start}, ${scorekeeper}, ${oppscorekeeper}, ${timekeeper}, ${headofficial}, ${umpire}, ${fieldjudge}, ${weatherCondition}, ${lengthOfQuarters}) RETURNING *
+    INSERT INTO sheetinfo (SHEET_ID, HOMECOACH, AWAYCOACH, HOMETEAM, AWAYTEAM, DATE, SITE, START_TIME, SCOREKEEPER, OPPSCOREKEEPER, TIMEKEEPER, HEAD_OFFICIAL, UMPIRE, FIELD_JUDGE, WEATHERCONDITION, LENGTHOFQUARTERS) 
+    VALUES 
+    (${sheetid}, ${homecoach}, ${awaycoach}, ${hometeam}, ${awayteam}, ${date}, ${site}, ${start}, ${scorekeeper}, ${oppscorekeeper}, ${timekeeper}, ${headofficial}, ${umpire}, ${fieldjudge}, ${weatherCondition}, ${lengthOfQuarters}) RETURNING *;
   `
 
   return result
@@ -49,9 +55,13 @@ export async function dbSheetInfoReset() {
 
   await sql`CREATE TABLE sheetinfo (
             SHEET_ID VARCHAR(100) NOT NULL,
-            DATE INT NOT NULL,
+            HOMECOACH VARCHAR(100),
+            AWAYCOACH VARCHAR(100),
+            HOMETEAM VARCHAR(100),
+            AWAYTEAM VARCHAR(100),
+            DATE VARCHAR(10) NOT NULL,
             SITE varchar(25),
-            START_TIME INT NOT NULL,
+            START_TIME VARCHAR(10) NOT NULL,
             SCOREKEEPER varchar(25),
             OPPSCOREKEEPER varchar(25),
             TIMEKEEPER VARCHAR(25),
@@ -63,10 +73,10 @@ export async function dbSheetInfoReset() {
             PRIMARY KEY (SHEET_ID));`
 
   const res = await addSheetInfo({
-    sheetid: 'first',
-    date: '0',
-    site: '0',
-    start_time: '0',
+    sheet_id: 'first',
+    date: '1/29/25',
+    site: 'LMAOXD',
+    start_time: '4:30',
     scorekeeper: 'Dudebro',
     oppscorekeeper: 'Dudebro2',
     timekeeper: 'Dudebro3',
@@ -74,7 +84,11 @@ export async function dbSheetInfoReset() {
     umpire: 'Dudebro5',
     field_judge: 'Dudebro6',
     lengthofquarters: 'LMAO',
-    weathercondition: 'XD'
+    weathercondition: 'XD',
+    homecoach: 'JJ Arminio',
+    awaycoach: 'Mark Frey',
+    hometeam: 'Auburn',
+    awayteam: 'UAH'
   });
 
   return res;

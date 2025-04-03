@@ -1,7 +1,7 @@
 <script lang="ts">
   import Goals from "./Goals.svelte";
 
-  import { goalTrack, teamName, toTimeString } from "../data.svelte";
+  import { coachName, goalTrack, teamName, toTimeString } from "../data.svelte";
   import { notEmpty, readPlayerno, readTime } from "../frontendChecker.svelte";
 
   let numGoals = 30;
@@ -23,7 +23,7 @@
       {/each}
     </div>
     <div class="innerRow" style="margin-bottom:10px;">
-      <input autocomplete="off" class="field bigField" type="text" placeholder="Coach"/>
+      <input autocomplete="off" class="field bigField" type="text" value={coachName[0]} placeholder="Coach"/>
       {#each Array(numGoals) as attempt, i}
         <div class="boxes">
           <input autocomplete="off" class="field normal" inputmode="numeric" value={goalTrack[0][i].main} oninput={(e) => goalTrack[0][i].main = readPlayerno(e)}/>
@@ -41,7 +41,7 @@
       {/each}
     </div>
     <div class="innerRow">
-      <input autocomplete="off" class="field bigField" type="text" placeholder="Coach" />
+      <input autocomplete="off" class="field bigField" type="text" value={coachName[1]} placeholder="Coach" />
       {#each Array(numGoals) as attempt, i}
         <div class="boxes">
           <input autocomplete="off" class="field normal" inputmode="numeric" value={goalTrack[1][i].main} oninput={(e) => goalTrack[1][i].main = readPlayerno(e)} />

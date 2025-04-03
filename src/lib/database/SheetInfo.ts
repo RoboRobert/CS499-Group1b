@@ -1,5 +1,9 @@
 export interface SheetInfo {
-    sheetid: string,
+    sheet_id: string,
+    homecoach: string,
+    awaycoach: string,
+    hometeam: string,
+    awayteam: string,
     date: string,
     site: string,
     start_time: string,
