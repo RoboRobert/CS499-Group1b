@@ -1,5 +1,5 @@
 export interface SheetInfo {
-    sheetid: number,
+    sheetid: string,
     date: string,
     site: string,
     start_time: string,

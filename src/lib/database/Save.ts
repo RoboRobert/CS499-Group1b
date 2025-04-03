@@ -1,5 +1,5 @@
 export interface Save {
-    sheetid: number,
+    sheet_id: string,
     side: number,
     player_number: number,
     quarter_1: number,

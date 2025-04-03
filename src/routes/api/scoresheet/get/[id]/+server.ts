@@ -7,6 +7,7 @@ import { getSaves } from "$lib/database/saves.js";
 import { getSheetInfo } from "$lib/database/sheetinfos";
 import { getTimeouts } from "$lib/database/timeouts.js";
 import { getGoals } from "$lib/database/goals.js";
+import { getSheetPlayers } from "$lib/database/sheetPlayers.js";
 
 export async function GET({ params }) {
     const { id } = params;
@@ -16,5 +17,6 @@ export async function GET({ params }) {
     const sheetInfo = await getSheetInfo(id);
     const timeouts = await getTimeouts(id);
     const goals = await getGoals(id);
-    return json({gameStats, penalties, saves, sheetInfo, timeouts, goals});
+    const sheetPlayers = await getSheetPlayers(id);
+    return json({gameStats, penalties, saves, sheetInfo, timeouts, goals, sheetPlayers});
 }

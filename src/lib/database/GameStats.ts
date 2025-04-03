@@ -1,5 +1,5 @@
 export interface GameStat {
-    sheet_id: number,
+    sheet_id: string,
     side: number,
     quarter: number,
     ground: number,

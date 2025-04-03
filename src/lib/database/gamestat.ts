@@ -54,7 +54,7 @@ export async function dbGameStatReset() {
     `;
 
   await sql`CREATE TABLE gamestats(
-            SHEET_ID INT,
+            SHEET_ID VARCHAR(100),
             SIDE INT,
             QUARTER INT,
             GROUND INT,
@@ -68,7 +68,7 @@ export async function dbGameStatReset() {
             PRIMARY KEY (QUARTER, SIDE));`;
 
   const res = addGameStat({
-    sheet_id: 0,
+    sheet_id: "first",
     side: 0,
     quarter: 1,
     ground: 3,

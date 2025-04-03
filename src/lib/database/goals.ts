@@ -30,7 +30,7 @@ export async function dbGoalReset() {
 
   //Not entirely sure about this for the table
   await sql`CREATE TABLE goals(
-              SHEET_ID INT,
+              SHEET_ID VARCHAR(100),
               SIDE INT,
               TIME varchar(5),
               PLAYERNO_SCORE INT,
@@ -39,7 +39,7 @@ export async function dbGoalReset() {
               Foreign key (SHEET_ID) references sheets(SHEET_ID) ON DELETE CASCADE ON UPDATE CASCADE);`;
 
   const res = await addGoal({
-    sheet_id: 0,
+    sheet_id: "first",
     side: 0,
     time: "3:30",
     playerno_score: 42,

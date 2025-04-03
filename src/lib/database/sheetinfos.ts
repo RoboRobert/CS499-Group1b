@@ -48,7 +48,7 @@ export async function dbSheetInfoReset() {
     `;
 
   await sql`CREATE TABLE sheetinfo (
-            SHEET_ID INT NOT NULL,
+            SHEET_ID VARCHAR(100) NOT NULL,
             DATE INT NOT NULL,
             SITE varchar(25),
             START_TIME INT NOT NULL,
@@ -63,7 +63,7 @@ export async function dbSheetInfoReset() {
             PRIMARY KEY (SHEET_ID));`
 
   const res = await addSheetInfo({
-    sheetid: 0,
+    sheetid: 'first',
     date: '0',
     site: '0',
     start_time: '0',

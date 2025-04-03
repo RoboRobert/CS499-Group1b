@@ -18,7 +18,7 @@ export async function getSaves(sheetid: string): Promise<Save[]> {
 }
 
 export async function addSave(saves: Save) {
-  let sheetid = saves.sheetid;
+  let sheetid = saves.sheet_id;
   let side = saves.side;
   let playerno = saves.player_number;
   let quarterone = saves.quarter_1;
@@ -51,7 +51,7 @@ export async function dbSaveReset() {
     `;
 
   await sql`CREATE TABLE saves(
-            SHEET_ID INT NOT NULL,
+            SHEET_ID VARCHAR(100) NOT NULL,
             SIDE INT,
             PLAYER_NUMBER INT NOT NULL,
             QUARTER_1 INT,
@@ -62,7 +62,7 @@ export async function dbSaveReset() {
             PRIMARY KEY (PLAYER_NUMBER, SIDE));`;
 
   const res = await addSave({
-    sheetid: 0,
+    sheet_id: "first",
     side: 0,
     player_number: 69,
     quarter_1: 1,

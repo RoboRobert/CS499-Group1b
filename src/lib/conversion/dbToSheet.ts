@@ -1,4 +1,4 @@
-import { clears, extraMan, faceoffs, goals, goalTrack, groundBalls, metaStats, penalties, saves, shots, timeouts, toTime } from "$lib/components/scoresheet/data.svelte";
+import { clears, extraMan, faceoffs, goals, goalTrack, groundBalls, metaStats, penalties, players, saves, shots, timeouts, toTime } from "$lib/components/scoresheet/data.svelte";
 import type { GameStat } from "$lib/database/GameStats";
 import type { Goal } from "$lib/database/Goal";
 import type { Penalty } from "$lib/database/Penalty";
@@ -38,7 +38,7 @@ export function dbDataToSheetData(sheetInfo: SheetInfo) {
 }
 
 export function dbSavesToSaves(dbSaves: Save[]) {
-  for(let i = 0; i < dbSaves.length && i < saves.length; i++) {
+  for(let i = 0; i < dbSaves.length; i++) {
     const save = dbSaves[i];
     saves[save.side][i].goalie = save.player_number;
     saves[save.side][i].qtr1 = save.quarter_1;
@@ -50,7 +50,7 @@ export function dbSavesToSaves(dbSaves: Save[]) {
 }
 
 export function dbTimeoutsToTimeouts(dbTimeouts: Timeout[]) {
-  for(let i = 0; i < dbTimeouts.length && i < saves.length; i++) {
+  for(let i = 0; i < dbTimeouts.length; i++) {
     const timeout = dbTimeouts[i];
     const time1 = toTime(timeout.first_1_time);
     const time2 = toTime(timeout.first_2_time);
@@ -78,7 +78,7 @@ export function dbTimeoutsToTimeouts(dbTimeouts: Timeout[]) {
 }
 
 export function dbPenaltiesToPenalties(dbPenalties: Penalty[]) {
-  for(let i = 0; i < dbPenalties.length && i < penalties.length; i++) {
+  for(let i = 0; i < dbPenalties.length; i++) {
     const penalty = dbPenalties[i];
     penalties[penalty.side][i].timeout = toTime(penalty.timeout);
     penalties[penalty.side][i].playerno = penalty.player_number;
@@ -95,5 +95,16 @@ export function dbGoalsToGoals(dbGoals: Goal[]) {
     goalTrack[goal.side][i].assist = goal.playerno_assist;
     goalTrack[goal.side][i].time = toTime(goal.time);
     goalTrack[goal.side][i].type = goal.goaltype;
+  }
+}
+
+export function dbPlayersToPlayers(dbPlayers: SheetPlayer[]) {
+  for(let i = 0; i < dbPlayers.length; i++) {
+    const sheetPlayer = dbPlayers[i];
+    players[sheetPlayer.side][i].name = sheetPlayer.name;
+    players[sheetPlayer.side][i].number = sheetPlayer.playerno;
+    players[sheetPlayer.side][i].position = sheetPlayer.position;
+    players[sheetPlayer.side][i].groundBalls = sheetPlayer.groundballs;
+    players[sheetPlayer.side][i].shots = sheetPlayer.shots;
   }
 }

@@ -50,7 +50,7 @@ export async function dbPenaltyReset() {
     `;
 
   await sql`CREATE TABLE penalties(
-            SHEET_ID INT NOT NULL,
+            SHEET_ID VARCHAR(100) NOT NULL,
             SIDE INT,
             TIMEOUT varchar(5),
             PLAYER_NUMBER INT NOT NULL,
@@ -60,7 +60,7 @@ export async function dbPenaltyReset() {
             PRIMARY KEY (PLAYER_NUMBER, SIDE));`;
 
   await addPenalty({
-    sheet_id: 0,
+    sheet_id: "first",
     side: 0,
     timeout: "3:20",
     player_number: 20,
@@ -70,7 +70,7 @@ export async function dbPenaltyReset() {
   });
 
   const res = await addPenalty({
-    sheet_id: 0,
+    sheet_id: "first",
     side: 0,
     timeout: "3:20",
     player_number: 69,

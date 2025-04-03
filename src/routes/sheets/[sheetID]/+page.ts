@@ -1,4 +1,4 @@
-import { dbSavesToSaves, dbTimeoutsToTimeouts, dbStatsToStats, dbDataToSheetData, dbPenaltiesToPenalties, dbGoalsToGoals } from "$lib/conversion/dbToSheet";
+import { dbSavesToSaves, dbTimeoutsToTimeouts, dbStatsToStats, dbDataToSheetData, dbPenaltiesToPenalties, dbGoalsToGoals, dbPlayersToPlayers } from "$lib/conversion/dbToSheet";
 import type { PageLoad } from "./$types";
 
 export const ssr = false;
@@ -17,6 +17,7 @@ export const load: PageLoad = async ({ params, fetch }) => {
         dbTimeoutsToTimeouts(data.timeouts);
         dbPenaltiesToPenalties(data.penalties);
         dbGoalsToGoals(data.goals);
+        dbPlayersToPlayers(data.sheetPlayers);
 
         return {};
     } catch (err) {
