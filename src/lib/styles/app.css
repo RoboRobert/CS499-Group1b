@@ -108,7 +108,7 @@ nav a {
 }
 
 nav a:hover {
-  color: var(--clr-primary-a20);
+  color: var(--clr-button);
 }
 
 h1,
@@ -196,13 +196,13 @@ h6 {
 .cancel-button {
   background-color: transparent;
   border: none;
-  color: #718096;
+  color: red;
   cursor: pointer;
   transition: color 0.2s;
 }
 
 .cancel-button:hover {
-  color: #4a5568;
+  color: rgb(212, 11, 11);
 }
 
 .sign-in-button {
@@ -307,7 +307,7 @@ h6 {
   margin: 20px 20px auto;
 
   padding: 20px;
-  background-color: var(--clr-surface-a20);
+  background-color: var(--clr-surface-a10);
   border-radius: 8px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
@@ -423,11 +423,12 @@ h6 {
 }
 
 .player-card {
+  display: block;
   background-color: var(--clr-surface-a30);
   color: var(--clr-light-a0);
   border-radius: 8px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  padding: 15px;
+  align-items: stretch;
   text-align: center;
   border: var(--clr-surface-a30) solid 1px;
   margin-bottom: 20px;
@@ -447,6 +448,7 @@ h6 {
 .player-link {
   width: 100%;
   height: 100%;
+  padding: 15px;
   text-decoration: none;
   color: var(--clr-light-a0);
 
@@ -460,12 +462,12 @@ h6 {
   font-size: 1.75rem;
 }
 
-.player-actions {
-  margin-top: 15px;
-}
+/* .player-actions {
+} */
 
 .edit-button,
 .delete-button {
+  
   padding: 8px 12px;
   font-size: 0.9rem;
   border: none;
@@ -525,7 +527,7 @@ h6 {
   display: flex;
   justify-content: space-between;
   align-items: stretch;
-  padding: 15px 20px;
+  
   background-color: var(--clr-surface-a30);
   border: 1px solid var(--clr-surface-a30);
   /* Use a surface color for the border */
@@ -536,7 +538,6 @@ h6 {
 
 .team-bar:hover {
   background-color: rgba(178, 185, 255, 1);
-  ;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   border: 1px solid var(--clr-primary-a0);
   /* Change border color on hover */
@@ -551,6 +552,7 @@ h6 {
 .team-link {
   text-decoration: none;
   color: inherit;
+  padding: 15px 20px;
   width: 100%;
   height: 100%;
 }

@@ -117,7 +117,7 @@
     } else {
       // Create a new team object; note that players is empty initially.
       newTeam = {
-        team_id: uuidv4(),
+        team_id: `${name}-${hometown}-${state}-${coach}`,
         team_name: name,
         hometown: hometown,
         state: state,
@@ -192,7 +192,6 @@
     <div class="teams-bars">
       {#each data.teams as team}
         <div class="team-bar">
-          
             <a href="/rosters/{team.team_id}" class="team-link">
               <h3 class="team-name">{team.team_name}</h3>
               <p>{team.hometown}, {team.state}</p>
@@ -200,16 +199,8 @@
             </a>
           
           <div class="team-actions">
-            <button
-              onclick={() => openEditModal(team)}
-              type="button"
-              class="edit-button">Edit</button
-            >
-            <button
-              onclick={() => openDeleteModal(team)}
-              type="button"
-              class="delete-button">Delete</button
-            >
+            <button onclick={() => openEditModal(team)} type="button" class="edit-button">Edit</button>
+            <button onclick={() => openDeleteModal(team)} type="button" class="delete-button">Delete</button>
           </div>
         </div>
       {/each}

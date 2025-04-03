@@ -208,7 +208,7 @@
         <div class="player-card">
           <a href="/rosters/{player.team_id}/{player.player_name}" class="player-link">
             <h3 class="player-name">{player.player_name}</h3>
-            <p class="player-details">
+            <p>
               <strong>Position:</strong> {player.position} <br />
               <strong>Number:</strong> #{player.player_number} <br />
               <strong>Class:</strong> {player.player_class} <br />
