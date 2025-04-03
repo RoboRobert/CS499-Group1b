@@ -12,10 +12,8 @@ export function checkSheet(rawData: any): SheetErr[] {
     teamName: rawData.teamName,
     players: rawData.players,
     saves: rawData.saves,
-    homeGoals: rawData.homeGoals,
-    awayGoals: rawData.awayGoals,
-    homeGoalTrack: rawData.homeGoalTrack,
-    awayGoalTrack: rawData.awayGoalTrack,
+    goals: rawData.goals,
+    goalTrack: rawData.goalTrack,
     groundBalls: rawData.groundBalls,
     shots: rawData.shots,
     clears: rawData.clears,
@@ -90,7 +88,7 @@ export function checkSheet(rawData: any): SheetErr[] {
     for (let j = 0; j < data.penalties[i].length; j++) {
       let penalty: Penalty = data.penalties[i][j];
       // If the penalty is empty, ignore it.
-      if (!penalty.interaction && penalty.playerno == null && !penalty.quarter && !penalty.time && !penalty.timeout) {
+      if (!penalty.infraction && penalty.playerno == null && !penalty.quarter && !penalty.time && !penalty.timeout) {
         continue;
       }
 
@@ -102,8 +100,8 @@ export function checkSheet(rawData: any): SheetErr[] {
         errors.push({ elementID: `penaltyNumber-${i}-${j}`, message: "Field cannot be empty." });
       }
 
-      if (!penalty.interaction) {
-        errors.push({ elementID: `penaltyInteraction-${i}-${j}`, message: "Field cannot be empty." });
+      if (!penalty.infraction) {
+        errors.push({ elementID: `penaltyInfraction-${i}-${j}`, message: "Field cannot be empty." });
       }
 
       if (!penalty.quarter) {

@@ -3,7 +3,7 @@ export interface Penalty {
     side: number,
     timeout: string,
     player_number: number,
-    interaction: string,
+    infraction: string,
     quarter: number,
     time: string,
 }

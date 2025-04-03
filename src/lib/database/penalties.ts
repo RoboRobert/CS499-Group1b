@@ -22,11 +22,11 @@ export async function addPenalty(penalties: Penalty) {
   let side = penalties.side;
   let pt = penalties.timeout;
   let playerno = penalties.player_number;
-  let infraction = penalties.interaction;
+  let infraction = penalties.infraction;
   let quarter = penalties.quarter;
   let time = penalties.time;
   const result = await sql`
-    INSERT INTO penalties (sheet_id, side, timeout, player_number, interaction, quarter, time) VALUES (${sheetid}, ${side}, ${pt}, ${playerno}, ${infraction}, ${quarter}, ${time}) RETURNING *
+    INSERT INTO penalties (sheet_id, side, timeout, player_number, infraction, quarter, time) VALUES (${sheetid}, ${side}, ${pt}, ${playerno}, ${infraction}, ${quarter}, ${time}) RETURNING *
   `;
 
   return result;
@@ -54,7 +54,7 @@ export async function dbPenaltyReset() {
             SIDE INT,
             TIMEOUT varchar(5),
             PLAYER_NUMBER INT NOT NULL,
-            INTERACTION varchar(25),
+            INFRACTION varchar(25),
             TIME varchar(5),
             QUARTER INT,
             PRIMARY KEY (PLAYER_NUMBER, SIDE));`;
@@ -64,7 +64,7 @@ export async function dbPenaltyReset() {
     side: 0,
     timeout: "3:20",
     player_number: 20,
-    interaction: "Crosscheck",
+    infraction: "Crosscheck",
     quarter: 2,
     time: "4:20",
   });
@@ -74,7 +74,7 @@ export async function dbPenaltyReset() {
     side: 0,
     timeout: "3:20",
     player_number: 69,
-    interaction: "Crosscheck",
+    infraction: "Crosscheck",
     quarter: 2,
     time: "4:20",
   });

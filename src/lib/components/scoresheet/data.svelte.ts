@@ -55,7 +55,7 @@ export interface Timeout {
 export interface Penalty {
   timeout: Time;
   playerno: number;
-  interaction: string;
+  infraction: string;
   quarter: number;
   time: Time;
 }
@@ -174,8 +174,8 @@ const numPenalties = 18;
 let homePenalties: Penalty[] = [];
 let awayPenalties: Penalty[] = [];
 for (let i = 0; i < numPenalties; i++) {
-  homePenalties.push({ timeout: null, playerno: null, interaction: "", quarter: null, time: null });
-  awayPenalties.push({ timeout: null, playerno: null, interaction: "", quarter: null, time: null });
+  homePenalties.push({ timeout: null, playerno: null, infraction: "", quarter: null, time: null });
+  awayPenalties.push({ timeout: null, playerno: null, infraction: "", quarter: null, time: null });
 }
 
 export const penalties = $state([homePenalties, awayPenalties]);

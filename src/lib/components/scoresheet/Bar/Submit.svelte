@@ -2,14 +2,12 @@
   import { base } from "$app/paths";
   import { json } from "@sveltejs/kit";
   import {
-    awayGoals,
-    awayGoalTrack,
+    goals,
     clears,
     extraMan,
     faceoffs,
     groundBalls,
-    homeGoals,
-    homeGoalTrack,
+    goalTrack,
     metaStats,
     penalties,
     players,
@@ -40,10 +38,8 @@
       teamName: teamName,
       players: players,
       saves: saves,
-      homeGoals: homeGoals,
-      awayGoals: awayGoals,
-      homeGoalTrack: homeGoalTrack,
-      awayGoalTrack: awayGoalTrack,
+      goals: goals,
+      goalTrack: goalTrack,
       groundBalls: groundBalls,
       shots: shots,
       clears: clears,
@@ -73,14 +69,12 @@
   }
 
   async function checkScoresheet() {
-    const scoresheetData = {
+    const scoresheetData: SheetData = {
       teamName: teamName,
       players: players,
       saves: saves,
-      homeGoals: homeGoals,
-      awayGoals: awayGoals,
-      homeGoalTrack: homeGoalTrack,
-      awayGoalTrack: awayGoalTrack,
+      goals: goals,
+      goalTrack: goalTrack,
       groundBalls: groundBalls,
       shots: shots,
       clears: clears,

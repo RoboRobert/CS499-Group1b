@@ -1,4 +1,4 @@
-import { clears, extraMan, faceoffs, groundBalls, metaStats, penalties, saves, shots, timeouts, toTime, toTimeString, type Time } from "$lib/components/scoresheet/data.svelte";
+import { clears, extraMan, faceoffs, goals, goalTrack, groundBalls, metaStats, penalties, saves, shots, timeouts, toTime } from "$lib/components/scoresheet/data.svelte";
 import type { GameStat } from "$lib/database/GameStats";
 import type { Goal } from "$lib/database/Goal";
 import type { Penalty } from "$lib/database/Penalty";
@@ -82,7 +82,7 @@ export function dbPenaltiesToPenalties(dbPenalties: Penalty[]) {
     const penalty = dbPenalties[i];
     penalties[penalty.side][i].timeout = toTime(penalty.timeout);
     penalties[penalty.side][i].playerno = penalty.player_number;
-    penalties[penalty.side][i].interaction = penalty.interaction;
+    penalties[penalty.side][i].infraction = penalty.infraction;
     penalties[penalty.side][i].quarter = penalty.quarter;
     penalties[penalty.side][i].time = toTime(penalty.time);
   }
@@ -91,5 +91,9 @@ export function dbPenaltiesToPenalties(dbPenalties: Penalty[]) {
 export function dbGoalsToGoals(dbGoals: Goal[]) {
   for(let i = 0; i < dbGoals.length; i++) {
     const goal = dbGoals[i];
+    goalTrack[goal.side][i].main = goal.playerno_score;
+    goalTrack[goal.side][i].assist = goal.playerno_assist;
+    goalTrack[goal.side][i].time = toTime(goal.time);
+    goalTrack[goal.side][i].type = goal.goaltype;
   }
 }
