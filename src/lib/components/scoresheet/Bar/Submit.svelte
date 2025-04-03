@@ -89,6 +89,8 @@
     };
     const scoresheetJSON = JSON.stringify(scoresheetData);
 
+    console.log(scoresheetJSON);
+
     // Ask the scoresheet/check endpoint if the scoresheet is valid.
     try {
       const result = await fetch("/api/scoresheet/check", {

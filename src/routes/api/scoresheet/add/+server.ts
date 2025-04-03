@@ -12,12 +12,9 @@ export const POST = async ({ request }) => {
 
   const data: SheetData = {
     teamName: rawData.teamName,
+    coachName: rawData.coachName,
     players: rawData.players,
     saves: rawData.saves,
-    homeGoals: rawData.homeGoals,
-    awayGoals: rawData.awayGoals,
-    homeGoalTrack: rawData.homeGoalTrack,
-    awayGoalTrack: rawData.awayGoalTrack,
     groundBalls: rawData.groundBalls,
     shots: rawData.shots,
     clears: rawData.clears,
@@ -26,21 +23,27 @@ export const POST = async ({ request }) => {
     timeouts: rawData.timeouts,
     penalties: rawData.penalties,
     metaStats: rawData.metaStats,
+    goals: rawData.goals,
+    goalTrack: rawData.goalTrack,
   };
 
   const sheetInfo: SheetInfo = {
-      sheet_id: 0,
-      date: data.metaStats.date,
-      site: data.metaStats.site,
-      start_time: data.metaStats.gameStart,
-      scorekeeper: data.metaStats.scorekeeper,
-      oppscorekeeper: data.metaStats.oppScorekeeper,
-      timekeeper: data.metaStats.timeKeeper,
-      head_official: data.metaStats.headOfficial,
-      umpire: data.metaStats.umpire,
-      field_judge: data.metaStats.fieldJudge,
-      lengthofquarters: "",
-      weathercondition: ""
+    sheet_id: "test",
+    date: data.metaStats.date,
+    site: data.metaStats.site,
+    start_time: data.metaStats.gameStart,
+    scorekeeper: data.metaStats.scorekeeper,
+    oppscorekeeper: data.metaStats.oppScorekeeper,
+    timekeeper: data.metaStats.timeKeeper,
+    head_official: data.metaStats.headOfficial,
+    umpire: data.metaStats.umpire,
+    field_judge: data.metaStats.fieldJudge,
+    lengthofquarters: data.metaStats.lengthOfQuarters,
+    weathercondition: data.metaStats.weatherCondition,
+    homecoach: data.coachName[0],
+    awaycoach: data.coachName[1],
+    hometeam: data.teamName[0],
+    awayteam: data.teamName[1],
   };
 
 //   const gameStats = statsToGameStats()

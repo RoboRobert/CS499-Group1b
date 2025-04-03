@@ -51,13 +51,17 @@ export function CheckPlayerNumber(event: any, side: number) {
   const playerSnapshot = $state.snapshot(players);
 }
 
-export function notEmpty(e) {
+export function readString(e): string | null {
   let target = e.target as HTMLInputElement;
 
-  if(target.value != "") {
-    removeError(target);
+  removeError(target);
+
+  if(target.value == "") {
+    addError(target, "Field Cannot be Empty");
+    return null;
   }
-  else addError(target, "Team Name Cannot be Empty");
+
+  return target.value;
 }
 
 // Validates time input

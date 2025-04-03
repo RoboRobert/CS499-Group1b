@@ -2,7 +2,7 @@
   import Goals from "./Goals.svelte";
 
   import { coachName, goalTrack, teamName, toTimeString } from "../data.svelte";
-  import { notEmpty, readPlayerno, readTime } from "../frontendChecker.svelte";
+  import { readString, readPlayerno, readTime } from "../frontendChecker.svelte";
 
   let numGoals = 30;
 
@@ -14,7 +14,7 @@
 <div class="wideRow">
   <div class="outer noBorder">
     <div class="innerRow">
-      <input id="teamName-0" class="field bigField" type="text" value={teamName[0]} placeholder="Home Team" oninput={(e) => notEmpty(e)} />
+      <input id="teamName-0" class="field bigField" type="text" value={teamName[0]} placeholder="Home Team" oninput={(e) => teamName[0] = readString(e)} />
       {#each Array(numGoals) as attempt, i}
         <div class="boxes">
           <input autocomplete="off" class="field goal" style="flex:3" type="text" value={getTime(0, i)} oninput={(e) => goalTrack[0][i].time = readTime(e)} />
@@ -23,7 +23,7 @@
       {/each}
     </div>
     <div class="innerRow" style="margin-bottom:10px;">
-      <input autocomplete="off" class="field bigField" type="text" value={coachName[0]} placeholder="Coach"/>
+      <input autocomplete="off" class="field bigField" type="text" value={coachName[0]} oninput={(e) => coachName[0] = readString(e)} placeholder="Coach"/>
       {#each Array(numGoals) as attempt, i}
         <div class="boxes">
           <input autocomplete="off" class="field normal" inputmode="numeric" value={goalTrack[0][i].main} oninput={(e) => goalTrack[0][i].main = readPlayerno(e)}/>
@@ -32,7 +32,7 @@
       {/each}
     </div>
     <div class="innerRow">
-      <input id="teamName-1" autocomplete="off" class="field bigField" type="text" value={teamName[1]} placeholder="Away Team" oninput={(e) => notEmpty(e)} />
+      <input id="teamName-1" autocomplete="off" class="field bigField" type="text" value={teamName[1]} placeholder="Away Team" oninput={(e) => teamName[1] = readString(e)} />
       {#each Array(numGoals) as attempt, i}
         <div class="boxes">
           <input autocomplete="off" class="field goal" style="flex:3" type="text" value={getTime(1, i)} oninput={(e) => goalTrack[1][i].time = readTime(e)} />
@@ -41,7 +41,7 @@
       {/each}
     </div>
     <div class="innerRow">
-      <input autocomplete="off" class="field bigField" type="text" value={coachName[1]} placeholder="Coach" />
+      <input autocomplete="off" class="field bigField" type="text" value={coachName[1]} oninput={(e) => coachName[1] = readString(e)} placeholder="Coach" />
       {#each Array(numGoals) as attempt, i}
         <div class="boxes">
           <input autocomplete="off" class="field normal" inputmode="numeric" value={goalTrack[1][i].main} oninput={(e) => goalTrack[1][i].main = readPlayerno(e)} />
