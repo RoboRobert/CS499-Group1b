@@ -105,13 +105,13 @@ export async function dbSheetReset() {
     `;
 
   const res = await sql`CREATE TABLE sheets (
-      SHEET_ID INT NOT NULL,
+      SHEET_ID VARCHAR(100) NOT NULL,
       GAMEID INT NOT NULL,
       PRIMARY KEY (SHEET_ID),
       FOREIGN KEY (GAMEID) REFERENCES games(GAMEID));`
     
-  addSheet({gameid: "0", sheet_id: "0"})
-  addSheet({gameid: "0", sheet_id: "1"})
+  addSheet({gameid: "0", sheet_id: "first"})
+  addSheet({gameid: "0", sheet_id: "second"})
 
   return res;
 }

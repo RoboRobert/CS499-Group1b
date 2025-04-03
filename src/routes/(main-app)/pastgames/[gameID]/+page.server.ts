@@ -1,7 +1,6 @@
-import type { PageServerLoad } from './$types';
-import type { game, scoresheet } from '../pastgames.svelte';
-import { error } from "@sveltejs/kit";
 import type { Game, Sheet } from '$lib/database/Sheet';
+import { error } from "@sveltejs/kit";
+import type { PageServerLoad } from './$types';
 
 export const load: PageServerLoad = async ({ params, fetch }) => {
     const gameId = params.gameID;  // Extracts the slug from the URL

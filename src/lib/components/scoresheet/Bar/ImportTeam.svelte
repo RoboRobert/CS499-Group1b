@@ -1,6 +1,6 @@
 <script lang="ts">
   import type { Team, Player } from "$lib/database/Team";
-  import { teamName, players, emptyPlayers } from "../data.svelte";
+  import { teamName, players, emptyPlayers, coachName } from "../data.svelte";
   import { onMount } from 'svelte';
 
   let teams: Team[] = [];
@@ -14,13 +14,18 @@
   async function importTeam(side: number) {
     const team = teams[option];
 
+    console.log(team);
+
     teamName[side] = team.team_name;
+    coachName[side] = team.coach;
 
     // Clear the current players on the team.
     players[side] = emptyPlayers[side];
 
     const response = await fetch(`/api/teamPlayers/${team.team_name}`);
     let teamPlayers: Player[] = await response.json()
+
+    teamPlayers.sort((a, b) => (a.position < b.position ? -1 : 1))
 
     // Replace each slot with the team member from the new team.
     for (let i = 0; i < players[side].length && i < teamPlayers.length; i++) {
