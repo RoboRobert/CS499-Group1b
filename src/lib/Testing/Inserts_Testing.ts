@@ -21,7 +21,7 @@ import type { Player } from '../database/Team';
 import { addPlayer } from '../database/teams';
 
 
-async function Complete_Insert_test(){
+export async function Complete_Insert_test(){
   dbinsert_Game();
   dbinsert_Sheet();
   dbinsert_Teams();
