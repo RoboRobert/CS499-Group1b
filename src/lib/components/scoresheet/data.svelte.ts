@@ -2,10 +2,8 @@ export interface SheetData {
   teamName: string[];
   players: Player[][];
   saves: Save[][];
-  homeGoals: number[];
-  awayGoals: number[];
-  homeGoalTrack: Goal[];
-  awayGoalTrack: Goal[];
+  goals: number[][]
+  goalTrack: Goal[][];
   groundBalls: number[][];
   shots: number[][];
   clears: Stat[][];
@@ -85,8 +83,10 @@ export interface Player {
 
 export const teamName = $state(["", ""]);
 
-export const homeGoals = $state([0, 0, 0, 0, 0, 0]);
-export const awayGoals = $state([0, 0, 0, 0, 0, 0]);
+export const goals = $state([
+  [0, 0, 0, 0, 0, 0],
+  [0, 0, 0, 0, 0, 0],
+])
 
 // Contains two arrays. groundBalls[0] is home, groundBalls[1] is away.
 // I'll use this theme for the rest of the state variables.
@@ -187,8 +187,7 @@ for (let i = 0; i < 30; i++) {
   awayArr.push({ time: null, type: "", main: undefined, assist: undefined });
 }
 
-export const homeGoalTrack = $state(homeArr);
-export const awayGoalTrack = $state(awayArr);
+export const goalTrack = $state([homeArr, awayArr]);
 
 let homeSaves: Save[] = [];
 let awaySaves: Save[] = [];
@@ -231,7 +230,7 @@ const playerMap = $derived.by(() => {
   let homeMap = makeMap($state.snapshot(players[0]));
   let awayMap = makeMap($state.snapshot(players[1]));
 
-  homeGoalTrack.forEach((e) => {
+  goalTrack[0].forEach((e) => {
     if (homeMap.has(e.main)) {
       let val = homeMap.get(e.main);
       val.goals += 1;
@@ -244,7 +243,7 @@ const playerMap = $derived.by(() => {
     }
   });
 
-  awayGoalTrack.forEach((e) => {
+  goalTrack[1].forEach((e) => {
     if (awayMap.has(e.main)) {
       let val = awayMap.get(e.main);
       val.goals += 1;

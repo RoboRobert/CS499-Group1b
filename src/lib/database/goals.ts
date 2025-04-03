@@ -32,7 +32,7 @@ export async function dbGoalReset() {
   await sql`CREATE TABLE goals(
               SHEET_ID INT,
               SIDE INT,
-              TIME INT,
+              TIME varchar(5),
               PLAYERNO_SCORE INT,
               PLAYERNO_ASSIST INT,
               GOALTYPE varchar(1),
@@ -41,10 +41,10 @@ export async function dbGoalReset() {
   const res = await addGoal({
     sheet_id: 0,
     side: 0,
-    time: 0,
-    playerno_score: 0,
-    playerno_assist: 0,
-    goaltype: "",
+    time: "3:30",
+    playerno_score: 42,
+    playerno_assist: 69,
+    goaltype: "F",
   });
 
   return res;
