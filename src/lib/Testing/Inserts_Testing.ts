@@ -1,24 +1,24 @@
 // Purpose: To test the database inserts for the project.
-import type {Game} from './Sheet';
-import { addGame } from './sheets';
-import type { SheetInfo } from './SheetInfo';
-import { addSheet } from './sheets';
-import type { Sheet } from './Sheet';
-import { addSheetInfo } from './sheetinfos';
+import type {Game} from '../database/Sheet';
+import { addGame } from '../database/sheets';
+import type { SheetInfo } from '../database/SheetInfo';
+import { addSheet } from '../database/sheets';
+import type { Sheet } from '../database/Sheet';
+import { addSheetInfo } from '../database/sheetinfos';
 import type { GameStat } from '$lib/database/GameStats';
 import { addGameStat } from '$lib/database/gamestat';
 import type { IndividualScore } from '$lib/database/IndividualScores';
-import { addIndividualScore } from './individualscore';
-import type { Penalty } from './Penalty';
-import { addPenalty } from './penalties';
-import type { Team } from './Team';
-import { addTeam } from './teams';
-import type { Timeout } from './Timeout';
-import { addTimeout } from './timeouts';
-import type { Save } from './Save';
-import { addSave } from './saves';
-import type { Player } from './Team';
-import { addPlayer } from './teams';
+import { addIndividualScore } from '../database/individualscore';
+import type { Penalty } from '../database/Penalty';
+import { addPenalty } from '../database/penalties';
+import type { Team } from '../database/Team';
+import { addTeam } from '../database/teams';
+import type { Timeout } from '../database/Timeout';
+import { addTimeout } from '../database/timeouts';
+import type { Save } from '../database/Save';
+import { addSave } from '../database/saves';
+import type { Player } from '../database/Team';
+import { addPlayer } from '../database/teams';
 
 async function dbinsert_Players() {
   const players: Player[] = [

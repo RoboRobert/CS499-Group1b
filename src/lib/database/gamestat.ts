@@ -30,7 +30,7 @@ export async function addGameStat(gamestat: GameStat) {
   let faceoffwin = gamestat.faceoffwin;
   let faceoffloss = gamestat.faceoffloss;
   const result = await sql`
-    INSERT INTO gamestats (sheetid, side, quarter, ground, shots, clearpass, clearfail, extrascore, extrafail, faceoffwin, faceoffloss) VALUES (${sheetID}, ${side}, ${quarter}, ${ground}, ${shots}, ${clearpass}, ${clearfail}, ${extrascore}, ${extrafail}, ${faceoffwin}, ${faceoffloss}) RETURNING *
+    INSERT INTO gamestats (SHEET_ID, SIDE, QUARTER, GROUND, SHOTS, CLEARS_PASS, CLEARS_FAIL, EXTRA_MAN_SCORE, EXTRA_MAN_FAI, FACEOFF_WIN, FACEOFF_LOSS) VALUES (${sheetID}, ${side}, ${quarter}, ${ground}, ${shots}, ${clearpass}, ${clearfail}, ${extrascore}, ${extrafail}, ${faceoffwin}, ${faceoffloss}) RETURNING *
   `;
 
   return result;
@@ -58,6 +58,7 @@ export async function dbGameStatReset() {
             SHEET_ID INT UNIQUE,
             SIDE varchar(25),
             QUARTER INT,
+            GROUND INT,
             SHOTS INT,
             CLEARS_PASS INT,
             CLEARS_FAIL INT,
