@@ -2,20 +2,20 @@ import sql from '$lib/database/postgres.server';
 import type { IndividualScore } from '$lib/database/IndividualScores';
 
 
-export async function getIndividualScores(): Promise<IndividualScore[]> {
+// export async function getIndividualScores(): Promise<IndividualScore[]> {
+//   const players = await sql<IndividualScore[]>`
+//       SELECT * FROM individualscores
+//     `
+
+//   return players
+// }
+
+export async function getIndividualScores(sheetid: string): Promise<IndividualScore[]> {
   const players = await sql<IndividualScore[]>`
-      SELECT * FROM individualscores
+      SELECT * FROM individualscore WHERE sheet_id = ${sheetid}
     `
 
-  return players
-}
-
-export async function getIndividualScore(sheetid: number): Promise<IndividualScore> {
-  const players = await sql<IndividualScore[]>`
-      SELECT * FROM individualscores WHERE sheetid = ${sheetid}
-    `
-
-  return players[0]
+  return players;
 }
 
 export async function addIndividualScore(indiv: IndividualScore) {
@@ -27,7 +27,7 @@ export async function addIndividualScore(indiv: IndividualScore) {
   let attempts = indiv.attempts;
   let fails = indiv.fails;
   const result = await sql`
-    INSERT INTO individualscores (SHEET_ID, side, playerno, player, goals, attempts, fails) VALUES (${sheetID}, ${side}, ${playerno}, ${player}, ${goals}, ${attempts}, ${fails}) RETURNING *
+    INSERT INTO individualscore (sheetid, side, playerno, player, goals, attempts, fails) VALUES (${sheetID}, ${side}, ${playerno}, ${player}, ${goals}, ${attempts}, ${fails}) RETURNING *
   `
 
   return result
@@ -35,7 +35,7 @@ export async function addIndividualScore(indiv: IndividualScore) {
 
 export async function deleteIndividualScore(sheetid: number) {
   const result = await sql`
-      DELETE FROM individualscores WHERE name = ${sheetid}
+      DELETE FROM individualscore WHERE name = ${sheetid}
     `
 
   return result
@@ -52,17 +52,17 @@ export async function dbIndividualScoreReset() {
 
     //Not entirely sure about this for the table
   await sql`CREATE TABLE individualscore(
-            SHEET_ID INT,
-            SIDE varchar(25),
+            SHEET_ID VARCHAR(100),
+            SIDE INT,
             PLAYER_NUMBER INT NOT NULL,
-            PLAYER_NAME varchar(25),
+            PLAYER_NAME varchar(100),
             GOALS INT,
             ATTEMPTS INT,
             FAILS INT,
-            FOREIGN KEY (SHEET_ID) REFERENCES gamestats(SHEET_ID) ON DELETE CASCADE ON UPDATE CASCADE);`
+            PRIMARY KEY (PLAYER_NUMBER, SIDE));`;
 
   const res = await sql`INSERT INTO individualscore (SHEET_ID, SIDE, PLAYER_NUMBER, PLAYER_NAME, GOALS, ATTEMPTS, FAILS)
-    VALUES ('0', 'None', '0', 'Dudebro', '0', '0', '0');`
+    VALUES (0, 0, '0', 'Dudebro', '0', '0', '0');`
 
   return res;
 }

@@ -1,5 +1,4 @@
 import type { PageServerLoad } from './$types';
-import type { player } from '../../rosters.svelte';
 import { error } from "@sveltejs/kit";
 import type { Player } from '$lib/database/Team';
 

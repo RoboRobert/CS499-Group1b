@@ -7,10 +7,17 @@ export interface Team {
 }
 
 export interface Player {
-    team_name: string, //Inherited from Team
+    team_id: string, //Inherited from Team
+    team_name: string,
     player_name: string,
     player_number: number,
     position: string,
+    player_class: string
+    hometown: string,
+    state: string,
+    height_feet: number,
+    height_inches: number,
+    weight: number,
     quarter: number,
     shots: number,
     goals: number,

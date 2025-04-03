@@ -43,27 +43,16 @@ export async function getPlayerByName(name: string): Promise<Player> {
   return players[0];
 }
 
-export async function getPlayersByTeam(team_name: string): Promise<Player[]> {
+export async function getPlayersByTeam(team_id: string): Promise<Player[]> {
   const players = await sql<Player[]>`
-      SELECT * FROM players WHERE team_name = ${team_name}
+      SELECT * FROM players WHERE team_id = ${team_id}
     `;
 
   return players;
 }
 
 export async function addTeam(team: Team) {
-  const result = await sql`
-    INSERT INTO teams (TEAM_NAME, TEAM_ID, HOMETOWN, STATE, COACH) VALUES 
-    (${team.team_name}) (${team.team_id}) (${team.hometown}) (${team.state}) (${team.coach})
-    RETURNING *
-    
-  `;
-
-  return result;
-}
-
-// Same as addTeam for now
-export async function updateTeam(team: Team) {
+  //console.log(team);
   console.log(team);
   const result = await sql`
     INSERT INTO teams (TEAM_NAME, TEAM_ID, HOMETOWN, STATE, COACH) VALUES 
@@ -72,20 +61,68 @@ export async function updateTeam(team: Team) {
   `;
 
   return result;
+
+}
+
+// Same as addTeam for now
+export async function updateTeam(team: Team) {
+  console.log(team);
+  const result = await sql`
+    UPDATE teams 
+    SET 
+      TEAM_NAME = ${team.team_name}, 
+      HOMETOWN = ${team.hometown}, 
+      STATE = ${team.state}, 
+      COACH = ${team.coach}
+    WHERE TEAM_ID = ${team.team_id}
+    RETURNING *;
+  `;
+
+  return result;
 }
 
 export async function addPlayer(players: Player) {
-  let team = players.team_name;
+  let team_id = players.team_id;
+  let team_name = players.team_name;
   let name = players.player_name;
   let number = players.player_number;
   let position = players.position;
+  let player_class = players.player_class;
+  let hometown = players.hometown;
+  let state = players.state;
+  let height_feet = players.height_feet || 0;
+  let height_inches = players.height_inches || 0;
+  let weight = players.weight || 0;
   let quarter = players.quarter;
   let shots = players.shots;
   let goals = players.goals;
   let miss = players.miss;
   let ground = players.ground;
   const result = await sql`
-    INSERT INTO players (PLAYER_NAME, PLAYER_NUMBER, TEAM_NAME, POSITION, QUARTERS, ATTEMPTED_SHOTS, GOALS, FAILED_SHOTS, GROUND_BALLS) VALUES (${name}, ${number}, ${team}, ${position}, ${quarter}, ${shots}, ${goals}, ${miss}, ${ground}) RETURNING *
+    INSERT INTO players (PLAYER_NAME, PLAYER_NUMBER, TEAM_ID, TEAM_NAME, POSITION, PLAYER_CLASS, HOMETOWN, STATE, HEIGHT_FEET, HEIGHT_INCHES, WEIGHT, QUARTERS, ATTEMPTED_SHOTS, GOALS, FAILED_SHOTS, GROUND_BALLS) VALUES (${name}, ${number}, ${team_id}, ${team_name}, ${position},${player_class}, ${hometown}, ${state}, ${height_feet}, ${height_inches}, ${weight}, ${quarter}, ${shots}, ${goals}, ${miss}, ${ground}) RETURNING *
+  `;
+
+  return result;
+}
+
+export async function updatePlayer(player: Player) {
+  console.log(player);
+  const result = await sql`
+    UPDATE players
+    SET 
+      PLAYER_NAME = ${player.player_name},
+      PLAYER_NUMBER = ${player.player_number},
+      TEAM_ID = ${player.team_id},
+      TEAM_NAME = ${player.team_name},
+      POSITION = ${player.position},
+      PLAYER_CLASS = ${player.player_class},
+      HOMETOWN = ${player.hometown},
+      STATE = ${player.state},
+      HEIGHT_FEET = ${player.height_feet || 0},
+      HEIGHT_INCHES = ${player.height_inches || 0},
+      WEIGHT = ${player.weight || 0}
+    WHERE PLAYER_NAME = ${player.player_name} AND PLAYER_NUMBER = ${player.player_number}
+    RETURNING *;
   `;
 
   return result;
@@ -122,9 +159,9 @@ export async function dbTeamsReset() {
             HOMETOWN varchar(100),
             STATE varchar(100),
             COACH varchar(100),
-            Primary key (TEAM_NAME));`;
+            Primary key (TEAM_ID));`;
 
-  updateTeam({
+  addTeam({
     team_id: "uah-mlax-001",
     team_name: "UAH Men's Lacrosse",
     hometown: "Huntsville",
@@ -132,7 +169,7 @@ export async function dbTeamsReset() {
     coach: "Mark Frey",
   });
 
-  updateTeam({
+  addTeam({
     team_id: "auburn-mlax-001",
     team_name: "Auburn University Men's Lacrosse",
     hometown: "Auburn",
@@ -155,15 +192,22 @@ export async function dbPlayersReset() {
   const res = await sql`CREATE TABLE players (
             PLAYER_NAME varchar(100),
             PLAYER_NUMBER INT NOT NULL,
+            TEAM_ID varchar(100),
             TEAM_NAME varchar(100),
             POSITION varchar(100),
+            PLAYER_CLASS varchar(100),
+            HOMETOWN varchar(100),
+            STATE varchar(100),
+            HEIGHT_FEET INT,
+            HEIGHT_INCHES INT,
+            WEIGHT INT,
             QUARTERS INT,
             ATTEMPTED_SHOTS INT,
             GOALS INT,
             FAILED_SHOTS INT,
             GROUND_BALLS INT,
             primary key(PLAYER_NAME, PLAYER_NUMBER),
-            foreign key(TEAM_NAME) references teams(TEAM_NAME) ON DELETE CASCADE ON UPDATE CASCADE);`;
+            foreign key(TEAM_ID) references teams(TEAM_ID) ON DELETE CASCADE ON UPDATE CASCADE);`;
 
   for(const player of auburnLacrosseRoster) {
     addPlayer(player);

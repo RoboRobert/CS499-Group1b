@@ -1,5 +1,5 @@
 export interface IndividualScore {
-    sheetid: number,
+    sheetid: string,
     side: string,
     playerno: number,
     player: string,
