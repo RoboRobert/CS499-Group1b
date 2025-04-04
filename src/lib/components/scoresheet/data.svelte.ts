@@ -15,29 +15,8 @@ export interface SheetData {
   metaStats: MetaStats;
 }
 
-export interface Time {
-  minutes: number;
-  seconds: number;
-}
-
-export function toTime(input: string): Time {
-  let regex: RegExp = /^(\d{1,2}):(\d{2})$/;
-  let matches = input.match(regex);
-
-  let time: Time = { minutes: Number(matches[1]), seconds: Number(matches[2]) };
-  return time;
-}
-
-export function toTimeString(time: Time): string {
-  if (!time) {
-    return "";
-  }
-
-  return `${time.minutes}:${time.seconds}`;
-}
-
 export interface Goal {
-  time: Time;
+  time: string;
   type: string;
   main: number;
   assist: number;
@@ -49,16 +28,16 @@ export interface Stat {
 }
 
 export interface Timeout {
-  time: Time;
+  time: string;
   period: number;
 }
 
 export interface Penalty {
-  timeout: Time;
+  timeout: string;
   playerno: number;
   infraction: string;
   quarter: number;
-  time: Time;
+  time: string;
 }
 
 export interface Save {

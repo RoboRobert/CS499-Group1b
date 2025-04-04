@@ -9,6 +9,14 @@ export async function getSheets(): Promise<Sheet[]> {
   return sheets
 }
 
+export async function getSheetsByGame(game_id: string): Promise<Sheet[]> {
+  const sheets = await sql<Sheet[]>`
+      SELECT * FROM sheets WHERE gameid = ${game_id}
+    `
+
+  return sheets
+}
+
 export async function getGames(): Promise<Game[]> {
   const games = await sql<Game[]>`
       SELECT * FROM games
@@ -51,10 +59,19 @@ export async function addSheet(sheet: Sheet) {
   return result
 }
 
-export async function addGame(sheet: Game) {
-  let gameid = sheet.gameid;
+export async function addGame(game: Game) {
+  let gameid = game.gameid;
   const result = await sql`
     INSERT INTO games (gameid) VALUES (${gameid}) RETURNING *
+  `
+
+  return result
+}
+
+export async function addGameIfPossible(game: Game) {
+  let gameid = game.gameid;
+  const result = await sql`
+   INSERT INTO games (gameid) VALUES (${gameid}) ON CONFLICT (gameid) DO NOTHING RETURNING *;
   `
 
   return result
@@ -86,11 +103,12 @@ export async function dbGameReset() {
     `;
 
   await sql`CREATE TABLE games (
-      GAMEID INT NOT NULL,
+      GAMEID VARCHAR(100) NOT NULL,
       primary key (GAMEID));`
 
-  const res = await sql`INSERT INTO games (GAMEID)
-    VALUES ('0');`
+  const res = await addGame({
+    gameid: '0'
+  });
 
   return res;
 }
@@ -106,7 +124,7 @@ export async function dbSheetReset() {
 
   const res = await sql`CREATE TABLE sheets (
       SHEET_ID VARCHAR(100) NOT NULL,
-      GAMEID INT NOT NULL,
+      GAMEID VARCHAR(100) NOT NULL,
       PRIMARY KEY (SHEET_ID),
       FOREIGN KEY (GAMEID) REFERENCES games(GAMEID));`
     
