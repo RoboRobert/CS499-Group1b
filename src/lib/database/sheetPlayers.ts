@@ -51,7 +51,7 @@ export async function dbSheetPlayersReset() {
               Foreign key (SHEET_ID) references sheets(SHEET_ID) ON DELETE CASCADE ON UPDATE CASCADE);`;
 
   const res = await addSheetPlayer({
-      sheet_id: "first",
+      sheet_id: "dudes-bros-2025-04-03-15:20-0",
       side: 0,
       name: "Woah There",
       position: "ATTACK",

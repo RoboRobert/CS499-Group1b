@@ -60,7 +60,7 @@ export async function dbPenaltyReset() {
             PRIMARY KEY (PLAYER_NUMBER, SIDE));`;
 
   await addPenalty({
-    sheet_id: "first",
+    sheet_id: "dudes-bros-2025-04-03-15:20-0",
     side: 0,
     timeout: "3:20",
     player_number: 20,
@@ -70,7 +70,7 @@ export async function dbPenaltyReset() {
   });
 
   const res = await addPenalty({
-    sheet_id: "first",
+    sheet_id: "dudes-bros-2025-04-03-15:20-0",
     side: 0,
     timeout: "3:20",
     player_number: 69,

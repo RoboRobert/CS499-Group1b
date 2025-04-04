@@ -19,9 +19,11 @@
         </div>
         <div>
             {#each data.games as game }
-            <a href="/pastgames/{game.gameid}">
+            <a href="/pastgames/{game.game_id}">
                 <div class = "game">
-                    <h3>{game.gameid}</h3>
+                    <h3>{game.hometeam} vs. {game.awayteam}</h3>
+                    <h3>{game.homescore}-{game.awayscore}</h3>
+                    <h3>{game.date} {game.time}</h3>
                 </div>
             </a>
             {/each}

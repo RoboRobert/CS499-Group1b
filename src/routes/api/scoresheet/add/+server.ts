@@ -55,11 +55,18 @@ export const POST = async ({ request }) => {
 
 // Start by adding a game if necessary, then a sheet to that game.
 await addGameIfPossible({
-  gameid: game_id,
+  game_id: game_id,
+  hometeam: data.teamName[0],
+  awayteam: data.teamName[1],
+  date: data.metaStats.date,
+  time: data.metaStats.gameStart,
+  homescore: data.goals[0].reduce((a, b) => b + a, 0),
+  awayscore: data.goals[1].reduce((a, b) => b + a, 0),
 });
 await addSheet({
-  gameid: game_id,
-  sheet_id: sheet_id
+  game_id: game_id,
+  sheet_id: sheet_id,
+  scorekeeper: data.metaStats.scorekeeper,
 });
   await addSheetInfo(sheetInfo);
   // await addGameStat(gameStat);

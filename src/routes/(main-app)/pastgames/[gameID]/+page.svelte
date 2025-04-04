@@ -4,19 +4,20 @@
   let { data }: PageProps = $props();
 </script>
 
-<title>Team {data.game.gameid}</title>
+<title>Team {data.game.game_id}</title>
 
 <div>
-  <a href="./">Back</a>
+  <!-- <a href="./">Back</a> -->
   <section class="game-dash">
-    <h1>Game {data.game.gameid} Details</h1>
-    <p>This is the detailed page for game {data.game.gameid}.</p>
+    <h3>{data.game.hometeam} vs. {data.game.awayteam}</h3>
+    <h3>{data.game.homescore}-{data.game.awayscore}</h3>
+    <h3>{data.game.date} {data.game.time}</h3>
   </section>
   <section class="list-section-1">
     {#each data.scoresheets as scoresheet, i}
       <a data-sveltekit-reload href="/sheets/{scoresheet.sheet_id}">
         <div class="game">
-          <h3>Scoresheet #{scoresheet.sheet_id}</h3>
+          <h3>Scoresheet by {scoresheet.scorekeeper}</h3>
         </div>
       </a>
     {/each}

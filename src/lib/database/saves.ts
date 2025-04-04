@@ -62,7 +62,7 @@ export async function dbSaveReset() {
             PRIMARY KEY (PLAYER_NUMBER, SIDE));`;
 
   const res = await addSave({
-    sheet_id: "first",
+    sheet_id: "dudes-bros-2025-04-03-15:20-0",
     side: 0,
     player_number: 69,
     quarter_1: 1,

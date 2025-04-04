@@ -68,7 +68,7 @@ export async function dbGameStatReset() {
             PRIMARY KEY (QUARTER, SIDE));`;
 
   const res = addGameStat({
-    sheet_id: "first",
+    sheet_id: "dudes-bros-2025-04-03-15:20-0",
     side: 0,
     quarter: 1,
     ground: 3,

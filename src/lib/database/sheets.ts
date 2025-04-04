@@ -11,7 +11,7 @@ export async function getSheets(): Promise<Sheet[]> {
 
 export async function getSheetsByGame(game_id: string): Promise<Sheet[]> {
   const sheets = await sql<Sheet[]>`
-      SELECT * FROM sheets WHERE gameid = ${game_id}
+      SELECT * FROM sheets WHERE game_id = ${game_id}
     `
 
   return sheets
@@ -35,43 +35,57 @@ export async function getSheet(sheetid: string): Promise<Sheet> {
 
 export async function getGameSheets(gameId: string): Promise<Sheet[]> {
   const sheets = await sql<Sheet[]>`
-      SELECT * FROM sheets WHERE GAMEID = ${gameId}
+      SELECT * FROM sheets WHERE GAME_ID = ${gameId}
     `
 
   return sheets
 }
 
-export async function getGame(gameid: string): Promise<Game> {
+export async function getGame(game_id: string): Promise<Game> {
   const games = await sql<Game[]>`
-      SELECT * FROM games WHERE gameid = ${gameid}
+      SELECT * FROM games WHERE game_id = ${game_id}
     `
 
   return games[0]
 }
 
 export async function addSheet(sheet: Sheet) {
-  let gameid = sheet.gameid;
+  let game_id = sheet.game_id;
   let sheetid = sheet.sheet_id;
+  let scorekeeper = sheet.scorekeeper;
   const result = await sql`
-    INSERT INTO sheets (gameid, sheet_id) VALUES (${gameid}, ${sheetid}) RETURNING *
+    INSERT INTO sheets (game_id, sheet_id, scorekeeper) VALUES (${game_id}, ${sheetid}, ${scorekeeper}) RETURNING *
   `
 
   return result
 }
 
 export async function addGame(game: Game) {
-  let gameid = game.gameid;
+  let game_id = game.game_id;
+  let hometeam = game.hometeam;
+  let awayteam = game.awayteam;
+  let date = game.date;
+  let time = game.time;
+  let homescore = game.homescore;
+  let awayscore = game.awayscore;
   const result = await sql`
-    INSERT INTO games (gameid) VALUES (${gameid}) RETURNING *
+    INSERT INTO games (game_id, hometeam, awayteam, date, time, homescore, awayscore) VALUES (${game_id}, ${hometeam}, ${awayteam}, ${date}, ${time}, ${homescore}, ${awayscore}) RETURNING *
   `
 
   return result
 }
 
 export async function addGameIfPossible(game: Game) {
-  let gameid = game.gameid;
+  let game_id = game.game_id;
+  let hometeam = game.hometeam;
+  let awayteam = game.awayteam;
+  let date = game.date;
+  let time = game.time;
+  let homescore = game.homescore;
+  let awayscore = game.awayscore;
   const result = await sql`
-   INSERT INTO games (gameid) VALUES (${gameid}) ON CONFLICT (gameid) DO NOTHING RETURNING *;
+   INSERT INTO games (game_id, hometeam, awayteam, date, time, homescore, awayscore) VALUES (${game_id}, ${hometeam}, ${awayteam}, ${date}, ${time}, ${homescore}, ${awayscore}) 
+   ON CONFLICT (game_id) DO NOTHING RETURNING *;
   `
 
   return result
@@ -85,9 +99,9 @@ export async function deleteSheet(sheetid: string) {
   return result
 }
 
-export async function deleteGame(gameid: string) {
+export async function deleteGame(game_id: string) {
   const result = await sql`
-      DELETE FROM games WHERE gameid = ${gameid}
+      DELETE FROM games WHERE game_id = ${game_id}
     `
 
   return result
@@ -103,11 +117,23 @@ export async function dbGameReset() {
     `;
 
   await sql`CREATE TABLE games (
-      GAMEID VARCHAR(100) NOT NULL,
-      primary key (GAMEID));`
+      GAME_ID VARCHAR(100) NOT NULL,
+      HOMETEAM VARCHAR(100),
+      AWAYTEAM VARCHAR(100),
+      DATE VARCHAR(100),
+      TIME VARCHAR(100),
+      HOMESCORE INT,
+      AWAYSCORE INT,
+      primary key (GAME_ID));`
 
   const res = await addGame({
-    gameid: '0'
+    game_id: 'dudes-bros-2025-04-03-15:20',
+    hometeam: 'Dudes',
+    awayteam: 'Bros',
+    date: '2025-04-03',
+    time: '15:20',
+    homescore: 5,
+    awayscore: 9
   });
 
   return res;
@@ -124,12 +150,19 @@ export async function dbSheetReset() {
 
   const res = await sql`CREATE TABLE sheets (
       SHEET_ID VARCHAR(100) NOT NULL,
-      GAMEID VARCHAR(100) NOT NULL,
+      GAME_ID VARCHAR(100) NOT NULL,
+      SCOREKEEPER VARCHAR(100),
       PRIMARY KEY (SHEET_ID),
-      FOREIGN KEY (GAMEID) REFERENCES games(GAMEID));`
+      FOREIGN KEY (GAME_ID) REFERENCES games(GAME_ID));`
     
-  addSheet({gameid: "0", sheet_id: "first"})
-  addSheet({gameid: "0", sheet_id: "second"})
+  addSheet({
+    game_id: "dudes-bros-2025-04-03-15:20", sheet_id: "dudes-bros-2025-04-03-15:20-0",
+    scorekeeper: 'Dumb'
+  })
+  addSheet({
+    game_id: "dudes-bros-2025-04-03-15:20", sheet_id: "dudes-bros-2025-04-03-15:20-1",
+    scorekeeper: 'Dumber'
+  })
 
   return res;
 }

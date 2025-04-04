@@ -21,8 +21,9 @@
         
         <div class="team-bar">
             <a href="/pastgames/{game}" class="team-link">
-                <h3>{game.gameid}</h3>
-                
+                <h3>{game.hometeam} vs. {game.awayteam}</h3>
+                <h3>{game.homescore}-{game.awayscore}</h3>
+                <h3>{game.date} {game.time}</h3>
             </a>
         </div>
         {/each}

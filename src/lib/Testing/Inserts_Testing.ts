@@ -764,23 +764,23 @@ async function dbinsert_Teams() {
 async function dbinsert_Game() {
     const games : Game[] = [
         {
-            gameid: "Maple Hawks vs River Raptors",
+            game_id: "Maple Hawks vs River Raptors",
         },
         {
-            gameid: "Sunset Stallions vs Oceanview Orcas",
+            game_id: "Sunset Stallions vs Oceanview Orcas",
         },
         {
-            gameid: "Highland Wolves vs Forest Falcons",
+            game_id: "Highland Wolves vs Forest Falcons",
 
         },
         {
-            gameid: "Maple Hawks vs Sunset Stallions",
+            game_id: "Maple Hawks vs Sunset Stallions",
         },
         {
-            gameid: "River Raptors vs Oceanview Orcas",
+            game_id: "River Raptors vs Oceanview Orcas",
         },
         {
-            gameid: "Highland Wolves vs Maple Hawks",
+            game_id: "Highland Wolves vs Maple Hawks",
         },
     ]
     for (const game of games) {
@@ -790,22 +790,22 @@ async function dbinsert_Game() {
 
 async function dbinsert_Sheet() {
     const sheets: Sheet[] = [
-      { gameid: "Maple Hawks vs River Raptors", 
+      { game_id: "Maple Hawks vs River Raptors", 
         sheet_id: "101" 
       },
-      { gameid: "Sunset Stallions vs Oceanview Orcas",
+      { game_id: "Sunset Stallions vs Oceanview Orcas",
         sheet_id: "102"
       },
-      { gameid: "Highland Wolves vs Forest Falcons",
+      { game_id: "Highland Wolves vs Forest Falcons",
         sheet_id: "103"
       },
-      { gameid: "Maple Hawks vs Sunset Stallions",
+      { game_id: "Maple Hawks vs Sunset Stallions",
         sheet_id: "104"
       },
-      { gameid: "River Raptors vs Oceanview Orcas",
+      { game_id: "River Raptors vs Oceanview Orcas",
         sheet_id: "105"
       },
-      { gameid: "Highland Wolves vs Maple Hawks",
+      { game_id: "Highland Wolves vs Maple Hawks",
         sheet_id: "106"
       }
     ];
