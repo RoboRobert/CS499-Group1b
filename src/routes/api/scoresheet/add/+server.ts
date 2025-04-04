@@ -1,8 +1,12 @@
 import { type SheetData } from "$lib/components/scoresheet/data.svelte";
-import { metaStatsToDbInfo, statsToGameStats } from "$lib/conversion/sheetToDb.js";
+import { dbPenaltiesToPenalties } from "$lib/conversion/dbToSheet.js";
+import { metaStatsToDBMetaStats, penaltiesToDbPenalties as penaltiesToDBPenalties, savesToDBSaves, statsToDBStats, timeoutsToDBTimeouts } from "$lib/conversion/sheetToDb.js";
 import { addgameStats } from "$lib/database/gamestat.js";
+import { addPenalties } from "$lib/database/penalties";
+import { addSaves } from "$lib/database/saves";
 import { addSheetInfo } from "$lib/database/sheetinfos.js";
 import { addGameIfPossible, addSheet, getSheetsByGame } from "$lib/database/sheets.js";
+import { addTimeouts } from "$lib/database/timeouts";
 import { json } from "@sveltejs/kit";
 
 export const POST = async ({ request }) => {
@@ -26,11 +30,14 @@ export const POST = async ({ request }) => {
     goalTrack: rawData.goalTrack,
   };
 
-  const game_id = `${data.teamName[0]}-${data.teamName[1]}-${data.metaStats.date}-${data.metaStats.gameStart}`;
-  const numSheets = (await getSheetsByGame(game_id)).length;
-  const sheet_id = `${game_id}-${numSheets}`;
+  // const game_id = `${data.teamName[0]}-${data.teamName[1]}-${data.metaStats.date}-${data.metaStats.gameStart}`;
+  // const numSheets = (await getSheetsByGame(game_id)).length;
+  // const sheet_id = `${game_id}-${numSheets}`;
 
-  // const gameStats = statsToGameStats()
+  // Test data!
+  const game_id = "dudes-bros-2025-04-03-15:20";
+  const numSheets = (await getSheetsByGame(game_id)).length;
+  const sheet_id = `dudes-bros-2025-04-03-15:20-0-${numSheets}`;
 
   // Start by adding a game if necessary, then a sheet to that game.
   await addGameIfPossible({
@@ -48,9 +55,11 @@ export const POST = async ({ request }) => {
     scorekeeper: data.metaStats.scorekeeper,
   });
 
-  await addSheetInfo(metaStatsToDbInfo(sheet_id, data.metaStats, data.coachName, data.teamName));
-  await addgameStats(statsToGameStats(sheet_id, data.groundBalls, data.shots, data.clears, data.faceoffs, data.extraMan));
-
+  await addSheetInfo(metaStatsToDBMetaStats(sheet_id, data.metaStats, data.coachName, data.teamName));
+  await addgameStats(statsToDBStats(sheet_id, data.groundBalls, data.shots, data.clears, data.faceoffs, data.extraMan));
+  await addPenalties(penaltiesToDBPenalties(sheet_id, data.penalties));
+  // await addTimeouts(timeoutsToDBTimeouts(sheet_id, data.timeouts));
+  // await addSaves(savesToDBSaves(sheet_id, data.saves));
 
   // Return a message
   return json({ message: "Sheet successfuly uploaded." });
