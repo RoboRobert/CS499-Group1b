@@ -36,6 +36,12 @@ export async function addGameStat(gamestat: GameStat) {
   return result;
 }
 
+export async function addgameStats(gameStats: GameStat[]) {
+  for(const stat of gameStats) {
+    await addGameStat(stat);
+  }
+}
+
 export async function deleteGameStat(sheetid: number) {
   const result = await sql`
       DELETE FROM gamestats WHERE sheetid = ${sheetid}
@@ -64,8 +70,7 @@ export async function dbGameStatReset() {
             EXTRA_MAN_SCORE INT,
             EXTRA_MAN_FAIL INT,
             FACEOFF_WIN INT,
-            FACEOFF_LOSS INT,
-            PRIMARY KEY (QUARTER, SIDE));`;
+            FACEOFF_LOSS INT);`;
 
   const res = addGameStat({
     sheet_id: "dudes-bros-2025-04-03-15:20-0",

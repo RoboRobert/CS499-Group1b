@@ -8,18 +8,18 @@ import type { Timeout } from "$lib/database/Timeout";
 
 export function dbStatsToStats(gameStats: GameStat[]) {
   for (const gameStat of gameStats) {
-    shots[gameStat.side][gameStat.quarter - 1] = gameStat.shots;
+    shots[gameStat.side][gameStat.quarter] = gameStat.shots;
 
-    groundBalls[gameStat.side][gameStat.quarter - 1] = gameStat.ground;
+    groundBalls[gameStat.side][gameStat.quarter] = gameStat.ground;
 
-    clears[gameStat.side][gameStat.quarter - 1].won = gameStat.clears_pass;
-    clears[gameStat.side][gameStat.quarter - 1].lost = gameStat.clears_fail;
+    clears[gameStat.side][gameStat.quarter].won = gameStat.clears_pass;
+    clears[gameStat.side][gameStat.quarter].lost = gameStat.clears_fail;
 
-    faceoffs[gameStat.side][gameStat.quarter - 1].won = gameStat.faceoff_win;
-    faceoffs[gameStat.side][gameStat.quarter - 1].lost = gameStat.faceoff_loss;
+    faceoffs[gameStat.side][gameStat.quarter].won = gameStat.faceoff_win;
+    faceoffs[gameStat.side][gameStat.quarter].lost = gameStat.faceoff_loss;
 
-    extraMan[gameStat.side][gameStat.quarter - 1].won = gameStat.extra_man_score;
-    extraMan[gameStat.side][gameStat.quarter - 1].lost = gameStat.extra_man_fail;
+    extraMan[gameStat.side][gameStat.quarter].won = gameStat.extra_man_score;
+    extraMan[gameStat.side][gameStat.quarter].lost = gameStat.extra_man_fail;
   }
 }
 
