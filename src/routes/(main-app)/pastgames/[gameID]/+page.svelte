@@ -13,13 +13,13 @@
     <h3>{data.game.homescore}-{data.game.awayscore}</h3>
     <h3>{data.game.date} {data.game.time}</h3>
   </section>
-  <section class="list-section-1">
-    {#each data.scoresheets as scoresheet, i}
-      <a data-sveltekit-reload href="/sheets/{scoresheet.sheet_id}">
-        <div class="game">
+  <div class="team-bars">
+    {#each data.scoresheets as scoresheet}
+      <div class="team-bar">
+        <a data-sveltekit-reload href="/sheets/{scoresheet.sheet_id}" class="team-link">
           <h3>Scoresheet by {scoresheet.scorekeeper}</h3>
-        </div>
-      </a>
+        </a>
+      </div>
     {/each}
-  </section>
+  </div>
 </div>
