@@ -40,6 +40,12 @@ export async function addTimeout(timeout: Timeout) {
   return result
 }
 
+export async function addTimeouts(timeouts: Timeout[]) {
+  for(const timeout of timeouts) {
+    addTimeout(timeout);
+  }
+}
+
 export async function deleteTimeout(sheetid: number) {
   const result = await sql`
       DELETE FROM timeouts WHERE name = ${sheetid}

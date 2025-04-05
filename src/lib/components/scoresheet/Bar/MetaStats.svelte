@@ -19,7 +19,6 @@
     lengthOfQuarters: "",
     weatherCondition: "",
   };
-  
 </script>
 
 <div class="noBorder">
@@ -32,7 +31,7 @@
         <!-- Bind input values and handle form submission -->
         <div class="form-group">
           <label for="date">Date:</label>
-          <input type="text" name="date" bind:value={metaStats.date} />
+          <input type="date" name="date" bind:value={metaStats.date} />
           {#if formErrors.date}
             <p class="error">{formErrors.date}</p>
           {/if}

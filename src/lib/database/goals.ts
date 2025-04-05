@@ -39,7 +39,7 @@ export async function dbGoalReset() {
               Foreign key (SHEET_ID) references sheets(SHEET_ID) ON DELETE CASCADE ON UPDATE CASCADE);`;
 
   const res = await addGoal({
-    sheet_id: "first",
+    sheet_id: "dudes-bros-2025-04-03-15:20-0",
     side: 0,
     time: "3:30",
     playerno_score: 42,

@@ -1,4 +1,5 @@
 import { dbSavesToSaves, dbTimeoutsToTimeouts, dbStatsToStats, dbDataToSheetData, dbPenaltiesToPenalties, dbGoalsToGoals, dbPlayersToPlayers } from "$lib/conversion/dbToSheet";
+import { json } from "@sveltejs/kit";
 import type { PageLoad } from "./$types";
 
 export const ssr = false;
@@ -9,7 +10,7 @@ export const load: PageLoad = async ({ params, fetch }) => {
     try {
         const response = await fetch(`/api/scoresheet/get/${sheetId}`);
         let data = await response.json();
-        console.log(data);
+        console.log(JSON.stringify(data.sheetInfo));
 
         dbStatsToStats(data.gameStats);
         dbDataToSheetData(data.sheetInfo);

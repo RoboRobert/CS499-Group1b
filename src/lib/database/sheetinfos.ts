@@ -59,9 +59,9 @@ export async function dbSheetInfoReset() {
             AWAYCOACH VARCHAR(100),
             HOMETEAM VARCHAR(100),
             AWAYTEAM VARCHAR(100),
-            DATE VARCHAR(10) NOT NULL,
+            DATE VARCHAR(10),
             SITE varchar(25),
-            START_TIME VARCHAR(10) NOT NULL,
+            START_TIME VARCHAR(10),
             SCOREKEEPER varchar(25),
             OPPSCOREKEEPER varchar(25),
             TIMEKEEPER VARCHAR(25),
@@ -73,7 +73,7 @@ export async function dbSheetInfoReset() {
             PRIMARY KEY (SHEET_ID));`
 
   const res = await addSheetInfo({
-    sheet_id: 'first',
+    sheet_id: 'dudes-bros-2025-04-03-15:20-0',
     date: '1/29/25',
     site: 'LMAOXD',
     start_time: '4:30',

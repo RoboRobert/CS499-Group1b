@@ -6,7 +6,6 @@ import {getPlayers, addPlayer, deletePlayer} from "$lib/database/teams"
 // But its a start
 // api/players Get
 export const GET: RequestHandler = async (event) => {
-    console.log(event)
     const players = await getPlayers()
     return json(players)
 }
@@ -14,7 +13,6 @@ export const GET: RequestHandler = async (event) => {
 // I dont know what to do with this yet
 // api/teams Post
 export const POST: RequestHandler = async ({request}) => {
-    console.log(request)
     const player = await request.json()
     addPlayer(player)
 

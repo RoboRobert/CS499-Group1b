@@ -17,6 +17,7 @@
     timeouts,
     type SheetData,
     coachName,
+    type SheetPenalty,
   } from "../data.svelte";
   import type { SheetErr } from "$lib/backendChecker";
   import { addIDError } from "../frontendChecker.svelte";
@@ -27,6 +28,29 @@
 
   let message = "";
 
+  function checkObj(object): boolean {
+    return Object.values(object).every(value => Boolean(value));
+  }
+
+  function getScoresheetData(): SheetData {
+    return {
+      coachName: coachName,
+      teamName: teamName,
+      players: [players[0].filter((p) => checkObj(p)), players[1].filter((p) => checkObj(p))],
+      saves: saves,
+      goals: goals,
+      goalTrack: [goalTrack[0].filter((p) => checkObj(p)), goalTrack[1].filter((p) => checkObj(p))],
+      groundBalls: groundBalls,
+      shots: shots,
+      clears: clears,
+      faceoffs: faceoffs,
+      extraMan: extraMan,
+      timeouts: timeouts,
+      penalties: [penalties[0].filter((p) => checkObj(p)), penalties[1].filter((p) => checkObj(p))],
+      metaStats: metaStats,
+    };
+  }
+
   // Sends the scoresheet to the add endpoint
   async function confirmScoresheet() {
     uploadScoresheet();
@@ -35,22 +59,7 @@
   }
 
   async function uploadScoresheet() {
-    const scoresheetData: SheetData = {
-      coachName: coachName,
-      teamName: teamName,
-      players: players,
-      saves: saves,
-      goals: goals,
-      goalTrack: goalTrack,
-      groundBalls: groundBalls,
-      shots: shots,
-      clears: clears,
-      faceoffs: faceoffs,
-      extraMan: extraMan,
-      timeouts: timeouts,
-      penalties: penalties,
-      metaStats: metaStats,
-    };
+    const scoresheetData: SheetData = getScoresheetData();
     const scoresheetJSON = JSON.stringify(scoresheetData);
 
     // Send the scoresheet data to the scoresheet/add endpoint
@@ -71,22 +80,7 @@
   }
 
   async function checkScoresheet() {
-    const scoresheetData: SheetData = {
-      coachName: coachName,
-      teamName: teamName,
-      players: players,
-      saves: saves,
-      goals: goals,
-      goalTrack: goalTrack,
-      groundBalls: groundBalls,
-      shots: shots,
-      clears: clears,
-      faceoffs: faceoffs,
-      extraMan: extraMan,
-      timeouts: timeouts,
-      penalties: penalties,
-      metaStats: metaStats,
-    };
+    const scoresheetData: SheetData = getScoresheetData();
     const scoresheetJSON = JSON.stringify(scoresheetData);
 
     console.log(scoresheetJSON);

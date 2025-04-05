@@ -1,43 +1,22 @@
 export interface SheetData {
   teamName: string[];
   coachName: string[];
-  players: Player[][];
-  saves: Save[][];
+  players: SheetPlayer[][];
+  saves: SheetSave[][];
   goals: number[][]
-  goalTrack: Goal[][];
+  goalTrack: SheetGoal[][];
   groundBalls: number[][];
   shots: number[][];
   clears: Stat[][];
   faceoffs: Stat[][];
   extraMan: Stat[][];
-  timeouts: Timeout[][];
-  penalties: Penalty[][];
+  timeouts: SheetTimeout[][];
+  penalties: SheetPenalty[][];
   metaStats: MetaStats;
 }
 
-export interface Time {
-  minutes: number;
-  seconds: number;
-}
-
-export function toTime(input: string): Time {
-  let regex: RegExp = /^(\d{1,2}):(\d{2})$/;
-  let matches = input.match(regex);
-
-  let time: Time = { minutes: Number(matches[1]), seconds: Number(matches[2]) };
-  return time;
-}
-
-export function toTimeString(time: Time): string {
-  if (!time) {
-    return "";
-  }
-
-  return `${time.minutes}:${time.seconds}`;
-}
-
-export interface Goal {
-  time: Time;
+export interface SheetGoal {
+  time: string;
   type: string;
   main: number;
   assist: number;
@@ -48,20 +27,20 @@ export interface Stat {
   lost: number;
 }
 
-export interface Timeout {
-  time: Time;
+export interface SheetTimeout {
+  time: string;
   period: number;
 }
 
-export interface Penalty {
-  timeout: Time;
+export interface SheetPenalty {
+  timeout: string;
   playerno: number;
   infraction: string;
   quarter: number;
-  time: Time;
+  time: string;
 }
 
-export interface Save {
+export interface SheetSave {
   goalie: number;
   qtr1: number;
   qtr2: number;
@@ -70,7 +49,7 @@ export interface Save {
   ot: number;
 }
 
-export interface Player {
+export interface SheetPlayer {
   side: number;
   position: string;
   name: string;
@@ -154,28 +133,28 @@ export const extraMan: Stat[][] = $state([
   ],
 ]);
 
-export const timeouts: Timeout[][] = $state([
+export const timeouts: SheetTimeout[][] = $state([
   [
     { time: null, period: 0 },
-    { time: null, seconds: 0, period: 0 },
-    { time: null, seconds: 0, period: 0 },
-    { time: null, seconds: 0, period: 0 },
-    { time: null, seconds: 0, period: 0 },
-    { time: null, seconds: 0, period: 0 },
+    { time: null, period: 0 },
+    { time: null, period: 0 },
+    { time: null, period: 0 },
+    { time: null, period: 0 },
+    { time: null, period: 0 },
   ],
   [
-    { time: null, seconds: 0, period: 0 },
-    { time: null, seconds: 0, period: 0 },
-    { time: null, seconds: 0, period: 0 },
-    { time: null, seconds: 0, period: 0 },
-    { time: null, seconds: 0, period: 0 },
-    { time: null, seconds: 0, period: 0 },
+    { time: null, period: 0 },
+    { time: null, period: 0 },
+    { time: null, period: 0 },
+    { time: null, period: 0 },
+    { time: null, period: 0 },
+    { time: null, period: 0 },
   ],
 ]);
 
 const numPenalties = 18;
-let homePenalties: Penalty[] = [];
-let awayPenalties: Penalty[] = [];
+let homePenalties: SheetPenalty[] = [];
+let awayPenalties: SheetPenalty[] = [];
 for (let i = 0; i < numPenalties; i++) {
   homePenalties.push({ timeout: null, playerno: null, infraction: "", quarter: null, time: null });
   awayPenalties.push({ timeout: null, playerno: null, infraction: "", quarter: null, time: null });
@@ -183,8 +162,8 @@ for (let i = 0; i < numPenalties; i++) {
 
 export const penalties = $state([homePenalties, awayPenalties]);
 
-let homeArr: Goal[] = [];
-let awayArr: Goal[] = [];
+let homeArr: SheetGoal[] = [];
+let awayArr: SheetGoal[] = [];
 for (let i = 0; i < 30; i++) {
   homeArr.push({ time: null, type: "", main: undefined, assist: undefined });
   awayArr.push({ time: null, type: "", main: undefined, assist: undefined });
@@ -192,8 +171,8 @@ for (let i = 0; i < 30; i++) {
 
 export const goalTrack = $state([homeArr, awayArr]);
 
-let homeSaves: Save[] = [];
-let awaySaves: Save[] = [];
+let homeSaves: SheetSave[] = [];
+let awaySaves: SheetSave[] = [];
 for (let i = 0; i < 3; i++) {
   homeSaves.push({ goalie: 0, qtr1: 0, qtr2: 0, qtr3: 0, qtr4: 0, ot: 0 });
   awaySaves.push({ goalie: 0, qtr1: 0, qtr2: 0, qtr3: 0, qtr4: 0, ot: 0 });
@@ -207,8 +186,8 @@ const defaultPlayers = [
 ];
 
 let numPlayers = 31;
-let homePlayers: Player[] = [];
-let awayPlayers: Player[] = [];
+let homePlayers: SheetPlayer[] = [];
+let awayPlayers: SheetPlayer[] = [];
 for (let i = 0; i < numPlayers; i++) {
   homePlayers.push(defaultPlayers[0]);
   awayPlayers.push(defaultPlayers[1]);
@@ -218,8 +197,8 @@ export const emptyPlayers = [homePlayers, awayPlayers];
 
 export const players = $state([homePlayers, awayPlayers]);
 
-function makeMap(players: Player[]): Map<number, Player> {
-  let map = new Map<number, Player>();
+function makeMap(players: SheetPlayer[]): Map<number, SheetPlayer> {
+  let map = new Map<number, SheetPlayer>();
   players.forEach((player) => {
     if (player.number) map.set(player.number, player);
   });
@@ -266,7 +245,7 @@ export function getPlayerMap(side: number) {
   return $state.snapshot(playerMap[side]);
 }
 
-export function getPlayer(side: number, player: number): Player {
+export function getPlayer(side: number, player: number): SheetPlayer {
   if (playerMap[side].get(player)) {
     return playerMap[side].get(player);
   } else return defaultPlayers[side];

@@ -10,6 +10,3 @@
   <img class="svg" src="/svgs/home-svgrepo-com.svg" alt="Button to go home" onpointerup={goHome} />
   <div>GO HOME</div>
 </div>
-
-<style>
-</style>

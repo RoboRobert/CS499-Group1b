@@ -6,7 +6,6 @@ import {getPlayers, addPlayer, getPlayersByTeam,} from "$lib/database/teams"
 export async function GET({ params }) {
     // console.log(event)
     const { id } = params;
-    console.log(id)
     const players = await getPlayersByTeam(id)
     return json(players)
 }
