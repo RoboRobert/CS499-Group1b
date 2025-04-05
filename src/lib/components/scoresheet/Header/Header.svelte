@@ -52,7 +52,7 @@
 
 <style>
   .goal{
-    font-size:10px;
+    font-size:0.5vw;
   }
 
   .boxes {
