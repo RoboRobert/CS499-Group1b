@@ -104,6 +104,7 @@
               "Content-Type": "application/json",
             },
             body: JSON.stringify(newTeam),
+            credentials:'include',
           });
 
           if (!response.ok) {
@@ -135,6 +136,7 @@
             "Content-Type": "application/json",
           },
           body: JSON.stringify(newTeam),
+          credentials:'include',
         });
 
         if (!response.ok) {
@@ -159,6 +161,7 @@
         "Content-Type": "application/json",
       },
       body: JSON.stringify(team.team_id),
+      credentials:'include',
     })
       .then((response) => {
         if (!response.ok) {

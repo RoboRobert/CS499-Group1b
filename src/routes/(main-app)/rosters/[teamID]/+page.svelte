@@ -118,6 +118,7 @@
               "Content-Type": "application/json",
             },
             body: JSON.stringify(editingPlayer),
+            credentials:'include',
           });
 
           setTimeout(async () => invalidateAll(), 100);
@@ -156,6 +157,7 @@
               "Content-Type": "application/json",
             },
             body: JSON.stringify(newPlayer),
+            credentials:'include',
           });
 
           setTimeout(async () => invalidateAll(), 100);
@@ -178,6 +180,7 @@
         "Content-Type": "application/json",
       },
       body: JSON.stringify(player.player_name),
+      credentials:'include',
     })
       .then((response) => {
         if (!response.ok) {
