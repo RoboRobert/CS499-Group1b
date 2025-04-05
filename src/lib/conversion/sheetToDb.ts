@@ -63,7 +63,7 @@ export function penaltiesToDbPenalties(sheet_id: string, penalties: SheetPenalty
   let dbPenalties: Penalty[] = [];
   for (let i = 0; i < 2; i++) {
     for (let j = 0; j < penalties[0].length; j++) {
-      const sheetPenalty: SheetPenalty = penalties[0][j];
+      const sheetPenalty: SheetPenalty = penalties[i][j];
       const penalty: Penalty = {
         sheet_id: sheet_id,
         side: i,

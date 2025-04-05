@@ -75,8 +75,7 @@ export async function dbTimeoutReset() {
             second_2_time VARCHAR(5),
             second_2_period INT,
             ot_1_time VARCHAR(5),
-            ot_2_time VARCHAR(5),
-            PRIMARY KEY (SHEET_ID, SIDE));`;
+            ot_2_time VARCHAR(5));`;
 
   const res = await addTimeout({
     sheet_id: "first",

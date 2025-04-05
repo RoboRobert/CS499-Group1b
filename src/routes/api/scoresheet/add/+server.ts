@@ -37,7 +37,7 @@ export const POST = async ({ request }) => {
   // Test data!
   const game_id = "dudes-bros-2025-04-03-15:20";
   const numSheets = (await getSheetsByGame(game_id)).length;
-  const sheet_id = `dudes-bros-2025-04-03-15:20-0-${numSheets}`;
+  const sheet_id = `dudes-bros-2025-04-03-15:20-${numSheets}`;
 
   // Start by adding a game if necessary, then a sheet to that game.
   await addGameIfPossible({
@@ -58,8 +58,8 @@ export const POST = async ({ request }) => {
   await addSheetInfo(metaStatsToDBMetaStats(sheet_id, data.metaStats, data.coachName, data.teamName));
   await addgameStats(statsToDBStats(sheet_id, data.groundBalls, data.shots, data.clears, data.faceoffs, data.extraMan));
   await addPenalties(penaltiesToDBPenalties(sheet_id, data.penalties));
-  // await addTimeouts(timeoutsToDBTimeouts(sheet_id, data.timeouts));
-  // await addSaves(savesToDBSaves(sheet_id, data.saves));
+  await addTimeouts(timeoutsToDBTimeouts(sheet_id, data.timeouts));
+  await addSaves(savesToDBSaves(sheet_id, data.saves));
 
   // Return a message
   return json({ message: "Sheet successfuly uploaded." });

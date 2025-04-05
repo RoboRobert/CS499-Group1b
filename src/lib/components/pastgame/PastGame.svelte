@@ -1,8 +1,6 @@
 <script lang="ts">
-  import { invalidateAll } from "$app/navigation";
   import HomeButton from "$lib/components/scoresheet/Bar/HomeButton.svelte";
   import MetaStats from "$lib/components/scoresheet/Bar/MetaStats.svelte";
-  import Settings from "$lib/components/scoresheet/Bar/Settings.svelte";
   import Header from "$lib/components/scoresheet/Header/Header.svelte";
   import Penalties from "$lib/components/scoresheet/Penalties.svelte";
   import Saves from "$lib/components/scoresheet/Saves.svelte";
@@ -34,7 +32,6 @@
 <div class="main">
   <div class="wideRow">
     <HomeButton></HomeButton>
-    <Settings></Settings>
     <MetaStats></MetaStats>
     <ExitSheet></ExitSheet>
   </div>

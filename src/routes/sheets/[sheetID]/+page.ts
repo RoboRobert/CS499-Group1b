@@ -10,7 +10,7 @@ export const load: PageLoad = async ({ params, fetch }) => {
     try {
         const response = await fetch(`/api/scoresheet/get/${sheetId}`);
         let data = await response.json();
-        console.log(JSON.stringify(data.sheetInfo));
+        console.log(JSON.stringify(data.timeouts));
 
         dbStatsToStats(data.gameStats);
         dbDataToSheetData(data.sheetInfo);
