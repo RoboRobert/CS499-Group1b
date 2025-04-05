@@ -2,7 +2,6 @@
   import { invalidateAll } from "$app/navigation";
   import type { Team } from "$lib/database/Team";
   import type { PageProps } from "./$types";
-  import {v4 as uuidv4} from "uuid"
 
   let { data }: PageProps = $props();
 
@@ -21,6 +20,9 @@
     coach: "",
   });
 
+
+  let userRole = data.token ;
+  let canEdit = userRole === "admin" || userRole === "coach"; // Check if the user is an admin or coach
   let editingTeam: Team = $state(defaultTeam);
   let showEditModal = $state(false);
   let showDeleteConfirm = $state(false);
@@ -183,9 +185,9 @@
 
   <section class="list-section-1">
     <div class="buttons">
-      <button onclick={() => openEditModal(defaultTeam)} type="button"
-        >Add Teams</button
-      >
+      {#if canEdit}
+      <button onclick={() => openEditModal(defaultTeam)} type="button">Add Teams</button>
+      {/if}
     </div>
 
     <h2>All Teams</h2>
@@ -197,11 +199,12 @@
               <p>{team.hometown}, {team.state}</p>
               <p>Coach: {team.coach}</p>
             </a>
-          
+          {#if canEdit}
           <div class="team-actions">
             <button onclick={() => openEditModal(team)} type="button" class="edit-button">Edit</button>
             <button onclick={() => openDeleteModal(team)} type="button" class="delete-button">Delete</button>
           </div>
+          {/if}
         </div>
       {/each}
     </div>

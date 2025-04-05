@@ -24,6 +24,9 @@
       team_name: data.team.team_name
   };
 
+
+  let userRole = data.token;
+  let canEdit = userRole === "coach" || userRole === "admin"; // Check if the user is a coach or admin
   let showEditModal = $state(false);
   let errors: { [key: string]: string } = $state({});
   let showDeleteConfirm = $state(false);
@@ -201,7 +204,9 @@
     
   </section>
   <section class="players-section">
+    {#if canEdit}
     <button onclick={() => openEditModal(defaultPlayer)} class="add-player-button">Add Player</button>
+    {/if}
     <h2>All Players</h2>
     <div class="players-grid">
       {#each data.players as player}
@@ -216,10 +221,12 @@
               <strong>Weight:</strong> {player.weight} lbs
             </p>
           </a>
+          {#if canEdit}
           <div class="player-actions">
             <button onclick={() => openEditModal(player)} class="edit-button">Edit</button>
             <button onclick={() => openDeleteModal(player)} class="delete-button">Delete</button>
           </div>
+          {/if}
         </div>
       {/each}
     </div>
