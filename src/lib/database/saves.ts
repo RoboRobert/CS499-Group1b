@@ -64,8 +64,7 @@ export async function dbSaveReset() {
             QUARTER_2 INT,
             QUARTER_3 INT,
             QUARTER_4 INT,
-            OT INT,
-            PRIMARY KEY (PLAYER_NUMBER, SIDE));`;
+            OT INT);`;
 
   const res = await addSave({
     sheet_id: "dudes-bros-2025-04-03-15:20-0",
