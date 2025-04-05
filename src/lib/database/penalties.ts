@@ -20,13 +20,14 @@ export async function getPenalties(sheetid: string): Promise<Penalty[]> {
 export async function addPenalty(penalty: Penalty) {
   let sheetid = penalty.sheet_id;
   let side = penalty.side;
+  let index = penalty.index;
   let pt = penalty.timeout;
   let playerno = penalty.player_number;
   let infraction = penalty.infraction;
   let quarter = penalty.quarter;
   let time = penalty.time;
   const result = await sql`
-    INSERT INTO penalties (sheet_id, side, timeout, player_number, infraction, quarter, time) VALUES (${sheetid}, ${side}, ${pt}, ${playerno}, ${infraction}, ${quarter}, ${time}) RETURNING *
+    INSERT INTO penalties (sheet_id, side, index, timeout, player_number, infraction, quarter, time) VALUES (${sheetid}, ${side}, ${index}, ${pt}, ${playerno}, ${infraction}, ${quarter}, ${time}) RETURNING *
   `;
 
   return result;
@@ -58,6 +59,7 @@ export async function dbPenaltyReset() {
   await sql`CREATE TABLE penalties(
             SHEET_ID VARCHAR(100) NOT NULL,
             SIDE INT NOT NULL,
+            INDEX INT,
             TIMEOUT varchar(5),
             PLAYER_NUMBER INT,
             INFRACTION varchar(25),
@@ -67,6 +69,7 @@ export async function dbPenaltyReset() {
   await addPenalty({
     sheet_id: "dudes-bros-2025-04-03-15:20-0",
     side: 0,
+    index: 0,
     timeout: "3:20",
     player_number: 20,
     infraction: "Crosscheck",
@@ -77,6 +80,7 @@ export async function dbPenaltyReset() {
   const res = await addPenalty({
     sheet_id: "dudes-bros-2025-04-03-15:20-0",
     side: 0,
+    index: 1,
     timeout: "3:20",
     player_number: 69,
     infraction: "Crosscheck",

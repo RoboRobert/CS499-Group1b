@@ -73,6 +73,7 @@ function convertPenalty(sheet_id: string, side: number, input: SheetPenalty): Pe
   const penalty: Penalty = {
     sheet_id: sheet_id,
     side: side,
+    index: input.index,
     timeout: input.timeout,
     player_number: input.playerno,
     infraction: input.infraction,
@@ -147,6 +148,7 @@ function convertPlayer(sheet_id: string, input: ScoresheetPlayer): SheetPlayer {
   const player: SheetPlayer = {
     sheet_id: sheet_id,
     side: input.side,
+    index: input.index,
     name: input.name,
     position: input.position,
     playerno: input.number,
@@ -180,6 +182,7 @@ export function playersToDBPlayers(sheet_id: string, players: ScoresheetPlayer[]
 function convertGoal(sheet_id: string, side: number, input: SheetGoal): Goal {
   const player: Goal = {
     sheet_id: sheet_id,
+    index: input.index,
     side: side,
     time: input.time,
     playerno_score: input.main,

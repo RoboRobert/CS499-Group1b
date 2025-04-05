@@ -16,6 +16,7 @@ export interface SheetData {
 }
 
 export interface SheetGoal {
+  index: number;
   time: string;
   type: string;
   main: number;
@@ -33,6 +34,7 @@ export interface SheetTimeout {
 }
 
 export interface SheetPenalty {
+  index: number,
   timeout: string;
   playerno: number;
   infraction: string;
@@ -51,6 +53,7 @@ export interface SheetSave {
 
 export interface ScoresheetPlayer {
   side: number;
+  index: number;
   position: string;
   name: string;
   number: number;
@@ -156,8 +159,8 @@ const numPenalties = 18;
 let homePenalties: SheetPenalty[] = [];
 let awayPenalties: SheetPenalty[] = [];
 for (let i = 0; i < numPenalties; i++) {
-  homePenalties.push({ timeout: null, playerno: null, infraction: "", quarter: null, time: null });
-  awayPenalties.push({ timeout: null, playerno: null, infraction: "", quarter: null, time: null });
+  homePenalties.push({ index: i, timeout: null, playerno: null, infraction: "", quarter: null, time: null });
+  awayPenalties.push({ index: i, timeout: null, playerno: null, infraction: "", quarter: null, time: null });
 }
 
 export const penalties = $state([homePenalties, awayPenalties]);
@@ -165,8 +168,8 @@ export const penalties = $state([homePenalties, awayPenalties]);
 let homeArr: SheetGoal[] = [];
 let awayArr: SheetGoal[] = [];
 for (let i = 0; i < 30; i++) {
-  homeArr.push({ time: null, type: "", main: undefined, assist: undefined });
-  awayArr.push({ time: null, type: "", main: undefined, assist: undefined });
+  homeArr.push({ index: i, time: null, type: "", main: undefined, assist: undefined });
+  awayArr.push({ index: i, time: null, type: "", main: undefined, assist: undefined });
 }
 
 export const goalTrack = $state([homeArr, awayArr]);
@@ -180,17 +183,16 @@ for (let i = 0; i < 3; i++) {
 
 export const saves = $state([homeSaves, awaySaves]);
 
-const defaultPlayers = [
-  { side: 0, position: "", name: "", number: null, goals: 0, assists: 0, shots: 0, quarters: "", groundBalls: 0 },
-  { side: 1, position: "", name: "", number: null, goals: 0, assists: 0, shots: 0, quarters: "", groundBalls: 0 },
-];
+function makePlayer(side: number, index: number): ScoresheetPlayer {
+  return { side: side, index: index, position: "", name: "", number: null, goals: 0, assists: 0, shots: 0, quarters: "", groundBalls: 0 }
+}
 
 let numPlayers = 31;
 let homePlayers: ScoresheetPlayer[] = [];
 let awayPlayers: ScoresheetPlayer[] = [];
 for (let i = 0; i < numPlayers; i++) {
-  homePlayers.push(defaultPlayers[0]);
-  awayPlayers.push(defaultPlayers[1]);
+  homePlayers.push(makePlayer(0, i));
+  awayPlayers.push(makePlayer(1, i));
 }
 
 export const emptyPlayers = [homePlayers, awayPlayers];
@@ -248,7 +250,7 @@ export function getPlayerMap(side: number) {
 export function getPlayer(side: number, player: number): ScoresheetPlayer {
   if (playerMap[side].get(player)) {
     return playerMap[side].get(player);
-  } else return defaultPlayers[side];
+  } else return makePlayer(0, 0);
 }
 
 export interface MetaStats {

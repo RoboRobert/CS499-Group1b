@@ -89,71 +89,43 @@ export function dbTimeoutsToTimeouts(dbTimeouts: Timeout[]) {
 }
 
 export function dbPenaltiesToPenalties(dbPenalties: Penalty[]) {
-  const homePenalties = dbPenalties.filter((x) => x.side == 0);
-  const awayPenalties = dbPenalties.filter((x) => x.side == 1);
-  for(let i = 0; i < homePenalties.length; i++) {
-    const penalty = homePenalties[i];
-    penalties[0][i].timeout = penalty.timeout;
-    penalties[0][i].playerno = penalty.player_number;
-    penalties[0][i].infraction = penalty.infraction;
-    penalties[0][i].quarter = penalty.quarter;
-    penalties[0][i].time = penalty.time
-  }
-
-  for(let i = 0; i < awayPenalties.length; i++) {
-    const penalty = awayPenalties[i];
-    penalties[1][i].timeout = penalty.timeout;
-    penalties[1][i].playerno = penalty.player_number;
-    penalties[1][i].infraction = penalty.infraction;
-    penalties[1][i].quarter = penalty.quarter;
-    penalties[1][i].time = penalty.time
+  for(let i = 0; i < dbPenalties.length; i++) {
+    const penalty = dbPenalties[i];
+    const s = penalty.side;
+    const j = penalty.index;
+    penalties[s][j].timeout = penalty.timeout;
+    penalties[s][j].index = penalty.index;
+    penalties[s][j].playerno = penalty.player_number;
+    penalties[s][j].infraction = penalty.infraction;
+    penalties[s][j].quarter = penalty.quarter;
+    penalties[s][j].time = penalty.time
   }
 }
 
 export function dbGoalsToGoals(dbGoals: Goal[]) {
-  const homeGoals = dbGoals.filter((x) => x.side == 0);
-  const awayGoals = dbGoals.filter((x) => x.side == 1);
-  for(let i = 0; i < homeGoals.length; i++) {
-    const goal = homeGoals[i];
-    goalTrack[0][i].main = goal.playerno_score;
-    goalTrack[0][i].assist = goal.playerno_assist;
-    goalTrack[0][i].time = goal.time
-    goalTrack[0][i].type = goal.goaltype;
-  }
-
-  for(let i = 0; i < awayGoals.length; i++) {
-    const goal = awayGoals[i];
-    goalTrack[1][i].main = goal.playerno_score;
-    goalTrack[1][i].assist = goal.playerno_assist;
-    goalTrack[1][i].time = goal.time
-    goalTrack[1][i].type = goal.goaltype;
+  for(let i = 0; i < dbGoals.length; i++) {
+    const goal = dbGoals[i];
+    const s = goal.side;
+    const j = goal.index;
+    goalTrack[s][j].main = goal.playerno_score;
+    goalTrack[s][j].index = goal.index;
+    goalTrack[s][j].assist = goal.playerno_assist;
+    goalTrack[s][j].time = goal.time
+    goalTrack[s][j].type = goal.goaltype;
   }
 }
 
 export function dbPlayersToPlayers(dbPlayers: SheetPlayer[]) {
-  console.log(dbPlayers);
-  const homePlayers = dbPlayers.filter((x) => x.side == 0).sort((a, b) => (a.position < b.position ? -1 : 1));
-  const awayPlayers = dbPlayers.filter((x) => x.side == 1).sort((a, b) => (a.position < b.position ? -1 : 1));
-
-  console.log(homePlayers)
-  console.log(awayPlayers)
-  for(let i = 0; i < homePlayers.length; i++) {
-    const sheetPlayer = homePlayers[i];
-    players[0][i].side = sheetPlayer.side;
-    players[0][i].name = sheetPlayer.name;
-    players[0][i].number = sheetPlayer.playerno;
-    players[0][i].position = sheetPlayer.position;
-    players[0][i].groundBalls = sheetPlayer.groundballs;
-    players[0][i].shots = sheetPlayer.shots;
-  }
-
-  for(let i = 0; i < awayPlayers.length; i++) {
-    const sheetPlayer = awayPlayers[i];
-    players[0][i].side = sheetPlayer.side;
-    players[1][i].name = sheetPlayer.name;
-    players[1][i].number = sheetPlayer.playerno;
-    players[1][i].position = sheetPlayer.position;
-    players[1][i].groundBalls = sheetPlayer.groundballs;
-    players[1][i].shots = sheetPlayer.shots;
+  for(let i = 0; i < dbPlayers.length; i++) {
+    const sheetPlayer = dbPlayers[i];
+    const s = sheetPlayer.side;
+    const j = sheetPlayer.index;
+    players[s][j].side = sheetPlayer.side;
+    players[s][j].index = sheetPlayer.index;
+    players[s][j].name = sheetPlayer.name;
+    players[s][j].number = sheetPlayer.playerno;
+    players[s][j].position = sheetPlayer.position;
+    players[s][j].groundBalls = sheetPlayer.groundballs;
+    players[s][j].shots = sheetPlayer.shots;
   }
 }
