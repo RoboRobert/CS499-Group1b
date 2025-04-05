@@ -24,8 +24,7 @@
     showDeleteConfirm = false;
   };
 
-  function handleDeletePlayer() {
-    console.log(deleteGame);
+  function handleDeleteGame() {
     fetch(`/api/games/${deleteGame.game_id}`, {
       method: "DELETE",
       headers: {
@@ -81,7 +80,7 @@
       <h2>Are you sure you want to delete this game?</h2>
       <div class="modal-actions">
         <button type="button" onclick={closeDeleteModal} class="cancel-button">Cancel</button>
-        <button type="button" onclick={() => handleDeletePlayer()} class="sign-in-button">Delete</button>
+        <button type="button" onclick={() => handleDeleteGame()} class="sign-in-button">Delete</button>
       </div>
     </div>
   </div>

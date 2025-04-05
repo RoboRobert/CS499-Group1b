@@ -1,7 +1,44 @@
 <script lang="ts">
+  import { invalidateAll } from "$app/navigation";
+  import type { Sheet } from "$lib/database/Sheet";
   import type { PageProps } from "./$types";
 
   let { data }: PageProps = $props();
+
+  let deleteSheet: Sheet = {
+    game_id: "",
+    sheet_id: "",
+    scorekeeper: ""
+  };
+  let showDeleteConfirm = $state(false);
+
+  const openDeleteModal = (sheet: Sheet) => {
+    deleteSheet = sheet;
+    showDeleteConfirm = true;
+  };
+  const closeDeleteModal = () => {
+    showDeleteConfirm = false;
+  };
+
+  function handleDeleteSheet() {
+    fetch(`/api/scoresheet/${deleteSheet.sheet_id}`, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("Failed to delete player");
+        }
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+      });
+
+    setTimeout(async () => invalidateAll(), 100);
+    closeDeleteModal();
+  }
 </script>
 
 <title>Team {data.game.game_id}</title>
@@ -19,7 +56,22 @@
         <a data-sveltekit-reload href="/sheets/{scoresheet.sheet_id}" class="team-link">
           <h3>Scoresheet by {scoresheet.scorekeeper}</h3>
         </a>
+        <div class="player-actions">
+          <button onclick={() => openDeleteModal(scoresheet)} class="delete-button">Delete</button>
+        </div>
       </div>
     {/each}
   </div>
 </div>
+
+{#if showDeleteConfirm}
+  <div class="modal-backdrop">
+    <div class="modal-content">
+      <h2>Are you sure you want to delete this game?</h2>
+      <div class="modal-actions">
+        <button type="button" onclick={closeDeleteModal} class="cancel-button">Cancel</button>
+        <button type="button" onclick={() => handleDeleteSheet()} class="sign-in-button">Delete</button>
+      </div>
+    </div>
+  </div>
+{/if}
