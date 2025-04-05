@@ -1,10 +1,12 @@
 import { type SheetData } from "$lib/components/scoresheet/data.svelte";
 import { dbPenaltiesToPenalties } from "$lib/conversion/dbToSheet.js";
-import { metaStatsToDBMetaStats, penaltiesToDbPenalties as penaltiesToDBPenalties, savesToDBSaves, statsToDBStats, timeoutsToDBTimeouts } from "$lib/conversion/sheetToDb.js";
+import { goalsToDBGoals, metaStatsToDBMetaStats, penaltiesToDbPenalties as penaltiesToDBPenalties, playersToDBPlayers, savesToDBSaves, statsToDBStats, timeoutsToDBTimeouts } from "$lib/conversion/sheetToDb.js";
 import { addgameStats } from "$lib/database/gamestat.js";
+import { addGoals } from "$lib/database/goals";
 import { addPenalties } from "$lib/database/penalties";
 import { addSaves } from "$lib/database/saves";
 import { addSheetInfo } from "$lib/database/sheetinfos.js";
+import { addSheetPlayers } from "$lib/database/sheetPlayers.js";
 import { addGameIfPossible, addSheet, getSheetsByGame } from "$lib/database/sheets.js";
 import { addTimeouts } from "$lib/database/timeouts";
 import { json } from "@sveltejs/kit";
@@ -60,6 +62,8 @@ export const POST = async ({ request }) => {
   await addPenalties(penaltiesToDBPenalties(sheet_id, data.penalties));
   await addTimeouts(timeoutsToDBTimeouts(sheet_id, data.timeouts));
   await addSaves(savesToDBSaves(sheet_id, data.saves));
+  await addSheetPlayers(playersToDBPlayers(sheet_id, data.players));
+  await addGoals(goalsToDBGoals(sheet_id, data.goalTrack));
 
   // Return a message
   return json({ message: "Sheet successfuly uploaded." });

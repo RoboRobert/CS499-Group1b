@@ -1,13 +1,15 @@
 <script lang="ts">
-  import { base } from "$app/paths";
-  import { json } from "@sveltejs/kit";
+  import { goto } from "$app/navigation";
+  import type { SheetErr } from "$lib/backendChecker";
   import {
-    goals,
     clears,
+    coachName,
     extraMan,
     faceoffs,
-    groundBalls,
+    getPlayerMap,
+    goals,
     goalTrack,
+    groundBalls,
     metaStats,
     penalties,
     players,
@@ -15,13 +17,9 @@
     shots,
     teamName,
     timeouts,
-    type SheetData,
-    coachName,
-    type SheetPenalty,
+    type SheetData
   } from "../data.svelte";
-  import type { SheetErr } from "$lib/backendChecker";
   import { addIDError } from "../frontendChecker.svelte";
-  import { goto } from "$app/navigation";
 
   let showConfirmModal = false;
   let showConfirmButton = false;
@@ -29,14 +27,14 @@
   let message = "";
 
   function checkObj(object): boolean {
-    return Object.values(object).every(value => Boolean(value));
+    return Object.values(object).every(value => value != null && value != undefined);
   }
 
   function getScoresheetData(): SheetData {
     return {
       coachName: coachName,
       teamName: teamName,
-      players: [players[0].filter((p) => checkObj(p)), players[1].filter((p) => checkObj(p))],
+      players: [Array.from(getPlayerMap(0).values()), Array.from(getPlayerMap(1).values())],
       saves: saves,
       goals: goals,
       goalTrack: [goalTrack[0].filter((p) => checkObj(p)), goalTrack[1].filter((p) => checkObj(p))],
@@ -81,6 +79,7 @@
 
   async function checkScoresheet() {
     const scoresheetData: SheetData = getScoresheetData();
+    console.log(scoresheetData.players);
     const scoresheetJSON = JSON.stringify(scoresheetData);
 
     console.log(scoresheetJSON);

@@ -10,6 +10,7 @@ export async function getSheetPlayers(sheet_id: string): Promise<SheetPlayer[]> 
 export async function addSheetPlayer(player: SheetPlayer) {
   let sheet_id = player.sheet_id;
   let side = player.side;
+  let index = player.index;
   let name = player.name;
   let position = player.position;
   let playerno = player.playerno;
@@ -21,8 +22,14 @@ export async function addSheetPlayer(player: SheetPlayer) {
   let shots = player.shots;
   let groundballs = player.groundballs;
   const result = await sql`
-      INSERT INTO sheetplayers (sheet_id, side, name, position, playerno, quarter_1, quarter_2, quarter_3, quarter_4, ot, shots, groundballs) 
-      VALUES (${sheet_id}, ${side}, ${name}, ${position}, ${playerno}, ${quarter_1}, ${quarter_2}, ${quarter_3}, ${quarter_4}, ${ot}, ${shots}, ${groundballs}) RETURNING *;`;
+      INSERT INTO sheetplayers (sheet_id, side, index, name, position, playerno, quarter_1, quarter_2, quarter_3, quarter_4, ot, shots, groundballs) 
+      VALUES (${sheet_id}, ${side}, ${index}, ${name}, ${position}, ${playerno}, ${quarter_1}, ${quarter_2}, ${quarter_3}, ${quarter_4}, ${ot}, ${shots}, ${groundballs}) RETURNING *;`;
+}
+
+export async function addSheetPlayers(players: SheetPlayer[]) {
+  for(const sheetPlayer of players) {
+    addSheetPlayer(sheetPlayer);
+  }
 }
 
 export async function dbSheetPlayersReset() {
@@ -38,6 +45,7 @@ export async function dbSheetPlayersReset() {
   await sql`CREATE TABLE sheetplayers(
               SHEET_ID varchar(100),
               SIDE INT,
+              INDEX INT,
               NAME varchar(100),
               POSITION VARCHAR(100),
               PLAYERNO INT,
@@ -51,18 +59,19 @@ export async function dbSheetPlayersReset() {
               Foreign key (SHEET_ID) references sheets(SHEET_ID) ON DELETE CASCADE ON UPDATE CASCADE);`;
 
   const res = await addSheetPlayer({
-      sheet_id: "dudes-bros-2025-04-03-15:20-0",
-      side: 0,
-      name: "Woah There",
-      position: "ATTACK",
-      playerno: 42,
-      quarter_1: true,
-      quarter_2: false,
-      quarter_3: true,
-      quarter_4: false,
-      ot: true,
-      shots: 10,
-      groundballs: 5,
+    sheet_id: "dudes-bros-2025-04-03-15:20-0",
+    side: 0,
+    index: 0,
+    name: "Woah There",
+    position: "ATTACK",
+    playerno: 42,
+    quarter_1: true,
+    quarter_2: false,
+    quarter_3: true,
+    quarter_4: false,
+    ot: true,
+    shots: 10,
+    groundballs: 5,
   })
 
   return res;

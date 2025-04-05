@@ -11,12 +11,19 @@ export async function getGoals(sheetid: string): Promise<Goal[]> {
 export async function addGoal(goal: Goal) {
   let sheetid = goal.sheet_id;
   let side = goal.side;
+  let index = goal.index;
   let time = goal.time;
   let playerno_score = goal.playerno_score;
   let playerno_assist = goal.playerno_assist;
   let goaltype = goal.goaltype;
   const result = await sql`
-      INSERT INTO goals (sheet_id, side, time, playerno_score, playerno_assist, goaltype) VALUES (${sheetid}, ${side}, ${time}, ${playerno_score}, ${playerno_assist}, ${goaltype}) RETURNING *;`;
+      INSERT INTO goals (sheet_id, side, index, time, playerno_score, playerno_assist, goaltype) VALUES (${sheetid}, ${side}, ${index}, ${time}, ${playerno_score}, ${playerno_assist}, ${goaltype}) RETURNING *;`;
+}
+
+export async function addGoals(goals: Goal[]) {
+  for(const goal of goals) {
+    addGoal(goal);
+  }
 }
 
 export async function dbGoalReset() {
@@ -32,6 +39,7 @@ export async function dbGoalReset() {
   await sql`CREATE TABLE goals(
               SHEET_ID VARCHAR(100),
               SIDE INT,
+              INDEX INT,
               TIME varchar(5),
               PLAYERNO_SCORE INT,
               PLAYERNO_ASSIST INT,
@@ -41,6 +49,7 @@ export async function dbGoalReset() {
   const res = await addGoal({
     sheet_id: "dudes-bros-2025-04-03-15:20-0",
     side: 0,
+    index: 0,
     time: "3:30",
     playerno_score: 42,
     playerno_assist: 69,

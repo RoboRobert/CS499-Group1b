@@ -1,4 +1,4 @@
-import { clears, coachName, extraMan, faceoffs, goalTrack, groundBalls, metaStats, penalties, players, saves, shots, teamName, timeouts } from "$lib/components/scoresheet/data.svelte";
+import { clears, coachName, extraMan, faceoffs, goalTrack, groundBalls, metaStats, penalties, players, saves, shots, teamName, timeouts, type ScoresheetPlayer } from "$lib/components/scoresheet/data.svelte";
 import type { GameStat } from "$lib/database/GameStats";
 import type { Goal } from "$lib/database/Goal";
 import type { Penalty } from "$lib/database/Penalty";
@@ -43,14 +43,26 @@ export function dbDataToSheetData(sheetInfo: SheetInfo) {
 }
 
 export function dbSavesToSaves(dbSaves: Save[]) {
-  for(let i = 0; i < dbSaves.length; i++) {
-    const save = dbSaves[i];
-    saves[save.side][i%saves[0].length].goalie = save.player_number;
-    saves[save.side][i%saves[0].length].qtr1 = save.quarter_1;
-    saves[save.side][i%saves[0].length].qtr2 = save.quarter_2;
-    saves[save.side][i%saves[0].length].qtr3 = save.quarter_3;
-    saves[save.side][i%saves[0].length].qtr4 = save.quarter_4;
-    saves[save.side][i%saves[0].length].ot = save.ot;
+  const homeSaves = dbSaves.filter((x) => x.side == 0);
+  const awaySaves = dbSaves.filter((x) => x.side == 1);
+  for(let i = 0; i < homeSaves.length; i++) {
+    const save = homeSaves[i];
+    saves[0][i].goalie = save.player_number;
+    saves[0][i].qtr1 = save.quarter_1;
+    saves[0][i].qtr2 = save.quarter_2;
+    saves[0][i].qtr3 = save.quarter_3;
+    saves[0][i].qtr4 = save.quarter_4;
+    saves[0][i].ot = save.ot;
+  }
+
+  for(let i = 0; i < awaySaves.length; i++) {
+    const save = awaySaves[i];
+    saves[1][i].goalie = save.player_number;
+    saves[1][i].qtr1 = save.quarter_1;
+    saves[1][i].qtr2 = save.quarter_2;
+    saves[1][i].qtr3 = save.quarter_3;
+    saves[1][i].qtr4 = save.quarter_4;
+    saves[1][i].ot = save.ot;
   }
 }
 
@@ -77,35 +89,71 @@ export function dbTimeoutsToTimeouts(dbTimeouts: Timeout[]) {
 }
 
 export function dbPenaltiesToPenalties(dbPenalties: Penalty[]) {
-  for(let i = 0; i < dbPenalties.length; i++) {
-    const penalty = dbPenalties[i];
-    penalties[penalty.side][i%penalties[0].length].timeout = penalty.timeout;
-    penalties[penalty.side][i%penalties[0].length].playerno = penalty.player_number;
-    penalties[penalty.side][i%penalties[0].length].infraction = penalty.infraction;
-    penalties[penalty.side][i%penalties[0].length].quarter = penalty.quarter;
-    penalties[penalty.side][i%penalties[0].length].time = penalty.time
+  const homePenalties = dbPenalties.filter((x) => x.side == 0);
+  const awayPenalties = dbPenalties.filter((x) => x.side == 1);
+  for(let i = 0; i < homePenalties.length; i++) {
+    const penalty = homePenalties[i];
+    penalties[0][i].timeout = penalty.timeout;
+    penalties[0][i].playerno = penalty.player_number;
+    penalties[0][i].infraction = penalty.infraction;
+    penalties[0][i].quarter = penalty.quarter;
+    penalties[0][i].time = penalty.time
+  }
+
+  for(let i = 0; i < awayPenalties.length; i++) {
+    const penalty = awayPenalties[i];
+    penalties[1][i].timeout = penalty.timeout;
+    penalties[1][i].playerno = penalty.player_number;
+    penalties[1][i].infraction = penalty.infraction;
+    penalties[1][i].quarter = penalty.quarter;
+    penalties[1][i].time = penalty.time
   }
 }
 
 export function dbGoalsToGoals(dbGoals: Goal[]) {
-  for(let i = 0; i < dbGoals.length; i++) {
-    const goal = dbGoals[i];
-    goalTrack[goal.side][i%goalTrack[0].length].main = goal.playerno_score;
-    goalTrack[goal.side][i%goalTrack[0].length].assist = goal.playerno_assist;
-    goalTrack[goal.side][i%goalTrack[0].length].time = goal.time
-    goalTrack[goal.side][i%goalTrack[0].length].type = goal.goaltype;
+  const homeGoals = dbGoals.filter((x) => x.side == 0);
+  const awayGoals = dbGoals.filter((x) => x.side == 1);
+  for(let i = 0; i < homeGoals.length; i++) {
+    const goal = homeGoals[i];
+    goalTrack[0][i].main = goal.playerno_score;
+    goalTrack[0][i].assist = goal.playerno_assist;
+    goalTrack[0][i].time = goal.time
+    goalTrack[0][i].type = goal.goaltype;
+  }
+
+  for(let i = 0; i < awayGoals.length; i++) {
+    const goal = awayGoals[i];
+    goalTrack[1][i].main = goal.playerno_score;
+    goalTrack[1][i].assist = goal.playerno_assist;
+    goalTrack[1][i].time = goal.time
+    goalTrack[1][i].type = goal.goaltype;
   }
 }
 
 export function dbPlayersToPlayers(dbPlayers: SheetPlayer[]) {
-  const homePlayers = dbPlayers.filter((x) => x.side == 0);
-  const awayPlayers = dbPlayers.filter((x) => x.side == 1);
-  for(let i = 0; i < dbPlayers.length; i++) {
-    const sheetPlayer = dbPlayers[i];
-    players[sheetPlayer.side][i%players[0].length].name = sheetPlayer.name;
-    players[sheetPlayer.side][i%players[0].length].number = sheetPlayer.playerno;
-    players[sheetPlayer.side][i%players[0].length].position = sheetPlayer.position;
-    players[sheetPlayer.side][i%players[0].length].groundBalls = sheetPlayer.groundballs;
-    players[sheetPlayer.side][i%players[0].length].shots = sheetPlayer.shots;
+  console.log(dbPlayers);
+  const homePlayers = dbPlayers.filter((x) => x.side == 0).sort((a, b) => (a.position < b.position ? -1 : 1));
+  const awayPlayers = dbPlayers.filter((x) => x.side == 1).sort((a, b) => (a.position < b.position ? -1 : 1));
+
+  console.log(homePlayers)
+  console.log(awayPlayers)
+  for(let i = 0; i < homePlayers.length; i++) {
+    const sheetPlayer = homePlayers[i];
+    players[0][i].side = sheetPlayer.side;
+    players[0][i].name = sheetPlayer.name;
+    players[0][i].number = sheetPlayer.playerno;
+    players[0][i].position = sheetPlayer.position;
+    players[0][i].groundBalls = sheetPlayer.groundballs;
+    players[0][i].shots = sheetPlayer.shots;
+  }
+
+  for(let i = 0; i < awayPlayers.length; i++) {
+    const sheetPlayer = awayPlayers[i];
+    players[0][i].side = sheetPlayer.side;
+    players[1][i].name = sheetPlayer.name;
+    players[1][i].number = sheetPlayer.playerno;
+    players[1][i].position = sheetPlayer.position;
+    players[1][i].groundBalls = sheetPlayer.groundballs;
+    players[1][i].shots = sheetPlayer.shots;
   }
 }

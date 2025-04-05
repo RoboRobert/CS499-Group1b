@@ -1,4 +1,4 @@
-import type { SheetPenalty, SheetPlayer, SheetSave, SheetData, Stat } from "./components/scoresheet/data.svelte";
+import type { SheetPenalty, ScoresheetPlayer, SheetSave, SheetData, Stat } from "./components/scoresheet/data.svelte";
 
 export interface SheetErr {
   elementID: string;
@@ -36,7 +36,7 @@ export function checkSheet(rawData: any): SheetErr[] {
   // Check all the players.
   for (let i = 0; i < data.players.length; i++) {
     for (let j = 0; j < data.players[i].length; j++) {
-      let player: SheetPlayer = data.players[i][j];
+      let player: ScoresheetPlayer = data.players[i][j];
       // If the player is empty, ignore it.
       if (!player.name && !player.number && !player.position) {
         continue;

@@ -1,5 +1,15 @@
-import type { MetaStats, SheetPenalty, SheetSave, SheetTimeout, Stat } from "$lib/components/scoresheet/data.svelte";
+import {
+  goalTrack,
+  type MetaStats,
+  type ScoresheetPlayer,
+  type SheetGoal,
+  type SheetPenalty,
+  type SheetSave,
+  type SheetTimeout,
+  type Stat,
+} from "$lib/components/scoresheet/data.svelte";
 import type { GameStat } from "$lib/database/GameStats";
+import type { Goal } from "$lib/database/Goal";
 import type { Penalty } from "$lib/database/Penalty";
 import type { Save } from "$lib/database/Save";
 import type { SheetInfo } from "$lib/database/SheetInfo";
@@ -59,22 +69,31 @@ export function metaStatsToDBMetaStats(sheet_id: string, metaStats: MetaStats, c
   return sheetInfo;
 }
 
+function convertPenalty(sheet_id: string, side: number, input: SheetPenalty): Penalty {
+  const penalty: Penalty = {
+    sheet_id: sheet_id,
+    side: side,
+    timeout: input.timeout,
+    player_number: input.playerno,
+    infraction: input.infraction,
+    quarter: input.quarter,
+    time: input.time,
+  };
+
+  return penalty;
+}
+
 export function penaltiesToDbPenalties(sheet_id: string, penalties: SheetPenalty[][]): Penalty[] {
   let dbPenalties: Penalty[] = [];
-  for (let i = 0; i < 2; i++) {
-    for (let j = 0; j < penalties[0].length; j++) {
-      const sheetPenalty: SheetPenalty = penalties[i][j];
-      const penalty: Penalty = {
-        sheet_id: sheet_id,
-        side: i,
-        timeout: sheetPenalty.timeout,
-        player_number: sheetPenalty.playerno,
-        infraction: sheetPenalty.infraction,
-        quarter: sheetPenalty.quarter,
-        time: sheetPenalty.time,
-      };
-      dbPenalties.push(penalty);
-    }
+  for (let i = 0; i < penalties[0].length; i++) {
+    const sheetPenalty: SheetPenalty = penalties[0][i];
+
+    dbPenalties.push(convertPenalty(sheet_id, 0, sheetPenalty));
+  }
+
+  for (let i = 0; i < penalties[0].length; i++) {
+    const sheetPenalty: SheetPenalty = penalties[1][i];
+    dbPenalties.push(convertPenalty(sheet_id, 0, sheetPenalty));
   }
 
   return dbPenalties;
@@ -122,4 +141,66 @@ export function savesToDBSaves(sheet_id: string, saves: SheetSave[][]): Save[] {
     }
   }
   return dbSaves;
+}
+
+function convertPlayer(sheet_id: string, input: ScoresheetPlayer): SheetPlayer {
+  const player: SheetPlayer = {
+    sheet_id: sheet_id,
+    side: input.side,
+    name: input.name,
+    position: input.position,
+    playerno: input.number,
+    quarter_1: false,
+    quarter_2: false,
+    quarter_3: false,
+    quarter_4: false,
+    ot: false,
+    shots: input.shots,
+    groundballs: input.groundBalls,
+  };
+
+  return player;
+}
+
+export function playersToDBPlayers(sheet_id: string, players: ScoresheetPlayer[][]): SheetPlayer[] {
+  let dbPlayers: SheetPlayer[] = [];
+  for (let i = 0; i < players[0].length; i++) {
+    const sheetPlayer: ScoresheetPlayer = players[0][i];
+    dbPlayers.push(convertPlayer(sheet_id, sheetPlayer));
+  }
+
+  for (let i = 0; i < players[1].length; i++) {
+    const sheetPlayer: ScoresheetPlayer = players[1][i];
+    dbPlayers.push(convertPlayer(sheet_id, sheetPlayer));
+  }
+
+  return dbPlayers;
+}
+
+function convertGoal(sheet_id: string, side: number, input: SheetGoal): Goal {
+  const player: Goal = {
+    sheet_id: sheet_id,
+    side: side,
+    time: input.time,
+    playerno_score: input.main,
+    playerno_assist: input.assist,
+    goaltype: input.type,
+  };
+
+  return player;
+}
+
+export function goalsToDBGoals(sheet_id: string, goalTrack: SheetGoal[][]): Goal[] {
+  let dbGoals: Goal[] = [];
+  for (let i = 0; i < goalTrack[0].length; i++) {
+    const sheetGoal: SheetGoal = goalTrack[0][i];
+    dbGoals.push(convertGoal(sheet_id, 0, sheetGoal));
+  }
+
+  for (let i = 0; i < goalTrack[1].length; i++) {
+    const sheetGoal: SheetGoal = goalTrack[1][i];
+    dbGoals.push(convertGoal(sheet_id, 1, sheetGoal));
+  }
+
+  return dbGoals;
 }

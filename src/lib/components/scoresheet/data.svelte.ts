@@ -1,7 +1,7 @@
 export interface SheetData {
   teamName: string[];
   coachName: string[];
-  players: SheetPlayer[][];
+  players: ScoresheetPlayer[][];
   saves: SheetSave[][];
   goals: number[][]
   goalTrack: SheetGoal[][];
@@ -49,7 +49,7 @@ export interface SheetSave {
   ot: number;
 }
 
-export interface SheetPlayer {
+export interface ScoresheetPlayer {
   side: number;
   position: string;
   name: string;
@@ -186,8 +186,8 @@ const defaultPlayers = [
 ];
 
 let numPlayers = 31;
-let homePlayers: SheetPlayer[] = [];
-let awayPlayers: SheetPlayer[] = [];
+let homePlayers: ScoresheetPlayer[] = [];
+let awayPlayers: ScoresheetPlayer[] = [];
 for (let i = 0; i < numPlayers; i++) {
   homePlayers.push(defaultPlayers[0]);
   awayPlayers.push(defaultPlayers[1]);
@@ -197,8 +197,8 @@ export const emptyPlayers = [homePlayers, awayPlayers];
 
 export const players = $state([homePlayers, awayPlayers]);
 
-function makeMap(players: SheetPlayer[]): Map<number, SheetPlayer> {
-  let map = new Map<number, SheetPlayer>();
+function makeMap(players: ScoresheetPlayer[]): Map<number, ScoresheetPlayer> {
+  let map = new Map<number, ScoresheetPlayer>();
   players.forEach((player) => {
     if (player.number) map.set(player.number, player);
   });
@@ -245,7 +245,7 @@ export function getPlayerMap(side: number) {
   return $state.snapshot(playerMap[side]);
 }
 
-export function getPlayer(side: number, player: number): SheetPlayer {
+export function getPlayer(side: number, player: number): ScoresheetPlayer {
   if (playerMap[side].get(player)) {
     return playerMap[side].get(player);
   } else return defaultPlayers[side];
