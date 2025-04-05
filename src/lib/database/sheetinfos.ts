@@ -70,7 +70,8 @@ export async function dbSheetInfoReset() {
             FIELD_JUDGE varchar(25),
             WEATHERCONDITION varchar(25),
             LENGTHOFQUARTERS varchar(25),
-            PRIMARY KEY (SHEET_ID));`
+            PRIMARY KEY (SHEET_ID),
+            Foreign key (SHEET_ID) references sheets(SHEET_ID) ON DELETE CASCADE ON UPDATE CASCADE);`
 
   const res = await addSheetInfo({
     sheet_id: 'dudes-bros-2025-04-03-15:20-0',

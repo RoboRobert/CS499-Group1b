@@ -64,7 +64,8 @@ export async function dbPenaltyReset() {
             PLAYER_NUMBER INT,
             INFRACTION varchar(25),
             TIME varchar(5),
-            QUARTER INT);`;
+            QUARTER INT,
+            Foreign key (SHEET_ID) references sheets(SHEET_ID) ON DELETE CASCADE ON UPDATE CASCADE);`;
 
   await addPenalty({
     sheet_id: "dudes-bros-2025-04-03-15:20-0",

@@ -9,7 +9,6 @@ export const load: PageServerLoad = async ({ params, fetch }) => {
         const game = await getGame(gameID);
         const scoresheets = await getSheetsByGame(gameID);
 
-
         return {
             game,
             scoresheets

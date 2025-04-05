@@ -64,7 +64,8 @@ export async function dbSaveReset() {
             QUARTER_2 INT,
             QUARTER_3 INT,
             QUARTER_4 INT,
-            OT INT);`;
+            OT INT,
+            Foreign key (SHEET_ID) references sheets(SHEET_ID) ON DELETE CASCADE ON UPDATE CASCADE);`;
 
   const res = await addSave({
     sheet_id: "dudes-bros-2025-04-03-15:20-0",

@@ -153,7 +153,7 @@ export async function dbSheetReset() {
       GAME_ID VARCHAR(100) NOT NULL,
       SCOREKEEPER VARCHAR(100),
       PRIMARY KEY (SHEET_ID),
-      FOREIGN KEY (GAME_ID) REFERENCES games(GAME_ID));`
+      FOREIGN KEY (GAME_ID) REFERENCES games(GAME_ID) ON DELETE CASCADE);`
     
   addSheet({
     game_id: "dudes-bros-2025-04-03-15:20", sheet_id: "dudes-bros-2025-04-03-15:20-0",

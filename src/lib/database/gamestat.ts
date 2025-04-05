@@ -70,7 +70,8 @@ export async function dbGameStatReset() {
             EXTRA_MAN_SCORE INT,
             EXTRA_MAN_FAIL INT,
             FACEOFF_WIN INT,
-            FACEOFF_LOSS INT);`;
+            FACEOFF_LOSS INT,
+            Foreign key (SHEET_ID) references sheets(SHEET_ID) ON DELETE CASCADE ON UPDATE CASCADE);`;
 
   const res = addGameStat({
     sheet_id: "dudes-bros-2025-04-03-15:20-0",
