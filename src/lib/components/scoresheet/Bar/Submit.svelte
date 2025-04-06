@@ -1,58 +1,84 @@
 <script lang="ts">
-  import { base } from "$app/paths";
-  import { json } from "@sveltejs/kit";
+  import { goto } from "$app/navigation";
+  import type { SheetErr } from "$lib/backendChecker";
   import {
-    awayGoals,
-    awayGoalTrack,
     clears,
+    coachName,
     extraMan,
     faceoffs,
+    getPlayerMap,
+    goals,
+    goalTrack,
     groundBalls,
-    homeGoals,
-    homeGoalTrack,
     metaStats,
     penalties,
-    players,
     saves,
     shots,
     teamName,
     timeouts,
+    type SheetData
   } from "../data.svelte";
-  import type { SheetErr } from "$lib/backendChecker";
   import { addIDError } from "../frontendChecker.svelte";
-  import { goto } from "$app/navigation";
 
   let showConfirmModal = false;
   let showConfirmButton = false;
 
   let message = "";
 
-  // First checks if the scoresheet is valid.
-  // If the scoresheet is valid, sends it to the scoresheet/add endpoint.
-  async function confirmScoresheet() {
-    // checkScoresheet();
-
-    goto("/");
+  function checkObj(object): boolean {
+    return Object.values(object).every(value => value != null && value != undefined);
   }
 
-  async function checkScoresheet() {
-    const scoresheetData = {
+  function getScoresheetData(): SheetData {
+    return {
+      coachName: coachName,
       teamName: teamName,
-      players: players,
+      players: [Array.from(getPlayerMap(0).values()), Array.from(getPlayerMap(1).values())],
       saves: saves,
-      homeGoals: homeGoals,
-      awayGoals: awayGoals,
-      homeGoalTrack: homeGoalTrack,
-      awayGoalTrack: awayGoalTrack,
+      goals: goals,
+      goalTrack: [goalTrack[0].filter((p) => checkObj(p)), goalTrack[1].filter((p) => checkObj(p))],
       groundBalls: groundBalls,
       shots: shots,
       clears: clears,
       faceoffs: faceoffs,
       extraMan: extraMan,
       timeouts: timeouts,
-      penalties: penalties,
+      penalties: [penalties[0].filter((p) => checkObj(p)), penalties[1].filter((p) => checkObj(p))],
       metaStats: metaStats,
     };
+  }
+
+  // Sends the scoresheet to the add endpoint
+  async function confirmScoresheet() {
+    uploadScoresheet();
+
+    goto("/");
+  }
+
+  async function uploadScoresheet() {
+    const scoresheetData: SheetData = getScoresheetData();
+    const scoresheetJSON = JSON.stringify(scoresheetData);
+
+    // Send the scoresheet data to the scoresheet/add endpoint
+    try {
+      const result = await fetch("/api/scoresheet/add", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: scoresheetJSON,
+      });
+
+      // Await the JSON data resolution
+      const data = await result.json();
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+  async function checkScoresheet() {
+    const scoresheetData: SheetData = getScoresheetData();
+    console.log(scoresheetData.players);
     const scoresheetJSON = JSON.stringify(scoresheetData);
 
     console.log(scoresheetJSON);

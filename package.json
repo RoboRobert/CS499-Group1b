@@ -23,6 +23,7 @@
 	"dependencies": {
 		"express": "^5.1.0",
 		"pg": "^8.13.1",
-		"postgres": "^3.4.5"
+		"postgres": "^3.4.5",
+		"uuid": "^11.1.0"
 	}
 }

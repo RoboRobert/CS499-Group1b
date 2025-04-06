@@ -1,9 +1,10 @@
 export interface Penalty {
-    sheetid: number,
-    side: string,
-    pt: number,
-    playerno: number,
+    sheet_id: string,
+    side: number,
+    index: number,
+    timeout: string,
+    player_number: number,
     infraction: string,
     quarter: number,
-    time: number,
+    time: string,
 }

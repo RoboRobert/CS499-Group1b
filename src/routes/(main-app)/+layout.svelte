@@ -33,11 +33,33 @@
     <a href="/rosters ">Rosters</a>
     <a href="/pastgames ">Past Games</a>
     <a href="/run/1">Run Mode</a>
+  </div> 
+  <div>
+    <ul>
+      <li class="theme-container {showThemeOptions ? 'show' : ''}">
+        <button on:click={openThemeOptions}>Set Theme</button>
+        {#if showThemeOptions}
+          <ul class="theme-options">
+            <form method="POST" use:enhance={submitUpdateTheme}>
+              <li class="buttons">
+                <button formaction="/?/setTheme&theme=dark&redirectTo={$page.url.pathname}">Dark</button>
+              </li>
+              <li class="buttons">
+                <button formaction="/?/setTheme&theme=light&redirectTo={$page.url.pathname}" >Light</button>
+              </li>
+            </form>
+          </ul>
+        {/if}
+      </li>
+    </ul>
   </div>
-  <div class="buttons signIn">
+  <div class="buttons">
     <button on:click={openRegModal} type="button">Register</button>
     <button on:click={openSignInModal} type="button">Sign In</button>
   </div>
+
+ 
+
 </nav>
 
 <!-- Modal Backdrop -->
@@ -155,8 +177,8 @@
 <slot></slot>
 
 <style>
-  nav {
-    height:70px;
+  nav{ 
+    height: 50px;
   }
 
   .smegol {
@@ -165,9 +187,33 @@
 
   .navLeft {
     display: flex;
-    flex-direction: row;
-    align-items: center;
-    height:100%;
+    margin-right: 20px
+  }
+
+  ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .theme-options {
+    display: none;
+    position: absolute;
+    background-color: var(--clr-surface-a10);
+    border: 1px solid var(--clr-surface-a10);
+    border-radius: 4px;
+    padding: 10px;
+    margin-top: 5px;
+    z-index: 1000;
+  }
+
+  /* Show the theme options when showThemeOptions is true */
+  .theme-container.show .theme-options {
+    display: block;
+  }
+
+  ul li:hover .theme-options {
+    display: block;
   }
 
   .signIn {

@@ -1,11 +1,15 @@
 import type { PageServerLoad } from './$types';
-import type { player } from '../../rosters.svelte';
 import { error } from "@sveltejs/kit";
 import type { Player } from '$lib/database/Team';
 
 // Loads in all the players from the api
-export const load: PageServerLoad = async ({ params, fetch }) => {
+export const load: PageServerLoad = async ({ params, fetch, cookies }) => {
     const playerName = params.player;  // Extracts the slug from the URL
+
+    const token = cookies.get("user-role");
+    if (token !== "coach" && token !== "admin") {
+        error(403, "You don't have the right O you don't have the right");
+    }
 
     try {
         const response = await fetch(`/api/players/${playerName}`);

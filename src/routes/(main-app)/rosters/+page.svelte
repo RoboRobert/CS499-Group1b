@@ -20,8 +20,12 @@
     coach: "",
   });
 
+
+  let userRole = data.token ;
+  let canEdit = userRole === "admin" || userRole === "coach"; // Check if the user is an admin or coach
   let editingTeam: Team = $state(defaultTeam);
   let showEditModal = $state(false);
+  let showDeleteConfirm = $state(false);
 
   const openEditModal = (team: Team) => {
     editingTeam = team;
@@ -29,6 +33,15 @@
   };
   const closeEditModal = () => {
     showEditModal = false;
+    editingTeam = defaultTeam;
+  };
+
+  const openDeleteModal = (team: Team) => {
+    editingTeam = team;
+    showDeleteConfirm = true;
+  };
+  const closeDeleteModal = () => {
+    showDeleteConfirm = false;
     editingTeam = defaultTeam;
   };
 
@@ -52,12 +65,22 @@
     if (!coach) formErrors.coach = "Coach name is required";
 
     // Check for duplicate team name
-    if (data.teams.some((team) => team.team_name === name && team !== $state.snapshot(editingTeam))) {
+    if (
+      data.teams.some(
+        (team) =>
+          team.team_name === name && team !== $state.snapshot(editingTeam),
+      )
+    ) {
       formErrors.name = "A team with this name already exists";
     }
 
     // If there are errors, do not proceed
-    if (formErrors.name || formErrors.hometown || formErrors.state || formErrors.coach) {
+    if (
+      formErrors.name ||
+      formErrors.hometown ||
+      formErrors.state ||
+      formErrors.coach
+    ) {
       return;
     }
 
@@ -71,6 +94,29 @@
       editingTeam.coach = coach;
 
       newTeam = editingTeam;
+
+        // Send the team data to the backend API
+        try {
+          console.log(newTeam);
+          const response = await fetch("/api/editTeams", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(newTeam),
+            credentials:'include',
+          });
+
+          if (!response.ok) {
+            throw new Error("Failed to save team data");
+          }
+
+          setTimeout(async () => invalidateAll(), 100);
+        } catch (error) {
+          console.error("Error:", error);
+        }
+
+
     } else {
       // Create a new team object; note that players is empty initially.
       newTeam = {
@@ -80,26 +126,27 @@
         state: state,
         coach: coach,
       };
-    }
 
-    // Send the team data to the backend API
-    try {
-      console.log(newTeam);
-      const response = await fetch("/api/teams", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(newTeam),
-      });
+      // Send the team data to the backend API
+      try {
+        console.log(newTeam);
+        const response = await fetch("/api/teams", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(newTeam),
+          credentials:'include',
+        });
 
-      if (!response.ok) {
-        throw new Error("Failed to save team data");
+        if (!response.ok) {
+          throw new Error("Failed to save team data");
+        }
+
+        setTimeout(async () => invalidateAll(), 100);
+      } catch (error) {
+        console.error("Error:", error);
       }
-
-      setTimeout(async () => invalidateAll(), 100);
-    } catch (error) {
-      console.error("Error:", error);
     }
 
     // Close the modal
@@ -114,6 +161,7 @@
         "Content-Type": "application/json",
       },
       body: JSON.stringify(team.team_id),
+      credentials:'include',
     })
       .then((response) => {
         if (!response.ok) {
@@ -125,40 +173,41 @@
       });
 
     setTimeout(async () => invalidateAll(), 100);
+    // Close the delete confirmation modal
+    closeDeleteModal();
   }
 </script>
 
 <title>Rosters</title>
 
-<div>
+<div class="roster-page">
   <section class="rosters-dash">
-    <h1>Rosters</h1>
+    <h1><strong>Rosters</strong></h1>
     <h3>A List of All Teams on the Website</h3>
   </section>
 
   <section class="list-section-1">
     <div class="buttons">
+      {#if canEdit}
       <button onclick={() => openEditModal(defaultTeam)} type="button">Add Teams</button>
+      {/if}
     </div>
-    <div>
-      <h1>All Teams</h1>
-    </div>
-    <div>
+
+    <h2>All Teams</h2>
+    <div class="teams-bars">
       {#each data.teams as team}
-        <!-- Using team.name in the href and display -->
-        <div class="game">
-          <a href="/rosters/{team.team_id}">
-            <h3>{team.team_name}</h3>
-            <div class="team-bar">
-              <p>{team.hometown}</p>
-              <p>{team.state}</p>
+        <div class="team-bar">
+            <a href="/rosters/{team.team_id}" class="team-link">
+              <h3 class="team-name">{team.team_name}</h3>
+              <p>{team.hometown}, {team.state}</p>
               <p>Coach: {team.coach}</p>
-            </div>
-          </a>
-          <div class="buttons">
-            <button onclick={() => openEditModal(team)} type="button">Edit</button>
-            <button onclick={() => handleDeleteTeam(team)} type="button">Delete</button>
+            </a>
+          {#if canEdit}
+          <div class="team-actions">
+            <button onclick={() => openEditModal(team)} type="button" class="edit-button">Edit</button>
+            <button onclick={() => openDeleteModal(team)} type="button" class="delete-button">Delete</button>
           </div>
+          {/if}
         </div>
       {/each}
     </div>
@@ -252,10 +301,30 @@
           {/if}
         </div>
         <div class="modal-actions">
-          <button type="button" onclick={closeEditModal} class="cancel-button">Cancel</button>
+          <button type="button" onclick={closeEditModal} class="cancel-button"
+            >Cancel</button
+          >
           <button type="submit" class="sign-in-button">Add Changes</button>
         </div>
       </form>
+    </div>
+  </div>
+{/if}
+
+{#if showDeleteConfirm}
+  <div class="modal-backdrop">
+    <div class="modal-content">
+      <h2>Are you sure you want to delete this team?</h2>
+      <div class="modal-actions">
+        <button type="button" onclick={closeDeleteModal} class="cancel-button"
+          >Cancel</button
+        >
+        <button
+          type="button"
+          onclick={() => handleDeleteTeam(editingTeam)}
+          class="sign-in-button">Delete</button
+        >
+      </div>
     </div>
   </div>
 {/if}
