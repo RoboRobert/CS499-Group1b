@@ -12,6 +12,7 @@
   import Shots from "$lib/components/scoresheet/Stats/Shots.svelte";
   import Team from "$lib/components/scoresheet/Team.svelte";
   import Timeouts from "$lib/components/scoresheet/Timeouts.svelte";
+  import CorrectSheet from "./CorrectSheet.svelte";
   import ExitSheet from "./ExitSheet.svelte";
 
   let leftSheet: HTMLElement;
@@ -34,6 +35,7 @@
     <HomeButton></HomeButton>
     <MetaStats></MetaStats>
     <ExitSheet></ExitSheet>
+    <CorrectSheet></CorrectSheet>
   </div>
   <Header></Header>
   <div class="sheets">

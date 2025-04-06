@@ -12,7 +12,6 @@
     groundBalls,
     metaStats,
     penalties,
-    players,
     saves,
     shots,
     teamName,

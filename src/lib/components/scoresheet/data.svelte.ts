@@ -64,6 +64,8 @@ export interface ScoresheetPlayer {
   groundBalls: number;
 }
 
+export const sheet_id = $state({id: ""});
+
 export const teamName = $state(["", ""]);
 
 export const coachName = $state(["", ""]);
