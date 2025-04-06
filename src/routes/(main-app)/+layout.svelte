@@ -150,9 +150,9 @@
         <div class="form-group">
           <label for="role">Role:</label>
           <select id="role" name="role" required>
-            <option value="scorekeeper">Scorekeeper</option>
+            <option value="score-keeper">Scorekeeper</option>
             <option value="coach">Coach</option>
-            <option value="webmaster">Webmaster</option>
+            <option value="admin">Webmaster</option>
           </select>
         </div>
         <div class="modal-actions">
@@ -232,9 +232,9 @@
     display: block;
   }
 
-  .signIn {
+  /* .signIn {
     margin-left:auto;
-  }
+  } */
 
   .close {
   position: absolute;

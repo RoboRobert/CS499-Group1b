@@ -40,7 +40,7 @@ export const actions = {
                     //});
 
                     //Set a cookie for the user's role
-                    cookies.set('role', role, {
+                    cookies.set('user-role', role, {
                         path: '/',  // The cookie is valid for all paths
                         sameSite: 'strict',  // Prevents the cookie from being sent on cross-site requests
                         httpOnly: true,  // For security, prevent access to the cookie via JavaScript
