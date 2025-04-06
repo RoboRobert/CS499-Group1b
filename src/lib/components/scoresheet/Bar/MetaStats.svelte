@@ -31,7 +31,7 @@
         <!-- Bind input values and handle form submission -->
         <div class="form-group">
           <label for="date">Date:</label>
-          <input type="text" name="date" bind:value={metaStats.date} />
+          <input type="date" name="date" bind:value={metaStats.date} />
           {#if formErrors.date}
             <p class="error">{formErrors.date}</p>
           {/if}
@@ -45,7 +45,7 @@
         </div>
         <div class="form-group">
           <label for="gameStart">Game Start:</label>
-          <input type="text" name="gameStart" bind:value={metaStats.gameStart} />
+          <input type="time" name="gameStart" bind:value={metaStats.gameStart} />
           {#if formErrors.gameStart}
             <p class="error">{formErrors.gameStart}</p>
           {/if}

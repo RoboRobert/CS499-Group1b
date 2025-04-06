@@ -29,6 +29,3 @@ export const POST: RequestHandler = async ({request, cookies}) => {
     addTeam(team)
     return json({message: "Post request"})
 }
-
-
-

@@ -10,7 +10,6 @@ export async function GET({ params, cookies }) {
     }
     // console.log(event)
     const { id } = params;
-    console.log(id)
     const players = await getPlayersByTeam(id)
     return json(players)
 }

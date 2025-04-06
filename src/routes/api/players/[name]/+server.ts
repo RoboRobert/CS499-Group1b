@@ -11,9 +11,7 @@ export async function GET({ params, cookies }) {
     
     console.log(params);
     const { name } = params;
-    console.log(name);
     const players = await getPlayerByName(name);
-    console.log(players);
     return json(players)
 }
 

@@ -6,22 +6,22 @@
   let { data }: PageProps = $props();
 
   const defaultPlayer: Player = {
-      team_id: data.team.team_id,
-      player_name: "",
-      player_number: 0,
-      position: "",
-      player_class: "",
-      hometown: "",
-      state: "",
-      height_feet: 0,
-      height_inches: 0,
-      weight: 0,
-      quarter: 0,
-      shots: 0,
-      goals: 0,
-      miss: 0,
-      ground: 0,
-      team_name: data.team.team_name
+    team_id: data.team.team_id,
+    player_name: "",
+    player_number: 0,
+    position: "",
+    player_class: "",
+    hometown: "",
+    state: "",
+    height_feet: 0,
+    height_inches: 0,
+    weight: 0,
+    quarter: 0,
+    shots: 0,
+    goals: 0,
+    miss: 0,
+    ground: 0,
+    team_name: data.team.team_name,
   };
 
 
@@ -46,7 +46,7 @@
   const openDeleteModal = (player: Player) => {
     editingPlayer = player;
     showDeleteConfirm = true;
-  }
+  };
   const closeDeleteModal = () => {
     showDeleteConfirm = false;
     editingPlayer = null;
@@ -74,7 +74,7 @@
     if (!state) errors.state = "State is required.";
     if (!playerNumber) errors.number = "Number is required.";
     if (!position) errors.position = "Position is required.";
-    if(!player_class) errors.class = "Class is required."
+    if (!player_class) errors.class = "Class is required.";
     if (!heightFeet) errors.heightFeet = "Height (feet) is required.";
     if (!heightInches) errors.heightInches = "Height (inches) is required.";
     if (!weight) errors.weight = "Weight is required.";
@@ -95,9 +95,9 @@
       return;
     }
 
-    let newPlayer:Player;
+    let newPlayer: Player;
 
-    if(editingPlayer.player_name != ""){
+    if (editingPlayer.player_name != "") {
       editingPlayer.player_name = firstName;
       editingPlayer.player_number = parseInt(playerNumber);
       editingPlayer.team_id = data.team.team_id;
@@ -109,8 +109,7 @@
       editingPlayer.height_feet = parseInt(heightFeet);
       editingPlayer.height_inches = parseInt(heightInches);
       editingPlayer.weight = parseInt(weight);
-     
-     
+
       try {
           const response = await fetch("/api/editPlayers", {
             method: "POST",
@@ -121,34 +120,33 @@
             credentials:'include',
           });
 
-          setTimeout(async () => invalidateAll(), 100);
+        setTimeout(async () => invalidateAll(), 100);
 
-          if (!response.ok) {
-            throw new Error("Failed to save player data");
-          }
-        } catch (error) {
-          console.error("Error:", error);
+        if (!response.ok) {
+          throw new Error("Failed to save player data");
         }
-    } else{
-
+      } catch (error) {
+        console.error("Error:", error);
+      }
+    } else {
       newPlayer = {
-      player_name: firstName,
-      player_number: parseInt(playerNumber),
-      team_id: data.team.team_id,
-      team_name: data.team.team_name,
-      position: position,
-      player_class: player_class,
-      hometown: hometown,
-      state: state,
-      height_feet: parseInt(heightFeet),
-      height_inches: parseInt(heightInches),
-      weight: parseInt(weight),
-      quarter: 0,
-      shots: 0,
-      goals: 0,
-      miss: 0,
-      ground: 0,
-    };
+        player_name: firstName,
+        player_number: parseInt(playerNumber),
+        team_id: data.team.team_id,
+        team_name: data.team.team_name,
+        position: position,
+        player_class: player_class,
+        hometown: hometown,
+        state: state,
+        height_feet: parseInt(heightFeet),
+        height_inches: parseInt(heightInches),
+        weight: parseInt(weight),
+        quarter: 0,
+        shots: 0,
+        goals: 0,
+        miss: 0,
+        ground: 0,
+      };
 
     try {
           const response = await fetch("/api/players", {
@@ -160,16 +158,16 @@
             credentials:'include',
           });
 
-          setTimeout(async () => invalidateAll(), 100);
+        setTimeout(async () => invalidateAll(), 100);
 
-          if (!response.ok) {
-            throw new Error("Failed to save player data");
-          }
-        } catch (error) {
-          console.error("Error:", error);
+        if (!response.ok) {
+          throw new Error("Failed to save player data");
         }
+      } catch (error) {
+        console.error("Error:", error);
+      }
     }
-  
+
     closeEditModal();
   }
 
@@ -202,9 +200,10 @@
 
   <section class="team-header">
     <h1>{data.team.team_name}</h1>
-    <p class="team-info"> {data.team.hometown}, {data.team.state} <br> 
-      Coach: {data.team.coach}</p>
-    
+    <p class="team-info">
+      {data.team.hometown}, {data.team.state} <br />
+      Coach: {data.team.coach}
+    </p>
   </section>
   <section class="players-section">
     {#if canEdit}
@@ -219,9 +218,12 @@
             <p>
               <strong>Position:</strong> {player.position} <br />
               <strong>Number:</strong> #{player.player_number} <br />
-              <strong>Class:</strong> {player.player_class} <br />
-              <strong>Height:</strong> {player.height_feet}' {player.height_inches}" <br />
-              <strong>Weight:</strong> {player.weight} lbs
+              <strong>Class:</strong>
+              {player.player_class} <br />
+              <strong>Height:</strong>
+              {player.height_feet}' {player.height_inches}" <br />
+              <strong>Weight:</strong>
+              {player.weight} lbs
             </p>
           </a>
           {#if canEdit}
@@ -417,4 +419,3 @@
 </div>
 {/if}
 </div>
-

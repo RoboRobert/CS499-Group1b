@@ -8,7 +8,6 @@ export const POST: RequestHandler = async ({request, cookies}) => {
     }
     
     const team = await request.json()
-    console.log(team);
     if(!team) {
         console.error("Team is invalid!");
         return;

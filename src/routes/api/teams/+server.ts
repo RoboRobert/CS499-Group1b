@@ -23,7 +23,6 @@ export const POST: RequestHandler = async ({request, cookies}) => {
         error(403, "You don't have the right O you don't have the right");
     }
     const team = await request.json()
-    console.log(team);
     if(!team) {
         console.error("Team is invalid!");
         return;
@@ -34,7 +33,6 @@ export const POST: RequestHandler = async ({request, cookies}) => {
 
 export const DELETE: RequestHandler = async ({request}) => {
     const teamID = await request.json();
-    console.log(teamID);
     const response = deleteTeam(teamID);
     return new Response(JSON.stringify(response));
 }

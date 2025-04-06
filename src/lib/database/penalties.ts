@@ -1,43 +1,50 @@
-import { sql } from './postgres.server';
-import type { Penalty } from '$lib/database/Penalty';
+import { sql } from "./postgres.server";
+import type { Penalty } from "$lib/database/Penalty";
 
-export async function getPenalties(): Promise<Penalty[]> {
+// export async function getPenalties(): Promise<Penalty[]> {
+//   const penalties = await sql<Penalty[]>`
+//       SELECT * FROM penalties
+//     `
+
+//   return penalties
+// }
+
+export async function getPenalties(sheetid: string): Promise<Penalty[]> {
   const penalties = await sql<Penalty[]>`
-      SELECT * FROM penalties
-    `
+      SELECT * FROM penalties WHERE sheet_id = ${sheetid}
+    `;
 
-  return penalties
+  return penalties;
 }
 
-export async function getPenalty(sheetid: string): Promise<Penalty> {
-  const penalties = await sql<Penalty[]>`
-      SELECT * FROM penalties WHERE sheetid = ${sheetid}
-    `
-
-  return penalties[0]
-}
-
-export async function addPenalty(penalties: Penalty) {
-  let sheetid = penalties.sheetid;
-  let side = penalties.side;
-  let pt = penalties.pt;
-  let playerno = penalties.playerno;
-  let infraction = penalties.infraction;
-  let quarter = penalties.quarter;
-  let time = penalties.time;
+export async function addPenalty(penalty: Penalty) {
+  let sheetid = penalty.sheet_id;
+  let side = penalty.side;
+  let index = penalty.index;
+  let pt = penalty.timeout;
+  let playerno = penalty.player_number;
+  let infraction = penalty.infraction;
+  let quarter = penalty.quarter;
+  let time = penalty.time;
   const result = await sql`
-    INSERT INTO teams (sheetid, side, pt, playerno, infraction, quarter, time) VALUES (${sheetid}, ${side}, ${pt}, ${playerno}, ${infraction}, ${quarter}, ${time}) RETURNING *
-  `
+    INSERT INTO penalties (sheet_id, side, index, timeout, player_number, infraction, quarter, time) VALUES (${sheetid}, ${side}, ${index}, ${pt}, ${playerno}, ${infraction}, ${quarter}, ${time}) RETURNING *
+  `;
 
-  return result
+  return result;
+}
+
+export async function addPenalties(penalties: Penalty[]) {
+  for(const penalty of penalties) {
+    addPenalty(penalty);
+  }
 }
 
 export async function deletePenalty(name: string) {
   const result = await sql`
       DELETE FROM penalties WHERE name = ${name}
-    `
+    `;
 
-  return result
+  return result;
 }
 
 export async function dbPenaltyReset() {
@@ -50,16 +57,37 @@ export async function dbPenaltyReset() {
     `;
 
   await sql`CREATE TABLE penalties(
-            SHEET_ID INT NOT NULL,
-            SIDE varchar(25),
-            PT INT NOT NULL,
-            PLAYER_NUMBER INT NOT NULL,
+            SHEET_ID VARCHAR(100) NOT NULL,
+            SIDE INT NOT NULL,
+            INDEX INT,
+            TIMEOUT varchar(5),
+            PLAYER_NUMBER INT,
             INFRACTION varchar(25),
-            TIME INT NOT NULL,
-            Foreign key (SHEET_ID) references gamestats(SHEET_ID) ON DELETE CASCADE ON UPDATE CASCADE);`
+            TIME varchar(5),
+            QUARTER INT,
+            Foreign key (SHEET_ID) references sheets(SHEET_ID) ON DELETE CASCADE ON UPDATE CASCADE);`;
 
-  const res = await sql`INSERT INTO penalties (SHEET_ID, SIDE, PT, PLAYER_NUMBER, INFRACTION, TIME)
-    VALUES ('0', 'None', '0', '0', 'None', '0');`
+  await addPenalty({
+    sheet_id: "dudes-bros-2025-04-03-15:20-0",
+    side: 0,
+    index: 0,
+    timeout: "3:20",
+    player_number: 20,
+    infraction: "Crosscheck",
+    quarter: 2,
+    time: "4:20",
+  });
+
+  const res = await addPenalty({
+    sheet_id: "dudes-bros-2025-04-03-15:20-0",
+    side: 0,
+    index: 1,
+    timeout: "3:20",
+    player_number: 69,
+    infraction: "Crosscheck",
+    quarter: 3,
+    time: "5:20",
+  });
 
   return res;
 }
