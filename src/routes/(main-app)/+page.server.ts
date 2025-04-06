@@ -26,8 +26,6 @@ export const actions = {
 
         //check if the user exists
         if (username && password && role) {
-            const user = getLoginUser(username);
-            if (user != null) {
                 if (getLoginPass(password, username) != null) {
                     //const sessionID = '${username}-${role}-${new Date().getTime()}';
 
@@ -59,13 +57,34 @@ export const actions = {
                     });
 
                     // Return success and session ID in the response (if needed for client-side handling)
-                    return { success: true, message: "Login successful." };
+                    return { 
+                        logsuccess: true, 
+                        message: "Login successful.",
+                        username: username,
+                        password: password,
+                        role: role
+                     };
                 }
-            }
+                else {// If the user doesn't exist, return a failure message
+                    return { 
+                        logsuccess: false, 
+                        message: "Incorrect username or password.",
+                        username: username,
+                        password: password,
+                        role: role
+                    };
+                }
           
         }
-        // If authentication fails, return a failure message
-        return { success: false, message: "Invalid credentials or role." };
+        else{// If authentication fails, return a failure message
+            return { 
+                    logsuccess: false, 
+                    message: "Enter a username and password.",
+                    username: username,
+                    password: password,
+                    role: role
+                };
+        }
     },
 
     //Register action
@@ -77,13 +96,24 @@ export const actions = {
         const role = formData.get('role') as string;
 
         //add login
-        if (await getLoginPass(username, password) == null) {
+        if (await getLoginPass(username, password) == null && password != "null") {
             addLogin({user: username, pass: password, role: role});
-            return { success: true, message: "User registered successfully." };
+            return { 
+                regsuccess: true, 
+                message: "User registered successfully.",
+                username: username,
+                password: password,
+                role: role
+            };
         }
         else {
-            console.log("User already exists");
-            return { success: false, message: "User already exists." };
+            return { 
+                regsuccess: false, 
+                message: "User already exists.",
+                username: username,
+                password: password,
+                role: role
+             };
         }
 	}
 

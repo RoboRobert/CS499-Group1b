@@ -38,10 +38,15 @@ export async function getLoginRole(user: string, pass: string): Promise<string> 
     `
 
   // Check if logins has only one result
-  if (logins.length > 0 && logins.length < 2) {
-    return logins[0].role; // Return the role directly from the first entry
+  if (logins.length > 0) {
+    if(logins.length < 2) {
+      return logins[0].role; // Return the role directly from the first entry
+    }
+    else{
+      return null; // More than one login found
+    }
   } else {
-    throw new Error("User not found, or too many accounts with the same username");
+    return null; // No matching login found
   }
 }
 
@@ -50,11 +55,11 @@ export async function addLogin(login: Login) {
   let pass = login.pass;
   let role = login.role;
 
-  const result = await sql`
+    const result = await sql`
     INSERT INTO logins (username, password, role) VALUES (${user}, ${pass}, ${role}) RETURNING *
-  `
 
-  return result
+    `
+    return result
 }
 
 export async function deleteLogin(user: string) {
