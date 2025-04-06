@@ -1,26 +1,35 @@
 <script lang="ts">
+  import "$lib/styles/app.css";
   import { enhance } from "$app/forms";
   import {page} from "$app/stores";
   import "$lib/styles/app.css";
   import type { SubmitFunction } from "./$types";
   
+  //import { enhance } from '$app/forms';
+  import type { ActionData } from './$types.js';
+  //export let data;
+  export let form: ActionData;
+  export let closed = false;
 
   // State to control modal visibility
   let showSignInModal = false;
   let showRegModal = false;
 
-  let showThemeOptions = false;
+  // State to hold results of sign-in and registration
+  let signMessage = ''; // Message to display for signin modal
+  let regMessage = ''; // Message to display for register modal
 
   // Function to open the Sign in modal
   const openSignInModal = () => (showSignInModal = true);
   // Function to close the Sign in modal
-  const closeSignInModal = () => (showSignInModal = false);
+  const closeSignInModal = () => (showSignInModal = false, signMessage = '');
 
   // Function to open the Register modal
   const openRegModal = () => (showRegModal = true);
   // Function to close the Register modal
-  const closeRegModal = () => (showRegModal = false);
+  const closeRegModal = () => (showRegModal = false, regMessage = '');
 
+  let showThemeOptions = false;
    // Function to open the Register modal
    const openThemeOptions = () => (showThemeOptions = !showThemeOptions);
 
@@ -30,6 +39,7 @@
       document.documentElement.setAttribute('data-theme', theme);
     }
   }
+
 </script>
 
 <nav>
@@ -74,6 +84,11 @@
     <!-- Modal Content -->
     <div class="modal-content">
       <h2>Sign In</h2>
+      {#if signMessage}
+        <div class="message {signMessage.includes('success') ? 'success' : 'error'}">
+          {signMessage}
+        </div>
+      {/if}
       <form method="POST" action = "?/login">
         <div class="form-group">
           <label for="username">Username:</label>
@@ -92,12 +107,38 @@
   </div>
 {/if}
 
+<!-- Dialog for success message after signing in -->
+<dialog open={form?.logsuccess == true && !closed}>
+  <article>
+    <header>
+      <a href="#close" aria-label="Close" class="close" on:click={() => closed = true}>x</a>
+            Success
+    </header>
+    <p>
+      Welcome to Smegol, "{form?.username}"!
+    </p>
+  </article>
+</dialog>
+
+<!-- Dialog for error message after signin failure -->
+<dialog open={form?.logsuccess == false && !closed}>
+  <article>
+    <header>
+      <a href="#close" aria-label="Close" class="close" on:click={() => closed = true}>x</a>
+            Error
+    </header>
+    <p>
+      Please enter a valid username. User "{form?.username}" does not exist.
+    </p>
+  </article>
+</dialog>
+
 {#if showRegModal}
   <div class="modal-backdrop">
     <!-- Modal Content -->
     <div class="modal-content">
       <h2>Register</h2>
-      <form method="POST" action = "?/register">
+      <form method="POST" action="?/register">
         <div class="form-group">
           <label for="username">Username:</label>
           <input type="text" id="username" name="username" required />
@@ -107,8 +148,12 @@
           <input type="password" id="password" name="password" required />
         </div>
         <div class="form-group">
-          <label for="key">Key:</label>
-          <input type="key" id="key" name="key" required />
+          <label for="role">Role:</label>
+          <select id="role" name="role" required>
+            <option value="scorekeeper">Scorekeeper</option>
+            <option value="coach">Coach</option>
+            <option value="webmaster">Webmaster</option>
+          </select>
         </div>
         <div class="modal-actions">
           <button type="button" on:click={closeRegModal} class="cancel-button">Cancel</button>
@@ -118,6 +163,32 @@
     </div>
   </div>
 {/if}
+
+<!-- Dialog for success message after registering -->
+<dialog open={form?.regsuccess == true && !closed}>
+  <article>
+    <header>
+      <a href="#close" aria-label="Close" class="close" on:click={() => closed = true}>x</a>
+            Success
+    </header>
+    <p>
+      Congratulations on joining Smegol, "{form?.username}"!
+    </p>
+  </article>
+</dialog>
+
+<!-- Dialog for error message after registration failure -->
+<dialog open={form?.regsuccess == false && !closed}>
+  <article>
+    <header>
+      <a href="#close" aria-label="Close" class="close" on:click={() => closed = true}>x</a>
+            Error
+    </header>
+    <p>
+      Account with username "{form?.username}" already exists.
+    </p>
+  </article>
+</dialog>
 
 <slot></slot>
 
@@ -161,25 +232,22 @@
     display: block;
   }
 
-  
-.theme-container button {
-  background-color: var(--clr-button);
-  color: var(--clr-light-a0);
-  padding: 5px 12px;
+  .signIn {
+    margin-left:auto;
+  }
+
+  .close {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  font-size: 24px;
+  text-decoration: none;
+  color: rgb(255, 255, 255);
+  background: none;
+}
+
+.close:hover {
   cursor: pointer;
-  border: none;
-  font-size: 16px;
-  border-radius: 5px;
+  color: red;
 }
-
-.theme-container button:hover {
-  background-color: var(--clr-button-hover);
-}
-
-
-/* 
-  button {
-    cursor: pointer;
-  } */
- 
 </style>
