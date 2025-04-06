@@ -18,12 +18,18 @@ export async function getLoginUser(user: string): Promise<Login> {
   return logins[0]
 }
 
-export async function getLoginPass(user: string, pass: string): Promise<Login> {
+export async function getLoginPass(user: string, pass: string): Promise<string> {
   const logins = await sql<Login[]>`
-      SELECT * FROM logins WHERE password = ${pass} and username = ${user}
+      SELECT username as user, password as pass, role FROM logins WHERE password = ${pass} and username = ${user}
     `
 
-  return logins[0]
+    if (logins.length > 0){
+      return logins[0].pass; // Return the role directly from the first entry
+    }
+    else {
+      return null;
+    }
+    
 }
 
 export async function getLoginRole(user: string, pass: string): Promise<string> {

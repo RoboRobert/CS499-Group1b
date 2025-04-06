@@ -24,8 +24,6 @@ export const actions = {
         const password = formData.get('password') as string;
         const role = await getLoginRole(username, password);
 
-        console.log(`Username: ${username}, Password: ${password}, Role: ${role}`); // Log the values for debugging
-    
         //check if the user exists
         if (username && password && role) {
             const user = getLoginUser(username);
@@ -79,8 +77,14 @@ export const actions = {
         const role = formData.get('role') as string;
 
         //add login
-        addLogin({user: username, pass: password, role: role});
-        return { success: true };
+        if (await getLoginPass(username, password) == null) {
+            addLogin({user: username, pass: password, role: role});
+            return { success: true, message: "User registered successfully." };
+        }
+        else {
+            console.log("User already exists");
+            return { success: false, message: "User already exists." };
+        }
 	}
 
 
