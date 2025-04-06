@@ -24,6 +24,9 @@
     team_name: data.team.team_name,
   };
 
+
+  let userRole = data.token;
+  let canEdit = userRole === "coach" || userRole === "admin"; // Check if the user is a coach or admin
   let showEditModal = $state(false);
   let errors: { [key: string]: string } = $state({});
   let showDeleteConfirm = $state(false);
@@ -108,13 +111,14 @@
       editingPlayer.weight = parseInt(weight);
 
       try {
-        const response = await fetch("/api/editPlayers", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(editingPlayer),
-        });
+          const response = await fetch("/api/editPlayers", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(editingPlayer),
+            credentials:'include',
+          });
 
         setTimeout(async () => invalidateAll(), 100);
 
@@ -144,14 +148,15 @@
         ground: 0,
       };
 
-      try {
-        const response = await fetch("/api/players", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(newPlayer),
-        });
+    try {
+          const response = await fetch("/api/players", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(newPlayer),
+            credentials:'include',
+          });
 
         setTimeout(async () => invalidateAll(), 100);
 
@@ -173,6 +178,7 @@
         "Content-Type": "application/json",
       },
       body: JSON.stringify(player.player_name),
+      credentials:'include',
     })
       .then((response) => {
         if (!response.ok) {
@@ -200,16 +206,17 @@
     </p>
   </section>
   <section class="players-section">
+    {#if canEdit}
     <button onclick={() => openEditModal(defaultPlayer)} class="add-player-button">Add Player</button>
+    {/if}
     <h2>All Players</h2>
     <div class="players-grid">
       {#each data.players as player}
         <div class="player-card">
           <a href="/rosters/{player.team_id}/{player.player_name}" class="player-link">
             <h3 class="player-name">{player.player_name}</h3>
-            <p class="player-details">
-              <strong>Position:</strong>
-              {player.position} <br />
+            <p>
+              <strong>Position:</strong> {player.position} <br />
               <strong>Number:</strong> #{player.player_number} <br />
               <strong>Class:</strong>
               {player.player_class} <br />
@@ -219,161 +226,196 @@
               {player.weight} lbs
             </p>
           </a>
+          {#if canEdit}
           <div class="player-actions">
             <button onclick={() => openEditModal(player)} class="edit-button">Edit</button>
             <button onclick={() => openDeleteModal(player)} class="delete-button">Delete</button>
           </div>
+          {/if}
         </div>
       {/each}
     </div>
   </section>
 
-  {#if showEditModal}
-    <div class="modal-backdrop">
-      <div class="modal-content">
-        <h2>Edit Player</h2>
-        <form onsubmit={(event) => handlePlayerForm(event)}>
-          <div class="form-group">
-            <label for="player-first-name">Player Name:</label>
-            <input type="text" name="player-first-name" value={editingPlayer.player_name} />
-            {#if errors.player_name}
-              <p class="error">{errors.player_name}</p>
-            {/if}
-          </div>
-          <div class="form-group">
-            <label for="player-number">Player Number:</label>
-            <input type="text" name="player-number" value={editingPlayer.player_number} />
-            {#if errors.player_number}
-              <p class="error">{errors.player_number}</p>
-            {/if}
-          </div>
-          <div class="form-group">
-            <label for="player-hometown">Hometown:</label>
-            <input type="text" name="player-hometown" value={editingPlayer.hometown} />
-            {#if errors.hometown}
-              <p class="error">{errors.hometown}</p>
-            {/if}
-          </div>
-          <div class="form-group">
-            <label for="player-state">State:</label>
-            <select name="player-state" value={editingPlayer.state}>
-              <option value="">Select a state</option>
-              <option value="AL">AL</option>
-              <option value="AK">AK</option>
-              <option value="AZ">AZ</option>
-              <option value="AR">AR</option>
-              <option value="CA">CA</option>
-              <option value="CO">CO</option>
-              <option value="CT">CT</option>
-              <option value="DE">DE</option>
-              <option value="FL">FL</option>
-              <option value="GA">GA</option>
-              <option value="HI">HI</option>
-              <option value="ID">ID</option>
-              <option value="IL">IL</option>
-              <option value="IN">IN</option>
-              <option value="IA">IA</option>
-              <option value="KS">KS</option>
-              <option value="KY">KY</option>
-              <option value="LA">LA</option>
-              <option value="ME">ME</option>
-              <option value="MD">MD</option>
-              <option value="MA">MA</option>
-              <option value="MI">MI</option>
-              <option value="MN">MN</option>
-              <option value="MS">MS</option>
-              <option value="MO">MO</option>
-              <option value="MT">MT</option>
-              <option value="NE">NE</option>
-              <option value="NV">NV</option>
-              <option value="NH">NH</option>
-              <option value="NJ">NJ</option>
-              <option value="NM">NM</option>
-              <option value="NY">NY</option>
-              <option value="NC">NC</option>
-              <option value="ND">ND</option>
-              <option value="OH">OH</option>
-              <option value="OK">OK</option>
-              <option value="OR">OR</option>
-              <option value="PA">PA</option>
-              <option value="RI">RI</option>
-              <option value="SC">SC</option>
-              <option value="SD">SD</option>
-              <option value="TN">TN</option>
-              <option value="TX">TX</option>
-              <option value="UT">UT</option>
-              <option value="VT">VT</option>
-              <option value="VA">VA</option>
-              <option value="WA">WA</option>
-              <option value="WV">WV</option>
-              <option value="WI">WI</option>
-              <option value="WY">WY</option>
-            </select>
-            {#if errors.state}
-              <p class="error">{errors.state}</p>
-            {/if}
-          </div>
-          <div class="form-group">
-            <label for="player-position">Position:</label>
-            <select name="player-position" value={editingPlayer.position}>
-              <option value="Attack">Attack</option>
-              <option value="Midfield">Midfield</option>
-              <option value="Defense">Defense</option>
-              <option value="Goalie">Goalie</option>
-              <option value="Faceoff Specialist">Faceoff Specialist</option>
-              <option value="Long Stick Midfielder">Long Stick Midfielder</option>
-            </select>
-            {#if errors.position}
-              <p class="error">{errors.position}</p>
-            {/if}
-          </div>
-          <div class="form-group">
-            <label for="player-class">Class:</label>
-            <select name="player-class" value={editingPlayer.player_class}>
-              <option value="Freshman">Freshman</option>
-              <option value="Sophomore">Sophomore</option>
-              <option value="Junior">Junior</option>
-              <option value="Senior">Senior</option>
-            </select>
-            {#if errors.playerClass}
-              <p class="error">{errors.playerClass}</p>
-            {/if}
-          </div>
-          <div class="form-group">
-            <label for="player-height">Height:</label>
-            <div class="height-inputs">
-              <input type="number" name="player-height-feet" placeholder="Feet" min="0" value={editingPlayer.height_feet} />
-              <input type="number" name="player-height-inches" placeholder="Inches" min="0" max="11" value={editingPlayer.height_inches} />
-            </div>
-            {#if errors.height}
-              <p class="error">{errors.height}</p>
-            {/if}
-          </div>
-          <div class="form-group">
-            <label for="player-weight">Weight (lbs):</label>
-            <input type="number" name="player-weight" min="0" value={editingPlayer.weight} />
-            {#if errors.weight}
-              <p class="error">{errors.weight}</p>
-            {/if}
-          </div>
-          <div class="modal-actions">
-            <button type="button" onclick={closeEditModal} class="cancel-button">Cancel</button>
-            <button type="submit" class="sign-in-button">Save Changes</button>
-          </div>
-        </form>
-      </div>
-    </div>
-  {/if}
-
-  {#if showDeleteConfirm}
-    <div class="modal-backdrop">
-      <div class="modal-content">
-        <h2>Are you sure you want to delete this team?</h2>
-        <div class="modal-actions">
-          <button type="button" onclick={closeDeleteModal} class="cancel-button">Cancel</button>
-          <button type="button" onclick={() => handleDeletePlayer(editingPlayer)} class="sign-in-button">Delete</button>
+{#if showEditModal}
+  <div class="modal-backdrop">
+    <div class="modal-content">
+      <h2>Edit Player</h2>
+      <form onsubmit={(event) => handlePlayerForm(event)}>
+        <div class="form-group">
+          <label for="player-first-name">Player Name:</label>
+          <input type="text" name="player-first-name" value={editingPlayer.player_name} />
+          {#if errors.player_name}
+            <p class="error">{errors.player_name}</p>
+          {/if}
         </div>
-      </div>
+        <div class="form-group">
+          <label for="player-number">Player Number:</label>
+          <input type="text" name="player-number" value={editingPlayer.player_number} />
+          {#if errors.player_number}
+            <p class="error">{errors.player_number}</p>
+          {/if}
+        </div>
+        <div class="form-group">
+                    <label for="player-hometown">Hometown:</label>
+                    <input
+                        type="text"
+                        name="player-hometown"
+                        value={editingPlayer.hometown}
+                    />
+                    {#if errors.hometown}
+                        <p class="error">{errors.hometown}</p>
+                    {/if}
+                </div>
+                <div class="form-group">
+                    <label for="player-state">State:</label>
+                    <select name="player-state" value={editingPlayer.state}>
+                      <option value="">Select a state</option>
+                      <option value="AL">AL</option>
+                      <option value="AK">AK</option>
+                      <option value="AZ">AZ</option>
+                      <option value="AR">AR</option>
+                      <option value="CA">CA</option>
+                      <option value="CO">CO</option>
+                      <option value="CT">CT</option>
+                      <option value="DE">DE</option>
+                      <option value="FL">FL</option>
+                      <option value="GA">GA</option>
+                      <option value="HI">HI</option>
+                      <option value="ID">ID</option>
+                      <option value="IL">IL</option>
+                      <option value="IN">IN</option>
+                      <option value="IA">IA</option>
+                      <option value="KS">KS</option>
+                      <option value="KY">KY</option>
+                      <option value="LA">LA</option>
+                      <option value="ME">ME</option>
+                      <option value="MD">MD</option>
+                      <option value="MA">MA</option>
+                      <option value="MI">MI</option>
+                      <option value="MN">MN</option>
+                      <option value="MS">MS</option>
+                      <option value="MO">MO</option>
+                      <option value="MT">MT</option>
+                      <option value="NE">NE</option>
+                      <option value="NV">NV</option>
+                      <option value="NH">NH</option>
+                      <option value="NJ">NJ</option>
+                      <option value="NM">NM</option>
+                      <option value="NY">NY</option>
+                      <option value="NC">NC</option>
+                      <option value="ND">ND</option>
+                      <option value="OH">OH</option>
+                      <option value="OK">OK</option>
+                      <option value="OR">OR</option>
+                      <option value="PA">PA</option>
+                      <option value="RI">RI</option>
+                      <option value="SC">SC</option>
+                      <option value="SD">SD</option>
+                      <option value="TN">TN</option>
+                      <option value="TX">TX</option>
+                      <option value="UT">UT</option>
+                      <option value="VT">VT</option>
+                      <option value="VA">VA</option>
+                      <option value="WA">WA</option>
+                      <option value="WV">WV</option>
+                      <option value="WI">WI</option>
+                      <option value="WY">WY</option>
+                    </select>
+                    {#if errors.state}
+                        <p class="error">{errors.state}</p>
+                    {/if}
+                </div>
+                <div class="form-group">
+                    <label for="player-position">Position:</label>
+                    <select
+                        name="player-position"
+                        value={editingPlayer.position}
+                    >
+                        <option value="">Select a Position</option>
+                        <option value="Attack">Attack</option>
+                        <option value="Midfield">Midfield</option>
+                        <option value="Defense">Defense</option>
+                        <option value="Goalie">Goalie</option>
+                        <option value="Faceoff Specialist"
+                            >Faceoff Specialist</option
+                        >
+                        <option value="Long Stick Midfielder"
+                            >Long Stick Midfielder</option
+                        >
+                    </select>
+                    {#if errors.position}
+                        <p class="error">{errors.position}</p>
+                    {/if}
+                </div>
+                <div class="form-group">
+                    <label for="player-class">Class:</label>
+                    <select name="player-class" value={editingPlayer.player_class}>
+                        <option value="">Select a Class</option>
+                        <option value="Freshman">Freshman</option>
+                        <option value="Sophomore">Sophomore</option>
+                        <option value="Junior">Junior</option>
+                        <option value="Senior">Senior</option>
+                    </select>
+                    {#if errors.playerClass}
+                        <p class="error">{errors.playerClass}</p>
+                    {/if}
+                </div>
+                <div class="form-group">
+                    <label for="player-height">Height:</label>
+                    <div class="height-inputs">
+                        <input
+                            type="number"
+                            name="player-height-feet"
+                            placeholder="Feet"
+                            min="0"
+                            value={editingPlayer.height_feet}
+                        />
+                        <input
+                            type="number"
+                            name="player-height-inches"
+                            placeholder="Inches"
+                            min="0"
+                            max="11"
+                            value={editingPlayer.height_inches}
+                        />
+                    </div>
+                    {#if errors.height}
+                        <p class="error">{errors.height}</p>
+                    {/if}
+                </div>
+                <div class="form-group">
+                    <label for="player-weight">Weight (lbs):</label>
+                    <input
+                        type="number"
+                        name="player-weight"
+                        min="0"
+                        value={editingPlayer.weight}
+                    />
+                    {#if errors.weight}
+                        <p class="error">{errors.weight}</p>
+                    {/if}
+                </div>
+        <div class="modal-actions">
+          <button type="button" onclick={closeEditModal} class="cancel-button">Cancel</button>
+          <button type="submit" class="sign-in-button">Save Changes</button>
+        </div>
+      </form>
     </div>
-  {/if}
+  </div>
+{/if}
+
+
+{#if showDeleteConfirm}
+<div class="modal-backdrop">
+  <div class="modal-content">
+    <h2>Are you sure you want to delete this player?</h2>
+    <div class="modal-actions">
+      <button type="button" onclick={closeDeleteModal} class="cancel-button">Cancel</button>
+      <button type="button" onclick={() => handleDeletePlayer(editingPlayer)} class="sign-in-button">Delete</button>
+    </div>
+
+  </div>
+</div>
+{/if}
 </div>

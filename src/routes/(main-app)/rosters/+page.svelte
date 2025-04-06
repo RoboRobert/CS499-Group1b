@@ -2,7 +2,6 @@
   import { invalidateAll } from "$app/navigation";
   import type { Team } from "$lib/database/Team";
   import type { PageProps } from "./$types";
-  import {v4 as uuidv4} from "uuid"
 
   let { data }: PageProps = $props();
 
@@ -21,6 +20,9 @@
     coach: "",
   });
 
+
+  let userRole = data.token ;
+  let canEdit = userRole === "admin" || userRole === "coach"; // Check if the user is an admin or coach
   let editingTeam: Team = $state(defaultTeam);
   let showEditModal = $state(false);
   let showDeleteConfirm = $state(false);
@@ -102,6 +104,7 @@
               "Content-Type": "application/json",
             },
             body: JSON.stringify(newTeam),
+            credentials:'include',
           });
 
           if (!response.ok) {
@@ -117,7 +120,7 @@
     } else {
       // Create a new team object; note that players is empty initially.
       newTeam = {
-        team_id: uuidv4(),
+        team_id: `${name}-${hometown}-${state}-${coach}`,
         team_name: name,
         hometown: hometown,
         state: state,
@@ -133,6 +136,7 @@
             "Content-Type": "application/json",
           },
           body: JSON.stringify(newTeam),
+          credentials:'include',
         });
 
         if (!response.ok) {
@@ -157,6 +161,7 @@
         "Content-Type": "application/json",
       },
       body: JSON.stringify(team.team_id),
+      credentials:'include',
     })
       .then((response) => {
         if (!response.ok) {
@@ -183,34 +188,26 @@
 
   <section class="list-section-1">
     <div class="buttons">
-      <button onclick={() => openEditModal(defaultTeam)} type="button"
-        >Add Teams</button
-      >
+      {#if canEdit}
+      <button onclick={() => openEditModal(defaultTeam)} type="button">Add Teams</button>
+      {/if}
     </div>
 
     <h2>All Teams</h2>
     <div class="teams-bars">
       {#each data.teams as team}
         <div class="team-bar">
-          
             <a href="/rosters/{team.team_id}" class="team-link">
               <h3 class="team-name">{team.team_name}</h3>
               <p>{team.hometown}, {team.state}</p>
               <p>Coach: {team.coach}</p>
             </a>
-          
+          {#if canEdit}
           <div class="team-actions">
-            <button
-              onclick={() => openEditModal(team)}
-              type="button"
-              class="edit-button">Edit</button
-            >
-            <button
-              onclick={() => openDeleteModal(team)}
-              type="button"
-              class="delete-button">Delete</button
-            >
+            <button onclick={() => openEditModal(team)} type="button" class="edit-button">Edit</button>
+            <button onclick={() => openDeleteModal(team)} type="button" class="delete-button">Delete</button>
           </div>
+          {/if}
         </div>
       {/each}
     </div>
