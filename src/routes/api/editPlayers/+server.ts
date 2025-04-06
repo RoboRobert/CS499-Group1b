@@ -4,7 +4,6 @@ import { json, type RequestHandler} from "@sveltejs/kit"
 
 export const POST: RequestHandler = async ({request}) => {
     const player = await request.json()
-    console.log(player);
     if(!player){
         console.error("Player is Invalid")
         return;

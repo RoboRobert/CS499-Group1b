@@ -12,13 +12,13 @@ import { dbSheetPlayersReset } from './sheetPlayers'
 
 export async function dbReset() {
     await dbLoginReset();
+    await dbGameReset();
+    await dbSheetReset();
     await dbGameStatReset();
     await dbTeamsReset();
     await dbIndividualScoreReset();
     await dbPenaltyReset();
     await dbSaveReset();
-    await dbGameReset();
-    await dbSheetReset();
     await dbPlayersReset();
     await dbTimeoutReset();
     await dbSheetInfoReset();

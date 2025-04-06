@@ -17,20 +17,26 @@ export async function getSaves(sheetid: string): Promise<Save[]> {
   return saves;
 }
 
-export async function addSave(saves: Save) {
-  let sheetid = saves.sheet_id;
-  let side = saves.side;
-  let playerno = saves.player_number;
-  let quarterone = saves.quarter_1;
-  let quartertwo = saves.quarter_2;
-  let quarterthree = saves.quarter_3;
-  let quarterfour = saves.quarter_4;
-  let ot = saves.ot;
+export async function addSave(save: Save) {
+  let sheetid = save.sheet_id;
+  let side = save.side;
+  let playerno = save.player_number;
+  let quarterone = save.quarter_1;
+  let quartertwo = save.quarter_2;
+  let quarterthree = save.quarter_3;
+  let quarterfour = save.quarter_4;
+  let ot = save.ot;
   const result = await sql`
     INSERT INTO saves (sheet_id, side, player_number, quarter_1, quarter_2, quarter_3, quarter_4, ot) VALUES (${sheetid}, ${side}, ${playerno}, ${quarterone}, ${quartertwo}, ${quarterthree}, ${quarterfour}, ${ot}) RETURNING *
   `
 
   return result
+}
+
+export async function addSaves(saves: Save[]) {
+  for(const save of saves) {
+    addSave(save);
+  }
 }
 
 export async function deleteSave(name: string) {
@@ -59,10 +65,10 @@ export async function dbSaveReset() {
             QUARTER_3 INT,
             QUARTER_4 INT,
             OT INT,
-            PRIMARY KEY (PLAYER_NUMBER, SIDE));`;
+            Foreign key (SHEET_ID) references sheets(SHEET_ID) ON DELETE CASCADE ON UPDATE CASCADE);`;
 
   const res = await addSave({
-    sheet_id: "first",
+    sheet_id: "dudes-bros-2025-04-03-15:20-0",
     side: 0,
     player_number: 69,
     quarter_1: 1,

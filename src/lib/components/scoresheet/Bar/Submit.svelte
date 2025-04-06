@@ -1,31 +1,52 @@
 <script lang="ts">
-  import { base } from "$app/paths";
-  import { json } from "@sveltejs/kit";
+  import { goto } from "$app/navigation";
+  import type { SheetErr } from "$lib/backendChecker";
   import {
-    goals,
     clears,
+    coachName,
     extraMan,
     faceoffs,
-    groundBalls,
+    getPlayerMap,
+    goals,
     goalTrack,
+    groundBalls,
     metaStats,
     penalties,
-    players,
     saves,
     shots,
     teamName,
     timeouts,
-    type SheetData,
-    coachName,
+    type SheetData
   } from "../data.svelte";
-  import type { SheetErr } from "$lib/backendChecker";
   import { addIDError } from "../frontendChecker.svelte";
-  import { goto } from "$app/navigation";
 
   let showConfirmModal = false;
   let showConfirmButton = false;
 
   let message = "";
+
+  function checkObj(object): boolean {
+    return Object.values(object).every(value => value != null && value != undefined);
+  }
+
+  function getScoresheetData(): SheetData {
+    return {
+      coachName: coachName,
+      teamName: teamName,
+      players: [Array.from(getPlayerMap(0).values()), Array.from(getPlayerMap(1).values())],
+      saves: saves,
+      goals: goals,
+      goalTrack: [goalTrack[0].filter((p) => checkObj(p)), goalTrack[1].filter((p) => checkObj(p))],
+      groundBalls: groundBalls,
+      shots: shots,
+      clears: clears,
+      faceoffs: faceoffs,
+      extraMan: extraMan,
+      timeouts: timeouts,
+      penalties: [penalties[0].filter((p) => checkObj(p)), penalties[1].filter((p) => checkObj(p))],
+      metaStats: metaStats,
+    };
+  }
 
   // Sends the scoresheet to the add endpoint
   async function confirmScoresheet() {
@@ -35,22 +56,7 @@
   }
 
   async function uploadScoresheet() {
-    const scoresheetData: SheetData = {
-      coachName: coachName,
-      teamName: teamName,
-      players: players,
-      saves: saves,
-      goals: goals,
-      goalTrack: goalTrack,
-      groundBalls: groundBalls,
-      shots: shots,
-      clears: clears,
-      faceoffs: faceoffs,
-      extraMan: extraMan,
-      timeouts: timeouts,
-      penalties: penalties,
-      metaStats: metaStats,
-    };
+    const scoresheetData: SheetData = getScoresheetData();
     const scoresheetJSON = JSON.stringify(scoresheetData);
 
     // Send the scoresheet data to the scoresheet/add endpoint
@@ -71,22 +77,8 @@
   }
 
   async function checkScoresheet() {
-    const scoresheetData: SheetData = {
-      coachName: coachName,
-      teamName: teamName,
-      players: players,
-      saves: saves,
-      goals: goals,
-      goalTrack: goalTrack,
-      groundBalls: groundBalls,
-      shots: shots,
-      clears: clears,
-      faceoffs: faceoffs,
-      extraMan: extraMan,
-      timeouts: timeouts,
-      penalties: penalties,
-      metaStats: metaStats,
-    };
+    const scoresheetData: SheetData = getScoresheetData();
+    console.log(scoresheetData.players);
     const scoresheetJSON = JSON.stringify(scoresheetData);
 
     console.log(scoresheetJSON);

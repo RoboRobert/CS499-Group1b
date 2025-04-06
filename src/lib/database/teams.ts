@@ -207,7 +207,7 @@ export async function dbPlayersReset() {
             FAILED_SHOTS INT,
             GROUND_BALLS INT,
             primary key(PLAYER_NAME, PLAYER_NUMBER),
-            foreign key(TEAM_ID) references teams(TEAM_ID) ON DELETE CASCADE ON UPDATE CASCADE);`;
+            foreign key(TEAM_ID) references teams(TEAM_ID) ON DELETE CASCADE);`;
 
   for(const player of auburnLacrosseRoster) {
     addPlayer(player);

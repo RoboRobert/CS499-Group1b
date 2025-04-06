@@ -1,4 +1,4 @@
-import type { Penalty, Player, Save, SheetData, Stat } from "./components/scoresheet/data.svelte";
+import type { SheetPenalty, ScoresheetPlayer, SheetSave, SheetData, Stat } from "./components/scoresheet/data.svelte";
 
 export interface SheetErr {
   elementID: string;
@@ -36,7 +36,7 @@ export function checkSheet(rawData: any): SheetErr[] {
   // Check all the players.
   for (let i = 0; i < data.players.length; i++) {
     for (let j = 0; j < data.players[i].length; j++) {
-      let player: Player = data.players[i][j];
+      let player: ScoresheetPlayer = data.players[i][j];
       // If the player is empty, ignore it.
       if (!player.name && !player.number && !player.position) {
         continue;
@@ -58,7 +58,7 @@ export function checkSheet(rawData: any): SheetErr[] {
   // Check all the saves
   for (let i = 0; i < data.saves.length; i++) {
     for (let j = 0; j < data.saves[i].length; j++) {
-      let save: Save = data.saves[i][j];
+      let save: SheetSave = data.saves[i][j];
       // If the save is empty, ignore it.
       if (!save.goalie) {
         continue;
@@ -86,7 +86,7 @@ export function checkSheet(rawData: any): SheetErr[] {
   // Check all the penalties
   for (let i = 0; i < data.penalties.length; i++) {
     for (let j = 0; j < data.penalties[i].length; j++) {
-      let penalty: Penalty = data.penalties[i][j];
+      let penalty: SheetPenalty = data.penalties[i][j];
       // If the penalty is empty, ignore it.
       if (!penalty.infraction && penalty.playerno == null && !penalty.quarter && !penalty.time && !penalty.timeout) {
         continue;
