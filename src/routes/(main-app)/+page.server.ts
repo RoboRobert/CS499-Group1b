@@ -5,6 +5,7 @@ import { getLoginUser } from "$lib/logon/logins";
 import { getLoginRole } from "$lib/logon/logins";
 import { addLogin } from '$lib/logon/logins';
 import type { Game } from "$lib/database/Sheet";
+import { redirect } from "@sveltejs/kit";
 
 // Loads in all the teams from the api
 export const load: PageServerLoad = async ({ fetch }) => {
@@ -115,7 +116,20 @@ export const actions = {
                 role: role
              };
         }
-	}
+	},
+    setTheme: async ({url, cookies}) => {
+        const theme = url.searchParams.get("theme");
+        const redirectTo = url.searchParams.get("redirectTo");
+        console.log(redirectTo);
+    
+        if(theme){
+          cookies.set("colortheme", theme, {
+            path: '/',
+            maxAge: 60 *60 * 24*365,
+          })
+        }
+        throw redirect(303, redirectTo ?? '/');
+      },
 
 
 } satisfies Actions;

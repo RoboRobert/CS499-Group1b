@@ -1,5 +1,10 @@
 <script lang="ts">
   import "$lib/styles/app.css";
+  import { enhance } from "$app/forms";
+  import {page} from "$app/stores";
+  import "$lib/styles/app.css";
+  import type { SubmitFunction } from "./$types";
+  
   //import { enhance } from '$app/forms';
   import type { ActionData } from './$types.js';
   //export let data;
@@ -23,6 +28,17 @@
   const openRegModal = () => (showRegModal = true);
   // Function to close the Register modal
   const closeRegModal = () => (showRegModal = false, regMessage = '');
+
+  let showThemeOptions = false;
+   // Function to open the Register modal
+   const openThemeOptions = () => (showThemeOptions = !showThemeOptions);
+
+  const submitUpdateTheme: SubmitFunction = ({ action }) => {
+    const theme = action.searchParams.get('theme');
+    if(theme){
+      document.documentElement.setAttribute('data-theme', theme);
+    }
+  }
 
 </script>
 
