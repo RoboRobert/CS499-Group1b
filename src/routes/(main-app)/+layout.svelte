@@ -69,8 +69,8 @@
           <input type="password" id="password" name="password" required />
         </div>
         <div class="form-group">
-          <label for="key">Key:</label>
-          <select id="key" name="key" required>
+          <label for="role">Role:</label>
+          <select id="role" name="role" required>
             <option value="scorekeeper">Scorekeeper</option>
             <option value="coach">Coach</option>
             <option value="webmaster">Webmaster</option>

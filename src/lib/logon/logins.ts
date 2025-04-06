@@ -26,13 +26,26 @@ export async function getLoginPass(user: string, pass: string): Promise<Login> {
   return logins[0]
 }
 
+export async function getLoginRole(user: string, pass: string): Promise<string> {
+  const logins = await sql<Login[]>`
+      SELECT role FROM logins WHERE password = ${pass} and username = ${user}
+    `
+
+  // Check if logins has only one result
+  if (logins.length > 0 && logins.length < 2) {
+    return logins[0].role; // Return the role directly from the first entry
+  } else {
+    throw new Error("User not found, or too many accounts with the same username");
+  }
+}
+
 export async function addLogin(login: Login) {
   let user = login.user;
   let pass = login.pass;
-  let key = login.key
+  let role = login.role;
 
   const result = await sql`
-    INSERT INTO logins (username, password, key) VALUES (${user}, ${pass}, ${key}) RETURNING *
+    INSERT INTO logins (username, password, role) VALUES (${user}, ${pass}, ${role}) RETURNING *
   `
 
   return result
@@ -59,7 +72,7 @@ export async function dbLoginReset() {
   await sql`CREATE TABLE logins (
             username varchar(25),
             password varchar(25),
-            key varchar(20),
+            role varchar(20),
             primary key (username, password));`
 
   const res = await sql`INSERT INTO logins (username, password)
