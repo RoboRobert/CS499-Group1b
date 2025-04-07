@@ -38,8 +38,27 @@
     const formData = new FormData(event.target as HTMLFormElement);
     const username = formData.get('username') as string;
     const password = formData.get('password') as string;
+    const form = "signin";
 
-    const response = await fetch(`/api/logon?username=${username}&password=${password}`, {
+    const response = await fetch(`/api/logon?username=${username}&password=${password}&form=${form}`, {
+      method: 'GET',
+      headers: { 'Content-Type': 'application/json' },
+    });
+    console.log("Response status:", response.status);
+
+    const data = await response.json();
+    console.log("Response data:", data);
+  }
+
+  async function handleRegisterForm(event: Event){
+    //event.preventDefault();
+    const formData = new FormData(event.target as HTMLFormElement);
+    const username = formData.get('username') as string;
+    const password = formData.get('password') as string;
+    const role = formData.get('role') as string;
+    const form = "register";
+
+    const response = await fetch(`/api/logon?username=${username}&password=${password}&role=${role}&form=${form}`, {
       method: 'GET',
       headers: { 'Content-Type': 'application/json' },
     });
@@ -156,7 +175,7 @@
     <!-- Modal Content -->
     <div class="modal-content">
       <h2>Register</h2>
-      <form method="POST" action="?/register">
+      <form onsubmit={(event) => handleRegisterForm(event)}>
         <div class="form-group">
           <label for="username">Username:</label>
           <input type="text" id="username" name="username" required />
