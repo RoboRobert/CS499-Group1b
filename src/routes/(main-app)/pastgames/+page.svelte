@@ -65,7 +65,7 @@
             <h3>{game.homescore}-{game.awayscore}</h3>
             <h3>{game.date} {game.time}</h3>
           </a>
-          <div class="player-actions">
+          <div class="team-actions">
             <button onclick={() => openDeleteModal(game)} class="delete-button">Delete</button>
           </div>
         </div>
