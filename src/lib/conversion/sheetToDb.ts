@@ -92,9 +92,9 @@ export function penaltiesToDbPenalties(sheet_id: string, penalties: SheetPenalty
     dbPenalties.push(convertPenalty(sheet_id, 0, sheetPenalty));
   }
 
-  for (let i = 0; i < penalties[0].length; i++) {
+  for (let i = 0; i < penalties[1].length; i++) {
     const sheetPenalty: SheetPenalty = penalties[1][i];
-    dbPenalties.push(convertPenalty(sheet_id, 0, sheetPenalty));
+    dbPenalties.push(convertPenalty(sheet_id, 1, sheetPenalty));
   }
 
   return dbPenalties;

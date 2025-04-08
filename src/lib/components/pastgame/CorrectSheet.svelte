@@ -58,21 +58,8 @@
     
     // First deletes the sheet with the corresponding ID, then replaces it with the new data.
     async function correctScoresheet() {
-      // Delete current scoresheet
-      try {
-        const result = await fetch(`/api/scoresheet/${sheet_id.id}`, {
-          method: "DELETE",
-          headers: {
-            "Content-Type": "application/json",
-          },
-        });
-      } catch (error) {
-        console.error(error);
-      }
-
       const scoresheetData: SheetData = getScoresheetData();
       const scoresheetJSON = JSON.stringify(scoresheetData);
-  
       // Send the scoresheet data to the scoresheet/add endpoint
       try {
         const result = await fetch("/api/scoresheet/", {
@@ -81,6 +68,18 @@
             "Content-Type": "application/json",
           },
           body: scoresheetJSON,
+        });
+      } catch (error) {
+        console.error(error);
+      }
+
+      // Delete the previous scoresheet
+      try {
+        const result = await fetch(`/api/scoresheet/${sheet_id.id}`, {
+          method: "DELETE",
+          headers: {
+            "Content-Type": "application/json",
+          },
         });
       } catch (error) {
         console.error(error);
