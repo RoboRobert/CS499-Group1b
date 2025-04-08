@@ -47,7 +47,7 @@
 
 <title>Past Games</title>
 
-<div>
+<div class="roster-page">
   <section class="past-games-dash">
     <h1>Past Games</h1>
     <h3>A List of All Published Games</h3>

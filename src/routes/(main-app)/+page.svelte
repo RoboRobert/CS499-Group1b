@@ -5,7 +5,7 @@
 
 <title>Home Page</title>
 
-<div>
+<div class="roster-page">
   <section class="home-dash">
     <!-- <img class="smegol" src="/LOGO.png" alt="Project Logo"/> -->
     <img class="smegol" src="/LOGO_NO_LEGS.png" alt="Project Logo" />

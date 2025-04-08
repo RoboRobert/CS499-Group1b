@@ -167,6 +167,47 @@ h6 {
   box-shadow: 0 4px 8px rgba(255, 255, 255, 0.2);
 }
 
+/* theme Options */
+.theme-buttons {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 5px;;
+}
+.theme-buttons button {
+  background-color: var(--clr-button);
+  color: var(--clr-light-a0);
+  padding: 10px;
+  border: none;
+  border-radius: 100%;
+  cursor: pointer;
+  position: relative;
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.theme-options {
+  display: none;
+  position: absolute;
+  background-color: var(--clr-surface-a10);
+  border: 1px solid var(--clr-surface-a10);
+  border-radius: 4px;
+  padding: 10px;
+  margin-top: 5px;
+  z-index: 1000;
+}
+
+/* Show the theme options when showThemeOptions is true */
+.theme-container.show .theme-options {
+  display: block;
+}
+
+ul li:hover .theme-options {
+  display: block;
+}
 
 
 
@@ -423,15 +464,15 @@ h6 {
 }
 
 .player-card {
-  display: block;
+  display: grid;
   background-color: var(--clr-surface-a30);
   color: var(--clr-light-a0);
   border-radius: 8px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  align-items: stretch;
+  /* align-items: stretch; */
   text-align: center;
   border: var(--clr-surface-a30) solid 1px;
-  margin-bottom: 20px;
+  /* margin-bottom: 20px; */
   position: relative;
 }
 
@@ -448,7 +489,7 @@ h6 {
 .player-link {
   width: 100%;
   height: 100%;
-  padding: 15px;
+  /* padding: 15px; */
   text-decoration: none;
   color: var(--clr-light-a0);
 
@@ -467,7 +508,8 @@ h6 {
 
 .edit-button,
 .delete-button {
-  
+  display: inline-block;
+  margin: 5px;
   padding: 8px 12px;
   font-size: 0.9rem;
   border: none;
@@ -509,7 +551,6 @@ h6 {
 }
 
 .rosters-dash {
- 
   padding: 15px;
   text-align: center;
   margin-bottom: 20px;
@@ -519,7 +560,7 @@ h6 {
 .teams-bars {
   display: grid;
   grid-template-rows: repeat(auto, minmax(250px, 1fr));
-  gap: 10px;
+  gap: 20px;
   text-align: left;
 }
 

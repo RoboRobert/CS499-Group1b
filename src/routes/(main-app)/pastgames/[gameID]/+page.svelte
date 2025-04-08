@@ -43,7 +43,7 @@
 
 <title>Team {data.game.game_id}</title>
 
-<div>
+<div class="roster-page">
   <!-- <a href="./">Back</a> -->
   <section class="game-dash">
     <h3>{data.game.hometeam} vs. {data.game.awayteam}</h3>
