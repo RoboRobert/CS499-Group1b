@@ -1,4 +1,5 @@
 export interface SheetData {
+  game_id: string,
   teamName: string[];
   coachName: string[];
   players: ScoresheetPlayer[][];
@@ -64,7 +65,7 @@ export interface ScoresheetPlayer {
   groundBalls: number;
 }
 
-export const sheet_id = $state({id: ""});
+export const game_id = $state({game_id: "", sheet_id: ""});
 
 export const teamName = $state(["", ""]);
 

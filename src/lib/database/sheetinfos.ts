@@ -75,9 +75,9 @@ export async function dbSheetInfoReset() {
 
   const res = await addSheetInfo({
     sheet_id: 'dudes-bros-2025-04-03-15:20-0',
-    date: '1/29/25',
+    date: '2025-04-03',
     site: 'LMAOXD',
-    start_time: '4:30',
+    start_time: '04:30',
     scorekeeper: 'Dudebro',
     oppscorekeeper: 'Dudebro2',
     timekeeper: 'Dudebro3',

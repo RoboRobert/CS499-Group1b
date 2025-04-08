@@ -16,6 +16,7 @@ export const POST = async ({ request }) => {
     const rawData = await request.json();
   
     const data: SheetData = {
+      game_id: rawData.game_id,
       teamName: rawData.teamName,
       coachName: rawData.coachName,
       players: rawData.players,
@@ -31,15 +32,21 @@ export const POST = async ({ request }) => {
       goals: rawData.goals,
       goalTrack: rawData.goalTrack,
     };
-  
-    // const game_id = `${data.teamName[0]}-${data.teamName[1]}-${data.metaStats.date}-${data.metaStats.gameStart}`;
-    // const numSheets = (await getSheetsByGame(game_id)).length;
-    // const sheet_id = `${game_id}-${numSheets}`;
+    
+    // Assign a game id to the scoresheet.
+    // If one is supplied, use it. Otherwise, create a new one.
+    let game_id = data.game_id;
+    if(data.game_id == "") {
+      game_id = `${data.teamName[0]}-${data.teamName[1]}-${data.metaStats.date}-${data.metaStats.gameStart}`;
+    }
+   
+    const numSheets = (await getSheetsByGame(game_id)).length;
+    const sheet_id = `${game_id}-${numSheets}`;
   
     // Test data!
-    const game_id = "dudes-bros-2025-04-03-15:20";
-    const numSheets = (await getSheetsByGame(game_id)).length;
-    const sheet_id = `dudes-bros-2025-04-03-15:20-${numSheets}`;
+    // const game_id = "dudes-bros-2025-04-03-15:20";
+    // const numSheets = (await getSheetsByGame(game_id)).length;
+    // const sheet_id = `dudes-bros-2025-04-03-15:20-${numSheets}`;
   
     // Start by adding a game if necessary, then a sheet to that game.
     await addGameIfPossible({

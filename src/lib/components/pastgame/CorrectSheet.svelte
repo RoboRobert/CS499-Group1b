@@ -6,6 +6,7 @@
       coachName,
       extraMan,
       faceoffs,
+      game_id,
       getPlayerMap,
       goals,
       goalTrack,
@@ -13,7 +14,6 @@
       metaStats,
       penalties,
       saves,
-      sheet_id,
       shots,
       teamName,
       timeouts,
@@ -32,6 +32,7 @@
   
     function getScoresheetData(): SheetData {
       return {
+        game_id: game_id.game_id,
         coachName: coachName,
         teamName: teamName,
         players: [Array.from(getPlayerMap(0).values()), Array.from(getPlayerMap(1).values())],
@@ -60,7 +61,7 @@
     async function correctScoresheet() {
       const scoresheetData: SheetData = getScoresheetData();
       const scoresheetJSON = JSON.stringify(scoresheetData);
-      // Send the scoresheet data to the scoresheet/add endpoint
+      // Send the scoresheet data to the scoresheet POST endpoint
       try {
         const result = await fetch("/api/scoresheet/", {
           method: "POST",
@@ -75,7 +76,7 @@
 
       // Delete the previous scoresheet
       try {
-        const result = await fetch(`/api/scoresheet/${sheet_id.id}`, {
+        const result = await fetch(`/api/scoresheet/${game_id.sheet_id}`, {
           method: "DELETE",
           headers: {
             "Content-Type": "application/json",
