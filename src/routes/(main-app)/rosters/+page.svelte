@@ -45,6 +45,14 @@
     editingTeam = defaultTeam;
   };
 
+  // Regex patterns for validation
+  const regexPatterns = {
+  name: /^[a-zA-Z0-9 ]{3,50}$/, // Alphanumeric, 3-50 characters
+  hometown: /^[a-zA-Z ]{2,50}$/, // Letters and spaces, 2-50 characters
+  state: /^[A-Z]{2}$/, // Two uppercase letters
+  coach: /^[a-zA-Z ]{3,50}$/, // Letters and spaces, 3-50 characters
+  };
+
   // Combined handler for form submission to add or edit a team
   async function handleTeamForm(event: Event) {
     event.preventDefault();
@@ -57,12 +65,20 @@
 
     // Reset form errors
     formErrors = { name: "", hometown: "", state: "", coach: "" };
-
-    // Validate form data
-    if (!name) formErrors.name = "Team name is required";
-    if (!hometown) formErrors.hometown = "Hometown is required";
-    if (!state) formErrors.state = "State is required";
-    if (!coach) formErrors.coach = "Coach name is required";
+    
+    // Validate form data using regex
+    if (!regexPatterns.name.test(name)) {
+      formErrors.name = "Team name must be 3-50 alphanumeric characters.";
+    }
+    if (!regexPatterns.hometown.test(hometown)) {
+      formErrors.hometown = "Hometown must be 2-50 letters and spaces.";
+    }
+    if (!regexPatterns.state.test(state)) {
+      formErrors.state = "State must be a valid two-letter code (e.g., AL).";
+    }
+    if (!regexPatterns.coach.test(coach)) {
+      formErrors.coach = "Coach name must be 3-50 letters and spaces.";
+    }
 
     // Check for duplicate team name
     if (
@@ -224,14 +240,14 @@
           <label for="team-name">Team Name:</label>
           <input type="text" name="team-name" value={editingTeam.team_name} />
           {#if formErrors.name}
-            <p class="error">{formErrors.name}</p>
+            <p class="form-errors">{formErrors.name}</p>
           {/if}
         </div>
         <div class="form-group">
           <label for="hometown">Hometown:</label>
           <input type="text" name="hometown" value={editingTeam.hometown} />
           {#if formErrors.hometown}
-            <p class="error">{formErrors.hometown}</p>
+            <p class="form-errors">{formErrors.hometown}</p>
           {/if}
         </div>
         <div class="form-group">
@@ -290,14 +306,14 @@
             <option value="WY">WY</option>
           </select>
           {#if formErrors.state}
-            <p class="error">{formErrors.state}</p>
+            <p class="form-errors">{formErrors.state}</p>
           {/if}
         </div>
         <div class="form-group">
           <label for="coach-name">Coach:</label>
           <input type="text" name="coach-name" value={editingTeam.coach} />
           {#if formErrors.coach}
-            <p class="error">{formErrors.coach}</p>
+            <p class="form-errors">{formErrors.coach}</p>
           {/if}
         </div>
         <div class="modal-actions">

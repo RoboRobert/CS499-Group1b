@@ -32,7 +32,7 @@
   --clr-home: white;
   --clr-button:#6c88ff;
   --clr-button-hover: #4b79ff;
-  --clr-input: #686872;
+  --clr-input: #e1e2f0;
 }
 
 :root[data-theme="light"] {
@@ -67,7 +67,7 @@
 --clr-home: black;
 --clr-button:#636363;
 --clr-button-hover: #4c4c4c;
---clr-input: white;
+--clr-input: #e1e2f0;
 }
 
 /* Global Styles */
@@ -171,14 +171,16 @@ h6 {
 .theme-buttons {
   display: flex;
   gap: 10px;
-  margin-bottom: 5px;;
+  margin-bottom: 5px;
 }
 .theme-buttons button {
   background-color: var(--clr-button);
   color: var(--clr-light-a0);
-  padding: 10px;
+  padding-top: 5px;
+  height: 50px;
+  width: 50px;
   border: none;
-  border-radius: 100%;
+  border-radius: 50%;
   cursor: pointer;
   position: relative;
 }
@@ -274,13 +276,21 @@ ul li:hover .theme-options {
   width: 100%;
   padding: 5px;
   border-radius: 5px;
+  border: none;
   background-color: var(--clr-input);
-  color:var(--clr-home);
+  /* color:var(--clr-home); */
 }
 .form-group select{
   background-color: var(--clr-input);
+  border: none;
+  padding: 5px;
   border-radius: 8px;
-  color: var(--clr-home)
+  /* color: var(--clr-home) */
+}
+.form-errors{
+  color: red;
+  font-size: 0.9rem;
+  margin-top: 5px;
 }
 
 
@@ -298,14 +308,14 @@ ul li:hover .theme-options {
 }
 
 .modal-content {
-  background-color: var(--clr-surface-a0);
-  color: var(--clr-home);
+  background-color: var(--clr-light-a0);
+  /* color: var(--clr-home); */
   border-radius: 8px;
   padding: 20px;
   width: 400px;
   max-height: 80vh;
   overflow-y: auto;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  /* box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3); */
 }
 .modal-content h2 {
   font-size: 20px;

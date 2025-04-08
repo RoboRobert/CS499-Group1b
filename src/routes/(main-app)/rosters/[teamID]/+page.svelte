@@ -52,6 +52,19 @@
     editingPlayer = null;
   };
 
+  const regexPatterns = {
+  playerName: /^[a-zA-Z ]{2,50}$/, // Letters and spaces, 2-50 characters
+  hometown: /^[a-zA-Z ]{2,50}$/, // Letters and spaces, 2-50 characters
+  state: /^[A-Z]{2}$/, // Two uppercase letters (e.g., AL, NY)
+  playerNumber: /^[0-9]{1,2}$/, // 1-2 digit numbers (0-99)
+  position: /^(Attack|Midfield|Defense|Goalie|Faceoff Specialist|Long Stick Midfielder)$/, // Valid positions
+  playerClass: /^(Freshman|Sophomore|Junior|Senior)$/, // Valid class values
+  heightFeet: /^[0-9]{1}$/, // 1 digit (0-9)
+  heightInches: /^[0-9]{1,2}$/, // 1-2 digits (0-11)
+  weight: /^[0-9]{1,3}$/, // 1-3 digits (e.g., 100-999 lbs)
+  };
+
+
   async function handlePlayerForm(event: Event) {
     event.preventDefault();
 
@@ -69,26 +82,32 @@
 
     errors = {};
 
-    if (!firstName) errors.firstName = "First name is required.";
-    if (!hometown) errors.hometown = "Hometown is required.";
-    if (!state) errors.state = "State is required.";
-    if (!playerNumber) errors.number = "Number is required.";
-    if (!position) errors.position = "Position is required.";
-    if (!player_class) errors.class = "Class is required.";
-    if (!heightFeet) errors.heightFeet = "Height (feet) is required.";
-    if (!heightInches) errors.heightInches = "Height (inches) is required.";
-    if (!weight) errors.weight = "Weight is required.";
-
-    if (parseInt(playerNumber) < 0 || parseInt(playerNumber) > 99) {
-      errors.number = "Player number must be between 0 and 99.";
+    if (!regexPatterns.playerName.test(firstName)) {
+      errors.player_name = "Player name must be 2-50 characters long and contain only letters and spaces.";
     }
-
-    if (parseInt(heightFeet) < 0 || parseInt(heightInches) < 0 || parseInt(heightInches) > 11) {
-      errors.height = "Height must be valid.";
+    if (!regexPatterns.hometown.test(hometown)) {
+      errors.hometown = "Hometown must be 2-50 characters long and contain only letters and spaces.";
     }
-
-    if (parseInt(weight) < 0) {
-      errors.weight = "Weight must be a positive number.";
+    if (!regexPatterns.state.test(state)) {
+      errors.state = "State must be a valid two-letter abbreviation (e.g., AL, NY).";
+    }
+    if (!regexPatterns.playerNumber.test(playerNumber)) {
+      errors.player_number = "Player number must be a 1-2 digit number (0-99).";
+    }
+    if (!regexPatterns.position.test(position)) {
+      errors.position = "Position must be one of the following: Attack, Midfield, Defense, Goalie, Faceoff Specialist, Long Stick Midfielder.";
+    }
+    if (!regexPatterns.playerClass.test(player_class)) {
+      errors.playerClass = "Class must be one of the following: Freshman, Sophomore, Junior, Senior.";
+    }
+    if (!regexPatterns.heightFeet.test(heightFeet)) {
+      errors.height = "Height feet must be a single digit (0-9).";
+    }
+    if (!regexPatterns.heightInches.test(heightInches)) {
+      errors.height = "Height inches must be a 1-2 digit number (0-11).";
+    }
+    if (!regexPatterns.weight.test(weight)) {
+      errors.weight = "Weight must be a 1-3 digit number (e.g., 100-999 lbs).";
     }
 
     if (Object.keys(errors).length > 0) {
@@ -246,14 +265,14 @@
           <label for="player-first-name">Player Name:</label>
           <input type="text" name="player-first-name" value={editingPlayer.player_name} />
           {#if errors.player_name}
-            <p class="error">{errors.player_name}</p>
+            <p class="form-errors">{errors.player_name}</p>
           {/if}
         </div>
         <div class="form-group">
           <label for="player-number">Player Number:</label>
           <input type="text" name="player-number" value={editingPlayer.player_number} />
           {#if errors.player_number}
-            <p class="error">{errors.player_number}</p>
+            <p class="form-errors">{errors.player_number}</p>
           {/if}
         </div>
         <div class="form-group">
@@ -264,7 +283,7 @@
                         value={editingPlayer.hometown}
                     />
                     {#if errors.hometown}
-                        <p class="error">{errors.hometown}</p>
+                        <p class="form-errors">{errors.hometown}</p>
                     {/if}
                 </div>
                 <div class="form-group">
@@ -323,7 +342,7 @@
                       <option value="WY">WY</option>
                     </select>
                     {#if errors.state}
-                        <p class="error">{errors.state}</p>
+                        <p class="form-errors">{errors.state}</p>
                     {/if}
                 </div>
                 <div class="form-group">
@@ -345,7 +364,7 @@
                         >
                     </select>
                     {#if errors.position}
-                        <p class="error">{errors.position}</p>
+                        <p class="form-errors">{errors.position}</p>
                     {/if}
                 </div>
                 <div class="form-group">
@@ -358,7 +377,7 @@
                         <option value="Senior">Senior</option>
                     </select>
                     {#if errors.playerClass}
-                        <p class="error">{errors.playerClass}</p>
+                        <p class="form-errors">{errors.playerClass}</p>
                     {/if}
                 </div>
                 <div class="form-group">
@@ -381,7 +400,7 @@
                         />
                     </div>
                     {#if errors.height}
-                        <p class="error">{errors.height}</p>
+                        <p class="form-errors">{errors.height}</p>
                     {/if}
                 </div>
                 <div class="form-group">
@@ -393,7 +412,7 @@
                         value={editingPlayer.weight}
                     />
                     {#if errors.weight}
-                        <p class="error">{errors.weight}</p>
+                        <p class="form-errors">{errors.weight}</p>
                     {/if}
                 </div>
         <div class="modal-actions">
