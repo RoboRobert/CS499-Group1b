@@ -73,7 +73,7 @@ export async function dbPenaltyReset() {
     index: 0,
     timeout: "3:20",
     player_number: 20,
-    infraction: "Crosscheck",
+    infraction: "Holding",
     quarter: 2,
     time: "4:20",
   });
@@ -84,7 +84,7 @@ export async function dbPenaltyReset() {
     index: 1,
     timeout: "3:20",
     player_number: 69,
-    infraction: "Crosscheck",
+    infraction: "Holding",
     quarter: 3,
     time: "5:20",
   });

@@ -6,6 +6,7 @@
     coachName,
     extraMan,
     faceoffs,
+    game_id,
     getPlayerMap,
     goals,
     goalTrack,
@@ -31,6 +32,7 @@
 
   function getScoresheetData(): SheetData {
     return {
+      game_id: game_id.game_id,
       coachName: coachName,
       teamName: teamName,
       players: [Array.from(getPlayerMap(0).values()), Array.from(getPlayerMap(1).values())],

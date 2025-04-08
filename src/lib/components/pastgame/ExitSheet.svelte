@@ -1,9 +1,10 @@
 <script lang="ts">
     import { goto } from "$app/navigation";
+  import { game_id } from "../scoresheet/data.svelte";
   
     // Exit the current scoresheet
     async function exitScoresheet() {
-      goto("/");
+      goto(`/pastgames/${game_id.game_id}`);
     }
   </script>
   

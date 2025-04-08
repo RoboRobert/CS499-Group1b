@@ -48,7 +48,7 @@
     <a href="/">Home</a>
     <a href="/rosters ">Rosters</a>
     <a href="/pastgames ">Past Games</a>
-    <a href="/run/1">Run Mode</a>
+    <a data-sveltekit-reload href="/run/">Run Mode</a>
   </div> 
   <div>
     <ul>
