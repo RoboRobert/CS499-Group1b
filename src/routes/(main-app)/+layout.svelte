@@ -70,7 +70,7 @@
    
     <!-- </ul> -->
   </div>
-  <div class="buttons">
+  <div class="navRight">
     <form method="POST" use:enhance={submitUpdateTheme}>
       {#if !darkMode}
       <li class="theme-buttons">
@@ -88,8 +88,10 @@
       {/if}
     </form>
     
-    <button on:click={openRegModal} type="button">Register</button>
-    <button on:click={openSignInModal} type="button">Sign In</button>
+    <section class="buttons">
+    <button onclick={openRegModal} type="button">Register</button>
+    <button onclick={openSignInModal} type="button">Sign In</button>
+    </section>
   </div>
 
  
@@ -117,7 +119,7 @@
           <input type="password" id="password" name="password" required />
         </div>
         <div class="modal-actions">
-          <button type="button" on:click={closeSignInModal} class="cancel-button">Cancel</button>
+          <button type="button" onclick={closeSignInModal} class="cancel-button">Cancel</button>
           <button type="submit" class="sign-in-button">Sign In</button>
         </div>
       </form>
@@ -129,7 +131,7 @@
 <dialog open={form?.logsuccess == true && !closed}>
   <article>
     <header>
-      <a href="#close" aria-label="Close" class="close" on:click={() => closed = true}>x</a>
+      <a href="#close" aria-label="Close" class="close" onclick={() => closed = true}>x</a>
             Success
     </header>
     <p>
@@ -142,7 +144,7 @@
 <dialog open={form?.logsuccess == false && !closed}>
   <article>
     <header>
-      <a href="#close" aria-label="Close" class="close" on:click={() => closed = true}>x</a>
+      <a href="#close" aria-label="Close" class="close" onclick={() => closed = true}>x</a>
             Error
     </header>
     <p>
@@ -174,7 +176,7 @@
           </select>
         </div>
         <div class="modal-actions">
-          <button type="button" on:click={closeRegModal} class="cancel-button">Cancel</button>
+          <button type="button" onclick={closeRegModal} class="cancel-button">Cancel</button>
           <button type="submit" class="sign-in-button">Register</button>
         </div>
       </form>
@@ -186,7 +188,7 @@
 <dialog open={form?.regsuccess == true && !closed}>
   <article>
     <header>
-      <a href="#close" aria-label="Close" class="close" on:click={() => closed = true}>x</a>
+      <a href="#close" aria-label="Close" class="close" onclick={() => closed = true}>x</a>
             Success
     </header>
     <p>
@@ -199,7 +201,7 @@
 <dialog open={form?.regsuccess == false && !closed}>
   <article>
     <header>
-      <a href="#close" aria-label="Close" class="close" on:click={() => closed = true}>x</a>
+      <a href="#close" aria-label="Close" class="close" onclick={() => closed = true}>x</a>
             Error
     </header>
     <p>

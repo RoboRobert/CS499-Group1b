@@ -1,6 +1,7 @@
 <script lang="ts">
   import { invalidateAll } from "$app/navigation";
   import type { Player } from "$lib/database/Team";
+    import { error } from "@sveltejs/kit";
   import type { PageProps } from "./$types";
 
   let { data }: PageProps = $props();
@@ -41,6 +42,7 @@
   function closeEditModal() {
     showEditModal = false;
     editingPlayer = null;
+    errors = {};
   }
 
   const openDeleteModal = (player: Player) => {
@@ -129,23 +131,39 @@
       editingPlayer.height_inches = parseInt(heightInches);
       editingPlayer.weight = parseInt(weight);
 
-      try {
-          const response = await fetch("/api/editPlayers", {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify(editingPlayer),
-            credentials:'include',
-          });
+      const response = await fetch("/api/players/check", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(editingPlayer),
+        credentials:'include',
+      });
 
-        setTimeout(async () => invalidateAll(), 100);
+      const data1 = await response.json();
+      errors = data1.formErrors;
+      if (Object.keys(errors).length > 0) {
+        return;
+      }
+      else {
+        try {
+            const response = await fetch("/api/editPlayers", {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify(editingPlayer),
+              credentials:'include',
+            });
 
-        if (!response.ok) {
-          throw new Error("Failed to save player data");
+          setTimeout(async () => invalidateAll(), 100);
+
+          if (!response.ok) {
+            throw new Error("Failed to save player data");
+          }
+        } catch (error) {
+          console.error("Error:", error);
         }
-      } catch (error) {
-        console.error("Error:", error);
       }
     } else {
       newPlayer = {
@@ -167,26 +185,43 @@
         ground: 0,
       };
 
-    try {
-          const response = await fetch("/api/players", {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify(newPlayer),
-            credentials:'include',
-          });
+      const response = await fetch("/api/players/check", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(editingPlayer),
+        credentials:'include',
+      });
 
-        setTimeout(async () => invalidateAll(), 100);
-
-        if (!response.ok) {
-          throw new Error("Failed to save player data");
-        }
-      } catch (error) {
-        console.error("Error:", error);
+      const data1 = await response.json();
+      errors = data1.formErrors;
+      if (Object.keys(errors).length > 0) {
+        return;
       }
-    }
+      else {
 
+      try {
+            const response = await fetch("/api/players", {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify(newPlayer),
+              credentials:'include',
+            });
+
+          setTimeout(async () => invalidateAll(), 100);
+
+          if (!response.ok) {
+            throw new Error("Failed to save player data");
+          }
+        } catch (error) {
+          console.error("Error:", error);
+        }
+      }
+  
+    }
     closeEditModal();
   }
 

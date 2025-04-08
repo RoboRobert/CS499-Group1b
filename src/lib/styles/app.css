@@ -127,6 +127,14 @@ h6 {
   font-weight: bold;
 }
 
+.navRight {
+  display: flex;
+  gap: 10px;
+  margin-left: auto;
+  /* flex-shrink: 0; */
+  z-index: 3;
+}
+
 /* Dash Boards */
 .home-dash {
   padding: 15px;
@@ -141,8 +149,6 @@ h6 {
   /* box-shadow: 0 4px 8px rgba(255, 255, 255, 0.2); */
   color:var(--clr-home);
 }
-
-
 
 .game-dash {
   color: var(--clr-home);
@@ -222,7 +228,7 @@ ul li:hover .theme-options {
   display: flex;
   gap: 10px;
   margin-left: auto;
-  flex-shrink: 0;
+  /* flex-shrink: 0; */
   z-index: 3;
 }
 

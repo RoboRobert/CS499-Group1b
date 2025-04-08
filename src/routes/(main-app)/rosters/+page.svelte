@@ -1,6 +1,7 @@
 <script lang="ts">
   import { invalidateAll } from "$app/navigation";
   import type { Team } from "$lib/database/Team";
+    import { error } from "@sveltejs/kit";
   import type { PageProps } from "./$types";
 
   let { data }: PageProps = $props();
@@ -34,6 +35,12 @@
   const closeEditModal = () => {
     showEditModal = false;
     editingTeam = defaultTeam;
+    formErrors = {
+      name: "",
+      hometown: "",
+      state: "",
+      coach: "",
+    };
   };
 
   const openDeleteModal = (team: Team) => {
@@ -111,9 +118,28 @@
 
       newTeam = editingTeam;
 
+      const response = await fetch("/api/teams/check", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(newTeam),
+        credentials:'include',
+      });
+      if (!response.ok) {
+        throw new Error("Failed to check team data");
+      }
+      const data = await response.json();
+      console.log("API Response",data.formErrors);
+      formErrors = data.formErrors;
+
+      if (formErrors?.name || formErrors?.hometown || formErrors?.state || formErrors?.coach) {
+        return;
+      }
+      else {
+
         // Send the team data to the backend API
         try {
-          console.log(newTeam);
           const response = await fetch("/api/editTeams", {
             method: "POST",
             headers: {
@@ -131,6 +157,7 @@
         } catch (error) {
           console.error("Error:", error);
         }
+      }
 
 
     } else {
@@ -143,25 +170,47 @@
         coach: coach,
       };
 
-      // Send the team data to the backend API
-      try {
-        console.log(newTeam);
-        const response = await fetch("/api/teams", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(newTeam),
-          credentials:'include',
-        });
+      const response = await fetch("/api/teams/check", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(newTeam),
+        credentials:'include',
+      });
+      if (!response.ok) {
+        throw new Error("Failed to check team data");
+      }
+      const data = await response.json();
+      console.log("API Response",data.formErrors);
+      formErrors = data.formErrors;
+      console.log(formErrors);
 
-        if (!response.ok) {
-          throw new Error("Failed to save team data");
+      if (formErrors?.name || formErrors?.hometown || formErrors?.state || formErrors?.coach) {
+        return;
+      }
+      else{
+
+        // Send the team data to the backend API
+        try {
+          console.log(newTeam);
+          const response = await fetch("/api/teams", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(newTeam),
+            credentials:'include',
+          });
+
+          if (!response.ok) {
+            throw new Error("Failed to save team data");
+          }
+
+          setTimeout(async () => invalidateAll(), 100);
+        } catch (error) {
+          console.error("Error:", error);
         }
-
-        setTimeout(async () => invalidateAll(), 100);
-      } catch (error) {
-        console.error("Error:", error);
       }
     }
 
