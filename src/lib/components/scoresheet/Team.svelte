@@ -23,7 +23,7 @@
     </div>
     {#each players[side] as player, i}
         <div class="innerRow">
-            <select id="playerPosition-{side}-{i}" class="field thin" name="options" bind:value={players[side][i].position} autocomplete="off">
+            <select id="playerPosition-{side}-{i}" class="drop-down field thin" name="options" bind:value={players[side][i].position} autocomplete="off">
               <option value=""></option>
               <option value="Mid">Mid</option>
               <option value="Attack">Attack</option>

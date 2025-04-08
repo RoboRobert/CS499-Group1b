@@ -13,14 +13,6 @@ input[type="number"] {
   font-size: 0.8vw;
 }
 
-/* html {
-  font-size: 0.8vw;
-}
-
-input {
-  font-size: 0.8vw;
-} */
-
 .outer {
   border: 1px solid black;
   resize: both;
@@ -86,6 +78,20 @@ input {
   display: flex;
   flex-direction: row;
   margin-top: 10px;
+}
+
+.goal-label {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height:0px;
+  height:10px;
+  font-size: 0.5vw;
+  border: 1px solid black;
+}
+
+.drop-down {
+  font-size: 0.6vw;
 }
 
 .svg {

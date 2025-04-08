@@ -1,5 +1,6 @@
 <script lang="ts">
   import { invalidateAll } from "$app/navigation";
+  import { toPlayerID } from "$lib/conversion/general";
   import type { Player } from "$lib/database/Team";
   import type { PageProps } from "./$types";
 
@@ -16,12 +17,13 @@
     height_feet: 0,
     height_inches: 0,
     weight: 0,
-    quarter: 0,
-    shots: 0,
+    quarters: 0,
+    attempted_shots: 0,
     goals: 0,
-    miss: 0,
-    ground: 0,
+    failed_shots: 0,
+    ground_balls: 0,
     team_name: data.team.team_name,
+    player_id: ""
   };
 
 
@@ -130,6 +132,7 @@
       }
     } else {
       newPlayer = {
+        player_id: toPlayerID(firstName, parseInt(playerNumber), data.team.team_id),
         player_name: firstName,
         player_number: parseInt(playerNumber),
         team_id: data.team.team_id,
@@ -141,11 +144,11 @@
         height_feet: parseInt(heightFeet),
         height_inches: parseInt(heightInches),
         weight: parseInt(weight),
-        quarter: 0,
-        shots: 0,
+        quarters: 0,
+        attempted_shots: 0,
         goals: 0,
-        miss: 0,
-        ground: 0,
+        failed_shots: 0,
+        ground_balls: 0,
       };
 
     try {
@@ -213,7 +216,7 @@
     <div class="players-grid">
       {#each data.players as player}
         <div class="player-card">
-          <a href="/rosters/{player.team_id}/{player.player_name}" class="player-link">
+          <a href="/rosters/{player.team_id}/{player.player_id}" class="player-link">
             <h3 class="player-name">{player.player_name}</h3>
             <p>
               <strong>Position:</strong> {player.position} <br />

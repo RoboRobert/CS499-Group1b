@@ -41,13 +41,3 @@
     </div>
   </div>
 </div>
-
-<style>
-  .goal-label {
-    text-align: center;
-    min-height:0px;
-    height:10px;
-    font-size: 10px;
-    border: 1px solid black;
-  }
-</style>
