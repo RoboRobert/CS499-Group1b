@@ -1,4 +1,5 @@
 import { json } from "@sveltejs/kit";
+import {v4 as uuidv4} from 'uuid';
 
 import { type SheetData } from "$lib/components/scoresheet/data.svelte";
 import { goalsToDBGoals, metaStatsToDBMetaStats, penaltiesToDbPenalties as penaltiesToDBPenalties, playersToDBPlayers, savesToDBSaves, statsToDBStats, timeoutsToDBTimeouts } from "$lib/conversion/sheetToDb.js";
@@ -39,14 +40,10 @@ export const POST = async ({ request }) => {
     if(data.game_id == "") {
       game_id = `${data.teamName[0]}-${data.teamName[1]}-${data.metaStats.date}-${data.metaStats.gameStart}`;
     }
-   
-    const numSheets = (await getSheetsByGame(game_id)).length;
-    const sheet_id = `${game_id}-${numSheets}`;
-  
-    // Test data!
-    // const game_id = "dudes-bros-2025-04-03-15:20";
-    // const numSheets = (await getSheetsByGame(game_id)).length;
-    // const sheet_id = `dudes-bros-2025-04-03-15:20-${numSheets}`;
+
+    // Use a random UUID to represent the sheet to prevent duplication.
+    let sheet_uuid = uuidv4();
+    const sheet_id = `${game_id}-${sheet_uuid}`;
   
     // Start by adding a game if necessary, then a sheet to that game.
     await addGameIfPossible({
