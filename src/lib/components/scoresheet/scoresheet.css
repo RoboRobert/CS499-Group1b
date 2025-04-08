@@ -9,13 +9,17 @@ input[type="number"] {
   -moz-appearance: textfield;
 }
 
-html {
+* {
+  font-size: 0.8vw;
+}
+
+/* html {
   font-size: 0.8vw;
 }
 
 input {
   font-size: 0.8vw;
-}
+} */
 
 .outer {
   border: 1px solid black;
