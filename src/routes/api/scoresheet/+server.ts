@@ -35,8 +35,6 @@ export const POST = async ({ request }) => {
       goals: rawData.goals,
       goalTrack: rawData.goalTrack,
     };
-
-    console.log(data);
     
     // Assign a game id to the scoresheet.
     // If one is supplied, use it. Otherwise, create a new one.
@@ -76,8 +74,8 @@ export const POST = async ({ request }) => {
     if(data.game_id == "") {
       // Add home team if necessary
       await addTeamIfPossible({
-        team_id: toTeamID(teamName[0]),
-        team_name: teamName[1],
+        team_id: toTeamID(data.teamName[0]),
+        team_name: data.teamName[0],
         hometown: "",
         state: "",
         coach: coachName[0],

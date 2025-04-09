@@ -1,5 +1,3 @@
-import type { Player } from "$lib/database/Team";
-
 export function toTeamID(input: string): string {
     return input
       .toLowerCase()                   // Convert the string to lowercase
