@@ -52,8 +52,6 @@ export async function getPlayersByTeam(team_id: string): Promise<Player[]> {
 }
 
 export async function addTeam(team: Team) {
-  //console.log(team);
-  console.log(team);
   const result = await sql`
     INSERT INTO teams (TEAM_NAME, TEAM_ID, HOMETOWN, STATE, COACH) VALUES 
     (${team.team_name}, ${team.team_id}, ${team.hometown}, ${team.state}, ${team.coach})
@@ -64,9 +62,18 @@ export async function addTeam(team: Team) {
 
 }
 
-// Same as addTeam for now
+export async function addTeamIfPossible(team: Team) {
+  const result = await sql`
+    INSERT INTO teams (TEAM_NAME, TEAM_ID, HOMETOWN, STATE, COACH) VALUES 
+    (${team.team_name}, ${team.team_id}, ${team.hometown}, ${team.state}, ${team.coach})
+    ON CONFLICT (team_id) DO NOTHING RETURNING *;
+  `;
+
+  return result;
+
+}
+
 export async function updateTeam(team: Team) {
-  console.log(team);
   const result = await sql`
     UPDATE teams 
     SET 

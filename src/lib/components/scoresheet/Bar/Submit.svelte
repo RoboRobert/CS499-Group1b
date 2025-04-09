@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { goto } from "$app/navigation";
+  import { goto, invalidateAll } from "$app/navigation";
   import type { SheetErr } from "$lib/backendChecker";
   import {
     clears,
@@ -17,7 +17,7 @@
     shots,
     teamName,
     timeouts,
-    type SheetData
+    type SheetData,
   } from "../data.svelte";
   import { addIDError } from "../frontendChecker.svelte";
 
@@ -27,7 +27,7 @@
   let message = "";
 
   function checkObj(object): boolean {
-    return Object.values(object).every(value => value != null && value != undefined);
+    return Object.values(object).every((value) => value != null && value != undefined);
   }
 
   function getScoresheetData(): SheetData {
@@ -54,7 +54,7 @@
   async function confirmScoresheet() {
     uploadScoresheet();
 
-    goto("/");
+    goto("/", {invalidateAll: true});
   }
 
   async function uploadScoresheet() {
@@ -63,7 +63,7 @@
 
     // Send the scoresheet data to the scoresheet/add endpoint
     try {
-      const result = await fetch("/api/scoresheet/add", {
+      const result = await fetch("/api/scoresheet/", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -97,24 +97,23 @@
 
       // Await the JSON data resolution
       const data = await result.json();
-      
+
       let errors: SheetErr[] = data.errors;
       console.log(errors);
-      if(errors.length > 0) {
+      if (errors.length > 0) {
         showConfirmModal = true;
 
         // Mark all the errors found by the backend validator
-        for(const error of errors) {
+        for (const error of errors) {
           addIDError(error.elementID, error.message);
         }
 
-        message = `${errors.length} errors detected in the scoresheet.\nAll errors have been marked in red on the sheet.`
-      }
-      else {
+        message = `${errors.length} errors detected in the scoresheet.\nAll errors have been marked in red on the sheet.`;
+      } else {
         showConfirmModal = true;
         showConfirmButton = true;
 
-        message = "No errors detected in the scoresheet."
+        message = "No errors detected in the scoresheet.";
       }
     } catch (error) {
       console.error(error);
