@@ -44,6 +44,9 @@ export const POST: RequestHandler = async ({ request, cookies }) => {
     const formErrors = validateTeam(team);
 
     console.log("Validation errors:", formErrors);
+    if(formErrors == null){
+        return json({ success: true });
+    }
 
     return json({ formErrors });
 };

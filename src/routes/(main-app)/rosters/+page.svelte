@@ -87,15 +87,7 @@
       formErrors.coach = "Coach name must be 3-50 letters and spaces.";
     }
 
-    // Check for duplicate team name
-    if (
-      data.teams.some(
-        (team) =>
-          team.team_name === name && team !== $state.snapshot(editingTeam),
-      )
-    ) {
-      formErrors.name = "A team with this name already exists";
-    }
+   
 
     // If there are errors, do not proceed
     if (
@@ -129,36 +121,43 @@
       if (!response.ok) {
         throw new Error("Failed to check team data");
       }
-      const data = await response.json();
-      console.log("API Response",data.formErrors);
-      formErrors = data.formErrors;
+      const data1 = await response.json();
+      console.log("API Response",data1.formErrors);
+      
 
-      if (formErrors?.name || formErrors?.hometown || formErrors?.state || formErrors?.coach) {
+      // Check if data1 is null or undefined
+      if (!data1 || !data1.formErrors) {
+        console.log("No errors returned from the API.");
+      // Send the team data to the backend API
+      try {
+        console.log(newTeam);
+        const response = await fetch("/api/editTeams", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(newTeam),
+          credentials:'include',
+        });
+
+        if (!response.ok) {
+          throw new Error("Failed to save team data");
+        }
+
+        setTimeout(async () => invalidateAll(), 100);
+      } catch (error) {
+        console.error("Error:", error);
+      }
+      } else if (
+        data1.formErrors.name != null ||
+        data1.formErrors.hometown != null ||
+        data1.formErrors.state != null ||
+        data1.formErrors.coach != null
+      ) {
+        formErrors = data1.formErrors;
+        console.log("Form Errors", formErrors);
         return;
       }
-      else {
-
-        // Send the team data to the backend API
-        try {
-          const response = await fetch("/api/editTeams", {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify(newTeam),
-            credentials:'include',
-          });
-
-          if (!response.ok) {
-            throw new Error("Failed to save team data");
-          }
-
-          setTimeout(async () => invalidateAll(), 100);
-        } catch (error) {
-          console.error("Error:", error);
-        }
-      }
-
 
     } else {
       // Create a new team object; note that players is empty initially.
@@ -169,7 +168,8 @@
         state: state,
         coach: coach,
       };
-
+        // Check for duplicate team name
+      
       const response = await fetch("/api/teams/check", {
         method: "POST",
         headers: {
@@ -181,36 +181,50 @@
       if (!response.ok) {
         throw new Error("Failed to check team data");
       }
-      const data = await response.json();
-      console.log("API Response",data.formErrors);
-      formErrors = data.formErrors;
-      console.log(formErrors);
+      const data1 = await response.json();
+      console.log("API Response",data1.formErrors);
 
-      if (formErrors?.name || formErrors?.hometown || formErrors?.state || formErrors?.coach) {
-        return;
+      if(
+        data.teams.some(
+          (team) =>
+            team.team_name === name && team !== $state.snapshot(newTeam),
+        )
+      ) {
+        formErrors.name = "A team with this name already exists";
       }
-      else{
 
-        // Send the team data to the backend API
-        try {
-          console.log(newTeam);
-          const response = await fetch("/api/teams", {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify(newTeam),
-            credentials:'include',
-          });
+      // Check if data1 is null or undefined
+      if (!data1 || !data1.formErrors) {
+        console.log("No errors returned from the API.");
+      // Send the team data to the backend API
+      try {
+        console.log(newTeam);
+        const response = await fetch("/api/teams", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(newTeam),
+          credentials:'include',
+        });
 
-          if (!response.ok) {
-            throw new Error("Failed to save team data");
-          }
-
-          setTimeout(async () => invalidateAll(), 100);
-        } catch (error) {
-          console.error("Error:", error);
+        if (!response.ok) {
+          throw new Error("Failed to save team data");
         }
+
+        setTimeout(async () => invalidateAll(), 100);
+      } catch (error) {
+        console.error("Error:", error);
+      }
+      } else if (
+        data1.formErrors.name != null ||
+        data1.formErrors.hometown != null ||
+        data1.formErrors.state != null ||
+        data1.formErrors.coach != null
+      ) {
+        formErrors = data1.formErrors;
+        console.log("Form Errors", formErrors);
+        return;
       }
     }
 
@@ -252,13 +266,14 @@
   </section>
 
   <section class="list-section-1">
-    <div class="buttons">
-      {#if canEdit}
-      <button onclick={() => openEditModal(defaultTeam)} type="button">Add Teams</button>
-      {/if}
+    <h2>All Teams</h2>
+
+    <div class= "center">
+    {#if canEdit}
+    <button class = "add-player-button" onclick={() => openEditModal(defaultTeam)} type="button">Add Teams</button>
+    {/if}
     </div>
 
-    <h2>All Teams</h2>
     <div class="teams-bars">
       {#each data.teams as team}
         <div class="team-bar">

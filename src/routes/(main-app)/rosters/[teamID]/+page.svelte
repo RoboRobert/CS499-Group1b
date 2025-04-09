@@ -55,16 +55,16 @@
   };
 
   const regexPatterns = {
-  playerName: /^[a-zA-Z ]{2,50}$/, // Letters and spaces, 2-50 characters
-  hometown: /^[a-zA-Z ]{2,50}$/, // Letters and spaces, 2-50 characters
-  state: /^[A-Z]{2}$/, // Two uppercase letters (e.g., AL, NY)
-  playerNumber: /^[0-9]{1,2}$/, // 1-2 digit numbers (0-99)
-  position: /^(Attack|Midfield|Defense|Goalie|Faceoff Specialist|Long Stick Midfielder)$/, // Valid positions
-  playerClass: /^(Freshman|Sophomore|Junior|Senior)$/, // Valid class values
-  heightFeet: /^[0-9]{1}$/, // 1 digit (0-9)
-  heightInches: /^[0-9]{1,2}$/, // 1-2 digits (0-11)
-  weight: /^[0-9]{1,3}$/, // 1-3 digits (e.g., 100-999 lbs)
-  };
+    playerName: /^[a-zA-Z ]{2,50}$/, // Letters and spaces, 2-50 characters
+    hometown: /^[a-zA-Z ]{2,50}$/, // Letters and spaces, 2-50 characters
+    state: /^[A-Z]{2}$/, // Two uppercase letters (e.g., AL, NY)
+    playerNumber: /^(?:[1-9]?[0-9])$/, // 0-99 (allows 0)
+    position: /^(Attack|Midfield|Defense|Goalie|Faceoff Specialist|Long Stick Midfielder)$/, // Valid positions
+    playerClass: /^(Freshman|Sophomore|Junior|Senior)$/, // Valid class values
+    heightFeet: /^[0-9]$/, // 0-9 (single digit, allows 0)
+    heightInches: /^(?:0|[1-9]|10|11)$/, // 0-11 (allows 0)
+    weight: /^(?:[0-9]{1,3})$/, // 0-999 (allows 0)
+};
 
 
   async function handlePlayerForm(event: Event) {
@@ -103,10 +103,10 @@
       errors.playerClass = "Class must be one of the following: Freshman, Sophomore, Junior, Senior.";
     }
     if (!regexPatterns.heightFeet.test(heightFeet)) {
-      errors.height = "Height feet must be a single digit (0-9).";
+      errors.height_feet = "Height feet must be a single digit (0-9).";
     }
     if (!regexPatterns.heightInches.test(heightInches)) {
-      errors.height = "Height inches must be a 1-2 digit number (0-11).";
+      errors.height_inches = "Height inches must be a 1-2 digit number (0-11).";
     }
     if (!regexPatterns.weight.test(weight)) {
       errors.weight = "Weight must be a 1-3 digit number (e.g., 100-999 lbs).";
@@ -141,29 +141,47 @@
       });
 
       const data1 = await response.json();
-      errors = data1.formErrors;
-      if (Object.keys(errors).length > 0) {
-        return;
-      }
-      else {
+      console.log(data1);
+      
+      // Check if data1 is null or undefined
+      if (!data1 || !data1.formErrors) {
+        console.log("No errors returned from the API.");
         try {
-            const response = await fetch("/api/editPlayers", {
-              method: "POST",
-              headers: {
-                "Content-Type": "application/json",
-              },
-              body: JSON.stringify(editingPlayer),
-              credentials:'include',
-            });
+          const response = await fetch("/api/editPlayers", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(editingPlayer),
+            credentials:'include',
+          });
 
-          setTimeout(async () => invalidateAll(), 100);
+        setTimeout(async () => invalidateAll(), 100);
 
-          if (!response.ok) {
-            throw new Error("Failed to save player data");
-          }
+        if (!response.ok) {
+          throw new Error("Failed to save player data");
+        }
         } catch (error) {
           console.error("Error:", error);
         }
+
+      } else if (
+        data1.formErrors.player_name != null ||
+        data1.formErrors.hometown != null ||
+        data1.formErrors.state != null ||
+        data1.formErrors.player_number != null ||
+        data1.formErrors.position != null ||
+        data1.formErrors.playerClass != null ||
+        data1.formErrors.height_feet != null ||
+        data1.formErrors.height_inches != null ||
+        data1.formErrors.weight != null
+      ) {
+        errors = data1.formErrors;
+        console.log("Errors:", errors);
+        return;
+      }
+      else{
+        console.log("some error occurred")
       }
     } else {
       newPlayer = {
@@ -190,37 +208,51 @@
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(editingPlayer),
+        body: JSON.stringify(newPlayer),
         credentials:'include',
       });
 
       const data1 = await response.json();
-      errors = data1.formErrors;
-      if (Object.keys(errors).length > 0) {
-        return;
-      }
-      else {
+      console.log(data1);
+      // Check if data1 is null or undefined
+      if (!data1 || !data1.formErrors) {
+        console.log("No errors returned from the API.");
+        try {
+          const response = await fetch("/api/players", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(newPlayer),
+            credentials:'include',
+          });
 
-      try {
-            const response = await fetch("/api/players", {
-              method: "POST",
-              headers: {
-                "Content-Type": "application/json",
-              },
-              body: JSON.stringify(newPlayer),
-              credentials:'include',
-            });
+        setTimeout(async () => invalidateAll(), 100);
 
-          setTimeout(async () => invalidateAll(), 100);
-
-          if (!response.ok) {
-            throw new Error("Failed to save player data");
-          }
+        if (!response.ok) {
+          throw new Error("Failed to save player data");
+        }
         } catch (error) {
           console.error("Error:", error);
         }
+      } else if (
+        data1.formErrors.player_name != null ||
+        data1.formErrors.hometown != null ||
+        data1.formErrors.state != null ||
+        data1.formErrors.player_number != null ||
+        data1.formErrors.position != null ||
+        data1.formErrors.playerClass != null ||
+        data1.formErrors.height_feet != null ||
+        data1.formErrors.height_inches != null ||
+        data1.formErrors.weight != null
+      ) {
+        errors = data1.formErrors;
+        console.log("Errors:", errors);
+        return;
       }
-  
+      else{
+        console.log("some error occurred")
+      }
     }
     closeEditModal();
   }
@@ -259,11 +291,14 @@
       Coach: {data.team.coach}
     </p>
   </section>
-  <section class="players-section">
-    {#if canEdit}
-    <button onclick={() => openEditModal(defaultPlayer)} class="add-player-button">Add Player</button>
-    {/if}
+  <section class="list-section-1">
     <h2>All Players</h2>
+    <div class="center">
+    {#if canEdit}
+    <button  onclick={() => openEditModal(defaultPlayer)} class="add-player-button">Add Player</button>
+    {/if}
+    </div>
+    
     <div class="players-grid">
       {#each data.players as player}
         <div class="player-card">
@@ -416,7 +451,7 @@
                     {/if}
                 </div>
                 <div class="form-group">
-                    <label for="player-height">Height:</label>
+                    <label for="player-height">Height (ft.):</label>
                     <div class="height-inputs">
                         <input
                             type="number"
@@ -424,7 +459,14 @@
                             placeholder="Feet"
                             min="0"
                             value={editingPlayer.height_feet}
-                        />
+                        /> 
+                    {#if errors.height_feet}
+                        <p class="form-errors">{errors.height_feet}</p>
+                    {/if}
+                  </div>
+                  <div class="form-group">
+                    <label for="player-height">Height (in.):</label>
+                    <div class="height-inputs">
                         <input
                             type="number"
                             name="player-height-inches"
@@ -433,11 +475,11 @@
                             max="11"
                             value={editingPlayer.height_inches}
                         />
-                    </div>
-                    {#if errors.height}
-                        <p class="form-errors">{errors.height}</p>
+                  </div>
+                    {#if errors.height_inches}
+                        <p class="form-errors">{errors.height_inches}</p>
                     {/if}
-                </div>
+                  </div>
                 <div class="form-group">
                     <label for="player-weight">Weight (lbs):</label>
                     <input
