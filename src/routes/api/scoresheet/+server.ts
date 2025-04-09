@@ -83,8 +83,8 @@ export const POST = async ({ request }) => {
 
       // Add away team if necessary
       await addTeamIfPossible({
-        team_id: toTeamID(teamName[1]),
-        team_name: teamName[1],
+        team_id: toTeamID(data.teamName[1]),
+        team_name: data.teamName[1],
         hometown: "",
         state: "",
         coach: coachName[1],
