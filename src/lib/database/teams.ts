@@ -113,8 +113,48 @@ export async function addPlayer(player: Player) {
   return result;
 }
 
+export async function addOrUpdatePlayer(player: Player) {
+  let team_id = player.team_id;
+  let player_id = player.player_id;
+  let team_name = player.team_name;
+  let name = player.player_name;
+  let number = player.player_number;
+  let position = player.position;
+  let player_class = player.player_class;
+  let hometown = player.hometown;
+  let state = player.state;
+  let height_feet = player.height_feet || 0;
+  let height_inches = player.height_inches || 0;
+  let weight = player.weight || 0;
+  let quarter = player.quarters;
+  let shots = player.attempted_shots || 0;
+  let goals = player.goals || 0;
+  let miss = player.failed_shots || 0;
+  let ground = player.ground_balls || 0;
+
+  const result = await sql`
+    INSERT INTO players (PLAYER_NAME, PLAYER_ID, PLAYER_NUMBER, TEAM_ID, TEAM_NAME, POSITION, PLAYER_CLASS, HOMETOWN, STATE, HEIGHT_FEET, HEIGHT_INCHES, WEIGHT, QUARTERS, ATTEMPTED_SHOTS, GOALS, FAILED_SHOTS, GROUND_BALLS) 
+    VALUES 
+    (${name}, ${player_id}, ${number}, ${team_id}, ${team_name}, ${position},${player_class}, ${hometown}, ${state}, ${height_feet}, ${height_inches}, ${weight}, ${quarter}, ${shots}, ${goals}, ${miss}, ${ground})
+    ON CONFLICT (player_id)
+    DO UPDATE SET 
+      GOALS = players.GOALS + EXCLUDED.GOALS,
+      ATTEMPTED_SHOTS = players.ATTEMPTED_SHOTS + EXCLUDED.ATTEMPTED_SHOTS,
+      FAILED_SHOTS = players.FAILED_SHOTS + EXCLUDED.FAILED_SHOTS,
+      GROUND_BALLS = players.GROUND_BALLS + EXCLUDED.GROUND_BALLS
+    RETURNING *;
+  `;
+
+  return result;
+}
+
+export async function addOrUpdatePlayers(players: Player[]) {
+  for(const player of players) {
+    addOrUpdatePlayer(player);
+  }
+}
+
 export async function updatePlayer(player: Player) {
-  console.log(player);
   const result = await sql`
     UPDATE players
     SET 
@@ -129,7 +169,7 @@ export async function updatePlayer(player: Player) {
       HEIGHT_FEET = ${player.height_feet || 0},
       HEIGHT_INCHES = ${player.height_inches || 0},
       WEIGHT = ${player.weight || 0}
-    WHERE PLAYER_NAME = ${player.player_name} AND PLAYER_NUMBER = ${player.player_number}
+    WHERE PLAYER_ID = ${player.player_id}
     RETURNING *;
   `;
 
@@ -215,7 +255,7 @@ export async function dbPlayersReset() {
             GOALS INT,
             FAILED_SHOTS INT,
             GROUND_BALLS INT,
-            primary key(PLAYER_ID),
+            PRIMARY KEY(PLAYER_ID),
             foreign key(TEAM_ID) references teams(TEAM_ID) ON DELETE CASCADE);`;
 
   for(const player of auburnLacrosseRoster) {
