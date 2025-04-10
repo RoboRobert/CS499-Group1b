@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { readTime } from "./frontendChecker.svelte";
+  import { readTime } from "$lib/checkers/frontendChecker.svelte";
   import { penalties } from "./data.svelte";
 
   interface Side {

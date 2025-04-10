@@ -2,7 +2,7 @@
   import Goals from "./Goals.svelte";
 
   import { coachName, goalTrack, teamName } from "../data.svelte";
-  import { readPlayerno, readString, readTime } from "../frontendChecker.svelte";
+  import { readPlayerno, readString, readTime } from "$lib/checkers/frontendChecker.svelte";
 
   let numGoals = 30;
 </script>

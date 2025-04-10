@@ -1,4 +1,4 @@
-import type { SheetPenalty, ScoresheetPlayer, SheetSave, SheetData, Stat } from "./components/scoresheet/data.svelte";
+import type { SheetPenalty, ScoresheetPlayer, SheetSave, SheetData, Stat } from "$lib/components/scoresheet/data.svelte";
 
 export interface SheetErr {
   elementID: string;
