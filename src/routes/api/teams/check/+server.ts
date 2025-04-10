@@ -39,11 +39,11 @@ export const POST: RequestHandler = async ({ request, cookies }) => {
     const token = cookies.get("user-role");
     const team = await request.json();
     
-    console.log("Received team:", team);
+    // console.log("Received team:", team);
 
     const formErrors = validateTeam(team);
 
-    console.log("Validation errors:", formErrors);
+    // console.log("Validation errors:", formErrors);
     if(formErrors == null){
         return json({ success: true });
     }

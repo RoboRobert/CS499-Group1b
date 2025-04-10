@@ -27,6 +27,7 @@ export const load: PageServerLoad = async ({ params, fetch, cookies }) => {
             throw new Error('Failed to fetch players');
         }
         const players: Player[] = await response2.json();
+        console.log("Players: in page loader", players);
 
         return {
             team, players, token

@@ -146,19 +146,19 @@
       // Check if data1 is null or undefined
       if (!data1 || !data1.formErrors) {
         console.log("No errors returned from the API.");
-        try {
-          const response = await fetch("/api/editPlayers", {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify(editingPlayer),
-            credentials:'include',
-          });
+      try {
+        const response2 = await fetch("/api/editPlayers", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(editingPlayer),
+          credentials:'include',
+        });
 
         setTimeout(async () => invalidateAll(), 100);
 
-        if (!response.ok) {
+        if (!response2.ok) {
           throw new Error("Failed to save player data");
         }
         } catch (error) {

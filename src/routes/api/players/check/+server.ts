@@ -18,31 +18,31 @@ const validateTeam = (player: Player) => {
     console.log("Validating player:", player);
     const errors: { [key: string]: string } = {};
     
-    if (!player.player_name || !regexPatterns.playerName.test(player.player_name)) {
+    if (!regexPatterns.playerName.test(player.player_name)) {
         errors.player_name = "Player name must be 2-50 characters long and contain only letters and spaces.";
       }
-      if (!player.hometown || !regexPatterns.hometown.test(player.hometown)) {
+      if (!regexPatterns.hometown.test(player.hometown)) {
         errors.hometown = "Hometown must be 2-50 characters long and contain only letters and spaces.";
       }
-      if (!player.state || !regexPatterns.state.test(player.state)) {
+      if (!regexPatterns.state.test(player.state)) {
         errors.state = "State must be a valid two-letter abbreviation (e.g., AL, NY).";
       }
-      if (!player.player_number || !regexPatterns.playerNumber.test(String(player.player_number))) {
+      if (!regexPatterns.playerNumber.test(String(player.player_number))) {
         errors.player_number = "Player number must be a 1-2 digit number (0-99).";
       }
-      if (!player.position || !regexPatterns.position.test(player.position)) {
+      if (!regexPatterns.position.test(player.position)) {
         errors.position = "Position must be one of the following: Attack, Midfield, Defense, Goalie, Faceoff Specialist, Long Stick Midfielder.";
       }
-      if (!player.player_class || !regexPatterns.playerClass.test(player.player_class)) {
+      if (!regexPatterns.playerClass.test(player.player_class)) {
         errors.playerClass = "Class must be one of the following: Freshman, Sophomore, Junior, Senior.";
       }
-      if (!player.height_feet || !regexPatterns.heightFeet.test(String(player.height_feet))) {
+      if (!regexPatterns.heightFeet.test(String(player.height_feet))) {
         errors.height_feet = "Height feet must be a single digit (0-9).";
       }
-      if (!player.height_inches || !regexPatterns.heightInches.test(String(player.height_inches))) {
+      if (!regexPatterns.heightInches.test(String(player.height_inches))) {
         errors.height_inches = "Height inches must be a 1-2 digit number (0-11).";
       }
-      if (!player.weight || !regexPatterns.weight.test(String(player.weight))) {
+      if (!regexPatterns.weight.test(String(player.weight))) {
         errors.weight = "Weight must be a 1-3 digit number (e.g., 100-999 lbs).";
       }
 
@@ -56,7 +56,7 @@ export const POST: RequestHandler = async ({ request, cookies }) => {
     const token = cookies.get("user-role");
     const player = await request.json();
     
-    console.log("Received team:", player);
+    console.log("Received player for Check:", player);
 
     const formErrors = validateTeam(player);
 

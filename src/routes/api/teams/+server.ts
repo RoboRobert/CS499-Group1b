@@ -10,7 +10,7 @@ export const GET: RequestHandler = async (event) => {
     if (token !== "admin" && token !== "coach") {
         error(403, "You don't have the right O you don't have the right");
     }
-    console.log(event)
+    // console.log(event)
     const teams = await getTeams()
     return json(teams)
 }
