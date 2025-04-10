@@ -83,7 +83,7 @@ export function readTime(e): string | null {
   return target.value;
 }
 
-// Validates time input
+// Validates player number input
 export function readPlayerno(e): number | null {
   let target = e.target as HTMLInputElement;
 
