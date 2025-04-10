@@ -1257,7 +1257,7 @@ async function dbinsert_Sheet() {
 async function dbinsert_SheetInfo() {
     const sheetinfos: SheetInfo[] = [
       {
-        sheet_id: "1",
+        sheet_id: "4d945e5c-b133-4991-a14d-07595a4ef22a",
         homecoach: "John Rutherford",
         awaycoach: "John Rutherford",
         hometeam: "string",
@@ -1275,7 +1275,7 @@ async function dbinsert_SheetInfo() {
         weathercondition: "string",
       },
       {
-        sheet_id: "1",
+        sheet_id: "4d945e5c-b133-4991-a14d-07595a4ef22R",
         homecoach: "John Rutherford",
         awaycoach: "John Rutherford",
         hometeam: "string",
@@ -1293,7 +1293,7 @@ async function dbinsert_SheetInfo() {
         weathercondition: "string",
       },
       {
-        sheet_id: "2",
+        sheet_id: "4d945e5c-b133-4991-a14d-07595a4efRR2",
         homecoach: "John Rutherford",
         awaycoach: "John Rutherford",
         hometeam: "string",
@@ -1311,7 +1311,7 @@ async function dbinsert_SheetInfo() {
         weathercondition: "string",
       },
       {
-        sheet_id: "2",
+        sheet_id: "4d945e5c-b133-4991-a14d-07595a4efRR3",
         homecoach: "John Rutherford",
         awaycoach: "John Rutherford",
         hometeam: "string",
@@ -1329,7 +1329,7 @@ async function dbinsert_SheetInfo() {
         weathercondition: "string",
       },
       {
-        sheet_id: "3 ",
+        sheet_id: "4d945e5c-b133-4991-a14d-07595a4ef567",
         homecoach: "ron cassey",
         awaycoach: "you",
         hometeam: "",
@@ -1347,7 +1347,7 @@ async function dbinsert_SheetInfo() {
         weathercondition: "",
       },
       {
-        sheet_id: "3",
+        sheet_id: "14d945e5c-b133-4991-a14d-07595a4ef568",
         homecoach: "ron cassey",
         awaycoach: "you",
         hometeam: "",
@@ -1365,7 +1365,7 @@ async function dbinsert_SheetInfo() {
         weathercondition: "",
       },
       {
-        sheet_id: "4",
+        sheet_id: "4d945e5c-b133-4991-a14d-07595a4ef890",
         homecoach: "John Rutherford",
         awaycoach: "John Rutherford",
         hometeam: "string",
@@ -1383,7 +1383,7 @@ async function dbinsert_SheetInfo() {
         weathercondition: "  ",
       },
       {
-        sheet_id: "4",
+        sheet_id: "4d945e5c-b133-4991-a14d-07595a4ef22R678",
         homecoach: "John Rutherford",
         awaycoach: "John Rutherford",
         hometeam: "string",
@@ -1401,7 +1401,7 @@ async function dbinsert_SheetInfo() {
         weathercondition: "",
       },
       {
-        sheet_id: "5",
+        sheet_id: "4d945e5c-b133-4991-a14d-07595a4ef901",
         homecoach: "",
         awaycoach: "",
         hometeam: "",
@@ -1420,7 +1420,7 @@ async function dbinsert_SheetInfo() {
 
       },
       {
-        sheet_id: "5",
+        sheet_id: "4d945e5c-b133-4991-a14d-07595a4ef22R123",
         homecoach: "",
         awaycoach: "",
         hometeam: "",
@@ -1438,7 +1438,7 @@ async function dbinsert_SheetInfo() {
         weathercondition: "",
       },
       {
-          sheet_id: "6",
+          sheet_id: "4d945e5c-b133-4991-a14d-07595a4ef529",
           homecoach: "",
           awaycoach: "",
           hometeam: "",
@@ -1456,7 +1456,7 @@ async function dbinsert_SheetInfo() {
           weathercondition: "",
       },
       {
-          sheet_id: "6",
+          sheet_id: "4d945e5c-b133-4991-a14d-07595a4ef521",
           homecoach: "",
           awaycoach: "",
           hometeam: "",
@@ -1485,17 +1485,18 @@ async function dbinsert_SheetInfo() {
 
 async function dbinsert_Timeouts() {
   const timeouts: Timeout[] = [
-    { sheet_id: "", side: 0, first_1_time: "", first_1_period: 0, first_2_time: "", first_2_period: 0, second_1_time: "", second_1_period: 0, second_2_time: "", second_2_period: 0, ot_1_time: "", ot_2_time: ""},
-    { sheet_id: "", side: 1, first_1_time: "", first_1_period: 0, first_2_time: "",first_2_period: 0, second_1_time: "",  second_1_period: 0, second_2_time: "", second_2_period: 0, ot_1_time: "", ot_2_time: ""},
-    { sheet_id: "", side: 0, first_1_time: "", first_1_period: 0, first_2_time: "", first_2_period: 0, second_1_time: "", second_1_period: 0, second_2_time: "", second_2_period: 0, ot_1_time: "", ot_2_time: ""},
-    { sheet_id: "", side: 1, first_1_time: "", first_1_period: 0, first_2_time: "", first_2_period: 0, second_1_time: "", second_1_period: 0, second_2_time: "", second_2_period: 0, ot_1_time: "", ot_2_time: ""},
-    { sheet_id: "", side: 1, first_1_time: "", first_1_period: 0, first_2_time: "", first_2_period: 0, second_1_time: "", second_1_period: 0, second_2_time: "", second_2_period: 0, ot_1_time: "", ot_2_time: ""},
-    { sheet_id: "", side: 0, first_1_time: "", first_1_period: 0, first_2_time: "", first_2_period: 0, second_1_time: "", second_1_period: 0, second_2_time: "", second_2_period: 0, ot_1_time: "", ot_2_time: ""},
-    { sheet_id: "", side: 1, first_1_time: "", first_1_period: 0, first_2_time: "", first_2_period: 0,second_1_time: "",  second_1_period: 0, second_2_time: "", second_2_period: 0, ot_1_time: "", ot_2_time: ""},
-    { sheet_id: "", side: 0, first_1_time: "", first_1_period: 0, first_2_time: "", first_2_period: 0, second_1_time: "", second_1_period: 0, second_2_time: "", second_2_period: 0, ot_1_time: "", ot_2_time: ""},
-    { sheet_id: "", side: 1, first_1_time: "", first_1_period: 0, first_2_time: "", first_2_period: 0, second_1_time: "", second_1_period: 0, second_2_time: "", second_2_period: 0, ot_1_time: "", ot_2_time: ""},
-    { sheet_id: "", side: 0, first_1_time: "", first_1_period: 0, first_2_time: "", first_2_period: 0, second_1_time: "", second_1_period: 0, second_2_time: "", second_2_period: 0, ot_1_time: "", ot_2_time: ""},
-    { sheet_id: "", side: 1, first_1_time: "", first_1_period: 0, first_2_time: "", first_2_period: 0, second_1_time: "", second_1_period: 0, second_2_time: "", second_2_period: 0, ot_1_time: "", ot_2_time: ""}
+    { sheet_id: "4d945e5c-b133-4991-a14d-07595a4ef22a", side: 0, first_1_time: "", first_1_period: 0, first_2_time: "", first_2_period: 0, second_1_time: "", second_1_period: 0, second_2_time: "", second_2_period: 0, ot_1_time: "", ot_2_time: ""},
+    { sheet_id: "4d945e5c-b133-4991-a14d-07595a4ef22R", side: 1, first_1_time: "", first_1_period: 0, first_2_time: "",first_2_period: 0, second_1_time: "",  second_1_period: 0, second_2_time: "", second_2_period: 0, ot_1_time: "", ot_2_time: ""},
+    { sheet_id: "4d945e5c-b133-4991-a14d-07595a4efRR2", side: 0, first_1_time: "", first_1_period: 0, first_2_time: "", first_2_period: 0, second_1_time: "", second_1_period: 0, second_2_time: "", second_2_period: 0, ot_1_time: "", ot_2_time: ""},
+    { sheet_id: "4d945e5c-b133-4991-a14d-07595a4efRR3", side: 1, first_1_time: "", first_1_period: 0, first_2_time: "", first_2_period: 0, second_1_time: "", second_1_period: 0, second_2_time: "", second_2_period: 0, ot_1_time: "", ot_2_time: ""},
+    { sheet_id: "4d945e5c-b133-4991-a14d-07595a4ef567", side: 1, first_1_time: "", first_1_period: 0, first_2_time: "", first_2_period: 0, second_1_time: "", second_1_period: 0, second_2_time: "", second_2_period: 0, ot_1_time: "", ot_2_time: ""},
+    { sheet_id: "14d945e5c-b133-4991-a14d-07595a4ef568", side: 0, first_1_time: "", first_1_period: 0, first_2_time: "", first_2_period: 0, second_1_time: "", second_1_period: 0, second_2_time: "", second_2_period: 0, ot_1_time: "", ot_2_time: ""},
+    { sheet_id: "4d945e5c-b133-4991-a14d-07595a4ef890", side: 1, first_1_time: "", first_1_period: 0, first_2_time: "", first_2_period: 0,second_1_time: "",  second_1_period: 0, second_2_time: "", second_2_period: 0, ot_1_time: "", ot_2_time: ""},
+    { sheet_id: "4d945e5c-b133-4991-a14d-07595a4ef22R678", side: 0, first_1_time: "", first_1_period: 0, first_2_time: "", first_2_period: 0, second_1_time: "", second_1_period: 0, second_2_time: "", second_2_period: 0, ot_1_time: "", ot_2_time: ""},
+    { sheet_id: "4d945e5c-b133-4991-a14d-07595a4ef901", side: 1, first_1_time: "", first_1_period: 0, first_2_time: "", first_2_period: 0, second_1_time: "", second_1_period: 0, second_2_time: "", second_2_period: 0, ot_1_time: "", ot_2_time: ""},
+    { sheet_id: "4d945e5c-b133-4991-a14d-07595a4ef22R123", side: 0, first_1_time: "", first_1_period: 0, first_2_time: "", first_2_period: 0, second_1_time: "", second_1_period: 0, second_2_time: "", second_2_period: 0, ot_1_time: "", ot_2_time: ""},
+    { sheet_id: "4d945e5c-b133-4991-a14d-07595a4ef529", side: 1, first_1_time: "", first_1_period: 0, first_2_time: "", first_2_period: 0, second_1_time: "", second_1_period: 0, second_2_time: "", second_2_period: 0, ot_1_time: "", ot_2_time: ""},
+    { sheet_id: "4d945e5c-b133-4991-a14d-07595a4ef521", side: 1, first_1_time: "", first_1_period: 0, first_2_time: "", first_2_period: 0, second_1_time: "", second_1_period: 0, second_2_time: "", second_2_period: 0, ot_1_time: "", ot_2_time: ""}
     
   ];
   for (const stat of timeouts) {
@@ -1506,7 +1507,128 @@ async function dbinsert_Timeouts() {
 async function dbinsert_Saves() {
   const saves: Save[] = [
     {
-      sheet_id: "",
+      sheet_id: "4d945e5c-b133-4991-a14d-07595a4ef22a",
+      side: 0,
+      player_number: 1,
+      quarter_1: 0,
+      quarter_2: 0,
+      quarter_3: 0,
+      quarter_4: 0,
+      ot: 0,
+      
+    },
+    {
+      sheet_id: "4d945e5c-b133-4991-a14d-07595a4ef22a",
+      side: 0,
+      player_number: 0,
+      quarter_1: 0,
+      quarter_2: 0,
+      quarter_3: 0,
+      quarter_4: 0,
+      ot: 0,
+    },
+    {
+      sheet_id: "4d945e5c-b133-4991-a14d-07595a4ef22R",
+      side: 0,
+      player_number: 0,
+      quarter_1: 0,
+      quarter_2: 0,
+      quarter_3: 0,
+      quarter_4: 0,
+      ot: 0,
+    },
+    {
+      sheet_id: "4d945e5c-b133-4991-a14d-07595a4ef22R",
+      side: 0,
+      player_number: 0,
+      quarter_1: 0,
+      quarter_2: 0,
+      quarter_3: 0,
+      quarter_4: 0,
+      ot: 0,
+    },
+    {
+      sheet_id: "4d945e5c-b133-4991-a14d-07595a4efRR2",
+      side: 0,
+      player_number: 0,
+      quarter_1: 0,
+      quarter_2: 0,
+      quarter_3: 0,
+      quarter_4: 0,
+      ot: 0,
+    },
+    {
+      sheet_id: "4d945e5c-b133-4991-a14d-07595a4efRR2",
+      side: 0,
+      player_number: 0,
+      quarter_1: 0,
+      quarter_2: 0,
+      quarter_3: 0,
+      quarter_4: 0,
+      ot: 0,
+    },
+    {
+      sheet_id: "4d945e5c-b133-4991-a14d-07595a4efRR3",
+      side: 0,
+      player_number: 0,
+      quarter_1: 0,
+      quarter_2: 0,
+      quarter_3: 0,
+      quarter_4: 0,
+      ot: 0,
+    },
+    {
+      sheet_id: "4d945e5c-b133-4991-a14d-07595a4efRR3",
+      side: 0,
+      player_number: 0,
+      quarter_1: 0,
+      quarter_2: 0,
+      quarter_3: 0,
+      quarter_4: 0,
+      ot: 0,
+    },
+    {
+      sheet_id: "4d945e5c-b133-4991-a14d-07595a4ef567",
+      side: 0,
+      player_number: 0,
+      quarter_1: 0,
+      quarter_2: 0,
+      quarter_3: 0,
+      quarter_4: 0,
+      ot: 0,
+    },
+    {
+      sheet_id: "4d945e5c-b133-4991-a14d-07595a4ef567",
+      side: 0,
+      player_number: 0,
+      quarter_1: 0,
+      quarter_2: 0,
+      quarter_3: 0,
+      quarter_4: 0,
+      ot: 0,
+    },
+    {
+      sheet_id: "14d945e5c-b133-4991-a14d-07595a4ef568",
+      side: 0,
+      player_number: 0,
+      quarter_1: 0,
+      quarter_2: 0,
+      quarter_3: 0,
+      quarter_4: 0,
+      ot: 0,
+    },
+    {
+      sheet_id: "14d945e5c-b133-4991-a14d-07595a4ef568",
+      side: 0,
+      player_number: 0,
+      quarter_1: 0,
+      quarter_2: 0,
+      quarter_3: 0,
+      quarter_4: 0,
+      ot: 0,
+    },
+    {
+      sheet_id: "4d945e5c-b133-4991-a14d-07595a4ef890",
       side: 0,
       player_number: 0,
       quarter_1: 0,
@@ -1517,7 +1639,7 @@ async function dbinsert_Saves() {
       
     },
     {
-      sheet_id: "",
+      sheet_id: "4d945e5c-b133-4991-a14d-07595a4ef890",
       side: 0,
       player_number: 0,
       quarter_1: 0,
@@ -1527,7 +1649,7 @@ async function dbinsert_Saves() {
       ot: 0,
     },
     {
-      sheet_id: "",
+      sheet_id: "4d945e5c-b133-4991-a14d-07595a4ef22R678",
       side: 0,
       player_number: 0,
       quarter_1: 0,
@@ -1537,7 +1659,7 @@ async function dbinsert_Saves() {
       ot: 0,
     },
     {
-      sheet_id: "",
+      sheet_id: "4d945e5c-b133-4991-a14d-07595a4ef22R678",
       side: 0,
       player_number: 0,
       quarter_1: 0,
@@ -1547,7 +1669,7 @@ async function dbinsert_Saves() {
       ot: 0,
     },
     {
-      sheet_id: "",
+      sheet_id: "4d945e5c-b133-4991-a14d-07595a4ef901",
       side: 0,
       player_number: 0,
       quarter_1: 0,
@@ -1557,7 +1679,7 @@ async function dbinsert_Saves() {
       ot: 0,
     },
     {
-      sheet_id: "",
+      sheet_id: "4d945e5c-b133-4991-a14d-07595a4ef901",
       side: 0,
       player_number: 0,
       quarter_1: 0,
@@ -1567,7 +1689,7 @@ async function dbinsert_Saves() {
       ot: 0,
     },
     {
-      sheet_id: "",
+      sheet_id: "4d945e5c-b133-4991-a14d-07595a4ef22R123",
       side: 0,
       player_number: 0,
       quarter_1: 0,
@@ -1577,7 +1699,7 @@ async function dbinsert_Saves() {
       ot: 0,
     },
     {
-      sheet_id: "",
+      sheet_id: "4d945e5c-b133-4991-a14d-07595a4ef22R123",
       side: 0,
       player_number: 0,
       quarter_1: 0,
@@ -1587,7 +1709,7 @@ async function dbinsert_Saves() {
       ot: 0,
     },
     {
-      sheet_id: "",
+      sheet_id: "4d945e5c-b133-4991-a14d-07595a4ef529",
       side: 0,
       player_number: 0,
       quarter_1: 0,
@@ -1597,7 +1719,7 @@ async function dbinsert_Saves() {
       ot: 0,
     },
     {
-      sheet_id: "",
+      sheet_id: "4d945e5c-b133-4991-a14d-07595a4ef529",
       side: 0,
       player_number: 0,
       quarter_1: 0,
@@ -1607,7 +1729,7 @@ async function dbinsert_Saves() {
       ot: 0,
     },
     {
-      sheet_id: "",
+      sheet_id: "4d945e5c-b133-4991-a14d-07595a4ef521",
       side: 0,
       player_number: 0,
       quarter_1: 0,
@@ -1617,7 +1739,7 @@ async function dbinsert_Saves() {
       ot: 0,
     },
     {
-      sheet_id: "",
+      sheet_id: "4d945e5c-b133-4991-a14d-07595a4ef521",
       side: 0,
       player_number: 0,
       quarter_1: 0,
