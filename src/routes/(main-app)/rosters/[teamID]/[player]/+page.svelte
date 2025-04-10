@@ -8,6 +8,7 @@
 
 <title>Player</title>
 
+<div class="container">
 <div class="player-page">
     <section class= "player-dash">
         <div class="player-header">
@@ -39,7 +40,7 @@
         </div>
     </section>
 </div>
-
+</div>
 <!--  quarter: number,
     shots: number,
     goals: number,

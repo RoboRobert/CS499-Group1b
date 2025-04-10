@@ -46,7 +46,7 @@
 </script>
 
 <title>Past Games</title>
-
+<div class="container">
 <div class="roster-page">
   <section class="past-games-dash">
     <h1>Past Games</h1>
@@ -73,7 +73,7 @@
     </div>
   </section>
 </div>
-
+</div>
 {#if showDeleteConfirm}
   <div class="modal-backdrop">
     <div class="modal-content">
