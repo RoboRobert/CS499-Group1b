@@ -90,7 +90,11 @@ input[type="number"] {
   border: 1px solid black;
 }
 
-.drop-down {
+.dropdown {
+  background-color: white;
+}
+
+.dropdown.small {
   font-size: 0.6vw;
 }
 
@@ -101,6 +105,11 @@ input[type="number"] {
 
 .svg:hover {
   background-color: lightgray;
+}
+
+.hidden {
+  visibility:hidden;
+  display:none;
 }
 
 /* Modal Styles */
@@ -171,6 +180,18 @@ input[type="number"] {
 
 .sign-in-button:hover {
   background-color: #2b6cb0;
+}
+
+.cancel-button {
+  background-color: transparent;
+  border: none;
+  color: red;
+  cursor: pointer;
+  transition: color 0.2s;
+}
+
+.cancel-button:hover {
+  color: rgb(212, 11, 11);
 }
 
 .timeInput {

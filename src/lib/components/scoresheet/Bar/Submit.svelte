@@ -80,7 +80,6 @@
 
   async function checkScoresheet() {
     const scoresheetData: SheetData = getScoresheetData();
-    console.log(scoresheetData.players);
     const scoresheetJSON = JSON.stringify(scoresheetData);
 
     console.log(scoresheetJSON);
@@ -105,7 +104,11 @@
 
         // Mark all the errors found by the backend validator
         for (const error of errors) {
-          addIDError(error.elementID, error.message);
+          // Try to mark an error. If failure, move on to the next one.
+          try {
+            addIDError(error.elementID, error.message);
+          }
+          catch {}
         }
 
         message = `${errors.length} errors detected in the scoresheet.\nAll errors have been marked in red on the sheet.`;
@@ -140,7 +143,7 @@
               showConfirmButton = false;
               showConfirmModal = false;
             }}
-            class="sign-in-button">Keep Editing</button
+            class="cancel-button">Keep Editing</button
           >
         </div>
       </div>

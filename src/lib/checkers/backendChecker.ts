@@ -1,4 +1,4 @@
-import type { SheetPenalty, ScoresheetPlayer, SheetSave, SheetData, Stat } from "$lib/components/scoresheet/data.svelte";
+import { type SheetPenalty, type ScoresheetPlayer, type SheetSave, type SheetData, type Stat, metaStats } from "$lib/components/scoresheet/data.svelte";
 
 export interface SheetErr {
   elementID: string;
@@ -28,6 +28,21 @@ export function checkSheet(rawData: any): SheetErr[] {
   
   let errors: SheetErr[] = [];
 
+  // Check the meta stats
+  if(!data.metaStats.gameStart || !data.metaStats.date || !data.metaStats.scorekeeper) {
+    errors.push({ elementID: `metaStatsButton`, message: "There are errors in the Meta Game Stats." });
+  }
+
+  if(!data.metaStats.gameStart) {
+    errors.push({ elementID: `metaStats-gameStart`, message: "You must specify a valid game start time." });
+  }
+  if(!data.metaStats.date) {
+    errors.push({ elementID: `metaStats-date`, message: "You must specify a valid date." });
+  }
+  if(!data.metaStats.scorekeeper) {
+    errors.push({ elementID: `metaStats-scorekeeper`, message: "You must specify a valid name for the scorekeeper" });
+  }
+
   // Check all the team names and make sure they're not empty.
   for (let i = 0; i < data.teamName.length; i++) {
     const name: string = data.teamName[i];
@@ -47,13 +62,13 @@ export function checkSheet(rawData: any): SheetErr[] {
 
       // Otherwise, if the player has some data, check all its fields
       if (!player.name) {
-        errors.push({ elementID: `playerName-${i}-${j}`, message: "Player name is invalid." });
+        errors.push({ elementID: `playerName-${i}-${j}`, message: "Player name is invalid."});
       }
       if (!player.number) {
-        errors.push({ elementID: `playerNumber-${i}-${j}`, message: "Player number is invalid." });
+        errors.push({ elementID: `playerNumber-${i}-${j}`, message: "Player number is invalid."});
       }
       if (!player.position) {
-        errors.push({ elementID: `playerPosition-${i}-${j}`, message: "Player position is invalid." });
+        errors.push({ elementID: `playerPosition-${i}-${j}`, message: "Player position is invalid."});
       }
     }
   }
