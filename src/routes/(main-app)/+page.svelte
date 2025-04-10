@@ -15,8 +15,8 @@
 
   <section class="list-section-1">
     <h2>Recent Games</h2>
-    <div class="teams-bars">
-      {#each data.games as game}
+    <div class="team-bars">
+      {#each data.games.slice(0, 5) as game}
         <div class="team-bar">
           <a href="/pastgames/{game.game_id}" class="team-link">
             <h3>{game.hometeam} vs. {game.awayteam}</h3>

@@ -1,11 +1,12 @@
 <script lang="ts">
     import { goto } from "$app/navigation";
-    import type { SheetErr } from "$lib/backendChecker";
+    import type { SheetErr } from "$lib/checkers/backendChecker";
     import {
       clears,
       coachName,
       extraMan,
       faceoffs,
+      game_id,
       getPlayerMap,
       goals,
       goalTrack,
@@ -13,13 +14,12 @@
       metaStats,
       penalties,
       saves,
-      sheet_id,
       shots,
       teamName,
       timeouts,
       type SheetData
     } from "$lib/components/scoresheet/data.svelte";
-    import { addIDError } from "$lib/components/scoresheet/frontendChecker.svelte";
+    import { addIDError } from "$lib/checkers/frontendChecker.svelte";
   
     let showConfirmModal = false;
     let showConfirmButton = false;
@@ -32,6 +32,7 @@
   
     function getScoresheetData(): SheetData {
       return {
+        game_id: game_id.game_id,
         coachName: coachName,
         teamName: teamName,
         players: [Array.from(getPlayerMap(0).values()), Array.from(getPlayerMap(1).values())],
@@ -53,27 +54,14 @@
     async function confirmScoresheet() {
       correctScoresheet();
   
-      goto("/");
+      goto(`/pastgames/${game_id.game_id}`);
     }
     
     // First deletes the sheet with the corresponding ID, then replaces it with the new data.
     async function correctScoresheet() {
-      // Delete current scoresheet
-      try {
-        const result = await fetch(`/api/scoresheet/${sheet_id.id}`, {
-          method: "DELETE",
-          headers: {
-            "Content-Type": "application/json",
-          },
-        });
-      } catch (error) {
-        console.error(error);
-      }
-
       const scoresheetData: SheetData = getScoresheetData();
       const scoresheetJSON = JSON.stringify(scoresheetData);
-  
-      // Send the scoresheet data to the scoresheet/add endpoint
+      // Send the scoresheet data to the scoresheet POST endpoint
       try {
         const result = await fetch("/api/scoresheet/", {
           method: "POST",
@@ -81,6 +69,18 @@
             "Content-Type": "application/json",
           },
           body: scoresheetJSON,
+        });
+      } catch (error) {
+        console.error(error);
+      }
+
+      // Delete the previous scoresheet
+      try {
+        const result = await fetch(`/api/scoresheet/${game_id.sheet_id}`, {
+          method: "DELETE",
+          headers: {
+            "Content-Type": "application/json",
+          },
         });
       } catch (error) {
         console.error(error);

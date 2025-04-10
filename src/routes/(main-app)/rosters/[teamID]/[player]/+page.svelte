@@ -1,8 +1,9 @@
 <script lang="ts">
     import type { PageProps } from './$types';
 
-
     let { data }: PageProps = $props();
+
+    console.log(data.player);
 </script>
 
 <title>Player</title>
@@ -26,15 +27,15 @@
             <p><strong>Hometown:</strong> {data.player.hometown}, {data.player.state}</p>
         </div>
     </section>
+    
     <section class="player-stats">
         <h3>Player Stats</h3>
         <div class="stats-grid">
             <p><strong>Games Played: </strong> 0 </p>
-            <p><strong>Quarters: </strong> {data.player.quarter}</p>
-            <p><strong>Goals: </strong>{data.player.goals} </p>
-            <p><strong>Shots: </strong>{data.player.miss} </p>
-            <p><strong>Ground Balls: </strong>{data.player.ground}</p>
-            <p><strong>???: </strong> ??? </p>
+            <p><strong>Quarters: </strong> {data.player.quarters}</p>
+            <p><strong>Shots: </strong> {data.player.attempted_shots} </p>
+            <p><strong>Goals: </strong> {data.player.goals} </p>
+            <p><strong>Ground Balls: </strong> {data.player.ground_balls}</p>
         </div>
     </section>
 </div>

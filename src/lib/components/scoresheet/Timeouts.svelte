@@ -1,6 +1,6 @@
 <script lang="ts">
   import { timeouts } from "./data.svelte";
-  import { readTime } from "./frontendChecker.svelte";
+  import { readTime } from "$lib/checkers/frontendChecker.svelte";
 
   interface Side {
     side: number;

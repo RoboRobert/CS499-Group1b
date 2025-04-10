@@ -13,7 +13,9 @@ import type { Goal } from "$lib/database/Goal";
 import type { Penalty } from "$lib/database/Penalty";
 import type { Save } from "$lib/database/Save";
 import type { SheetInfo } from "$lib/database/SheetInfo";
+import type { Player } from "$lib/database/Team";
 import type { Timeout } from "$lib/database/Timeout";
+import { toPlayerID } from "./general";
 
 export function statsToDBStats(
   sheet_id: string,
@@ -92,9 +94,9 @@ export function penaltiesToDbPenalties(sheet_id: string, penalties: SheetPenalty
     dbPenalties.push(convertPenalty(sheet_id, 0, sheetPenalty));
   }
 
-  for (let i = 0; i < penalties[0].length; i++) {
+  for (let i = 0; i < penalties[1].length; i++) {
     const sheetPenalty: SheetPenalty = penalties[1][i];
-    dbPenalties.push(convertPenalty(sheet_id, 0, sheetPenalty));
+    dbPenalties.push(convertPenalty(sheet_id, 1, sheetPenalty));
   }
 
   return dbPenalties;
@@ -144,7 +146,7 @@ export function savesToDBSaves(sheet_id: string, saves: SheetSave[][]): Save[] {
   return dbSaves;
 }
 
-function convertPlayer(sheet_id: string, input: ScoresheetPlayer): SheetPlayer {
+function convertSheetPlayer(sheet_id: string, input: ScoresheetPlayer): SheetPlayer {
   const player: SheetPlayer = {
     sheet_id: sheet_id,
     side: input.side,
@@ -164,16 +166,16 @@ function convertPlayer(sheet_id: string, input: ScoresheetPlayer): SheetPlayer {
   return player;
 }
 
-export function playersToDBPlayers(sheet_id: string, players: ScoresheetPlayer[][]): SheetPlayer[] {
+export function playersToDBSheetPlayers(sheet_id: string, players: ScoresheetPlayer[][]): SheetPlayer[] {
   let dbPlayers: SheetPlayer[] = [];
   for (let i = 0; i < players[0].length; i++) {
     const sheetPlayer: ScoresheetPlayer = players[0][i];
-    dbPlayers.push(convertPlayer(sheet_id, sheetPlayer));
+    dbPlayers.push(convertSheetPlayer(sheet_id, sheetPlayer));
   }
 
   for (let i = 0; i < players[1].length; i++) {
     const sheetPlayer: ScoresheetPlayer = players[1][i];
-    dbPlayers.push(convertPlayer(sheet_id, sheetPlayer));
+    dbPlayers.push(convertSheetPlayer(sheet_id, sheetPlayer));
   }
 
   return dbPlayers;
@@ -206,4 +208,37 @@ export function goalsToDBGoals(sheet_id: string, goalTrack: SheetGoal[][]): Goal
   }
 
   return dbGoals;
+}
+
+function convertPlayer(team_name: string, team_id: string, input: ScoresheetPlayer): Player {
+  const player: Player = {
+    team_id: team_id,
+    player_id: toPlayerID(input.name, input.number, team_id),
+    team_name: team_name,
+    player_name: input.name,
+    player_number: input.number,
+    position: "",
+    player_class: "",
+    hometown: "",
+    state: "",
+    height_feet: 0,
+    height_inches: 0,
+    weight: 0,
+    quarters: 0,
+    attempted_shots: input.shots,
+    failed_shots: input.shots - input.goals,
+    goals: input.goals,
+    ground_balls: input.groundBalls
+  };
+
+  return player;
+}
+
+export function playersToDBPlayers(team_name: string, team_id: string, players: ScoresheetPlayer[]): Player[] {
+  let dbPlayers: Player[] = [];
+  for (const sheetPlayer of players) {
+    dbPlayers.push(convertPlayer(team_name, team_id, sheetPlayer));
+  }
+
+  return dbPlayers;
 }
