@@ -5,7 +5,7 @@
 
 <title>Home Page</title>
 
-<div>
+<div class="roster-page">
   <section class="home-dash">
     <!-- <img class="smegol" src="/LOGO.png" alt="Project Logo"/> -->
     <img class="smegol" src="/LOGO_NO_LEGS.png" alt="Project Logo" />
@@ -15,7 +15,7 @@
 
   <section class="list-section-1">
     <h2>Recent Games</h2>
-    <div class="team-bars">
+    <div class="teams-bars">
       {#each data.games as game}
         <div class="team-bar">
           <a href="/pastgames/{game.game_id}" class="team-link">

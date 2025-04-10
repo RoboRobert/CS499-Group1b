@@ -121,7 +121,7 @@ export async function updatePlayer(player: Player) {
       HEIGHT_FEET = ${player.height_feet || 0},
       HEIGHT_INCHES = ${player.height_inches || 0},
       WEIGHT = ${player.weight || 0}
-    WHERE PLAYER_NAME = ${player.player_name} AND PLAYER_NUMBER = ${player.player_number}
+    WHERE PLAYER_NAME = ${player.player_name} 
     RETURNING *;
   `;
 

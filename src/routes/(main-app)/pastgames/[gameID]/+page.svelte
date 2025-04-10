@@ -43,25 +43,29 @@
 
 <title>Team {data.game.game_id}</title>
 
-<div>
+<div class="roster-page">
   <!-- <a href="./">Back</a> -->
   <section class="game-dash">
     <h3>{data.game.hometeam} vs. {data.game.awayteam}</h3>
     <h3>{data.game.homescore}-{data.game.awayscore}</h3>
     <h3>{data.game.date} {data.game.time}</h3>
   </section>
-  <div class="team-bars">
-    {#each data.scoresheets as scoresheet}
-      <div class="team-bar">
-        <a data-sveltekit-reload href="/sheets/{scoresheet.sheet_id}" class="team-link">
-          <h3>Scoresheet by {scoresheet.scorekeeper}</h3>
-        </a>
-        <div class="player-actions">
-          <button onclick={() => openDeleteModal(scoresheet)} class="delete-button">Delete</button>
+  <section class= "list-section-1">
+    <div></div>
+  <h2>Scoresheets</h2>
+    <div class="teams-bars">
+      {#each data.scoresheets as scoresheet}
+        <div class="team-bar">
+          <a data-sveltekit-reload href="/sheets/{scoresheet.sheet_id}" class="team-link">
+            <h3>Scoresheet by {scoresheet.scorekeeper}</h3>
+          </a>
+          <div class="team-actions">
+            <button onclick={() => openDeleteModal(scoresheet)} class="delete-button">Delete</button>
+          </div>
         </div>
-      </div>
-    {/each}
-  </div>
+      {/each}
+    </div>
+  </section>
 </div>
 
 {#if showDeleteConfirm}
