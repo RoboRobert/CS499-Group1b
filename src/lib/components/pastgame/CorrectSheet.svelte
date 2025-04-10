@@ -1,6 +1,6 @@
 <script lang="ts">
     import { goto } from "$app/navigation";
-    import type { SheetErr } from "$lib/backendChecker";
+    import type { SheetErr } from "$lib/checkers/backendChecker";
     import {
       clears,
       coachName,
@@ -19,7 +19,7 @@
       timeouts,
       type SheetData
     } from "$lib/components/scoresheet/data.svelte";
-    import { addIDError } from "$lib/components/scoresheet/frontendChecker.svelte";
+    import { addIDError } from "$lib/checkers/frontendChecker.svelte";
   
     let showConfirmModal = false;
     let showConfirmButton = false;
