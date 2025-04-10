@@ -11,7 +11,7 @@ export async function GET({ params, cookies}) {
     if (token !== "admin" && token !== "coach") {
         error(403, "You don't have the right O you don't have the right");
     }
-    console.log(params)
+    // console.log(params)
     const { id } = params;
     const team = await getTeam(id)
     return json(team)
@@ -24,7 +24,7 @@ export const POST: RequestHandler = async ({request, cookies}) => {
     if (token !== "admin" && token !== "coach") {
         error(403, "You don't have the right O you don't have the right");
     }
-    console.log(request)
+    // console.log(request)
     const {team} = await request.json()
     addTeam(team)
     return json({message: "Post request"})
