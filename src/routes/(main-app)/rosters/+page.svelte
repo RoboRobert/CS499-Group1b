@@ -259,6 +259,7 @@
 
 <title>Rosters</title>
 
+<div class="container">
 <div class="roster-page">
   <section class="rosters-dash">
     <h1><strong>Rosters</strong></h1>
@@ -292,6 +293,7 @@
       {/each}
     </div>
   </section>
+</div>
 </div>
 
 {#if showEditModal}

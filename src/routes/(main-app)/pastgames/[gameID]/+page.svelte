@@ -42,7 +42,7 @@
 </script>
 
 <title>Team {data.game.game_id}</title>
-
+<div class="container">
 <div class="roster-page">
   <!-- <a href="./">Back</a> -->
   <section class="game-dash">
@@ -66,6 +66,7 @@
       {/each}
     </div>
   </section>
+</div>
 </div>
 
 {#if showDeleteConfirm}

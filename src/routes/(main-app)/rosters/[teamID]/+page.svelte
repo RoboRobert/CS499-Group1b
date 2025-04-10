@@ -284,6 +284,7 @@
 </script>
 
 <title>Team {data.team.team_name}</title>
+<div class="container">
 <div class="team-page">
   <!-- <a href="./" class="back-link">← Back to Rosters</a> -->
 
@@ -328,6 +329,9 @@
       {/each}
     </div>
   </section>
+</div>
+</div>
+
 
 {#if showEditModal}
   <div class="modal-backdrop">
@@ -517,4 +521,4 @@
   </div>
 </div>
 {/if}
-</div>
+
