@@ -18,6 +18,12 @@
   import HomeButton from "$lib/components/scoresheet/Bar/HomeButton.svelte";
   import ThemeSwitch from "../general/ThemeSwitch.svelte";
 
+  interface Theme {
+    theme: boolean;
+  }
+
+  let { theme }: Theme = $props();
+
   let leftSheet: HTMLElement;
   let rightSheet: HTMLElement;
 
@@ -40,7 +46,7 @@
     <Quarters></Quarters>
     <ImportTeam></ImportTeam>
     <Submit></Submit>
-    <ThemeSwitch></ThemeSwitch>
+    <ThemeSwitch theme={theme}></ThemeSwitch>
   </div>
   <Header></Header>
   <div class="sheets">

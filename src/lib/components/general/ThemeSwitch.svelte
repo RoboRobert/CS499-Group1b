@@ -1,5 +1,11 @@
 <script lang="ts">
-  let darkMode = $state(false);
+  interface Theme {
+    theme: boolean;
+  }
+
+  let { theme }: Theme = $props();
+
+  let darkMode = $state(theme);
 
   async function toggleDarkMode() {
     await fetch("/api/setTheme?theme=dark");

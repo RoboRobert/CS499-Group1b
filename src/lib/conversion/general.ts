@@ -13,3 +13,11 @@ export function toPlayerID(name: string, playerno: number, team_id: string): str
 
   return `${team_id}-${cleanName}-${playerno}`;
 }
+
+export function themeToBool(theme: string): boolean {
+  if(theme === "dark") {
+    return true;
+  }
+
+  return false;
+}

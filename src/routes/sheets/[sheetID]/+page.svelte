@@ -1,6 +1,9 @@
 <script lang="ts">
   import { invalidateAll } from "$app/navigation";
   import PastGame from "$lib/components/pastgame/PastGame.svelte";
+  import type { PageProps } from "./$types";
+
+  let { data }: PageProps = $props();
 </script>
 
-<PastGame></PastGame>
+<PastGame theme={data.theme}></PastGame>

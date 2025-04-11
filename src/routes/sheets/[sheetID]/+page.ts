@@ -3,8 +3,10 @@ import type { PageLoad } from "./$types";
 
 export const ssr = false;
 
-export const load: PageLoad = async ({ params, fetch }) => {
+export const load: PageLoad = async ({ data, params, fetch }) => {
     const sheetId = params.sheetID;  // Extracts the slug from the URL
+
+    const theme = data.theme;
 
     try {
         const response = await fetch(`/api/scoresheet/${sheetId}`);
@@ -20,7 +22,7 @@ export const load: PageLoad = async ({ params, fetch }) => {
         dbGoalsToGoals(data.goals);
         dbPlayersToPlayers(data.sheetPlayers);
 
-        return {};
+        return { theme }
     } catch (err) {
         console.error('Error loading data:', err);
     }

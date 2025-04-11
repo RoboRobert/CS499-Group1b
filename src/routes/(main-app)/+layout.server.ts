@@ -1,7 +1,7 @@
-import { redirect } from "@sveltejs/kit";
-import type { PageServerLoad } from "./$types";
+import type { LayoutServerLoad } from "./$types";
+import { themeToBool } from "$lib/conversion/general";
 
-export const load: PageServerLoad = async ({ fetch, cookies }) => {
+export const load: LayoutServerLoad = async ({ fetch, cookies }) => {
     cookies.set("user-role", "admin", { path: '/' })
 
     // const token =cookies.get("user-role");
@@ -11,14 +11,11 @@ export const load: PageServerLoad = async ({ fetch, cookies }) => {
     //   
     // }
 
-    // const searchParams = cookies.get("colortheme") || "light";
+    const theme = themeToBool(cookies.get("colortheme"));
     // const pathname = url.pathname;
     // console.log("searchParams", searchParams);
     // console.log("pathname", pathname);
     
-    // return {
-    //     searchParams,
-    //     pathname,
-    //   };
+    return { theme };
     
 }

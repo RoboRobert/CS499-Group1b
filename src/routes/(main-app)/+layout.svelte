@@ -1,15 +1,14 @@
 <script lang="ts">
   import "$lib/styles/app.css";
-  import type { SubmitFunction } from "./$types";
-//import { enhance } from '$app/forms';
+  //import { enhance } from '$app/forms';
   import ThemeSwitch from "$lib/components/general/ThemeSwitch.svelte";
   import type { ActionData } from "./$types.js";
+  import type { LayoutProps } from "./$types.js";
 
-  export let form: ActionData;
-  export let closed = false;
+  let { data }: LayoutProps = $props();
 
-  // const themeParam = searchParams;
-  let darkMode = false; // Default to light mode
+  let form: ActionData;
+  let closed = false;
 
   // State to control modal visibility
   let showSignInModal = false;
@@ -28,18 +27,6 @@
   const openRegModal = () => (showRegModal = true);
   // Function to close the Register modal
   const closeRegModal = () => ((showRegModal = false), (regMessage = ""));
-
-  let showThemeOptions = false;
-  // Function to open the Register modal
-  const openThemeOptions = () => (showThemeOptions = !showThemeOptions);
-
-  const submitUpdateTheme: SubmitFunction = ({ action }) => {
-    const theme = action.searchParams.get("theme");
-    if (theme) {
-      document.documentElement.setAttribute("data-theme", theme);
-      darkMode = theme === "dark";
-    }
-  };
 </script>
 
 <nav>
@@ -57,7 +44,7 @@
     <!-- </ul> -->
   </div>
   <div class="navRight">
-    <ThemeSwitch></ThemeSwitch>
+    <ThemeSwitch theme={data.theme}></ThemeSwitch>
 
     <section class="buttons">
       <button onclick={openRegModal} type="button">Register</button>

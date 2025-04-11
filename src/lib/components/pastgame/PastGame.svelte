@@ -16,6 +16,12 @@
   import CorrectSheet from "./CorrectSheet.svelte";
   import ExitSheet from "./ExitSheet.svelte";
 
+  interface Theme {
+    theme: boolean;
+  }
+
+  let { theme }: Theme = $props();
+
   let leftSheet: HTMLElement;
   let rightSheet: HTMLElement;
 
@@ -37,7 +43,7 @@
     <MetaStats></MetaStats>
     <ExitSheet></ExitSheet>
     <CorrectSheet></CorrectSheet>
-    <ThemeSwitch></ThemeSwitch>
+    <ThemeSwitch theme={theme}></ThemeSwitch>
   </div>
   <Header></Header>
   <div class="sheets">
