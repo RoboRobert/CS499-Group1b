@@ -6,7 +6,7 @@
   import type { SubmitFunction } from "@sveltejs/kit";
   //import { enhance } from '$app/forms';
 
-  export let _isLoggedIn = cookies.get("username"); // This will be passed from the server-side code
+  export let _isLoggedIn: string | null = null; // This will be passed from the server-side code
   console.log("isLoggedIn: ", _isLoggedIn);
 
   // State to control modal visibility
