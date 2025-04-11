@@ -1,5 +1,5 @@
-import type { PageServerLoad } from "./$types";
-export const load: PageServerLoad = async ({ cookies }) => {
+import type { LayoutServerLoad } from "./$types";
+export const load: LayoutServerLoad = async ({ cookies }) => {
     
     // cookies.set("user-role", "admin", { path: '/' })
 

@@ -4,18 +4,20 @@
   import {page} from "$app/stores";
   import "$lib/styles/app.css";
   import type { SubmitFunction } from "@sveltejs/kit";
+  import type { LayoutProps } from "./$types";
+  import { invalidate, invalidateAll } from "$app/navigation";
   //import { enhance } from '$app/forms';
 
-  export let _isLoggedIn: string | null = null; // This will be passed from the server-side code
-  console.log("isLoggedIn: ", _isLoggedIn);
+  let { data }: LayoutProps = $props();
+  console.log("isLoggedIn: ", data._isLoggedIn);
 
   // State to control modal visibility
-  let showSignInModal = false;
-  let showRegModal = false;
+  let showSignInModal = $state(false);
+  let showRegModal = $state(false);
 
   // State to hold results of sign-in and registration
-  let signMessage = ''; // Message to display for signin modal
-  let regMessage = ''; // Message to display for register modal
+  let signMessage = $state(''); // Message to display for signin modal
+  let regMessage = $state(''); // Message to display for register modal
 
   // Function to open the Sign in modal
   const openSignInModal = () => (showSignInModal = true);
@@ -27,7 +29,7 @@
   // Function to close the Register modal
   const closeRegModal = () => (showRegModal = false, regMessage = '');
 
-  let showThemeOptions = false;
+  let showThemeOptions = $state(false);
    // Function to open the Register modal
   const openThemeOptions = () => (showThemeOptions = !showThemeOptions);
 
@@ -46,6 +48,7 @@
 
     const data = await response.json();
     console.log("Response data:", data);
+    invalidateAll();
   }
 
   async function handleRegisterForm(event: Event){
@@ -105,17 +108,14 @@
     </ul>
   </div>
 
-  {#if _isLoggedIn != null}
-  <p> Welcome, {_isLoggedIn}</p>
+  {#if data._isLoggedIn != null}
+  <p> Welcome, {data._isLoggedIn}</p>
   {:else}
   <div class="buttons">
     <button onclick={openRegModal} type="button">Register</button>
     <button onclick={openSignInModal} type="button">Sign In</button>
   </div>
   {/if}
-
- 
-
 </nav>
 
 <!-- Modal Backdrop -->
