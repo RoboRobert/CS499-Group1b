@@ -152,11 +152,6 @@
 </div>
 
 <style>
-  .noBorder {
-    /* display:flex; */
-    align-content: end;
-  }
-
   .modal-actions {
     margin: 10px;
   }

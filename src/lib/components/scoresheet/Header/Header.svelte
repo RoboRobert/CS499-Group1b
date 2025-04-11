@@ -8,7 +8,7 @@
 </script>
 
 <div class="wideRow">
-  <div class="outer noBorder">
+  <div class="outer top-bar-item">
     <div class="innerRow">
       <input id="teamName-0" class="field bigField" type="text" value={teamName[0]} placeholder="Home Team" oninput={(e) => teamName[0] = readString(e)} />
       {#each Array(numGoals) as attempt, i}

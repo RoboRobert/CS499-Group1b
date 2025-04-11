@@ -1,13 +1,9 @@
 <script lang="ts">
   import "$lib/styles/app.css";
-  import { enhance } from "$app/forms";
-  import { page } from "$app/stores";
-  import "$lib/styles/app.css";
   import type { SubmitFunction } from "./$types";
-
-  //import { enhance } from '$app/forms';
-  import type { ActionData } from "./$types.js";
+//import { enhance } from '$app/forms';
   import ThemeSwitch from "$lib/components/general/ThemeSwitch.svelte";
+  import type { ActionData } from "./$types.js";
 
   export let form: ActionData;
   export let closed = false;

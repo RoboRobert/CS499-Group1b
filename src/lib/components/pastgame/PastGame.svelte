@@ -12,6 +12,7 @@
   import Shots from "$lib/components/scoresheet/Stats/Shots.svelte";
   import Team from "$lib/components/scoresheet/Team.svelte";
   import Timeouts from "$lib/components/scoresheet/Timeouts.svelte";
+  import ThemeSwitch from "../general/ThemeSwitch.svelte";
   import CorrectSheet from "./CorrectSheet.svelte";
   import ExitSheet from "./ExitSheet.svelte";
 
@@ -36,6 +37,7 @@
     <MetaStats></MetaStats>
     <ExitSheet></ExitSheet>
     <CorrectSheet></CorrectSheet>
+    <ThemeSwitch></ThemeSwitch>
   </div>
   <Header></Header>
   <div class="sheets">
@@ -82,67 +84,3 @@
     </div>
   </div>
 </div>
-
-<style>
-  .main {
-    display: flex;
-    flex-direction: column;
-    max-height: 98vh;
-    min-height: 0;
-    overflow: hidden;
-  }
-
-  .sheets {
-    display: flex;
-    flex-direction: row;
-    min-height: 0;
-  }
-
-  .column {
-    display: flex;
-    flex-direction: column;
-    min-height: 0;
-  }
-
-  .columns {
-    flex: 1;
-    position: relative;
-    display: grid;
-    grid-template-columns: minmax(0, 2fr) minmax(0, 1.5fr) minmax(0, 1fr);
-    gap: 10px;
-    min-height: 0;
-  }
-
-  .verticalLine {
-    margin-left: 10px;
-    margin-right: 10px;
-    margin-bottom: 10px;
-    border-left: thick solid black;
-    min-height: 100%;
-    width: 1px;
-  }
-
-  @keyframes makeMax {
-    100% {
-      flex: 11;
-    }
-  }
-
-  .maximized {
-    animation: makeMax 1s forwards;
-  }
-
-  .cover {
-    opacity: 50%;
-    position: absolute;
-    inset: 0;
-  }
-
-  .inactive {
-    pointer-events: none;
-  }
-
-  .cover:hover {
-    background-color: black;
-  }
-</style>

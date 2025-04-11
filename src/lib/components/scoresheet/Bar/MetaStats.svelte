@@ -7,7 +7,7 @@
   
 </script>
 
-<div  class="noBorder">
+<div  class="top-bar-item">
   <img id="metaStatsButton" class="svg" src="/svgs/book-user-svgrepo-com.svg" alt="The list of game meta information" onpointerup={toggleMetaStats} />
   <div>META GAME STATS</div>
 </div>

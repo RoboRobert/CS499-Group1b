@@ -1,16 +1,14 @@
 <script lang="ts">
-  import { invalidateAll } from "$app/navigation";
-
   let darkMode = $state(false);
 
   async function toggleDarkMode() {
-    // await fetch("/api/setTheme?theme=dark");
+    await fetch("/api/setTheme?theme=dark");
     document.documentElement.setAttribute("data-theme", "dark");
     darkMode = true;
   }
 
   async function toggleLightMode() {
-    // await fetch("/api/setTheme?theme=light");
+    await fetch("/api/setTheme?theme=light");
     document.documentElement.setAttribute("data-theme", "light");
     darkMode = false;
   }
