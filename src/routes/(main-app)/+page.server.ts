@@ -120,7 +120,6 @@ export const actions = {
     setTheme: async ({url, cookies}) => {
         const theme = url.searchParams.get("theme");
         const redirectTo = url.searchParams.get("redirectTo");
-        console.log(redirectTo);
     
         if(theme){
           cookies.set("colortheme", theme, {
