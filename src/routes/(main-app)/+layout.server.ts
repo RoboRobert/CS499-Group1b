@@ -1,7 +1,6 @@
-import { redirect } from "@sveltejs/kit";
 import type { PageServerLoad } from "./$types";
-
-export const load: PageServerLoad = async ({ fetch, cookies }) => {
+export const load: PageServerLoad = async ({ cookies }) => {
+    
     // cookies.set("user-role", "admin", { path: '/' })
 
     // const token =cookies.get("user-role");
@@ -10,7 +9,10 @@ export const load: PageServerLoad = async ({ fetch, cookies }) => {
     // if(token == "guest" && visitorSBKRestrictedPaths.includes(currentPath)|| token == "score-keeper" && visitorSBKRestrictedPaths.includes(currentPath)) {
     //   
     // }
-    
+
+    const username = cookies.get("username");
+    console.log("username: ", username);
+    return {_isLoggedIn: username || null};
 
     
 }

@@ -3,13 +3,11 @@
   import { enhance } from "$app/forms";
   import {page} from "$app/stores";
   import "$lib/styles/app.css";
-  import type { SubmitFunction } from "./$types";
-  
+  import type { SubmitFunction } from "@sveltejs/kit";
   //import { enhance } from '$app/forms';
-  import type { ActionData } from './$types.js';
-  //export let data;
-  export let form: ActionData;
-  export let closed = false;
+
+  export let _isLoggedIn = cookies.get("username"); // This will be passed from the server-side code
+  console.log("isLoggedIn: ", _isLoggedIn);
 
   // State to control modal visibility
   let showSignInModal = false;
@@ -106,10 +104,15 @@
       </li>
     </ul>
   </div>
+
+  {#if _isLoggedIn != null}
+  <p> Welcome, {_isLoggedIn}</p>
+  {:else}
   <div class="buttons">
     <button onclick={openRegModal} type="button">Register</button>
     <button onclick={openSignInModal} type="button">Sign In</button>
   </div>
+  {/if}
 
  
 
@@ -145,7 +148,7 @@
 {/if}
 
 <!-- Dialog for success message after signing in -->
-<dialog open={form?.logsuccess == true && !closed}>
+<!--<dialog open={form?.logsuccess == true && !closed}>
   <article>
     <header>
       <a href="#close" aria-label="Close" class="close" onclick={() => closed = true}>x</a>
@@ -155,10 +158,10 @@
       Welcome to Smegol, "{form?.username}"!
     </p>
   </article>
-</dialog>
+</dialog>-->
 
 <!-- Dialog for error message after signin failure -->
-<dialog open={form?.logsuccess == false && !closed}>
+<!--<dialog open={form?.logsuccess == false && !closed}>
   <article>
     <header>
       <a href="#close" aria-label="Close" class="close" onclick={() => closed = true}>x</a>
@@ -168,7 +171,7 @@
       Please enter a valid username. User "{form?.username}" does not exist.
     </p>
   </article>
-</dialog>
+</dialog>-->
 
 {#if showRegModal}
   <div class="modal-backdrop">
@@ -202,7 +205,7 @@
 {/if}
 
 <!-- Dialog for success message after registering -->
-<dialog open={form?.regsuccess == true && !closed}>
+<!--<dialog open={form?.regsuccess == true && !closed}>
   <article>
     <header>
       <a href="#close" aria-label="Close" class="close" onclick={() => closed = true}>x</a>
@@ -212,10 +215,10 @@
       Congratulations on joining Smegol, "{form?.username}"!
     </p>
   </article>
-</dialog>
+</dialog>-->
 
 <!-- Dialog for error message after registration failure -->
-<dialog open={form?.regsuccess == false && !closed}>
+<!--<dialog open={form?.regsuccess == false && !closed}>
   <article>
     <header>
       <a href="#close" aria-label="Close" class="close" onclick={() => closed = true}>x</a>
@@ -225,7 +228,7 @@
       Account with username "{form?.username}" already exists.
     </p>
   </article>
-</dialog>
+</dialog>-->
 
 <slot></slot>
 
@@ -273,7 +276,7 @@
     margin-left:auto;
   } */
 
-  .close {
+  /*.close {
   position: absolute;
   top: 10px;
   right: 10px;
@@ -281,10 +284,10 @@
   text-decoration: none;
   color: rgb(255, 255, 255);
   background: none;
-}
+}*/
 
-.close:hover {
+/*.close:hover {
   cursor: pointer;
   color: red;
-}
+}*/
 </style>
