@@ -2,7 +2,7 @@
   import { goto } from "$app/navigation";
 
   function goHome() {
-    goto("/", {replaceState:true});
+    goto("/", {invalidateAll:true});
   }
 </script>
 

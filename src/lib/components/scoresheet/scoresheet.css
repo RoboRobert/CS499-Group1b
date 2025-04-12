@@ -70,7 +70,7 @@ input[type="number"] {
 --clr-surface-a50: #b6b6b6;
 
 /** Theme tonal surface colors */
---clr-surface-tonal-a0: #eeefff;
+--clr-surface-tonal-a0: #e1e3fd;
 --clr-surface-tonal-a10: #e1e2f0;
 --clr-surface-tonal-a20: #d5d5e1;
 --clr-surface-tonal-a30: #c8c9d3;
@@ -86,8 +86,6 @@ input[type="number"] {
 }
 
 * {
-  color: var(--clr-home);
-  /* background-color: var(--clr-surface-a0); */
   font-size: 0.8vw;
 }
 
@@ -106,6 +104,7 @@ body {
 }
 
 .field {
+  background-color: var(--clr-surface-tonal-a0);
   color: var(--clr-home);
   text-align: center;
   min-width: 0;
@@ -120,6 +119,8 @@ body {
 }
 
 .rowBox {
+  color: var(--clr-home);
+  background-color: var(--clr-surface-tonal-a0);
   text-align: center;
   border: 1px solid black;
   overflow: hidden;
@@ -127,6 +128,8 @@ body {
 }
 
 .headerBox {
+  color: var(--clr-home);
+  background-color: var(--clr-surface-tonal-a0);
   text-align: center;
   border: 1px solid black;
 }
@@ -180,6 +183,7 @@ body {
 .svg {
   width: 50px;
   height: 50px;
+  stroke: var(--clr-home);
 }
 
 .svg:hover {

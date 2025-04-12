@@ -54,7 +54,7 @@
     async function confirmScoresheet() {
       correctScoresheet();
   
-      goto(`/pastgames/${game_id.game_id}`);
+      goto(`/pastgames/${game_id.game_id}`, {invalidateAll: true});
     }
     
     // First deletes the sheet with the corresponding ID, then replaces it with the new data.

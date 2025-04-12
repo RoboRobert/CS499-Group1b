@@ -71,7 +71,7 @@
 {#if showDeleteConfirm}
   <div class="modal-backdrop">
     <div class="modal-content">
-      <h2>Are you sure you want to delete this game?</h2>
+      <h2>Are you sure you want to delete this scoresheet?</h2>
       <div class="modal-actions">
         <button type="button" onclick={closeDeleteModal} class="cancel-button">Cancel</button>
         <button type="button" onclick={() => handleDeleteSheet()} class="sign-in-button">Delete</button>
