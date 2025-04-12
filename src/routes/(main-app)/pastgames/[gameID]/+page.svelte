@@ -1,5 +1,6 @@
 <script lang="ts">
   import { invalidateAll } from "$app/navigation";
+  import { convertTo12Hour } from "$lib/conversion/general";
   import type { Sheet } from "$lib/database/Sheet";
   import type { PageProps } from "./$types";
 
@@ -48,7 +49,7 @@
   <section class="game-dash">
     <h3>{data.game.hometeam} vs. {data.game.awayteam}</h3>
     <h3>{data.game.homescore}-{data.game.awayscore}</h3>
-    <h3>{data.game.date} {data.game.time}</h3>
+    <h3>{data.game.date} {convertTo12Hour(data.game.time)}</h3>
   </section>
   <section class= "list-section-1">
     <div></div>

@@ -1,5 +1,6 @@
 <script lang="ts">
   import { invalidateAll } from "$app/navigation";
+  import { convertTo12Hour } from "$lib/conversion/general";
   import type { Game } from "$lib/database/Sheet";
   import type { PageProps } from "./$types";
 
@@ -63,7 +64,7 @@
           <a href="/pastgames/{game.game_id}" class="team-link">
             <h3>{game.hometeam} vs. {game.awayteam}</h3>
             <h3>{game.homescore}-{game.awayscore}</h3>
-            <h3>{game.date} {game.time}</h3>
+            <h3>{game.date} {convertTo12Hour(game.time)}</h3>
           </a>
           <div class="team-actions">
             <button onclick={() => openDeleteModal(game)} class="delete-button">Delete</button>

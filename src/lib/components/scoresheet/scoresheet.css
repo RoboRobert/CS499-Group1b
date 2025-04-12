@@ -303,7 +303,7 @@ body {
 }
 
 .thickBorder {
-  border: 2px solid black;
+  border: 2px solid var(--clr-home);
 }
 
 /* Theme Options */
@@ -394,9 +394,12 @@ body {
 }
 
 .top-bar-item {
+  color: var(--clr-home);
   border: none;
 }
 
 .quarters {
+  color: var(--clr-home);
   display:flex;
+  border-color: var(--clr-home);
 }

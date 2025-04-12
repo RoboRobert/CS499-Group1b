@@ -1,6 +1,13 @@
 // This file contains a Library of functions designed to validate input on the frontend.
 
-import { players } from "$lib/components/scoresheet/data.svelte";
+import { numMetaErrors, players } from "$lib/components/scoresheet/data.svelte";
+
+// Object of error checks, with regex and error message to display if failed.
+// export const errorChecks: {
+//   playerno: {regex: },
+
+// }
+  
 
 export function removeError(target: HTMLInputElement | HTMLElement) {
   target.classList.remove("error");

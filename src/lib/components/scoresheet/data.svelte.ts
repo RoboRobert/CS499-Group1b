@@ -285,3 +285,7 @@ export const metaStats = $state<MetaStats>({
   lengthOfQuarters: "",
   weatherCondition: "",
 });
+
+
+// Error checking
+export const numMetaErrors = $state({errors: 0});
