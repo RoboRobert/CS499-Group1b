@@ -1,6 +1,6 @@
 // This file contains a Library of functions designed to validate input on the frontend.
 
-import { numMetaErrors, players } from "$lib/components/scoresheet/data.svelte";
+import { metaStats, numMetaErrors, players } from "$lib/components/scoresheet/data.svelte";
 
 // Object of error checks, with regex and error message to display if failed.
 // export const errorChecks: {
@@ -110,10 +110,13 @@ export function readPlayerno(e): number | null {
 
 export function checkMetaStat(e) {
   const target = e.target as HTMLInputElement;
+
+  if(metaStats.date && metaStats.gameStart && metaStats.scorekeeper) {
+    removeIDError("metaStatsButton");
+  }
   
   removeError(target);
-  removeIDError("metaStatsButton");
-
+  
   if(!target.value) {
     addIDError("metaStatsButton", "There are errors in the Meta Game Stats." );
     addError(target, "Field cannot be empty.");
