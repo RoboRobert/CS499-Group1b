@@ -143,20 +143,20 @@ export const extraMan: Stat[][] = $state([
 
 export const timeouts: SheetTimeout[][] = $state([
   [
-    { time: null, period: 0 },
-    { time: null, period: 0 },
-    { time: null, period: 0 },
-    { time: null, period: 0 },
-    { time: null, period: 0 },
-    { time: null, period: 0 },
+    { time: null, period: null },
+    { time: null, period: null },
+    { time: null, period: null },
+    { time: null, period: null },
+    { time: null, period: null },
+    { time: null, period: null },
   ],
   [
-    { time: null, period: 0 },
-    { time: null, period: 0 },
-    { time: null, period: 0 },
-    { time: null, period: 0 },
-    { time: null, period: 0 },
-    { time: null, period: 0 },
+    { time: null, period: null },
+    { time: null, period: null },
+    { time: null, period: null },
+    { time: null, period: null },
+    { time: null, period: null },
+    { time: null, period: null },
   ],
 ]);
 

@@ -11,7 +11,6 @@ export const load: PageLoad = async ({ data, params, fetch }) => {
     try {
         const response = await fetch(`/api/scoresheet/${sheetId}`);
         let data = await response.json();
-        console.log(JSON.stringify(data.timeouts));
         
         dbMetaToMeta(data.sheet);
         dbStatsToStats(data.gameStats);

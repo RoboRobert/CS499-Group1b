@@ -6,6 +6,7 @@ export interface SheetErr {
 }
 
 const validNumberMsg = "Field must contain an integer.";
+const emptyFieldMsg = "Field cannot be empty.";
 
 export function checkSheet(rawData: any): SheetErr[] {
   const data: SheetData = {
@@ -55,11 +56,6 @@ export function checkSheet(rawData: any): SheetErr[] {
   for (let i = 0; i < data.players.length; i++) {
     for (let j = 0; j < data.players[i].length; j++) {
       let player: ScoresheetPlayer = data.players[i][j];
-      // If the player is empty, ignore it.
-      if (!player.name && !player.number && !player.position) {
-        continue;
-      }
-
       // Otherwise, if the player has some data, check all its fields
       if (!player.name) {
         errors.push({ elementID: `playerName-${i}-${j}`, message: "Player name is invalid."});
@@ -84,19 +80,19 @@ export function checkSheet(rawData: any): SheetErr[] {
 
       // Otherwise, if the save has some data, check all its fields
       if (save.qtr1 == null) {
-        errors.push({ elementID: `savesQ1-${i}-${j}`, message: "Field cannot be empty." });
+        errors.push({ elementID: `savesQ1-${i}-${j}`, message: emptyFieldMsg});
       }
       if (save.qtr2 == null) {
-        errors.push({ elementID: `savesQ2-${i}-${j}`, message: "Field cannot be empty." });
+        errors.push({ elementID: `savesQ2-${i}-${j}`, message: emptyFieldMsg });
       }
       if (save.qtr3 == null) {
-        errors.push({ elementID: `savesQ3-${i}-${j}`, message: "Field cannot be empty." });
+        errors.push({ elementID: `savesQ3-${i}-${j}`, message: emptyFieldMsg });
       }
       if (save.qtr4 == null) {
-        errors.push({ elementID: `savesQ4-${i}-${j}`, message: "Field cannot be empty." });
+        errors.push({ elementID: `savesQ4-${i}-${j}`, message: emptyFieldMsg });
       }
       if (save.ot == null) {
-        errors.push({ elementID: `savesOT-${i}-${j}`, message: "Field cannot be empty." });
+        errors.push({ elementID: `savesOT-${i}-${j}`, message: emptyFieldMsg });
       }
     }
   }
@@ -111,31 +107,42 @@ export function checkSheet(rawData: any): SheetErr[] {
       }
 
       if (!penalty.timeout) {
-        errors.push({ elementID: `penaltyTimeout-${i}-${j}`, message: "Field cannot be empty." });
+        errors.push({ elementID: `penaltyTimeout-${i}-${j}`, message: emptyFieldMsg });
       }
 
       if (penalty.playerno == null) {
-        errors.push({ elementID: `penaltyNumber-${i}-${j}`, message: "Field cannot be empty." });
+        errors.push({ elementID: `penaltyNumber-${i}-${j}`, message: emptyFieldMsg });
       }
 
       if (!penalty.infraction) {
-        errors.push({ elementID: `penaltyInfraction-${i}-${j}`, message: "Field cannot be empty." });
+        errors.push({ elementID: `penaltyInfraction-${i}-${j}`, message: emptyFieldMsg });
       }
 
       if (!penalty.quarter) {
-        errors.push({ elementID: `penaltyQuarter-${i}-${j}`, message: "Field cannot be empty." });
+        errors.push({ elementID: `penaltyQuarter-${i}-${j}`, message: emptyFieldMsg });
       }
 
       if (!penalty.time) {
-        errors.push({ elementID: `penaltyTime-${i}-${j}`, message: "Field cannot be empty." });
+        errors.push({ elementID: `penaltyTime-${i}-${j}`, message: emptyFieldMsg });
       }
     }
   }
 
-  // TODO: Check all the timeouts
-  // for(let i = 0; i < data.penalties.length; i++) {
-  //     for(let j = 0; j < data.penalties[i].length; j++) {
-  // }
+  for(let i = 0; i < data.timeouts.length; i++) {
+      console.log(data.timeouts[i].length)
+      for(let j = 0; j < data.timeouts[i].length; j++) {
+        const timeout = data.timeouts[i][j];
+        if(!timeout.period) {
+          // If the timeout has data, check if 
+          if (!timeout.period) {
+            errors.push({ elementID: `timeout-${i}-${j}`, message: emptyFieldMsg});
+          }
+          if (!timeout.time) {
+            errors.push({ elementID: `timeout-${i}-${j}`, message: emptyFieldMsg});
+          }
+        }
+      }
+  }
 
   // Check all the ground balls
   for (let i = 0; i < data.groundBalls.length; i++) {
