@@ -2,12 +2,12 @@
 
 import { players } from "$lib/components/scoresheet/data.svelte";
 
-export function removeError(target: HTMLInputElement) {
+export function removeError(target: HTMLInputElement | HTMLElement) {
   target.classList.remove("error");
   target.removeAttribute("title");
 }
 
-export function addError(target: HTMLInputElement, message: string) {
+export function addError(target: any, message: string) {
   target.classList.add("error");
   target.setAttribute("title", message);
 }
@@ -17,6 +17,12 @@ export function addIDError(elementId: string, message: string) {
 
   target.classList.add("error");
   target.setAttribute("title", message);
+}
+
+export function removeIDError(elementId: string) {
+  let target = document.getElementById(elementId);
+
+  removeError(target);
 }
 
 // Checks if the event target value is an integer.
@@ -34,15 +40,7 @@ export function IsNumber(event: any): boolean {
 
 // Iterates through all player elements on the specified side and marks any that are the same.
 export function CheckPlayerNumber(event: any, side: number) {
-  const mainTarget = event.target as HTMLInputElement;
-
-  mainTarget.classList.remove("error");
-  mainTarget.removeAttribute("title");
-
-  if (mainTarget.value == "") {
-    return;
-  }
-
+  console.log(event.target.value);
   if (!IsNumber(event)) {
     return;
   }
@@ -101,4 +99,16 @@ export function readPlayerno(e): number | null {
   }
 
   return Number(matches[0]);
+}
+
+export function checkMetaStat(e) {
+  const target = e.target as HTMLInputElement;
+  
+  removeError(target);
+  removeIDError("metaStatsButton");
+
+  if(!target.value) {
+    addIDError("metaStatsButton", "There are errors in the Meta Game Stats." );
+    addError(target, "Field cannot be empty.");
+  }
 }

@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { checkMetaStat } from "$lib/checkers/frontendChecker.svelte";
   import { metaStats } from "../data.svelte";
 
   function toggleMetaStats() {
@@ -7,7 +8,7 @@
   
 </script>
 
-<div  class="top-bar-item">
+<div  class="top-bar-item thin">
   <img id="metaStatsButton" class="svg" src="/svgs/book-user-svgrepo-com.svg" alt="The list of game meta information" onpointerup={toggleMetaStats} />
   <div>META GAME STATS</div>
 </div>
@@ -19,7 +20,7 @@
     <!-- Bind input values and handle form submission -->
     <div class="form-group">
       <label for="date">Date:</label>
-      <input id="metaStats-date" type="date" name="date" bind:value={metaStats.date} />
+      <input id="metaStats-date" type="date" name="date" bind:value={metaStats.date} oninput={(e) => checkMetaStat(e)} />
     </div>
     <div class="form-group">
       <label for="site">Site:</label>
@@ -27,11 +28,11 @@
     </div>
     <div class="form-group">
       <label for="gameStart">Game Start:</label>
-      <input id="metaStats-gameStart" type="time" name="gameStart" bind:value={metaStats.gameStart} />
+      <input id="metaStats-gameStart" type="time" name="gameStart" bind:value={metaStats.gameStart} oninput={(e) => checkMetaStat(e)}/>
     </div>
     <div class="form-group">
       <label for="scorekeeper">Scorekeeper:</label>
-      <input id="metaStats-scorekeeper" type="text" name="scorekeeper" bind:value={metaStats.scorekeeper} />
+      <input id="metaStats-scorekeeper" type="text" name="scorekeeper" bind:value={metaStats.scorekeeper} oninput={(e) => checkMetaStat(e)}/>
     </div>
     <div class="form-group">
       <label for="oppScorekeeper">Away Scorekeeper:</label>

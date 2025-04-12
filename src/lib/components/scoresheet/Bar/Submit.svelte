@@ -124,7 +124,7 @@
   }
 </script>
 
-<div class="noBorder">
+<div class="thin">
   <button onclick={checkScoresheet}>SUBMIT SCORESHEET</button>
 
   {#if showConfirmModal}

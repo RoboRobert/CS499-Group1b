@@ -163,6 +163,7 @@ body {
 }
 
 .goal-label {
+  color: var(--clr-home);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -170,10 +171,6 @@ body {
   height:10px;
   font-size: 0.5vw;
   border: 1px solid black;
-}
-
-.dropdown {
-  /* background-color: white; */
 }
 
 .dropdown.small {
@@ -397,6 +394,9 @@ body {
 }
 
 .top-bar-item {
-  flex: 1;
   border: none;
+}
+
+.quarters {
+  display:flex;
 }

@@ -1,6 +1,6 @@
 <script lang="ts">
   import type { Team, Player } from "$lib/database/Team";
-  import { teamName, players, emptyPlayers, coachName } from "../data.svelte";
+  import { teamName, players, emptyPlayers, coachName, type ScoresheetPlayer } from "../data.svelte";
   import { onMount } from 'svelte';
 
   let teams: Team[] = [];
@@ -12,9 +12,31 @@
 
   // Replaces the selected side's team with the information gotten from the API.
   async function importTeam(side: number) {
-    const team = teams[option];
+    // If the clear option is selected, clear out all the old data.
+    if(option == -1) {
+      teamName[side] = "";
+      coachName[side] = "";
 
-    console.log(team);
+      const defaultPlayer: ScoresheetPlayer = {
+        side: 0,
+        index: 0,
+        position: "",
+        name: "",
+        number: null,
+        quarters: "",
+        shots: 0,
+        goals: 0,
+        assists: 0,
+        groundBalls: 0
+      }
+      for (let i = 0; i < players[side].length; i++) {
+        players[side][i] = defaultPlayer;
+      }
+
+      return;
+    }
+
+    const team = teams[option];
 
     teamName[side] = team.team_name;
     coachName[side] = team.coach;
@@ -65,6 +87,7 @@
         <h2>IMPORT HOME TEAM</h2>
         <div class="form-group">
           <select id="dropdown" bind:value={option}>
+            <option value={-1}>Clear Home Import</option>
             {#each teams as team, i}
               {#if team.team_name != teamName[1]}
                 <option value={i}>{team.team_name}</option>
@@ -88,6 +111,7 @@
         <h2>IMPORT AWAY TEAM</h2>
         <div class="form-group">
           <select id="dropdown" bind:value={option}>
+            <option value={-1}>Clear Away Import</option>
             {#each teams as team, i}
               {#if team.team_name != teamName[0]}
                 <option value={i}>{team.team_name}</option>
