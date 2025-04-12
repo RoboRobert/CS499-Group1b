@@ -3,7 +3,8 @@ import { error } from "@sveltejs/kit";
 import type { PageServerLoad } from './$types';
 import { getGame, getSheets, getSheetsByGame } from '$lib/database/sheets';
 
-export const load: PageServerLoad = async ({ params, fetch }) => {
+export const load: PageServerLoad = async ({ params, fetch, cookies }) => {
+    const token = cookies.get('user-role');
     const gameID = params.gameID;  // Extracts the slug from the URL
     try {
         const game = await getGame(gameID);
@@ -11,7 +12,8 @@ export const load: PageServerLoad = async ({ params, fetch }) => {
 
         return {
             game,
-            scoresheets
+            scoresheets, 
+            token
         };
     } catch (err) {
         console.error('Failed to fetch data:', err);

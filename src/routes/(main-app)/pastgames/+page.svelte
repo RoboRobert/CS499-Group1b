@@ -15,6 +15,8 @@
     awayscore: 0,
   };
   let showDeleteConfirm = $state(false);
+  let userToken = data.token;
+  let canEdit = userToken === "admin" || userToken === "scorekeeper";
 
   const openDeleteModal = (game: Game) => {
     deleteGame = game;
@@ -62,12 +64,14 @@
         <div class="team-bar">
           <a href="/pastgames/{game.game_id}" class="team-link">
             <h3>{game.hometeam} vs. {game.awayteam}</h3>
-            <h3>{game.homescore}-{game.awayscore}</h3>
-            <h3>{game.date} {game.time}</h3>
+            <p>{game.homescore}-{game.awayscore}</p>
+            <p>{game.date} {game.time}</p>
           </a>
+          {#if canEdit}
           <div class="team-actions">
             <button onclick={() => openDeleteModal(game)} class="delete-button">Delete</button>
           </div>
+          {/if}
         </div>
       {/each}
     </div>
