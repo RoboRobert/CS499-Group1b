@@ -33,6 +33,20 @@
    // Function to open the Register modal
   const openThemeOptions = () => (showThemeOptions = !showThemeOptions);
 
+  async function handleSignOut() {
+    const form = "signout";
+    const response = await fetch(`/api/logon?form=${form}`, {
+      method: 'GET',
+      headers: { 'Content-Type': 'application/json' },
+    });
+    console.log("Response status:", response.status);
+
+    const data = await response.json();
+    console.log("Response data:", data);
+
+    invalidateAll();
+  }
+
   async function handleSignInForm(event: Event){
     //event.preventDefault();
     const formData = new FormData(event.target as HTMLFormElement);
@@ -110,6 +124,9 @@
 
   {#if data._isLoggedIn != null}
   <p> Welcome, {data._isLoggedIn}</p>
+  <div class = "buttons">
+    <button onclick={handleSignOut} type="button">Sign Out</button>
+  </div>
   {:else}
   <div class="buttons">
     <button onclick={openRegModal} type="button">Register</button>
@@ -229,8 +246,6 @@
     </p>
   </article>
 </dialog>-->
-
-<slot></slot>
 
 <style>
   nav{ 

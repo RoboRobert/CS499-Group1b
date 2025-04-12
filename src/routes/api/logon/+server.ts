@@ -106,6 +106,15 @@ export const GET: RequestHandler = async ({request, cookies}) => {
              });
         }
 	}
+	else if (form == "signout") {
+		// Clear the cookies on signout
+		cookies.delete('user-role', { path: '/' });
+		cookies.delete('username', { path: '/' });
+		return json({ 
+			success: true, 
+			message: "Signout successful."
+		 });
+	}
 }
 
 	
