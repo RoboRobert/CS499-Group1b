@@ -144,10 +144,11 @@
   </div>
 
   {#if data.isLoggedIn != null}
-    <div class="navRight">
-      <p class="welcome-message">Welcome, {data.isLoggedIn} ({data.userRole})</p>
-    </div>
+    <!-- <div class="navRight">
+      
+    </div> -->
     <div class="buttons">
+      <p class="welcome-message">Welcome, {data.isLoggedIn} ({data.userRole})</p>
       <button onclick={handleSignOut} type="button">Sign Out</button>
     </div>
   {:else}
@@ -252,10 +253,6 @@
 {/if}
 
 <style>
-  nav {
-    height: 50px;
-  }
-
   .smegol {
     height: 100%;
   }
@@ -280,17 +277,8 @@
     display: block;
   }
 
-  .navRight {
-    color: white;
-    display: flex; /* Use flexbox to align items horizontally */
-    align-items: center; /* Vertically center the items */
-    margin-left: auto; /* Push the container to the right */
-    gap: 10px; /* Add spacing between the message and the button */
-  }
-
   .welcome-message {
-    margin-right:0; /* Remove default margin from the <p> tag */
     font-size: 16px; /* Adjust font size if needed */
-    color: var(--clr-text); /* Use a variable or set a color */
+    color: var(--clr-light-a0); /* Use a variable or set a color */
   }
 </style>
