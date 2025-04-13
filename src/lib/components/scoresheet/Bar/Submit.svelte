@@ -21,6 +21,7 @@
   } from "../data.svelte";
   import { addIDError } from "$lib/checkers/frontendChecker.svelte";
   import { checkScoresheet, uploadScoresheet } from "$lib/conversion/submit";
+  import { error } from "@sveltejs/kit";
 
   let showConfirmModal = false;
   let showConfirmButton = false;
@@ -38,7 +39,7 @@
     let errors: SheetErr[] = await checkScoresheet();
     if (errors.length > 0) {
       showConfirmButton = false;
-
+      
       // Mark all the errors found by the backend validator
       for (const error of errors) {
         // Try to mark an error. If failure, move on to the next one.

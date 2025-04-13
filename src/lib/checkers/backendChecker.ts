@@ -1,4 +1,11 @@
-import { type SheetPenalty, type ScoresheetPlayer, type SheetSave, type SheetData, type Stat, metaStats } from "$lib/components/scoresheet/data.svelte";
+import {
+  type SheetPenalty,
+  type ScoresheetPlayer,
+  type SheetSave,
+  type SheetData,
+  type Stat,
+  metaStats,
+} from "$lib/components/scoresheet/data.svelte";
 
 export interface SheetErr {
   elementID: string;
@@ -24,23 +31,23 @@ export function checkSheet(rawData: any): SheetErr[] {
     timeouts: rawData.timeouts,
     penalties: rawData.penalties,
     metaStats: rawData.metaStats,
-    coachName: []
+    coachName: [],
   };
-  
+
   let errors: SheetErr[] = [];
 
   // Check the meta stats
-  if(!data.metaStats.gameStart || !data.metaStats.date || !data.metaStats.scorekeeper) {
+  if (!data.metaStats.gameStart || !data.metaStats.date || !data.metaStats.scorekeeper) {
     errors.push({ elementID: `metaStatsButton`, message: "There are errors in the Meta Game Stats." });
   }
 
-  if(!data.metaStats.gameStart) {
+  if (!data.metaStats.gameStart) {
     errors.push({ elementID: `metaStats-gameStart`, message: "You must specify a valid game start time." });
   }
-  if(!data.metaStats.date) {
+  if (!data.metaStats.date) {
     errors.push({ elementID: `metaStats-date`, message: "You must specify a valid date." });
   }
-  if(!data.metaStats.scorekeeper) {
+  if (!data.metaStats.scorekeeper) {
     errors.push({ elementID: `metaStats-scorekeeper`, message: "You must specify a valid name for the scorekeeper" });
   }
 
@@ -58,13 +65,13 @@ export function checkSheet(rawData: any): SheetErr[] {
       let player: ScoresheetPlayer = data.players[i][j];
       // Otherwise, if the player has some data, check all its fields
       if (!player.name) {
-        errors.push({ elementID: `playerName-${i}-${j}`, message: "Player name is invalid."});
+        errors.push({ elementID: `playerName-${i}-${j}`, message: "Player name is invalid." });
       }
       if (!player.number) {
-        errors.push({ elementID: `playerNumber-${i}-${j}`, message: "Player number is invalid."});
+        errors.push({ elementID: `playerNumber-${i}-${j}`, message: "Player number is invalid." });
       }
       if (!player.position) {
-        errors.push({ elementID: `playerPosition-${i}-${j}`, message: "Player position is invalid."});
+        errors.push({ elementID: `playerPosition-${i}-${j}`, message: "Player position is invalid." });
       }
     }
   }
@@ -80,7 +87,7 @@ export function checkSheet(rawData: any): SheetErr[] {
 
       // Otherwise, if the save has some data, check all its fields
       if (save.qtr1 == null) {
-        errors.push({ elementID: `savesQ1-${i}-${j}`, message: emptyFieldMsg});
+        errors.push({ elementID: `savesQ1-${i}-${j}`, message: emptyFieldMsg });
       }
       if (save.qtr2 == null) {
         errors.push({ elementID: `savesQ2-${i}-${j}`, message: emptyFieldMsg });
@@ -128,20 +135,21 @@ export function checkSheet(rawData: any): SheetErr[] {
     }
   }
 
-  for(let i = 0; i < data.timeouts.length; i++) {
-      console.log(data.timeouts[i].length)
-      for(let j = 0; j < data.timeouts[i].length; j++) {
-        const timeout = data.timeouts[i][j];
-        if(!timeout.period) {
-          // If the timeout has data, check if 
-          if (!timeout.period) {
-            errors.push({ elementID: `timeout-${i}-${j}`, message: emptyFieldMsg});
-          }
-          if (!timeout.time) {
-            errors.push({ elementID: `timeout-${i}-${j}`, message: emptyFieldMsg});
-          }
-        }
+  for (let i = 0; i < data.timeouts.length; i++) {
+    for (let j = 0; j < data.timeouts[i].length; j++) {
+      const timeout = data.timeouts[i][j];
+
+      // Only check the timeout if it isn't falsy
+      if(!timeout.period && !timeout.time) {
+        continue;
       }
+      if (!timeout.time) {
+        errors.push({ elementID: `timeoutTime-${i}-${j}`, message: emptyFieldMsg });
+      }
+      if (j < 4 && !timeout.period) {
+        errors.push({ elementID: `timeoutPeriod-${i}-${j}`, message: emptyFieldMsg });
+      }
+    }
   }
 
   // Check all the ground balls

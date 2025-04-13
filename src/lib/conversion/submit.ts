@@ -19,18 +19,21 @@ import {
 } from "$lib/components/scoresheet/data.svelte";
 
 // Returns true or false if all the fields of an object are null or undefined
+function checkObj(object): boolean {
+    return Object.values(object).every((value) => value != null && value != undefined);
+}
+
 // function checkObj(object): boolean {
-//     return !Object.entries(object).every(value => value[0] != "index" && value);
+//   const valuesToCheck = Object.entries(object)
+//     .filter(([key]) => key !== "index")
+//     .map(([, value]) => value);
+
+//   console.log(valuesToCheck);
+
+//   return !valuesToCheck.every((value) => value === null || value === "" || value == undefined);
 // }
 
-function checkObj(object): boolean {
-    const valuesToCheck = Object.entries(object)
-      .filter(([key]) => key !== "index")
-      .map(([, value]) => value);
-  
-    return !valuesToCheck.every(value => value);
-  }
-
+// Returns the data needed to send a scoresheet to the database.
 export function getScoresheetData(): SheetData {
   return {
     game_id: game_id.game_id,
@@ -45,14 +48,35 @@ export function getScoresheetData(): SheetData {
     clears: clears,
     faceoffs: faceoffs,
     extraMan: extraMan,
-    timeouts: [timeouts[0].filter((p) => checkObj(p)), timeouts[1].filter((p) => checkObj(p))],
+    timeouts: timeouts,
     penalties: [penalties[0].filter((p) => checkObj(p)), penalties[1].filter((p) => checkObj(p))],
     metaStats: metaStats,
   };
 }
 
+// Returns all the data needed to check the scoresheet.
+export function getCheckData(): SheetData {
+  return {
+    game_id: game_id.game_id,
+    coachName: coachName,
+    teamName: teamName,
+    players: [Array.from(getPlayerMap(0).values()), Array.from(getPlayerMap(1).values())],
+    saves: saves,
+    goals: goals,
+    goalTrack: goalTrack,
+    groundBalls: groundBalls,
+    shots: shots,
+    clears: clears,
+    faceoffs: faceoffs,
+    extraMan: extraMan,
+    timeouts: timeouts,
+    penalties: penalties,
+    metaStats: metaStats,
+  };
+}
+
 export async function checkScoresheet(): Promise<SheetErr[]> {
-  const scoresheetData: SheetData = getScoresheetData();
+  const scoresheetData: SheetData = getCheckData();
   const scoresheetJSON = JSON.stringify(scoresheetData);
 
   console.log(scoresheetJSON);

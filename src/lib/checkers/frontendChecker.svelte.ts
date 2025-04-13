@@ -108,6 +108,26 @@ export function readPlayerno(e): number | null {
   return Number(matches[0]);
 }
 
+// Validates player number input
+export function readNumber(e): number | null {
+  let target = e.target as HTMLInputElement;
+
+  removeError(target);
+
+  if (target.value == "") {
+    return null;
+  }
+
+  let regex: RegExp = /^\d{1,2}$/;
+  let matches = target.value.match(regex);
+  if (!matches) {
+    addError(target, "Please enter a number.");
+    return null;
+  }
+
+  return Number(matches[0]);
+}
+
 export function checkMetaStat(e) {
   const target = e.target as HTMLInputElement;
 
