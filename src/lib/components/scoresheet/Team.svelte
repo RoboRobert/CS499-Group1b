@@ -30,7 +30,6 @@
               <option value="Defense">Defense</option>
               <option value="Goalie">Goalie</option>
             </select>
-            <!-- <input id="playerPosition-{side}-{i}" autocomplete="off" class="field thin" type="text" bind:value={players[side][i].position}> -->
             <input id="playerNumber-{side}-{i}" min="0" max="99" autocomplete="off" class="field thin" type="number" bind:value={players[side][i].number} oninput={(e) => players[side][i].number = readPlayerno(e)}>
             <input id="playerName-{side}-{i}" autocomplete="off" class="field wide" type="text" bind:value={players[side][i].name}>
             <input id="playerQuarters-{side}-{i}" autocomplete="off" class="field normal" type="text" bind:value={players[side][i].quarters}>

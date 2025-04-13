@@ -8,7 +8,7 @@ import { metaStats, numMetaErrors, players } from "$lib/components/scoresheet/da
 
 // }
 
-export function removeError(target: HTMLInputElement | HTMLElement) {
+export function removeError(target: HTMLInputElement | HTMLElement | Element) {
   target.classList.remove("error");
   target.removeAttribute("title");
 }

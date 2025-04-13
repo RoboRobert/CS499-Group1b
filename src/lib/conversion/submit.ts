@@ -1,4 +1,5 @@
 import type { SheetErr } from "$lib/checkers/backendChecker";
+import { removeError } from "$lib/checkers/frontendChecker.svelte";
 import {
   clears,
   coachName,
@@ -11,7 +12,6 @@ import {
   groundBalls,
   metaStats,
   penalties,
-  players,
   saves,
   shots,
   teamName,
@@ -55,6 +55,12 @@ export function getScoresheetData(): SheetData {
 }
 
 export async function checkScoresheet(): Promise<SheetErr[]> {
+  // Start by resetting all existing errors.
+  document
+    .querySelectorAll("*")
+    .values()
+    .forEach((e) => removeError(e));
+
   const scoresheetData: SheetData = getScoresheetData();
   const scoresheetJSON = JSON.stringify(scoresheetData);
 

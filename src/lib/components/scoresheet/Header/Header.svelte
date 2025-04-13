@@ -51,10 +51,6 @@
 </div>
 
 <style>
-  .goal{
-    font-size:0.5vw;
-  }
-
   .boxes {
     flex: 1;
     max-width: 100%;
