@@ -62,14 +62,15 @@ export const POST = async ({ request }) => {
       sheet_id: sheet_id,
       scorekeeper: data.metaStats.scorekeeper,
     });
-  
+    
+    await addGoals(goalsToDBGoals(sheet_id, data.goalTrack));
     await addSheetInfo(metaStatsToDBMetaStats(sheet_id, data.metaStats, data.coachName, data.teamName));
     await addgameStats(statsToDBStats(sheet_id, data.groundBalls, data.shots, data.clears, data.faceoffs, data.extraMan));
     await addPenalties(penaltiesToDBPenalties(sheet_id, data.penalties));
     await addTimeouts(timeoutsToDBTimeouts(sheet_id, data.timeouts));
     await addSaves(savesToDBSaves(sheet_id, data.saves));
     await addSheetPlayers(playersToDBSheetPlayers(sheet_id, data.players));
-
+    
     // If the scoresheet is added for the first time, update all related team and player stats
     if(data.game_id == "") {
       // Add home team if necessary
@@ -96,8 +97,6 @@ export const POST = async ({ request }) => {
       // Add players to away team or update them if they already exist
       await addOrUpdatePlayers(playersToDBPlayers(data.teamName[1], toTeamID(data.teamName[1]), data.players[1]));
     }
-
-    await addGoals(goalsToDBGoals(sheet_id, data.goalTrack));
   
     // Return a message
     return json({ message: "Sheet successfuly uploaded." });

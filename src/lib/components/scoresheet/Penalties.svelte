@@ -23,7 +23,7 @@
     <div class="innerRow">
       <input id="penaltyTimeout-{side}-{i}" autocomplete="off" class="field normal" type="text" value={penalties[side][i].timeout} oninput={(e) => penalties[side][i].timeout = readTime(e)}/>
       <input id="penaltyNumber-{side}-{i}" min="0" max="99" autocomplete="off" class="field thin" type="number" bind:value={penalties[side][i].playerno} oninput={(e) => penalties[side][i].playerno = readPlayerno(e)}/>
-      <select id="penaltyInfraction-{side}-{i}" class="field dropdown normal" name="options" bind:value={penalties[side][i].infraction} autocomplete="off" oninput={(e) => readString(e)}>
+      <select id="penaltyInfraction-{side}-{i}" class="dropdown normal" name="options" bind:value={penalties[side][i].infraction} autocomplete="off" oninput={(e) => readString(e)}>
         <option value=""></option>
         <option value="Holding">Holding</option>
         <option value="Tripping">Tripping</option>

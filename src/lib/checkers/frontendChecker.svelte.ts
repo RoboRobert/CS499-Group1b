@@ -50,9 +50,6 @@ export function CheckPlayerNumber(event: any, side: number) {
   if (!IsNumber(event)) {
     return;
   }
-
-  // Get a snapshot of the state of the player array
-  const playerSnapshot = $state.snapshot(players);
 }
 
 export function readString(e): string | null {
@@ -61,8 +58,7 @@ export function readString(e): string | null {
   removeError(target);
 
   if(target.value == "") {
-    addError(target, "Field Cannot be Empty");
-    return null;
+    return target.value;
   }
 
   return target.value;

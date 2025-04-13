@@ -2,7 +2,8 @@
   import { goto } from "$app/navigation";
 
   function goHome() {
-    goto("/", {invalidateAll:true});
+    location.href = `/`;
+    // goto("/", {invalidateAll:true});
   }
 </script>
 

@@ -1,26 +1,10 @@
 <script lang="ts">
-    import { goto } from "$app/navigation";
     import type { SheetErr } from "$lib/checkers/backendChecker";
-    import {
-      clears,
-      coachName,
-      extraMan,
-      faceoffs,
-      game_id,
-      getPlayerMap,
-      goals,
-      goalTrack,
-      groundBalls,
-      metaStats,
-      penalties,
-      saves,
-      shots,
-      teamName,
-      timeouts,
-      type SheetData
-    } from "$lib/components/scoresheet/data.svelte";
     import { addIDError } from "$lib/checkers/frontendChecker.svelte";
-  import { checkScoresheet, correctScoresheet } from "$lib/conversion/submit";
+    import {
+      game_id
+    } from "$lib/components/scoresheet/data.svelte";
+    import { checkScoresheet, correctScoresheet } from "$lib/conversion/submit";
   
     let showConfirmModal = false;
     let showConfirmButton = false;
@@ -29,9 +13,9 @@
 
     // Sends the scoresheet to the add endpoint
     async function confirmScoresheet() {
-      correctScoresheet();
-  
-      goto(`/pastgames/${game_id.game_id}`, {invalidateAll: true});
+      await correctScoresheet();
+      
+      location.href = `/pastgames/${game_id.game_id}`;
     }
   
     async function runCheck() {

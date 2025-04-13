@@ -1,27 +1,7 @@
 <script lang="ts">
-  import { goto, invalidateAll } from "$app/navigation";
   import type { SheetErr } from "$lib/checkers/backendChecker";
-  import {
-    clears,
-    coachName,
-    extraMan,
-    faceoffs,
-    game_id,
-    getPlayerMap,
-    goals,
-    goalTrack,
-    groundBalls,
-    metaStats,
-    penalties,
-    saves,
-    shots,
-    teamName,
-    timeouts,
-    type SheetData,
-  } from "../data.svelte";
   import { addIDError } from "$lib/checkers/frontendChecker.svelte";
   import { checkScoresheet, uploadScoresheet } from "$lib/conversion/submit";
-  import { error } from "@sveltejs/kit";
 
   let showConfirmModal = false;
   let showConfirmButton = false;
@@ -32,7 +12,7 @@
   async function confirmScoresheet() {
     await uploadScoresheet();
 
-    goto("/", { invalidateAll: true });
+    location.href = `/`;
   }
 
   async function runCheck() {
