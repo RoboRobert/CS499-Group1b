@@ -1,22 +1,13 @@
 import type { Game, Sheet } from '$lib/database/Sheet';
 import { error } from "@sveltejs/kit";
 import type { PageServerLoad } from './$types';
+import { getGame, getSheets, getSheetsByGame } from '$lib/database/sheets';
 
 export const load: PageServerLoad = async ({ params, fetch }) => {
-    const gameId = params.gameID;  // Extracts the slug from the URL
+    const gameID = params.gameID;  // Extracts the slug from the URL
     try {
-        const response = await fetch(`/api/games`);
-        if (!response.ok) {
-            throw error(response.status, 'Failed to fetch games');
-        }
-        const games: Game[] = await response.json();
-        const game: Game = games[0];
-
-        const response2 = await fetch(`/api/sheets?gameid=${game.gameid}`);
-        if (!response2.ok) {
-            throw error(response2.status, 'Failed to fetch scoresheets');
-        }
-        const scoresheets: Sheet[] = await response2.json();
+        const game = await getGame(gameID);
+        const scoresheets = await getSheetsByGame(gameID);
 
         return {
             game,

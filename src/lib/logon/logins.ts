@@ -18,24 +18,48 @@ export async function getLoginUser(user: string): Promise<Login> {
   return logins[0]
 }
 
-export async function getLoginPass(user: string, pass: string): Promise<Login> {
+export async function getLoginPass(user: string, pass: string): Promise<string> {
   const logins = await sql<Login[]>`
-      SELECT * FROM logins WHERE password = ${pass} and username = ${user}
+      SELECT username as user, password as pass, role FROM logins WHERE password = ${pass} and username = ${user}
     `
 
-  return logins[0]
+    if (logins.length > 0){
+      return logins[0].pass; // Return the role directly from the first entry
+    }
+    else {
+      return null;
+    }
+    
+}
+
+export async function getLoginRole(user: string, pass: string): Promise<string> {
+  const logins = await sql<Login[]>`
+      SELECT role FROM logins WHERE password = ${pass} and username = ${user}
+    `
+
+  // Check if logins has only one result
+  if (logins.length > 0) {
+    if(logins.length < 2) {
+      return logins[0].role; // Return the role directly from the first entry
+    }
+    else{
+      return null; // More than one login found
+    }
+  } else {
+    return null; // No matching login found
+  }
 }
 
 export async function addLogin(login: Login) {
   let user = login.user;
   let pass = login.pass;
-  let key = login.key
+  let role = login.role;
 
-  const result = await sql`
-    INSERT INTO logins (username, password, key) VALUES (${user}, ${pass}, ${key}) RETURNING *
-  `
+    const result = await sql`
+    INSERT INTO logins (username, password, role) VALUES (${user}, ${pass}, ${role}) RETURNING *
 
-  return result
+    `
+    return result
 }
 
 export async function deleteLogin(user: string) {
@@ -59,7 +83,7 @@ export async function dbLoginReset() {
   await sql`CREATE TABLE logins (
             username varchar(25),
             password varchar(25),
-            key varchar(20),
+            role varchar(20),
             primary key (username, password));`
 
   const res = await sql`INSERT INTO logins (username, password)

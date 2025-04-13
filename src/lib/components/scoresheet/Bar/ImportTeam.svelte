@@ -22,7 +22,7 @@
     // Clear the current players on the team.
     players[side] = emptyPlayers[side];
 
-    const response = await fetch(`/api/teamPlayers/${team.team_name}`);
+    const response = await fetch(`/api/teamPlayers/${team.team_id}`);
     let teamPlayers: Player[] = await response.json()
 
     teamPlayers.sort((a, b) => (a.position < b.position ? -1 : 1))

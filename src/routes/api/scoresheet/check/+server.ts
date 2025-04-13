@@ -1,4 +1,4 @@
-import { checkSheet, type SheetErr } from "$lib/backendChecker.js";
+import { checkSheet, type SheetErr } from "$lib/checkers/backendChecker.js";
 import { error, json, type RequestHandler } from "@sveltejs/kit";
 
 export const POST = async ({ request }) => {

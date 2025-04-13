@@ -1,61 +1,69 @@
 <script lang="ts">
-  import { base } from "$app/paths";
-  import { json } from "@sveltejs/kit";
+  import { goto, invalidateAll } from "$app/navigation";
+  import type { SheetErr } from "$lib/checkers/backendChecker";
   import {
-    goals,
     clears,
+    coachName,
     extraMan,
     faceoffs,
-    groundBalls,
+    game_id,
+    getPlayerMap,
+    goals,
     goalTrack,
+    groundBalls,
     metaStats,
     penalties,
-    players,
     saves,
     shots,
     teamName,
     timeouts,
     type SheetData,
-    coachName,
   } from "../data.svelte";
-  import type { SheetErr } from "$lib/backendChecker";
-  import { addIDError } from "../frontendChecker.svelte";
-  import { goto } from "$app/navigation";
+  import { addIDError } from "$lib/checkers/frontendChecker.svelte";
 
   let showConfirmModal = false;
   let showConfirmButton = false;
 
   let message = "";
 
-  // Sends the scoresheet to the add endpoint
-  async function confirmScoresheet() {
-    uploadScoresheet();
-
-    goto("/");
+  function checkObj(object): boolean {
+    return Object.values(object).every((value) => value != null && value != undefined);
   }
 
-  async function uploadScoresheet() {
-    const scoresheetData: SheetData = {
+  function getScoresheetData(): SheetData {
+    return {
+      game_id: game_id.game_id,
       coachName: coachName,
       teamName: teamName,
-      players: players,
+      players: [Array.from(getPlayerMap(0).values()), Array.from(getPlayerMap(1).values())],
       saves: saves,
       goals: goals,
-      goalTrack: goalTrack,
+      goalTrack: [goalTrack[0].filter((p) => checkObj(p)), goalTrack[1].filter((p) => checkObj(p))],
       groundBalls: groundBalls,
       shots: shots,
       clears: clears,
       faceoffs: faceoffs,
       extraMan: extraMan,
       timeouts: timeouts,
-      penalties: penalties,
+      penalties: [penalties[0].filter((p) => checkObj(p)), penalties[1].filter((p) => checkObj(p))],
       metaStats: metaStats,
     };
+  }
+
+  // Sends the scoresheet to the add endpoint
+  async function confirmScoresheet() {
+    uploadScoresheet();
+
+    goto("/", {invalidateAll: true});
+  }
+
+  async function uploadScoresheet() {
+    const scoresheetData: SheetData = getScoresheetData();
     const scoresheetJSON = JSON.stringify(scoresheetData);
 
     // Send the scoresheet data to the scoresheet/add endpoint
     try {
-      const result = await fetch("/api/scoresheet/add", {
+      const result = await fetch("/api/scoresheet/", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -71,22 +79,8 @@
   }
 
   async function checkScoresheet() {
-    const scoresheetData: SheetData = {
-      coachName: coachName,
-      teamName: teamName,
-      players: players,
-      saves: saves,
-      goals: goals,
-      goalTrack: goalTrack,
-      groundBalls: groundBalls,
-      shots: shots,
-      clears: clears,
-      faceoffs: faceoffs,
-      extraMan: extraMan,
-      timeouts: timeouts,
-      penalties: penalties,
-      metaStats: metaStats,
-    };
+    const scoresheetData: SheetData = getScoresheetData();
+    console.log(scoresheetData.players);
     const scoresheetJSON = JSON.stringify(scoresheetData);
 
     console.log(scoresheetJSON);
@@ -103,24 +97,23 @@
 
       // Await the JSON data resolution
       const data = await result.json();
-      
+
       let errors: SheetErr[] = data.errors;
       console.log(errors);
-      if(errors.length > 0) {
+      if (errors.length > 0) {
         showConfirmModal = true;
 
         // Mark all the errors found by the backend validator
-        for(const error of errors) {
+        for (const error of errors) {
           addIDError(error.elementID, error.message);
         }
 
-        message = `${errors.length} errors detected in the scoresheet.\nAll errors have been marked in red on the sheet.`
-      }
-      else {
+        message = `${errors.length} errors detected in the scoresheet.\nAll errors have been marked in red on the sheet.`;
+      } else {
         showConfirmModal = true;
         showConfirmButton = true;
 
-        message = "No errors detected in the scoresheet."
+        message = "No errors detected in the scoresheet.";
       }
     } catch (error) {
       console.error(error);

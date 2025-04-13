@@ -1,10 +1,13 @@
 import type { PageServerLoad } from './$types';
 import { error } from '@sveltejs/kit';
-import type { player, team } from '../rosters.svelte';
 import type { Player, Team } from '$lib/database/Team';
 
-export const load: PageServerLoad = async ({ params, fetch }) => {
+export const load: PageServerLoad = async ({ params, fetch, cookies }) => {
     const teamId = params.teamID;  // Extracts the slug from the URL
+    const token = cookies.get("user-role"); // Get the auth token from cookies
+    if (token !== "coach" && token !== "admin") {
+        error(403, "You don't have the right O you don't have the right");
+    }
 
     try {
         const response = await fetch(`/api/teams`);
@@ -24,9 +27,10 @@ export const load: PageServerLoad = async ({ params, fetch }) => {
             throw new Error('Failed to fetch players');
         }
         const players: Player[] = await response2.json();
+        console.log("Players: in page loader", players);
 
         return {
-            team, players
+            team, players, token
         };
     } catch (err) {
         console.error('Error loading data:', err);

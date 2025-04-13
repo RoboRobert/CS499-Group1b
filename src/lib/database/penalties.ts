@@ -17,19 +17,26 @@ export async function getPenalties(sheetid: string): Promise<Penalty[]> {
   return penalties;
 }
 
-export async function addPenalty(penalties: Penalty) {
-  let sheetid = penalties.sheet_id;
-  let side = penalties.side;
-  let pt = penalties.timeout;
-  let playerno = penalties.player_number;
-  let infraction = penalties.infraction;
-  let quarter = penalties.quarter;
-  let time = penalties.time;
+export async function addPenalty(penalty: Penalty) {
+  let sheetid = penalty.sheet_id;
+  let side = penalty.side;
+  let index = penalty.index;
+  let pt = penalty.timeout;
+  let playerno = penalty.player_number;
+  let infraction = penalty.infraction;
+  let quarter = penalty.quarter;
+  let time = penalty.time;
   const result = await sql`
-    INSERT INTO penalties (sheet_id, side, timeout, player_number, infraction, quarter, time) VALUES (${sheetid}, ${side}, ${pt}, ${playerno}, ${infraction}, ${quarter}, ${time}) RETURNING *
+    INSERT INTO penalties (sheet_id, side, index, timeout, player_number, infraction, quarter, time) VALUES (${sheetid}, ${side}, ${index}, ${pt}, ${playerno}, ${infraction}, ${quarter}, ${time}) RETURNING *
   `;
 
   return result;
+}
+
+export async function addPenalties(penalties: Penalty[]) {
+  for(const penalty of penalties) {
+    addPenalty(penalty);
+  }
 }
 
 export async function deletePenalty(name: string) {
@@ -51,32 +58,35 @@ export async function dbPenaltyReset() {
 
   await sql`CREATE TABLE penalties(
             SHEET_ID VARCHAR(100) NOT NULL,
-            SIDE INT,
+            SIDE INT NOT NULL,
+            INDEX INT,
             TIMEOUT varchar(5),
-            PLAYER_NUMBER INT NOT NULL,
+            PLAYER_NUMBER INT,
             INFRACTION varchar(25),
             TIME varchar(5),
             QUARTER INT,
-            PRIMARY KEY (PLAYER_NUMBER, SIDE));`;
+            Foreign key (SHEET_ID) references sheets(SHEET_ID) ON DELETE CASCADE ON UPDATE CASCADE);`;
 
   await addPenalty({
-    sheet_id: "first",
+    sheet_id: "dudes-bros-2025-04-03-15:20-0",
     side: 0,
+    index: 0,
     timeout: "3:20",
     player_number: 20,
-    infraction: "Crosscheck",
+    infraction: "Holding",
     quarter: 2,
     time: "4:20",
   });
 
   const res = await addPenalty({
-    sheet_id: "first",
+    sheet_id: "dudes-bros-2025-04-03-15:20-0",
     side: 0,
+    index: 1,
     timeout: "3:20",
     player_number: 69,
-    infraction: "Crosscheck",
-    quarter: 2,
-    time: "4:20",
+    infraction: "Holding",
+    quarter: 3,
+    time: "5:20",
   });
 
   return res;

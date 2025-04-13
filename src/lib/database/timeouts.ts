@@ -40,6 +40,12 @@ export async function addTimeout(timeout: Timeout) {
   return result
 }
 
+export async function addTimeouts(timeouts: Timeout[]) {
+  for(const timeout of timeouts) {
+    addTimeout(timeout);
+  }
+}
+
 export async function deleteTimeout(sheetid: number) {
   const result = await sql`
       DELETE FROM timeouts WHERE name = ${sheetid}
@@ -70,10 +76,10 @@ export async function dbTimeoutReset() {
             second_2_period INT,
             ot_1_time VARCHAR(5),
             ot_2_time VARCHAR(5),
-            PRIMARY KEY (SHEET_ID, SIDE));`;
+            FOREIGN KEY (SHEET_ID) REFERENCES sheets(SHEET_ID) ON DELETE CASCADE);`;
 
   const res = await addTimeout({
-    sheet_id: "first",
+    sheet_id: "dudes-bros-2025-04-03-15:20-0",
     side: 0,
     first_1_time: '03:30',
     first_1_period: 3,

@@ -1,6 +1,7 @@
 interface SheetPlayer {
   sheet_id: string;
   side: number;
+  index: number;
   name: string;
   position: string,
   playerno: number;

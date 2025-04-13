@@ -1,14 +1,10 @@
 <script lang="ts">
   import Goals from "./Goals.svelte";
 
-  import { coachName, goalTrack, teamName, toTimeString } from "../data.svelte";
-  import { readString, readPlayerno, readTime } from "../frontendChecker.svelte";
+  import { coachName, goalTrack, teamName } from "../data.svelte";
+  import { readPlayerno, readString, readTime } from "$lib/checkers/frontendChecker.svelte";
 
   let numGoals = 30;
-
-  function getTime(side, index): string {
-    return toTimeString(goalTrack[side][index].time);
-  }
 </script>
 
 <div class="wideRow">
@@ -17,7 +13,7 @@
       <input id="teamName-0" class="field bigField" type="text" value={teamName[0]} placeholder="Home Team" oninput={(e) => teamName[0] = readString(e)} />
       {#each Array(numGoals) as attempt, i}
         <div class="boxes">
-          <input autocomplete="off" class="field goal" style="flex:3" type="text" value={getTime(0, i)} oninput={(e) => goalTrack[0][i].time = readTime(e)} />
+          <input autocomplete="off" class="field goal" style="flex:3" type="text" value={goalTrack[0][i].time} oninput={(e) => goalTrack[0][i].time = readTime(e)} />
           <input autocomplete="off" class="field normal" type="text" bind:value={goalTrack[0][i].type} />
         </div>
       {/each}
@@ -35,7 +31,7 @@
       <input id="teamName-1" autocomplete="off" class="field bigField" type="text" value={teamName[1]} placeholder="Away Team" oninput={(e) => teamName[1] = readString(e)} />
       {#each Array(numGoals) as attempt, i}
         <div class="boxes">
-          <input autocomplete="off" class="field goal" style="flex:3" type="text" value={getTime(1, i)} oninput={(e) => goalTrack[1][i].time = readTime(e)} />
+          <input autocomplete="off" class="field goal" style="flex:3" type="text" value={goalTrack[1][i].time} oninput={(e) => goalTrack[1][i].time = readTime(e)} />
           <input autocomplete="off" class="field normal" type="text" bind:value={goalTrack[1][i].type} />
         </div>
       {/each}
@@ -56,7 +52,7 @@
 
 <style>
   .goal{
-    font-size:10px;
+    font-size:0.5vw;
   }
 
   .boxes {
