@@ -144,8 +144,10 @@
   </div>
 
   {#if data.isLoggedIn != null}
-  <p> Welcome, {data.isLoggedIn}</p>
-  <div class = "buttons">
+  <div class="navRight">
+    <p class="welcome-message">Welcome, {data.isLoggedIn}</p>
+  </div>
+  <div class="buttons">
     <button onclick={handleSignOut} type="button">Sign Out</button>
   </div>
   {:else}
@@ -314,6 +316,21 @@
   ul li:hover .theme-options {
     display: block;
   }
+
+  .navRight {
+  color: white;
+  display: flex; /* Use flexbox to align items horizontally */
+  align-items: center; /* Vertically center the items */
+  margin-left: 400px; /* Push the container to the right */
+  gap: 10px; /* Add spacing between the message and the button */
+}
+
+.welcome-message {
+  margin: 0; /* Remove default margin from the <p> tag */
+  font-size: 16px; /* Adjust font size if needed */
+  color: var(--clr-text); /* Use a variable or set a color */
+}
+
 
   /* .signIn {
     margin-left:auto;

@@ -87,14 +87,26 @@ export const GET: RequestHandler = async ({request, cookies}) => {
 	else if (form == "register") {
 		//add login
         if (await getLoginPass(username, password) == null && password != "null") {
-            addLogin({user: username, pass: password, role: role});
-            return json({ 
-                regsuccess: true, 
-                message: "User registered successfully.",
-                username: username,
-                password: password,
-                role: role
-            });
+			if (username.length > 25 || password.length > 25) {
+				return json({ 
+					regsuccess: false, 
+					message: "Username or password exceeds allowed 25 characters.",
+					username: username,
+					password: password,
+					role: role
+				});
+			}
+			else{
+				addLogin({user: username, pass: password, role: role});
+				return json({ 
+					regsuccess: true, 
+					message: "User registered successfully.",
+					username: username,
+					password: password,
+					role: role
+				});
+			}
+            
         }
         else {
             return json({ 
