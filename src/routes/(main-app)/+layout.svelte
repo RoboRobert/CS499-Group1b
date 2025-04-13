@@ -9,7 +9,7 @@
   //import { enhance } from '$app/forms';
 
   let { data }: LayoutProps = $props();
-  console.log("isLoggedIn: ", data._isLoggedIn);
+  console.log("isLoggedIn: ", data.isLoggedIn);
 
   // State to control modal visibility
   let showSignInModal = $state(false);
@@ -62,6 +62,16 @@
 
     const data = await response.json();
     console.log("Response data:", data);
+
+    if (data.logsuccess) {
+      console.log("Sign-in successful: ", data.message);
+      signMessage = data.message;
+    }
+    else {
+      console.log("Sign-in failed: ", data.message);
+      signMessage = data.message;
+    }
+
     invalidateAll();
   }
 
@@ -81,6 +91,17 @@
 
     const data = await response.json();
     console.log("Response data:", data);
+
+    if (data.regsuccess) {
+      console.log("Sign-in successful: ", data.message);
+      regMessage = data.message;
+    }
+    else {
+      console.log("Sign-in failed: ", data.message);
+      regMessage = data.message;
+    }
+
+    invalidateAll
   }
 
   const submitUpdateTheme: SubmitFunction = ({ action }) => {
@@ -122,8 +143,8 @@
     </ul>
   </div>
 
-  {#if data._isLoggedIn != null}
-  <p> Welcome, {data._isLoggedIn}</p>
+  {#if data.isLoggedIn != null}
+  <p> Welcome, {data.isLoggedIn}</p>
   <div class = "buttons">
     <button onclick={handleSignOut} type="button">Sign Out</button>
   </div>
@@ -141,9 +162,9 @@
     <!-- Modal Content -->
     <div class="modal-content">
       <h2>Sign In</h2>
-      {#if signMessage}
-        <div class="message {signMessage.includes('success') ? 'success' : 'error'}">
-          {signMessage}
+      {#if signMessage && signMessage.length > 0}
+        <div class="message">
+          <p>{signMessage}</p>
         </div>
       {/if}
       <form onsubmit={(event) => handleSignInForm(event)}>
@@ -190,12 +211,19 @@
   </article>
 </dialog>-->
 
+<slot></slot>
+
 {#if showRegModal}
   <div class="modal-backdrop">
     <!-- Modal Content -->
     <div class="modal-content">
       <h2>Register</h2>
       <form onsubmit={(event) => handleRegisterForm(event)}>
+        {#if regMessage && regMessage.length > 0}
+        <div class="message">
+          <p>{regMessage}</p>
+        </div>
+      {/if}
         <div class="form-group">
           <label for="username">Username:</label>
           <input type="text" id="username" name="username" required />
