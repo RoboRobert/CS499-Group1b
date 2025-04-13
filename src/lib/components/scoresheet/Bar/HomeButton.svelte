@@ -1,9 +1,7 @@
 <script lang="ts">
-  import { goto } from "$app/navigation";
-
+  
   function goHome() {
     location.href = `/`;
-    // goto("/", {invalidateAll:true});
   }
 </script>
 

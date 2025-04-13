@@ -1,6 +1,6 @@
 // This file contains a Library of functions designed to validate input on the frontend.
 
-import { metaStats, numMetaErrors, players } from "$lib/components/scoresheet/data.svelte";
+import { metaStats } from "$lib/components/scoresheet/data.svelte";
 
 // Object of error checks, with regex and error message to display if failed.
 // export const errorChecks: {

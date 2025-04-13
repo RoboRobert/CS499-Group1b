@@ -1,6 +1,6 @@
 <script lang="ts">
-    import { players, getPlayer } from "./data.svelte";
-    import { IsNumber, CheckPlayerNumber, readPlayerno, readString } from "$lib/checkers/frontendChecker.svelte";
+    import { readPlayerno, readString } from "$lib/checkers/frontendChecker.svelte";
+    import { getPlayer, players } from "./data.svelte";
 
     interface Side {
         teamName: string,

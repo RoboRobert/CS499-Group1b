@@ -1,12 +1,11 @@
 import {
-  goalTrack,
   type MetaStats,
   type ScoresheetPlayer,
   type SheetGoal,
   type SheetPenalty,
   type SheetSave,
   type SheetTimeout,
-  type Stat,
+  type Stat
 } from "$lib/components/scoresheet/data.svelte";
 import type { GameStat } from "$lib/database/GameStats";
 import type { Goal } from "$lib/database/Goal";

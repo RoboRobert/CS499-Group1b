@@ -1,7 +1,7 @@
 import { json } from "@sveltejs/kit";
 import { v4 as uuidv4 } from 'uuid';
 
-import { coachName, teamName, type SheetData } from "$lib/components/scoresheet/data.svelte";
+import { coachName, type SheetData } from "$lib/components/scoresheet/data.svelte";
 import { toTeamID } from "$lib/conversion/general.js";
 import { goalsToDBGoals, metaStatsToDBMetaStats, penaltiesToDbPenalties as penaltiesToDBPenalties, playersToDBPlayers, playersToDBSheetPlayers, savesToDBSaves, statsToDBStats, timeoutsToDBTimeouts } from "$lib/conversion/sheetToDb.js";
 import { addgameStats } from "$lib/database/gamestat.js";
