@@ -1,6 +1,6 @@
 // This file contains a Library of functions designed to validate input on the frontend.
 
-import { players } from "./data.svelte";
+import { players } from "$lib/components/scoresheet/data.svelte";
 
 export function removeError(target: HTMLInputElement) {
   target.classList.remove("error");

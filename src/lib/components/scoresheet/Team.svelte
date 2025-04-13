@@ -1,6 +1,6 @@
 <script lang="ts">
     import { players, getPlayer } from "./data.svelte";
-    import { IsNumber, CheckPlayerNumber } from "./frontendChecker.svelte";
+    import { IsNumber, CheckPlayerNumber } from "$lib/checkers/frontendChecker.svelte";
 
     interface Side {
         teamName: string,
@@ -23,7 +23,14 @@
     </div>
     {#each players[side] as player, i}
         <div class="innerRow">
-            <input id="playerPosition-{side}-{i}" autocomplete="off" class="field thin" type="text" bind:value={players[side][i].position}>
+            <select id="playerPosition-{side}-{i}" class="drop-down field thin" name="options" bind:value={players[side][i].position} autocomplete="off">
+              <option value=""></option>
+              <option value="Mid">Mid</option>
+              <option value="Attack">Attack</option>
+              <option value="Defense">Defense</option>
+              <option value="Goalie">Goalie</option>
+            </select>
+            <!-- <input id="playerPosition-{side}-{i}" autocomplete="off" class="field thin" type="text" bind:value={players[side][i].position}> -->
             <input id="playerNumber-{side}-{i}" min="0" max="99" autocomplete="off" class="field thin" type="number" bind:value={players[side][i].number} oninput={(event) => CheckPlayerNumber(event, side)}>
             <input id="playerName-{side}-{i}" autocomplete="off" class="field wide" type="text" bind:value={players[side][i].name}>
             <input id="playerQuarters-{side}-{i}" autocomplete="off" class="field normal" type="text" bind:value={players[side][i].quarters}>

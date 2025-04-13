@@ -63,7 +63,7 @@ export async function dbSheetPlayersReset() {
     side: 0,
     index: 0,
     name: "Woah There",
-    position: "ATTACK",
+    position: "Attack",
     playerno: 42,
     quarter_1: true,
     quarter_2: false,

@@ -9,6 +9,7 @@ export const POST: RequestHandler = async ({request, cookies}) => {
     }
 
     const player = await request.json()
+    console.log("Received player for edit:", player);
     if(!player){
         console.error("Player is Invalid")
         return;

@@ -1,8 +1,9 @@
-import { clears, coachName, extraMan, faceoffs, goalTrack, groundBalls, metaStats, penalties, players, saves, sheet_id, shots, teamName, timeouts, type ScoresheetPlayer } from "$lib/components/scoresheet/data.svelte";
+import { clears, coachName, extraMan, faceoffs, game_id, goalTrack, groundBalls, metaStats, penalties, players, saves, shots, teamName, timeouts } from "$lib/components/scoresheet/data.svelte";
 import type { GameStat } from "$lib/database/GameStats";
 import type { Goal } from "$lib/database/Goal";
 import type { Penalty } from "$lib/database/Penalty";
 import type { Save } from "$lib/database/Save";
+import type { Sheet } from "$lib/database/Sheet";
 import type { SheetInfo } from "$lib/database/SheetInfo";
 import type { Timeout } from "$lib/database/Timeout";
 
@@ -23,8 +24,12 @@ export function dbStatsToStats(gameStats: GameStat[]) {
   }
 }
 
+export function dbMetaToMeta(sheet: Sheet) {
+  game_id.sheet_id = sheet.sheet_id;
+  game_id.game_id = sheet.game_id;
+}
+
 export function dbDataToSheetData(sheetInfo: SheetInfo) {
-  sheet_id.id = sheetInfo.sheet_id;
   teamName[0] = sheetInfo.hometeam;
   teamName[1] = sheetInfo.awayteam;
   coachName[0] = sheetInfo.homecoach;

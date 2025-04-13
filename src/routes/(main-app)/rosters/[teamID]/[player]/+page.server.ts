@@ -18,6 +18,8 @@ export const load: PageServerLoad = async ({ params, fetch, cookies }) => {
         }
         const player: Player = await response.json();
 
+        console.log(player);
+
         if (!player) {
             throw error(404, 'Player not found');
         }

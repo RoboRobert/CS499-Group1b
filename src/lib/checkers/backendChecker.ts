@@ -1,4 +1,4 @@
-import type { SheetPenalty, ScoresheetPlayer, SheetSave, SheetData, Stat } from "./components/scoresheet/data.svelte";
+import type { SheetPenalty, ScoresheetPlayer, SheetSave, SheetData, Stat } from "$lib/components/scoresheet/data.svelte";
 
 export interface SheetErr {
   elementID: string;
@@ -9,6 +9,7 @@ const validNumberMsg = "Field must contain an integer.";
 
 export function checkSheet(rawData: any): SheetErr[] {
   const data: SheetData = {
+    game_id: rawData.game_id,
     teamName: rawData.teamName,
     players: rawData.players,
     saves: rawData.saves,
@@ -22,7 +23,9 @@ export function checkSheet(rawData: any): SheetErr[] {
     timeouts: rawData.timeouts,
     penalties: rawData.penalties,
     metaStats: rawData.metaStats,
+    coachName: []
   };
+  
   let errors: SheetErr[] = [];
 
   // Check all the team names and make sure they're not empty.

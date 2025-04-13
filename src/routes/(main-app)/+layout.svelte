@@ -11,6 +11,13 @@
   let { data }: LayoutProps = $props();
   console.log("isLoggedIn: ", data.isLoggedIn);
 
+
+
+
+  // const themeParam = searchParams;
+  let darkMode = false; // Default to light mode
+ 
+
   // State to control modal visibility
   let showSignInModal = $state(false);
   let showRegModal = $state(false);
@@ -105,7 +112,9 @@
   const submitUpdateTheme: SubmitFunction = ({ action }) => {
     const theme = action.searchParams.get('theme');
     if(theme){
-      document.documentElement.setAttribute('data-theme', theme);
+      document.documentElement.setAttribute('data-theme', theme); 
+      darkMode = theme === "dark";
+     
     }
 
     closeSignInModal(); // Close the modal if it was open
@@ -116,10 +125,14 @@
 <nav>
   <div class="navLeft">
     <img class="smegol" src="/LOGO_CIRCLE.png" alt="Project Logo" />
+    
+    
+     
+
     <a href="/">Home</a>
     <a href="/rosters ">Rosters</a>
     <a href="/pastgames ">Past Games</a>
-    <a href="/run/1">Run Mode</a>
+    <a data-sveltekit-reload href="/run/">Run Mode</a>
   </div> 
   <div>
     <ul>

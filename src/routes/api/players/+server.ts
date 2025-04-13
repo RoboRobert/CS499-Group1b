@@ -10,7 +10,7 @@ export const GET: RequestHandler = async (event) => {
     if (token !== "admin" && token !== "coach") {
         error(403, "You don't have the right O you don't have the right");
     }
-    console.log(event)
+    // console.log(event)
     const players = await getPlayers()
     return json(players)
 }
@@ -22,7 +22,7 @@ export const POST: RequestHandler = async ({request, cookies}) => {
     if (token !== "admin" && token !== "coach") {
         error(403, "You don't have the right O you don't have the right");
     }
-    console.log(request)
+    // console.log(request)
     const player = await request.json()
     addPlayer(player)
 
