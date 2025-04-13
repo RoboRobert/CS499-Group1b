@@ -1,8 +1,7 @@
-import { redirect } from "@sveltejs/kit";
-import type { PageServerLoad } from "./$types";
-
-export const load: PageServerLoad = async ({ fetch, cookies }) => {
-    cookies.set("user-role", "guest", { path: '/' })
+import type { LayoutServerLoad } from "./$types";
+export const load: LayoutServerLoad = async ({ cookies }) => {
+    
+    // cookies.set("user-role", "admin", { path: '/' })
 
     // const token =cookies.get("user-role");
     // const visitorSBKRestrictedPaths = [ "/rosters", "/rosters/[teamID]", "/rosters/[teamID]/[player]" ];
@@ -11,14 +10,22 @@ export const load: PageServerLoad = async ({ fetch, cookies }) => {
     //   
     // }
 
-    // const searchParams = cookies.get("colortheme") || "light";
-    // const pathname = url.pathname;
-    // console.log("searchParams", searchParams);
-    // console.log("pathname", pathname);
+    const username = cookies.get("username");
+    const role = cookies.get("user-role");
+    console.log("username: ", username);
+    if(role == "admin"){
+        return {isLoggedIn: username || null, userRole: "Webmaster"};
+    }
+    else if (role == "score-keeper"){
+        return {isLoggedIn: username || null, userRole: "Scorekeeper"};
+    }
+    else if (role == "coach"){
+        return {isLoggedIn: username || null, userRole: "Coach"};
+    }
+    else {
+        return {isLoggedIn: username || null, userRole: role || null};
+    }
     
-    // return {
-    //     searchParams,
-    //     pathname,
-    //   };
+
     
 }

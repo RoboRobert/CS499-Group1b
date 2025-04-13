@@ -100,6 +100,7 @@ header {
 }
 
 nav {
+  height: 50px;
   background-color: var(--clr-surface-a10);
   padding: 10px;
   display: flex;
@@ -108,7 +109,6 @@ nav {
   top: 0; /* Position it at the very top */
   left: 0; /* Align it to the left edge */
   width: 100%; /* Make it span the full width of the screen */
-
 }
 
 nav a {
@@ -241,6 +241,7 @@ ul li:hover .theme-options {
   margin-left: auto;
   /* flex-shrink: 0; */
   z-index: 3;
+  margin-right:20px;
 }
 
 .buttons button {
@@ -256,6 +257,25 @@ ul li:hover .theme-options {
 .buttons button:hover {
   background-color: var(--clr-button-hover);
 }
+
+/* .sign-out-button {
+  display: flex;
+  gap: 10px;
+  margin-left: 0px;
+  flex-shrink: 0;
+  z-index: 3;
+} */
+
+/* .sign-out-button button {
+  background-color: var(--clr-button);
+  color: var(--clr-light-a0);
+  padding: 8px 15px;
+  margin: 0px;
+  cursor: pointer;
+  border: none;
+  font-size: 16px;
+  border-radius: 5px;
+} */
 
 .cancel-button {
   background-color: transparent;
