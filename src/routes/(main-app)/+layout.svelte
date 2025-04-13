@@ -100,9 +100,14 @@
     <img class="smegol" src="/LOGO_CIRCLE.png" alt="Project Logo" />
 
     <a href="/">Home</a>
-    <a href="/rosters ">Rosters</a>
+    {#if data.role === "admin" || data.role === "coach"}
+      <a href="/rosters ">Rosters</a>
+    {/if}
     <a href="/pastgames ">Past Games</a>
-    <a data-sveltekit-reload href="/run/">Run Mode</a>
+
+    {#if data.role === "admin" || data.role === "coach" || data.role === "score-keeper"}
+      <a data-sveltekit-reload href="/run/">Run Mode</a>
+    {/if}
   </div>
 
   <div class="navRight">
