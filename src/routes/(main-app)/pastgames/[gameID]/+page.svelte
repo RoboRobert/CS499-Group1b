@@ -12,6 +12,8 @@
     scorekeeper: ""
   };
   let showDeleteConfirm = $state(false);
+  let userToken = data.token;
+  let canEdit = userToken === "admin" || userToken === "scorekeeper";
 
   const openDeleteModal = (sheet: Sheet) => {
     deleteSheet = sheet;
@@ -43,7 +45,7 @@
 </script>
 
 <title>Team {data.game.game_id}</title>
-
+<div class="container">
 <div class="roster-page">
   <!-- <a href="./">Back</a> -->
   <section class="game-dash">
@@ -60,13 +62,16 @@
           <a data-sveltekit-reload href="/sheets/{scoresheet.sheet_id}" class="team-link">
             <h3>Scoresheet by {scoresheet.scorekeeper}</h3>
           </a>
+          {#if canEdit}
           <div class="team-actions">
             <button onclick={() => openDeleteModal(scoresheet)} class="delete-button">Delete</button>
           </div>
+          {/if}
         </div>
       {/each}
     </div>
   </section>
+</div>
 </div>
 
 {#if showDeleteConfirm}

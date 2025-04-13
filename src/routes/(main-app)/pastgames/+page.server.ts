@@ -3,7 +3,8 @@ import { getGames } from '$lib/database/sheets';
 import type { PageServerLoad } from './$types';
 import { error } from "@sveltejs/kit";
 
-export const load: PageServerLoad = async ({ fetch }) => {
+export const load: PageServerLoad = async ({ fetch, cookies }) => {
+    const token = cookies.get('user-role');
     try {
         const games = await getGames();
         return {
@@ -12,7 +13,8 @@ export const load: PageServerLoad = async ({ fetch }) => {
     } catch (err) {
         console.error('Failed to fetch games:', err);
         return {
-            games: [] // Return an empty array or a default value
+            games: [], // Return an empty array or a default value
+            token
         };
     }
 };

@@ -15,7 +15,7 @@ export const load: PageServerLoad = async ({ fetch }) => {
 }
 
 //Actions for the page
-export const actions = {
+/*export const actions = {
 
     //Login action
 	login: async ({ request, cookies }) => {
@@ -131,4 +131,4 @@ export const actions = {
       },
 
 
-} satisfies Actions;
+} satisfies Actions;*/

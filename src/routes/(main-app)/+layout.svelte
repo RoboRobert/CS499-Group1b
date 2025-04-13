@@ -1,5 +1,11 @@
 <script lang="ts">
   import "$lib/styles/app.css";
+  import { enhance } from "$app/forms";
+  import { page } from "$app/stores";
+  import "$lib/styles/app.css";
+  import type { SubmitFunction } from "@sveltejs/kit";
+  import type { LayoutProps } from "./$types";
+  import { invalidate, invalidateAll } from "$app/navigation";
   //import { enhance } from '$app/forms';
   import ThemeSwitch from "$lib/components/general/ThemeSwitch.svelte";
   import type { ActionData } from "./$types.js";
@@ -11,12 +17,12 @@
   let closed = false;
 
   // State to control modal visibility
-  let showSignInModal = false;
-  let showRegModal = false;
+  let showSignInModal = $state(false);
+  let showRegModal = $state(false);
 
   // State to hold results of sign-in and registration
-  let signMessage = ""; // Message to display for signin modal
-  let regMessage = ""; // Message to display for register modal
+  let signMessage = $state(""); // Message to display for signin modal
+  let regMessage = $state(""); // Message to display for register modal
 
   // Function to open the Sign in modal
   const openSignInModal = () => (showSignInModal = true);
@@ -27,6 +33,87 @@
   const openRegModal = () => (showRegModal = true);
   // Function to close the Register modal
   const closeRegModal = () => ((showRegModal = false), (regMessage = ""));
+
+  let showThemeOptions = $state(false);
+  // Function to open the Register modal
+  const openThemeOptions = () => (showThemeOptions = !showThemeOptions);
+
+  async function handleSignOut() {
+    const form = "signout";
+    const response = await fetch(`/api/logon?form=${form}`, {
+      method: "GET",
+      headers: { "Content-Type": "application/json" },
+    });
+    console.log("Response status:", response.status);
+
+    const data = await response.json();
+    console.log("Response data:", data);
+
+    invalidateAll();
+  }
+
+  async function handleSignInForm(event: Event) {
+    //event.preventDefault();
+    const formData = new FormData(event.target as HTMLFormElement);
+    const username = formData.get("username") as string;
+    const password = formData.get("password") as string;
+    const form = "signin";
+
+    const response = await fetch(`/api/logon?username=${username}&password=${password}&form=${form}`, {
+      method: "GET",
+      headers: { "Content-Type": "application/json" },
+    });
+    console.log("Response status:", response.status);
+
+    const data = await response.json();
+    console.log("Response data:", data);
+
+    if (data.logsuccess) {
+      closeSignInModal();
+    } else {
+      console.log("Sign-in failed: ", data.message);
+      signMessage = data.message;
+    }
+
+    invalidateAll();
+  }
+
+  async function handleRegisterForm(event: Event) {
+    //event.preventDefault();
+    const formData = new FormData(event.target as HTMLFormElement);
+    const username = formData.get("username") as string;
+    const password = formData.get("password") as string;
+    const role = formData.get("role") as string;
+    const form = "register";
+
+    const response = await fetch(`/api/logon?username=${username}&password=${password}&role=${role}&form=${form}`, {
+      method: "GET",
+      headers: { "Content-Type": "application/json" },
+    });
+    console.log("Response status:", response.status);
+
+    const data = await response.json();
+    console.log("Response data:", data);
+
+    if (data.regsuccess) {
+      closeRegModal();
+      handleSignInForm(event); // Automatically sign in after successful registration
+    } else {
+      console.log("Sign-in failed: ", data.message);
+      regMessage = data.message;
+    }
+    invalidateAll();
+  }
+
+  const submitUpdateTheme: SubmitFunction = ({ action }) => {
+    const theme = action.searchParams.get("theme");
+    if (theme) {
+      document.documentElement.setAttribute("data-theme", theme);
+      darkMode = theme === "dark";
+    }
+
+    closeSignInModal(); // Close the modal if it was open
+  };
 </script>
 
 <nav>
@@ -37,6 +124,7 @@
     <a href="/rosters ">Rosters</a>
     <a href="/pastgames ">Past Games</a>
     <a data-sveltekit-reload href="/run/">Run Mode</a>
+  </div>
   </div>
   <div>
     <!-- <ul> -->
@@ -51,6 +139,21 @@
       <button onclick={openSignInModal} type="button">Sign In</button>
     </section>
   </div>
+
+  {#if data.isLoggedIn != null}
+    <!-- <div class="navRight">
+      
+    </div> -->
+    <div class="buttons">
+      <p class="welcome-message">Welcome, {data.isLoggedIn} ({data.userRole})</p>
+      <button onclick={handleSignOut} type="button">Sign Out</button>
+    </div>
+  {:else}
+    <div class="buttons">
+      <button onclick={openRegModal} type="button">Register</button>
+      <button onclick={openSignInModal} type="button">Sign In</button>
+    </div>
+  {/if}
 </nav>
 
 <!-- Modal Backdrop -->
@@ -59,12 +162,12 @@
     <!-- Modal Content -->
     <div class="modal-content">
       <h2>Sign In</h2>
-      {#if signMessage}
-        <div class="message {signMessage.includes('success') ? 'success' : 'error'}">
-          {signMessage}
+      {#if signMessage && signMessage.length > 0}
+        <div class="message">
+          <p>{signMessage}</p>
         </div>
       {/if}
-      <form method="POST" action="?/login">
+      <form onsubmit={(event) => handleSignInForm(event)}>
         <div class="form-group">
           <label for="username">Username:</label>
           <input type="text" id="username" name="username" required />
@@ -83,7 +186,7 @@
 {/if}
 
 <!-- Dialog for success message after signing in -->
-<dialog open={form?.logsuccess == true && !closed}>
+<!--<dialog open={form?.logsuccess == true && !closed}>
   <article>
     <header>
       <a href="#close" aria-label="Close" class="close" onclick={() => (closed = true)}>x</a>
@@ -93,10 +196,10 @@
       Welcome to Smegol, "{form?.username}"!
     </p>
   </article>
-</dialog>
+</dialog>-->
 
 <!-- Dialog for error message after signin failure -->
-<dialog open={form?.logsuccess == false && !closed}>
+<!--<dialog open={form?.logsuccess == false && !closed}>
   <article>
     <header>
       <a href="#close" aria-label="Close" class="close" onclick={() => (closed = true)}>x</a>
@@ -106,14 +209,21 @@
       Please enter a valid username. User "{form?.username}" does not exist.
     </p>
   </article>
-</dialog>
+</dialog>-->
+
+<slot></slot>
 
 {#if showRegModal}
   <div class="modal-backdrop">
     <!-- Modal Content -->
     <div class="modal-content">
       <h2>Register</h2>
-      <form method="POST" action="?/register">
+      <form onsubmit={(event) => handleRegisterForm(event)}>
+        {#if regMessage && regMessage.length > 0}
+          <div class="message">
+            <p>{regMessage}</p>
+          </div>
+        {/if}
         <div class="form-group">
           <label for="username">Username:</label>
           <input type="text" id="username" name="username" required />
@@ -139,39 +249,7 @@
   </div>
 {/if}
 
-<!-- Dialog for success message after registering -->
-<dialog open={form?.regsuccess == true && !closed}>
-  <article>
-    <header>
-      <a href="#close" aria-label="Close" class="close" onclick={() => (closed = true)}>x</a>
-      Success
-    </header>
-    <p>
-      Congratulations on joining Smegol, "{form?.username}"!
-    </p>
-  </article>
-</dialog>
-
-<!-- Dialog for error message after registration failure -->
-<dialog open={form?.regsuccess == false && !closed}>
-  <article>
-    <header>
-      <a href="#close" aria-label="Close" class="close" onclick={() => (closed = true)}>x</a>
-      Error
-    </header>
-    <p>
-      Account with username "{form?.username}" already exists.
-    </p>
-  </article>
-</dialog>
-
-<slot></slot>
-
 <style>
-  nav {
-    height: 50px;
-  }
-
   .smegol {
     height: 100%;
   }
@@ -180,22 +258,24 @@
     display: flex;
     margin-right: 20px;
   }
-  /* .signIn {
-    margin-left:auto;
-  } */
 
-  .close {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    font-size: 24px;
-    text-decoration: none;
-    color: rgb(255, 255, 255);
-    background: none;
+  ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
   }
 
-  .close:hover {
-    cursor: pointer;
-    color: red;
+  /* Show the theme options when showThemeOptions is true */
+  .theme-container.show .theme-options {
+    display: block;
+  }
+
+  ul li:hover .theme-options {
+    display: block;
+  }
+
+  .welcome-message {
+    font-size: 16px; /* Adjust font size if needed */
+    color: var(--clr-light-a0); /* Use a variable or set a color */
   }
 </style>

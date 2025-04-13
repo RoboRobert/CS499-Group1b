@@ -21,7 +21,7 @@
     coach: "",
   });
 
-
+  let isEdit = $state(false);
   let userRole = data.token ;
   let canEdit = userRole === "admin" || userRole === "coach"; // Check if the user is an admin or coach
   let editingTeam: Team = $state(defaultTeam);
@@ -29,6 +29,9 @@
   let showDeleteConfirm = $state(false);
 
   const openEditModal = (team: Team) => {
+    if(team.team_id != ""){
+      isEdit = true;
+    }
     editingTeam = team;
     showEditModal = true;
   };
@@ -259,6 +262,7 @@
 
 <title>Rosters</title>
 
+<div class="container">
 <div class="roster-page">
   <section class="rosters-dash">
     <h1><strong>Rosters</strong></h1>
@@ -293,11 +297,17 @@
     </div>
   </section>
 </div>
+</div>
 
 {#if showEditModal}
   <div class="modal-backdrop">
     <div class="modal-content">
+      {#if isEdit}
+      <h2>Edit Team</h2>
+      {/if}
+      {#if !isEdit}
       <h2>Add Team</h2>
+      {/if}
       <!-- Bind input values and handle form submission -->
       <form onsubmit={(event) => handleTeamForm(event)}>
         <div class="form-group">
@@ -381,10 +391,13 @@
           {/if}
         </div>
         <div class="modal-actions">
-          <button type="button" onclick={closeEditModal} class="cancel-button"
-            >Cancel</button
-          >
-          <button type="submit" class="sign-in-button">Add Changes</button>
+          <button type="button" onclick={closeEditModal} class="cancel-button">Cancel</button>
+          {#if isEdit}
+          <button type="submit" class="sign-in-button">Save Changes</button>
+          {/if}
+          {#if !isEdit}
+          <button type="submit" class="sign-in-button">Add Team</button>
+          {/if}
         </div>
       </form>
     </div>

@@ -27,7 +27,7 @@
     player_id: ""
   };
 
-
+  let isEdit = $state(false);
   let userRole = data.token;
   let canEdit = userRole === "coach" || userRole === "admin"; // Check if the user is a coach or admin
   let showEditModal = $state(false);
@@ -37,11 +37,15 @@
   let editingPlayer: Player = $state(defaultPlayer);
 
   function openEditModal(player: Player) {
+    if(player.player_id != ""){
+      isEdit = true;
+    }
     showEditModal = true;
     editingPlayer = player;
   }
 
   function closeEditModal() {
+    isEdit = false;
     showEditModal = false;
     editingPlayer = null;
     errors = {};
@@ -284,6 +288,7 @@
 </script>
 
 <title>Team {data.team.team_name}</title>
+<div class="container">
 <div class="team-page">
   <!-- <a href="./" class="back-link">← Back to Rosters</a> -->
 
@@ -328,11 +333,19 @@
       {/each}
     </div>
   </section>
+</div>
+</div>
+
 
 {#if showEditModal}
   <div class="modal-backdrop">
     <div class="modal-content">
+      {#if isEdit}
       <h2>Edit Player</h2>
+      {/if}
+      {#if !isEdit}
+      <h2>Add Player</h2>
+      {/if}
       <form onsubmit={(event) => handlePlayerForm(event)}>
         <div class="form-group">
           <label for="player-first-name">Player Name:</label>
@@ -497,7 +510,13 @@
                 </div>
         <div class="modal-actions">
           <button type="button" onclick={closeEditModal} class="cancel-button">Cancel</button>
+          {#if isEdit}
           <button type="submit" class="sign-in-button">Save Changes</button>
+          {/if}
+          {#if !isEdit}
+          <button type="submit" class="sign-in-button">Add Player</button>
+          {/if}
+
         </div>
       </form>
     </div>
@@ -517,4 +536,4 @@
   </div>
 </div>
 {/if}
-</div>
+

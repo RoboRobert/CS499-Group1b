@@ -1,8 +1,7 @@
 import type { LayoutServerLoad } from "./$types";
-import { themeToBool } from "$lib/conversion/general";
-
-export const load: LayoutServerLoad = async ({ fetch, cookies }) => {
-    cookies.set("user-role", "admin", { path: '/' })
+export const load: LayoutServerLoad = async ({ cookies }) => {
+    
+    // cookies.set("user-role", "admin", { path: '/' })
 
     // const token =cookies.get("user-role");
     // const visitorSBKRestrictedPaths = [ "/rosters", "/rosters/[teamID]", "/rosters/[teamID]/[player]" ];
@@ -10,6 +9,23 @@ export const load: LayoutServerLoad = async ({ fetch, cookies }) => {
     // if(token == "guest" && visitorSBKRestrictedPaths.includes(currentPath)|| token == "score-keeper" && visitorSBKRestrictedPaths.includes(currentPath)) {
     //   
     // }
+
+    const username = cookies.get("username");
+    const role = cookies.get("user-role");
+    console.log("username: ", username);
+    if(role == "admin"){
+        return {isLoggedIn: username || null, userRole: "Webmaster"};
+    }
+    else if (role == "score-keeper"){
+        return {isLoggedIn: username || null, userRole: "Scorekeeper"};
+    }
+    else if (role == "coach"){
+        return {isLoggedIn: username || null, userRole: "Coach"};
+    }
+    else {
+        return {isLoggedIn: username || null, userRole: role || null};
+    }
+    
 
     const theme = themeToBool(cookies.get("colortheme"));
     // const pathname = url.pathname;
