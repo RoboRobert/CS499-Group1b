@@ -93,6 +93,7 @@
 
     if (data.regsuccess) {
       closeRegModal();
+      handleSignInForm(event); // Automatically sign in after successful registration
     }
     else {
       console.log("Sign-in failed: ", data.message);
@@ -142,7 +143,7 @@
 
   {#if data.isLoggedIn != null}
   <div class="navRight">
-    <p class="welcome-message">Welcome, {data.isLoggedIn}</p>
+    <p class="welcome-message">Welcome, {data.isLoggedIn} ({data.userRole})</p>
   </div>
   <div class="sign-out-button">
     <button onclick={handleSignOut} type="button">Sign Out</button>

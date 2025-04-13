@@ -11,8 +11,21 @@ export const load: LayoutServerLoad = async ({ cookies }) => {
     // }
 
     const username = cookies.get("username");
+    const role = cookies.get("user-role");
     console.log("username: ", username);
-    return {isLoggedIn: username || null};
+    if(role == "admin"){
+        return {isLoggedIn: username || null, userRole: "Webmaster"};
+    }
+    else if (role == "score-keeper"){
+        return {isLoggedIn: username || null, userRole: "Scorekeeper"};
+    }
+    else if (role == "coach"){
+        return {isLoggedIn: username || null, userRole: "Coach"};
+    }
+    else {
+        return {isLoggedIn: username || null, userRole: role || null};
+    }
+    
 
     
 }
