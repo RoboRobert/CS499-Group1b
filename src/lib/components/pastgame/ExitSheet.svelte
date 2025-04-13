@@ -5,7 +5,6 @@
     // Exit the current scoresheet
     async function exitScoresheet() {
       location.href = `/pastgames/${game_id.game_id}`;
-      // goto(`/pastgames/${game_id.game_id}`, {invalidateAll: true});
     }
   </script>
   
