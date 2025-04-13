@@ -64,8 +64,7 @@
     console.log("Response data:", data);
 
     if (data.logsuccess) {
-      console.log("Sign-in successful: ", data.message);
-      signMessage = data.message;
+      closeSignInModal();
     }
     else {
       console.log("Sign-in failed: ", data.message);
@@ -93,15 +92,13 @@
     console.log("Response data:", data);
 
     if (data.regsuccess) {
-      console.log("Sign-in successful: ", data.message);
-      regMessage = data.message;
+      closeRegModal();
     }
     else {
       console.log("Sign-in failed: ", data.message);
       regMessage = data.message;
     }
-
-    invalidateAll
+    invalidateAll();
   }
 
   const submitUpdateTheme: SubmitFunction = ({ action }) => {
@@ -147,7 +144,7 @@
   <div class="navRight">
     <p class="welcome-message">Welcome, {data.isLoggedIn}</p>
   </div>
-  <div class="buttons">
+  <div class="sign-out-button">
     <button onclick={handleSignOut} type="button">Sign Out</button>
   </div>
   {:else}
@@ -321,7 +318,7 @@
   color: white;
   display: flex; /* Use flexbox to align items horizontally */
   align-items: center; /* Vertically center the items */
-  margin-left: 400px; /* Push the container to the right */
+  margin-left: auto; /* Push the container to the right */
   gap: 10px; /* Add spacing between the message and the button */
 }
 
@@ -330,24 +327,4 @@
   font-size: 16px; /* Adjust font size if needed */
   color: var(--clr-text); /* Use a variable or set a color */
 }
-
-
-  /* .signIn {
-    margin-left:auto;
-  } */
-
-  /*.close {
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  font-size: 24px;
-  text-decoration: none;
-  color: rgb(255, 255, 255);
-  background: none;
-}*/
-
-/*.close:hover {
-  cursor: pointer;
-  color: red;
-}*/
 </style>
