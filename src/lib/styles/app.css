@@ -240,6 +240,7 @@ ul li:hover .theme-options {
   margin-left: auto;
   /* flex-shrink: 0; */
   z-index: 3;
+  margin-right:20px;
 }
 
 .buttons button {
@@ -256,15 +257,15 @@ ul li:hover .theme-options {
   background-color: var(--clr-button-hover);
 }
 
-.sign-out-button {
+/* .sign-out-button {
   display: flex;
   gap: 10px;
   margin-left: 0px;
   flex-shrink: 0;
   z-index: 3;
-}
+} */
 
-.sign-out-button button {
+/* .sign-out-button button {
   background-color: var(--clr-button);
   color: var(--clr-light-a0);
   padding: 8px 15px;
@@ -273,7 +274,7 @@ ul li:hover .theme-options {
   border: none;
   font-size: 16px;
   border-radius: 5px;
-}
+} */
 
 .cancel-button {
   background-color: transparent;

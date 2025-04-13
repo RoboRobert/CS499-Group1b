@@ -147,7 +147,7 @@
     <div class="navRight">
       <p class="welcome-message">Welcome, {data.isLoggedIn} ({data.userRole})</p>
     </div>
-    <div class="sign-out-button">
+    <div class="buttons">
       <button onclick={handleSignOut} type="button">Sign Out</button>
     </div>
   {:else}
@@ -251,32 +251,6 @@
   </div>
 {/if}
 
-<!-- Dialog for success message after registering -->
-<!--<dialog open={form?.regsuccess == true && !closed}>
-  <article>
-    <header>
-      <a href="#close" aria-label="Close" class="close" onclick={() => closed = true}>x</a>
-            Success
-    </header>
-    <p>
-      Congratulations on joining Smegol, "{form?.username}"!
-    </p>
-  </article>
-</dialog>-->
-
-<!-- Dialog for error message after registration failure -->
-<!--<dialog open={form?.regsuccess == false && !closed}>
-  <article>
-    <header>
-      <a href="#close" aria-label="Close" class="close" onclick={() => closed = true}>x</a>
-            Error
-    </header>
-    <p>
-      Account with username "{form?.username}" already exists.
-    </p>
-  </article>
-</dialog>-->
-
 <style>
   nav {
     height: 50px;
@@ -297,17 +271,6 @@
     margin: 0;
   }
 
-  .theme-options {
-    display: none;
-    position: absolute;
-    background-color: var(--clr-surface-a10);
-    border: 1px solid var(--clr-surface-a10);
-    border-radius: 4px;
-    padding: 10px;
-    margin-top: 5px;
-    z-index: 1000;
-  }
-
   /* Show the theme options when showThemeOptions is true */
   .theme-container.show .theme-options {
     display: block;
@@ -326,7 +289,7 @@
   }
 
   .welcome-message {
-    margin: 0; /* Remove default margin from the <p> tag */
+    margin-right:0; /* Remove default margin from the <p> tag */
     font-size: 16px; /* Adjust font size if needed */
     color: var(--clr-text); /* Use a variable or set a color */
   }
