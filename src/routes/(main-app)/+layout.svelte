@@ -1,7 +1,7 @@
 <script lang="ts">
   import "$lib/styles/app.css";
   import { enhance } from "$app/forms";
-  import {page} from "$app/stores";
+  import { page } from "$app/stores";
   import "$lib/styles/app.css";
   import type { SubmitFunction } from "@sveltejs/kit";
   import type { LayoutProps } from "./$types";
@@ -11,40 +11,36 @@
   let { data }: LayoutProps = $props();
   console.log("isLoggedIn: ", data.isLoggedIn);
 
-
-
-
   // const themeParam = searchParams;
   let darkMode = false; // Default to light mode
- 
 
   // State to control modal visibility
   let showSignInModal = $state(false);
   let showRegModal = $state(false);
 
   // State to hold results of sign-in and registration
-  let signMessage = $state(''); // Message to display for signin modal
-  let regMessage = $state(''); // Message to display for register modal
+  let signMessage = $state(""); // Message to display for signin modal
+  let regMessage = $state(""); // Message to display for register modal
 
   // Function to open the Sign in modal
   const openSignInModal = () => (showSignInModal = true);
   // Function to close the Sign in modal
-  const closeSignInModal = () => (showSignInModal = false, signMessage = '');
+  const closeSignInModal = () => ((showSignInModal = false), (signMessage = ""));
 
   // Function to open the Register modal
   const openRegModal = () => (showRegModal = true);
   // Function to close the Register modal
-  const closeRegModal = () => (showRegModal = false, regMessage = '');
+  const closeRegModal = () => ((showRegModal = false), (regMessage = ""));
 
   let showThemeOptions = $state(false);
-   // Function to open the Register modal
+  // Function to open the Register modal
   const openThemeOptions = () => (showThemeOptions = !showThemeOptions);
 
   async function handleSignOut() {
     const form = "signout";
     const response = await fetch(`/api/logon?form=${form}`, {
-      method: 'GET',
-      headers: { 'Content-Type': 'application/json' },
+      method: "GET",
+      headers: { "Content-Type": "application/json" },
     });
     console.log("Response status:", response.status);
 
@@ -54,16 +50,16 @@
     invalidateAll();
   }
 
-  async function handleSignInForm(event: Event){
+  async function handleSignInForm(event: Event) {
     //event.preventDefault();
     const formData = new FormData(event.target as HTMLFormElement);
-    const username = formData.get('username') as string;
-    const password = formData.get('password') as string;
+    const username = formData.get("username") as string;
+    const password = formData.get("password") as string;
     const form = "signin";
 
     const response = await fetch(`/api/logon?username=${username}&password=${password}&form=${form}`, {
-      method: 'GET',
-      headers: { 'Content-Type': 'application/json' },
+      method: "GET",
+      headers: { "Content-Type": "application/json" },
     });
     console.log("Response status:", response.status);
 
@@ -72,8 +68,7 @@
 
     if (data.logsuccess) {
       closeSignInModal();
-    }
-    else {
+    } else {
       console.log("Sign-in failed: ", data.message);
       signMessage = data.message;
     }
@@ -81,17 +76,17 @@
     invalidateAll();
   }
 
-  async function handleRegisterForm(event: Event){
+  async function handleRegisterForm(event: Event) {
     //event.preventDefault();
     const formData = new FormData(event.target as HTMLFormElement);
-    const username = formData.get('username') as string;
-    const password = formData.get('password') as string;
-    const role = formData.get('role') as string;
+    const username = formData.get("username") as string;
+    const password = formData.get("password") as string;
+    const role = formData.get("role") as string;
     const form = "register";
 
     const response = await fetch(`/api/logon?username=${username}&password=${password}&role=${role}&form=${form}`, {
-      method: 'GET',
-      headers: { 'Content-Type': 'application/json' },
+      method: "GET",
+      headers: { "Content-Type": "application/json" },
     });
     console.log("Response status:", response.status);
 
@@ -101,8 +96,7 @@
     if (data.regsuccess) {
       closeRegModal();
       handleSignInForm(event); // Automatically sign in after successful registration
-    }
-    else {
+    } else {
       console.log("Sign-in failed: ", data.message);
       regMessage = data.message;
     }
@@ -110,30 +104,25 @@
   }
 
   const submitUpdateTheme: SubmitFunction = ({ action }) => {
-    const theme = action.searchParams.get('theme');
-    if(theme){
-      document.documentElement.setAttribute('data-theme', theme); 
+    const theme = action.searchParams.get("theme");
+    if (theme) {
+      document.documentElement.setAttribute("data-theme", theme);
       darkMode = theme === "dark";
-     
     }
 
     closeSignInModal(); // Close the modal if it was open
-  }
-
+  };
 </script>
 
 <nav>
   <div class="navLeft">
     <img class="smegol" src="/LOGO_CIRCLE.png" alt="Project Logo" />
-    
-    
-     
 
     <a href="/">Home</a>
     <a href="/rosters ">Rosters</a>
     <a href="/pastgames ">Past Games</a>
     <a data-sveltekit-reload href="/run/">Run Mode</a>
-  </div> 
+  </div>
   <div>
     <ul>
       <li class="theme-container {showThemeOptions ? 'show' : ''}">
@@ -145,7 +134,7 @@
                 <button formaction="/?/setTheme&theme=dark&redirectTo={$page.url.pathname}">Dark</button>
               </li>
               <li class="buttons">
-                <button formaction="/?/setTheme&theme=light&redirectTo={$page.url.pathname}" >Light</button>
+                <button formaction="/?/setTheme&theme=light&redirectTo={$page.url.pathname}">Light</button>
               </li>
             </form>
           </ul>
@@ -155,17 +144,17 @@
   </div>
 
   {#if data.isLoggedIn != null}
-  <div class="navRight">
-    <p class="welcome-message">Welcome, {data.isLoggedIn} ({data.userRole})</p>
-  </div>
-  <div class="sign-out-button">
-    <button onclick={handleSignOut} type="button">Sign Out</button>
-  </div>
+    <div class="navRight">
+      <p class="welcome-message">Welcome, {data.isLoggedIn} ({data.userRole})</p>
+    </div>
+    <div class="sign-out-button">
+      <button onclick={handleSignOut} type="button">Sign Out</button>
+    </div>
   {:else}
-  <div class="buttons">
-    <button onclick={openRegModal} type="button">Register</button>
-    <button onclick={openSignInModal} type="button">Sign In</button>
-  </div>
+    <div class="buttons">
+      <button onclick={openRegModal} type="button">Register</button>
+      <button onclick={openSignInModal} type="button">Sign In</button>
+    </div>
   {/if}
 </nav>
 
@@ -233,10 +222,10 @@
       <h2>Register</h2>
       <form onsubmit={(event) => handleRegisterForm(event)}>
         {#if regMessage && regMessage.length > 0}
-        <div class="message">
-          <p>{regMessage}</p>
-        </div>
-      {/if}
+          <div class="message">
+            <p>{regMessage}</p>
+          </div>
+        {/if}
         <div class="form-group">
           <label for="username">Username:</label>
           <input type="text" id="username" name="username" required />
@@ -289,7 +278,7 @@
 </dialog>-->
 
 <style>
-  nav{ 
+  nav {
     height: 50px;
   }
 
@@ -299,7 +288,7 @@
 
   .navLeft {
     display: flex;
-    margin-right: 20px
+    margin-right: 20px;
   }
 
   ul {
@@ -307,7 +296,7 @@
     padding: 0;
     margin: 0;
   }
-  
+
   .theme-options {
     display: none;
     position: absolute;
@@ -329,16 +318,16 @@
   }
 
   .navRight {
-  color: white;
-  display: flex; /* Use flexbox to align items horizontally */
-  align-items: center; /* Vertically center the items */
-  margin-left: auto; /* Push the container to the right */
-  gap: 10px; /* Add spacing between the message and the button */
-}
+    color: white;
+    display: flex; /* Use flexbox to align items horizontally */
+    align-items: center; /* Vertically center the items */
+    margin-left: auto; /* Push the container to the right */
+    gap: 10px; /* Add spacing between the message and the button */
+  }
 
-.welcome-message {
-  margin: 0; /* Remove default margin from the <p> tag */
-  font-size: 16px; /* Adjust font size if needed */
-  color: var(--clr-text); /* Use a variable or set a color */
-}
+  .welcome-message {
+    margin: 0; /* Remove default margin from the <p> tag */
+    font-size: 16px; /* Adjust font size if needed */
+    color: var(--clr-text); /* Use a variable or set a color */
+  }
 </style>
