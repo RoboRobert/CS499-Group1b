@@ -1,20 +1,11 @@
 <script lang="ts">
+  import { invalidateAll } from "$app/navigation";
   import "$lib/styles/app.css";
-  import { enhance } from "$app/forms";
-  import { page } from "$app/stores";
-  import "$lib/styles/app.css";
-  import type { SubmitFunction } from "@sveltejs/kit";
   import type { LayoutProps } from "./$types";
-  import { invalidate, invalidateAll } from "$app/navigation";
   //import { enhance } from '$app/forms';
   import ThemeSwitch from "$lib/components/general/ThemeSwitch.svelte";
-  import type { ActionData } from "./$types.js";
-  import type { LayoutProps } from "./$types.js";
 
-  let { data }: LayoutProps = $props();
-
-  let form: ActionData;
-  let closed = false;
+  let { data, children }: LayoutProps = $props();
 
   // State to control modal visibility
   let showSignInModal = $state(false);
@@ -33,10 +24,6 @@
   const openRegModal = () => (showRegModal = true);
   // Function to close the Register modal
   const closeRegModal = () => ((showRegModal = false), (regMessage = ""));
-
-  let showThemeOptions = $state(false);
-  // Function to open the Register modal
-  const openThemeOptions = () => (showThemeOptions = !showThemeOptions);
 
   async function handleSignOut() {
     const form = "signout";
@@ -104,16 +91,6 @@
     }
     invalidateAll();
   }
-
-  const submitUpdateTheme: SubmitFunction = ({ action }) => {
-    const theme = action.searchParams.get("theme");
-    if (theme) {
-      document.documentElement.setAttribute("data-theme", theme);
-      darkMode = theme === "dark";
-    }
-
-    closeSignInModal(); // Close the modal if it was open
-  };
 </script>
 
 <nav>
@@ -125,35 +102,23 @@
     <a href="/pastgames ">Past Games</a>
     <a data-sveltekit-reload href="/run/">Run Mode</a>
   </div>
-  </div>
-  <div>
-    <!-- <ul> -->
 
-    <!-- </ul> -->
-  </div>
   <div class="navRight">
-    <ThemeSwitch theme={data.theme}></ThemeSwitch>
-
     <section class="buttons">
-      <button onclick={openRegModal} type="button">Register</button>
-      <button onclick={openSignInModal} type="button">Sign In</button>
+      {#if data.isLoggedIn != null}
+        <div class="buttons">
+          <p class="welcome-message">Welcome, {data.isLoggedIn} ({data.userRole})</p>
+          <button onclick={handleSignOut} type="button">Sign Out</button>
+        </div>
+      {:else}
+        <div class="buttons">
+          <button onclick={openRegModal} type="button">Register</button>
+          <button onclick={openSignInModal} type="button">Sign In</button>
+        </div>
+      {/if}
     </section>
+    <ThemeSwitch theme={data.theme}></ThemeSwitch>
   </div>
-
-  {#if data.isLoggedIn != null}
-    <!-- <div class="navRight">
-      
-    </div> -->
-    <div class="buttons">
-      <p class="welcome-message">Welcome, {data.isLoggedIn} ({data.userRole})</p>
-      <button onclick={handleSignOut} type="button">Sign Out</button>
-    </div>
-  {:else}
-    <div class="buttons">
-      <button onclick={openRegModal} type="button">Register</button>
-      <button onclick={openSignInModal} type="button">Sign In</button>
-    </div>
-  {/if}
 </nav>
 
 <!-- Modal Backdrop -->
@@ -185,33 +150,7 @@
   </div>
 {/if}
 
-<!-- Dialog for success message after signing in -->
-<!--<dialog open={form?.logsuccess == true && !closed}>
-  <article>
-    <header>
-      <a href="#close" aria-label="Close" class="close" onclick={() => (closed = true)}>x</a>
-      Success
-    </header>
-    <p>
-      Welcome to Smegol, "{form?.username}"!
-    </p>
-  </article>
-</dialog>-->
-
-<!-- Dialog for error message after signin failure -->
-<!--<dialog open={form?.logsuccess == false && !closed}>
-  <article>
-    <header>
-      <a href="#close" aria-label="Close" class="close" onclick={() => (closed = true)}>x</a>
-      Error
-    </header>
-    <p>
-      Please enter a valid username. User "{form?.username}" does not exist.
-    </p>
-  </article>
-</dialog>-->
-
-<slot></slot>
+{@render children()}
 
 {#if showRegModal}
   <div class="modal-backdrop">
@@ -248,34 +187,3 @@
     </div>
   </div>
 {/if}
-
-<style>
-  .smegol {
-    height: 100%;
-  }
-
-  .navLeft {
-    display: flex;
-    margin-right: 20px;
-  }
-
-  ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-  }
-
-  /* Show the theme options when showThemeOptions is true */
-  .theme-container.show .theme-options {
-    display: block;
-  }
-
-  ul li:hover .theme-options {
-    display: block;
-  }
-
-  .welcome-message {
-    font-size: 16px; /* Adjust font size if needed */
-    color: var(--clr-light-a0); /* Use a variable or set a color */
-  }
-</style>
