@@ -30,6 +30,7 @@
     </section>
   </div>
 </div>
+
 <style>
   .smegol {
     width: 400px;

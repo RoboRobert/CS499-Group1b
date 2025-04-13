@@ -9,7 +9,7 @@
   let deleteSheet: Sheet = {
     game_id: "",
     sheet_id: "",
-    scorekeeper: ""
+    scorekeeper: "",
   };
   let showDeleteConfirm = $state(false);
   let userToken = data.token;
@@ -46,32 +46,32 @@
 
 <title>Team {data.game.game_id}</title>
 <div class="container">
-<div class="roster-page">
-  <!-- <a href="./">Back</a> -->
-  <section class="game-dash">
-    <h3>{data.game.hometeam} vs. {data.game.awayteam}</h3>
-    <h3>{data.game.homescore}-{data.game.awayscore}</h3>
-    <h3>{data.game.date} {convertTo12Hour(data.game.time)}</h3>
-  </section>
-  <section class= "list-section-1">
-    <div></div>
-  <h2>Scoresheets</h2>
-    <div class="teams-bars">
-      {#each data.scoresheets as scoresheet}
-        <div class="team-bar">
-          <a data-sveltekit-reload href="/sheets/{scoresheet.sheet_id}" class="team-link">
-            <h3>Scoresheet by {scoresheet.scorekeeper}</h3>
-          </a>
-          {#if canEdit}
-          <div class="team-actions">
-            <button onclick={() => openDeleteModal(scoresheet)} class="delete-button">Delete</button>
+  <div class="roster-page">
+    <!-- <a href="./">Back</a> -->
+    <section class="game-dash">
+      <h3>{data.game.hometeam} vs. {data.game.awayteam}</h3>
+      <h3>{data.game.homescore}-{data.game.awayscore}</h3>
+      <h3>{data.game.date} {convertTo12Hour(data.game.time)}</h3>
+    </section>
+    <section class="list-section-1">
+      <div></div>
+      <h2>Scoresheets</h2>
+      <div class="teams-bars">
+        {#each data.scoresheets as scoresheet}
+          <div class="team-bar">
+            <a data-sveltekit-reload href="/sheets/{scoresheet.sheet_id}" class="team-link">
+              <h3>Scoresheet by {scoresheet.scorekeeper}</h3>
+            </a>
+            {#if canEdit}
+              <div class="team-actions">
+                <button onclick={() => openDeleteModal(scoresheet)} class="delete-button">Delete</button>
+              </div>
+            {/if}
           </div>
-          {/if}
-        </div>
-      {/each}
-    </div>
-  </section>
-</div>
+        {/each}
+      </div>
+    </section>
+  </div>
 </div>
 
 {#if showDeleteConfirm}

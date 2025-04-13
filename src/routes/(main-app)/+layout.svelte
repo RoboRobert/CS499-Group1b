@@ -25,16 +25,24 @@
   // Function to close the Register modal
   const closeRegModal = () => ((showRegModal = false), (regMessage = ""));
 
+  function convertRole(role: string): string {
+    if (role == "admin") {
+      return "Webmaster";
+    } else if (role == "score-keeper") {
+      return "Scorekeeper";
+    } else if (role == "coach") {
+      return "Coach";
+    } else {
+      return null;
+    }
+  }
+
   async function handleSignOut() {
     const form = "signout";
-    const response = await fetch(`/api/logon?form=${form}`, {
+    await fetch(`/api/logon?form=${form}`, {
       method: "GET",
       headers: { "Content-Type": "application/json" },
     });
-    console.log("Response status:", response.status);
-
-    const data = await response.json();
-    console.log("Response data:", data);
 
     invalidateAll();
   }
@@ -50,15 +58,12 @@
       method: "GET",
       headers: { "Content-Type": "application/json" },
     });
-    console.log("Response status:", response.status);
 
     const data = await response.json();
-    console.log("Response data:", data);
 
     if (data.logsuccess) {
       closeSignInModal();
     } else {
-      console.log("Sign-in failed: ", data.message);
       signMessage = data.message;
     }
 
@@ -77,16 +82,13 @@
       method: "GET",
       headers: { "Content-Type": "application/json" },
     });
-    console.log("Response status:", response.status);
 
     const data = await response.json();
-    console.log("Response data:", data);
 
     if (data.regsuccess) {
       closeRegModal();
       handleSignInForm(event); // Automatically sign in after successful registration
     } else {
-      console.log("Sign-in failed: ", data.message);
       regMessage = data.message;
     }
     invalidateAll();
@@ -105,9 +107,9 @@
 
   <div class="navRight">
     <section class="buttons">
-      {#if data.isLoggedIn != null}
+      {#if data.username}
         <div class="buttons">
-          <p class="welcome-message">Welcome, {data.isLoggedIn} ({data.userRole})</p>
+          <p class="welcome-message">Welcome, {data.username} ({convertRole(data.role)})</p>
           <button onclick={handleSignOut} type="button">Sign Out</button>
         </div>
       {:else}
