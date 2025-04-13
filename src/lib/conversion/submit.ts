@@ -11,6 +11,7 @@ import {
   groundBalls,
   metaStats,
   penalties,
+  players,
   saves,
   shots,
   teamName,
@@ -18,20 +19,19 @@ import {
   type SheetData,
 } from "$lib/components/scoresheet/data.svelte";
 
+// Returns true or false if any of the fields of an object are null or undefined
+// function checkObj(object): boolean {
+//     return Object.values(object).every((value) => value != null && value != undefined);
+// }
+
 // Returns true or false if all the fields of an object are null or undefined
 function checkObj(object): boolean {
-    return Object.values(object).every((value) => value != null && value != undefined);
+  const valuesToCheck = Object.entries(object)
+    .filter(([key]) => key !== "index")
+    .map(([, value]) => value);
+
+  return !valuesToCheck.every((value) => value === null || value === "" || value == undefined);
 }
-
-// function checkObj(object): boolean {
-//   const valuesToCheck = Object.entries(object)
-//     .filter(([key]) => key !== "index")
-//     .map(([, value]) => value);
-
-//   console.log(valuesToCheck);
-
-//   return !valuesToCheck.every((value) => value === null || value === "" || value == undefined);
-// }
 
 // Returns the data needed to send a scoresheet to the database.
 export function getScoresheetData(): SheetData {
@@ -54,29 +54,8 @@ export function getScoresheetData(): SheetData {
   };
 }
 
-// Returns all the data needed to check the scoresheet.
-export function getCheckData(): SheetData {
-  return {
-    game_id: game_id.game_id,
-    coachName: coachName,
-    teamName: teamName,
-    players: [Array.from(getPlayerMap(0).values()), Array.from(getPlayerMap(1).values())],
-    saves: saves,
-    goals: goals,
-    goalTrack: goalTrack,
-    groundBalls: groundBalls,
-    shots: shots,
-    clears: clears,
-    faceoffs: faceoffs,
-    extraMan: extraMan,
-    timeouts: timeouts,
-    penalties: penalties,
-    metaStats: metaStats,
-  };
-}
-
 export async function checkScoresheet(): Promise<SheetErr[]> {
-  const scoresheetData: SheetData = getCheckData();
+  const scoresheetData: SheetData = getScoresheetData();
   const scoresheetJSON = JSON.stringify(scoresheetData);
 
   console.log(scoresheetJSON);

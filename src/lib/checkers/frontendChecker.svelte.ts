@@ -7,7 +7,6 @@ import { metaStats, numMetaErrors, players } from "$lib/components/scoresheet/da
 //   playerno: {regex: },
 
 // }
-  
 
 export function removeError(target: HTMLInputElement | HTMLElement) {
   target.classList.remove("error");
@@ -126,6 +125,25 @@ export function readNumber(e): number | null {
   }
 
   return Number(matches[0]);
+}
+
+// Validates goal type
+export function readGoalType(e): string | null {
+  let target = e.target as HTMLInputElement;
+
+  removeError(target);
+
+  if (target.value == "") {
+    return target.value;
+  }
+
+  let regex: RegExp = /^[BCFODX]$/;
+  let matches = target.value.match(regex);
+  if (!matches) {
+    addError(target, "Please enter a valid goal type. Valid types are: B, C, F, O, D and X");
+  }
+
+  return target.value;
 }
 
 export function checkMetaStat(e) {

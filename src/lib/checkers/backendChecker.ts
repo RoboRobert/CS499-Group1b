@@ -1,10 +1,10 @@
 import {
-  type SheetPenalty,
   type ScoresheetPlayer,
-  type SheetSave,
   type SheetData,
-  type Stat,
-  metaStats,
+  type SheetGoal,
+  type SheetPenalty,
+  type SheetSave,
+  type Stat
 } from "$lib/components/scoresheet/data.svelte";
 
 export interface SheetErr {
@@ -63,15 +63,14 @@ export function checkSheet(rawData: any): SheetErr[] {
   for (let i = 0; i < data.players.length; i++) {
     for (let j = 0; j < data.players[i].length; j++) {
       let player: ScoresheetPlayer = data.players[i][j];
-      // Otherwise, if the player has some data, check all its fields
       if (!player.name) {
-        errors.push({ elementID: `playerName-${i}-${j}`, message: "Player name is invalid." });
+        errors.push({ elementID: `playerName-${i}-${player.index}`, message: "Player name is invalid." });
       }
       if (!player.number) {
-        errors.push({ elementID: `playerNumber-${i}-${j}`, message: "Player number is invalid." });
+        errors.push({ elementID: `playerNumber-${i}-${player.index}`, message: "Player number is invalid." });
       }
       if (!player.position) {
-        errors.push({ elementID: `playerPosition-${i}-${j}`, message: "Player position is invalid." });
+        errors.push({ elementID: `playerPosition-${i}-${player.index}`, message: "Player position is invalid." });
       }
     }
   }
@@ -108,29 +107,25 @@ export function checkSheet(rawData: any): SheetErr[] {
   for (let i = 0; i < data.penalties.length; i++) {
     for (let j = 0; j < data.penalties[i].length; j++) {
       let penalty: SheetPenalty = data.penalties[i][j];
-      // If the penalty is empty, ignore it.
-      if (!penalty.infraction && penalty.playerno == null && !penalty.quarter && !penalty.time && !penalty.timeout) {
-        continue;
-      }
 
       if (!penalty.timeout) {
-        errors.push({ elementID: `penaltyTimeout-${i}-${j}`, message: emptyFieldMsg });
+        errors.push({ elementID: `penaltyTimeout-${i}-${penalty.index}`, message: emptyFieldMsg });
       }
 
       if (penalty.playerno == null) {
-        errors.push({ elementID: `penaltyNumber-${i}-${j}`, message: emptyFieldMsg });
+        errors.push({ elementID: `penaltyNumber-${i}-${penalty.index}`, message: emptyFieldMsg });
       }
 
       if (!penalty.infraction) {
-        errors.push({ elementID: `penaltyInfraction-${i}-${j}`, message: emptyFieldMsg });
+        errors.push({ elementID: `penaltyInfraction-${i}-${penalty.index}`, message: emptyFieldMsg });
       }
 
       if (!penalty.quarter) {
-        errors.push({ elementID: `penaltyQuarter-${i}-${j}`, message: emptyFieldMsg });
+        errors.push({ elementID: `penaltyQuarter-${i}-${penalty.index}`, message: emptyFieldMsg });
       }
 
       if (!penalty.time) {
-        errors.push({ elementID: `penaltyTime-${i}-${j}`, message: emptyFieldMsg });
+        errors.push({ elementID: `penaltyTime-${i}-${penalty.index}`, message: emptyFieldMsg });
       }
     }
   }
@@ -140,7 +135,7 @@ export function checkSheet(rawData: any): SheetErr[] {
       const timeout = data.timeouts[i][j];
 
       // Only check the timeout if it isn't falsy
-      if(!timeout.period && !timeout.time) {
+      if (!timeout.period && !timeout.time) {
         continue;
       }
       if (!timeout.time) {
@@ -215,6 +210,25 @@ export function checkSheet(rawData: any): SheetErr[] {
 
       if (faceoff.lost == null) {
         errors.push({ elementID: `faceoffsLost-${i}-${j}`, message: validNumberMsg });
+      }
+    }
+  }
+
+  // Check all the goal track
+  for (let i = 0; i < data.goalTrack.length; i++) {
+    for (let j = 0; j < data.goalTrack[i].length; j++) {
+      let goal: SheetGoal = data.goalTrack[i][j];
+      if (!goal.main) {
+        errors.push({ elementID: `goalTrackMain-${i}-${goal.index}`, message: "Field must contain a player number." });
+      }
+      if (!goal.assist) {
+        errors.push({ elementID: `goalTrackAssist-${i}-${goal.index}`, message: "Field must contain a player number." });
+      }
+      if (!goal.time) {
+        errors.push({ elementID: `goalTrackTime-${i}-${goal.index}`, message: emptyFieldMsg });
+      }
+      if (!goal.type) {
+        errors.push({ elementID: `goalTrackType-${i}-${goal.index}`, message: "Please enter a valid goal type. Valid types are: B, C, F, O, D and X"});
       }
     }
   }

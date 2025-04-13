@@ -173,8 +173,8 @@ export const penalties = $state([homePenalties, awayPenalties]);
 let homeArr: SheetGoal[] = [];
 let awayArr: SheetGoal[] = [];
 for (let i = 0; i < 30; i++) {
-  homeArr.push({ index: i, time: null, type: "", main: undefined, assist: undefined });
-  awayArr.push({ index: i, time: null, type: "", main: undefined, assist: undefined });
+  homeArr.push({ index: i, time: null, type: "", main: null, assist: null });
+  awayArr.push({ index: i, time: null, type: "", main: null, assist: null });
 }
 
 export const goalTrack = $state([homeArr, awayArr]);
