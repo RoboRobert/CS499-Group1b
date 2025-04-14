@@ -1,7 +1,6 @@
 <script lang="ts">
   import { invalidateAll } from "$app/navigation";
   import type { Team } from "$lib/database/Team";
-    import { error } from "@sveltejs/kit";
   import type { PageProps } from "./$types";
 
   let { data }: PageProps = $props();
@@ -22,14 +21,14 @@
   });
 
   let isEdit = $state(false);
-  let userRole = data.token ;
+  let userRole = data.token;
   let canEdit = userRole === "admin" || userRole === "coach"; // Check if the user is an admin or coach
   let editingTeam: Team = $state(defaultTeam);
   let showEditModal = $state(false);
   let showDeleteConfirm = $state(false);
 
   const openEditModal = (team: Team) => {
-    if(team.team_id != ""){
+    if (team.team_id != "") {
       isEdit = true;
     }
     editingTeam = team;
@@ -57,10 +56,10 @@
 
   // Regex patterns for validation
   const regexPatterns = {
-  name: /^[a-zA-Z0-9 ]{3,50}$/, // Alphanumeric, 3-50 characters
-  hometown: /^[a-zA-Z ]{2,50}$/, // Letters and spaces, 2-50 characters
-  state: /^[A-Z]{2}$/, // Two uppercase letters
-  coach: /^[a-zA-Z ]{3,50}$/, // Letters and spaces, 3-50 characters
+    name: /^[a-zA-Z0-9 ]{3,50}$/, // Alphanumeric, 3-50 characters
+    hometown: /^[a-zA-Z ]{2,50}$/, // Letters and spaces, 2-50 characters
+    state: /^[A-Z]{2}$/, // Two uppercase letters
+    coach: /^[a-zA-Z ]{3,50}$/, // Letters and spaces, 3-50 characters
   };
 
   // Combined handler for form submission to add or edit a team
@@ -75,7 +74,7 @@
 
     // Reset form errors
     formErrors = { name: "", hometown: "", state: "", coach: "" };
-    
+
     // Validate form data using regex
     if (!regexPatterns.name.test(name)) {
       formErrors.name = "Team name must be 3-50 alphanumeric characters.";
@@ -90,15 +89,8 @@
       formErrors.coach = "Coach name must be 3-50 letters and spaces.";
     }
 
-   
-
     // If there are errors, do not proceed
-    if (
-      formErrors.name ||
-      formErrors.hometown ||
-      formErrors.state ||
-      formErrors.coach
-    ) {
+    if (formErrors.name || formErrors.hometown || formErrors.state || formErrors.coach) {
       return;
     }
 
@@ -119,38 +111,37 @@
           "Content-Type": "application/json",
         },
         body: JSON.stringify(newTeam),
-        credentials:'include',
+        credentials: "include",
       });
       if (!response.ok) {
         throw new Error("Failed to check team data");
       }
       const data1 = await response.json();
-      console.log("API Response",data1.formErrors);
-      
+      console.log("API Response", data1.formErrors);
 
       // Check if data1 is null or undefined
       if (!data1 || !data1.formErrors) {
         console.log("No errors returned from the API.");
-      // Send the team data to the backend API
-      try {
-        console.log(newTeam);
-        const response = await fetch("/api/editTeams", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(newTeam),
-          credentials:'include',
-        });
+        // Send the team data to the backend API
+        try {
+          console.log(newTeam);
+          const response = await fetch("/api/editTeams", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(newTeam),
+            credentials: "include",
+          });
 
-        if (!response.ok) {
-          throw new Error("Failed to save team data");
+          if (!response.ok) {
+            throw new Error("Failed to save team data");
+          }
+
+          setTimeout(async () => invalidateAll(), 100);
+        } catch (error) {
+          console.error("Error:", error);
         }
-
-        setTimeout(async () => invalidateAll(), 100);
-      } catch (error) {
-        console.error("Error:", error);
-      }
       } else if (
         data1.formErrors.name != null ||
         data1.formErrors.hometown != null ||
@@ -161,7 +152,6 @@
         console.log("Form Errors", formErrors);
         return;
       }
-
     } else {
       // Create a new team object; note that players is empty initially.
       newTeam = {
@@ -171,54 +161,49 @@
         state: state,
         coach: coach,
       };
-        // Check for duplicate team name
-      
+      // Check for duplicate team name
+
       const response = await fetch("/api/teams/check", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify(newTeam),
-        credentials:'include',
+        credentials: "include",
       });
       if (!response.ok) {
         throw new Error("Failed to check team data");
       }
       const data1 = await response.json();
-      console.log("API Response",data1.formErrors);
+      console.log("API Response", data1.formErrors);
 
-      if(
-        data.teams.some(
-          (team) =>
-            team.team_name === name && team !== $state.snapshot(newTeam),
-        )
-      ) {
+      if (data.teams.some((team) => team.team_name === name && team !== $state.snapshot(newTeam))) {
         formErrors.name = "A team with this name already exists";
       }
 
       // Check if data1 is null or undefined
       if (!data1 || !data1.formErrors) {
         console.log("No errors returned from the API.");
-      // Send the team data to the backend API
-      try {
-        console.log(newTeam);
-        const response = await fetch("/api/teams", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(newTeam),
-          credentials:'include',
-        });
+        // Send the team data to the backend API
+        try {
+          console.log(newTeam);
+          const response = await fetch("/api/teams", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(newTeam),
+            credentials: "include",
+          });
 
-        if (!response.ok) {
-          throw new Error("Failed to save team data");
+          if (!response.ok) {
+            throw new Error("Failed to save team data");
+          }
+
+          setTimeout(async () => invalidateAll(), 100);
+        } catch (error) {
+          console.error("Error:", error);
         }
-
-        setTimeout(async () => invalidateAll(), 100);
-      } catch (error) {
-        console.error("Error:", error);
-      }
       } else if (
         data1.formErrors.name != null ||
         data1.formErrors.hometown != null ||
@@ -243,7 +228,7 @@
         "Content-Type": "application/json",
       },
       body: JSON.stringify(team.team_id),
-      credentials:'include',
+      credentials: "include",
     })
       .then((response) => {
         if (!response.ok) {
@@ -263,50 +248,50 @@
 <title>Rosters</title>
 
 <div class="container">
-<div class="roster-page">
-  <section class="rosters-dash">
-    <h1><strong>Rosters</strong></h1>
-    <h3>A List of All Teams on the Website</h3>
-  </section>
+  <div class="roster-page">
+    <section class="rosters-dash">
+      <h1><strong>Rosters</strong></h1>
+      <h3>A List of All Teams on the Website</h3>
+    </section>
 
-  <section class="list-section-1">
-    <h2>All Teams</h2>
+    <section class="list-section-1">
+      <h2>All Teams</h2>
 
-    <div class= "center">
-    {#if canEdit}
-    <button class = "add-player-button" onclick={() => openEditModal(defaultTeam)} type="button">Add Teams</button>
-    {/if}
-    </div>
+      <div class="center">
+        {#if canEdit}
+          <button class="add-player-button" onclick={() => openEditModal(defaultTeam)} type="button">Add Teams</button>
+        {/if}
+      </div>
 
-    <div class="teams-bars">
-      {#each data.teams as team}
-        <div class="team-bar">
+      <div class="teams-bars">
+        {#each data.teams as team}
+          <div class="team-bar">
             <a href="/rosters/{team.team_id}" class="team-link">
               <h3 class="team-name">{team.team_name}</h3>
               <p>{team.hometown}, {team.state}</p>
               <p>Coach: {team.coach}</p>
             </a>
-          {#if canEdit}
-          <div class="team-actions">
-            <button onclick={() => openEditModal(team)} type="button" class="edit-button">Edit</button>
-            <button onclick={() => openDeleteModal(team)} type="button" class="delete-button">Delete</button>
+            {#if canEdit}
+              <div class="team-actions">
+                <button onclick={() => openEditModal(team)} type="button" class="edit-button">Edit</button>
+                <button onclick={() => openDeleteModal(team)} type="button" class="delete-button">Delete</button>
+              </div>
+            {/if}
           </div>
-          {/if}
-        </div>
-      {/each}
-    </div>
-  </section>
-</div>
+        {/each}
+      </div>
+    </section>
+  </div>
 </div>
 
 {#if showEditModal}
   <div class="modal-backdrop">
     <div class="modal-content">
       {#if isEdit}
-      <h2>Edit Team</h2>
+        <h2>Edit Team</h2>
       {/if}
       {#if !isEdit}
-      <h2>Add Team</h2>
+        <h2>Add Team</h2>
       {/if}
       <!-- Bind input values and handle form submission -->
       <form onsubmit={(event) => handleTeamForm(event)}>
@@ -393,10 +378,10 @@
         <div class="modal-actions">
           <button type="button" onclick={closeEditModal} class="cancel-button">Cancel</button>
           {#if isEdit}
-          <button type="submit" class="sign-in-button">Save Changes</button>
+            <button type="submit" class="sign-in-button">Save Changes</button>
           {/if}
           {#if !isEdit}
-          <button type="submit" class="sign-in-button">Add Team</button>
+            <button type="submit" class="sign-in-button">Add Team</button>
           {/if}
         </div>
       </form>
@@ -409,14 +394,8 @@
     <div class="modal-content">
       <h2>Are you sure you want to delete this team?</h2>
       <div class="modal-actions">
-        <button type="button" onclick={closeDeleteModal} class="cancel-button"
-          >Cancel</button
-        >
-        <button
-          type="button"
-          onclick={() => handleDeleteTeam(editingTeam)}
-          class="sign-in-button">Delete</button
-        >
+        <button type="button" onclick={closeDeleteModal} class="cancel-button">Cancel</button>
+        <button type="button" onclick={() => handleDeleteTeam(editingTeam)} class="sign-in-button">Delete</button>
       </div>
     </div>
   </div>

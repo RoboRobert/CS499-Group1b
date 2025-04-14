@@ -1,22 +1,18 @@
 <script lang="ts">
+  import { goto, invalidateAll } from "$app/navigation";
   import "$lib/styles/app.css";
-  import { enhance } from "$app/forms";
-  import { page } from "$app/stores";
-  import "$lib/styles/app.css";
-  import type { SubmitFunction } from "@sveltejs/kit";
   import type { LayoutProps } from "./$types";
-  import { invalidate, invalidateAll } from "$app/navigation";
   //import { enhance } from '$app/forms';
+  import ThemeSwitch from "$lib/components/general/ThemeSwitch.svelte";
 
-  let { data }: LayoutProps = $props();
-  console.log("isLoggedIn: ", data.isLoggedIn);
-
-  // const themeParam = searchParams;
-  let darkMode = false; // Default to light mode
+  let { data, children }: LayoutProps = $props();
 
   // State to control modal visibility
   let showSignInModal = $state(false);
   let showRegModal = $state(false);
+
+  // State controlling whether to show a sign out confirmation message
+  let showSignOutConfirm = $state(false);
 
   // State to hold results of sign-in and registration
   let signMessage = $state(""); // Message to display for signin modal
@@ -32,22 +28,29 @@
   // Function to close the Register modal
   const closeRegModal = () => ((showRegModal = false), (regMessage = ""));
 
-  let showThemeOptions = $state(false);
-  // Function to open the Register modal
-  const openThemeOptions = () => (showThemeOptions = !showThemeOptions);
+  function convertRole(role: string): string {
+    if (role == "admin") {
+      return "Webmaster";
+    } else if (role == "score-keeper") {
+      return "Scorekeeper";
+    } else if (role == "coach") {
+      return "Coach";
+    } else {
+      return null;
+    }
+  }
 
   async function handleSignOut() {
+    showSignOutConfirm = false;
     const form = "signout";
-    const response = await fetch(`/api/logon?form=${form}`, {
+    await fetch(`/api/logon?form=${form}`, {
       method: "GET",
       headers: { "Content-Type": "application/json" },
     });
-    console.log("Response status:", response.status);
-
-    const data = await response.json();
-    console.log("Response data:", data);
 
     invalidateAll();
+
+    location.href = "/";
   }
 
   async function handleSignInForm(event: Event) {
@@ -61,15 +64,12 @@
       method: "GET",
       headers: { "Content-Type": "application/json" },
     });
-    console.log("Response status:", response.status);
 
     const data = await response.json();
-    console.log("Response data:", data);
 
     if (data.logsuccess) {
       closeSignInModal();
     } else {
-      console.log("Sign-in failed: ", data.message);
       signMessage = data.message;
     }
 
@@ -88,30 +88,17 @@
       method: "GET",
       headers: { "Content-Type": "application/json" },
     });
-    console.log("Response status:", response.status);
 
     const data = await response.json();
-    console.log("Response data:", data);
 
     if (data.regsuccess) {
       closeRegModal();
       handleSignInForm(event); // Automatically sign in after successful registration
     } else {
-      console.log("Sign-in failed: ", data.message);
       regMessage = data.message;
     }
     invalidateAll();
   }
-
-  const submitUpdateTheme: SubmitFunction = ({ action }) => {
-    const theme = action.searchParams.get("theme");
-    if (theme) {
-      document.documentElement.setAttribute("data-theme", theme);
-      darkMode = theme === "dark";
-    }
-
-    closeSignInModal(); // Close the modal if it was open
-  };
 </script>
 
 <nav>
@@ -119,44 +106,37 @@
     <img class="smegol" src="/LOGO_CIRCLE.png" alt="Project Logo" />
 
     <a href="/">Home</a>
-    <a href="/rosters ">Rosters</a>
+    {#if data.role === "admin" || data.role === "coach"}
+      <a href="/rosters ">Rosters</a>
+    {/if}
     <a href="/pastgames ">Past Games</a>
-    <a data-sveltekit-reload href="/run/">Run Mode</a>
-  </div>
-  <div>
-    <ul>
-      <li class="theme-container {showThemeOptions ? 'show' : ''}">
-        <button onclick={openThemeOptions}>Set Theme</button>
-        {#if showThemeOptions}
-          <ul class="theme-options">
-            <form method="POST" use:enhance={submitUpdateTheme}>
-              <li class="buttons">
-                <button formaction="/?/setTheme&theme=dark&redirectTo={$page.url.pathname}">Dark</button>
-              </li>
-              <li class="buttons">
-                <button formaction="/?/setTheme&theme=light&redirectTo={$page.url.pathname}">Light</button>
-              </li>
-            </form>
-          </ul>
-        {/if}
-      </li>
-    </ul>
+
+    {#if data.role === "admin" || data.role === "coach" || data.role === "score-keeper"}
+      <a data-sveltekit-reload href="/run/">Run Mode</a>
+    {/if}
   </div>
 
-  {#if data.isLoggedIn != null}
-    <!-- <div class="navRight">
-      
-    </div> -->
-    <div class="buttons">
-      <p class="welcome-message">Welcome, {data.isLoggedIn} ({data.userRole})</p>
-      <button onclick={handleSignOut} type="button">Sign Out</button>
-    </div>
-  {:else}
-    <div class="buttons">
-      <button onclick={openRegModal} type="button">Register</button>
-      <button onclick={openSignInModal} type="button">Sign In</button>
-    </div>
-  {/if}
+  <div class="navRight">
+    <section class="buttons">
+      {#if data.username}
+        <div class="buttons">
+          <p class="welcome-message">Welcome, {data.username} ({convertRole(data.role)})</p>
+          <button
+            onclick={() => {
+              showSignOutConfirm = true;
+            }}
+            type="button">Sign Out</button
+          >
+        </div>
+      {:else}
+        <div class="buttons">
+          <button onclick={openRegModal} type="button">Register</button>
+          <button onclick={openSignInModal} type="button">Sign In</button>
+        </div>
+      {/if}
+    </section>
+    <ThemeSwitch theme={data.theme}></ThemeSwitch>
+  </div>
 </nav>
 
 <!-- Modal Backdrop -->
@@ -187,34 +167,6 @@
     </div>
   </div>
 {/if}
-
-<!-- Dialog for success message after signing in -->
-<!--<dialog open={form?.logsuccess == true && !closed}>
-  <article>
-    <header>
-      <a href="#close" aria-label="Close" class="close" onclick={() => closed = true}>x</a>
-            Success
-    </header>
-    <p>
-      Welcome to Smegol, "{form?.username}"!
-    </p>
-  </article>
-</dialog>-->
-
-<!-- Dialog for error message after signin failure -->
-<!--<dialog open={form?.logsuccess == false && !closed}>
-  <article>
-    <header>
-      <a href="#close" aria-label="Close" class="close" onclick={() => closed = true}>x</a>
-            Error
-    </header>
-    <p>
-      Please enter a valid username. User "{form?.username}" does not exist.
-    </p>
-  </article>
-</dialog>-->
-
-<slot></slot>
 
 {#if showRegModal}
   <div class="modal-backdrop">
@@ -252,33 +204,24 @@
   </div>
 {/if}
 
-<style>
-  .smegol {
-    height: 100%;
-  }
+{#if showSignOutConfirm}
+  <div class="modal-backdrop">
+    <div class="modal-content">
+      <h2>Are you sure you want to sign out?</h2>
+      <div class="modal-actions">
+        <button
+          type="button"
+          onclick={() => {
+            showSignOutConfirm = false;
+          }}
+          class="cancel-button">Cancel</button
+        >
+        <button type="button" onclick={() => handleSignOut()} class="sign-in-button">Confirm</button>
+      </div>
+    </div>
+  </div>
+{/if}
 
-  .navLeft {
-    display: flex;
-    margin-right: 20px;
-  }
-
-  ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-  }
-
-  /* Show the theme options when showThemeOptions is true */
-  .theme-container.show .theme-options {
-    display: block;
-  }
-
-  ul li:hover .theme-options {
-    display: block;
-  }
-
-  .welcome-message {
-    font-size: 16px; /* Adjust font size if needed */
-    color: var(--clr-light-a0); /* Use a variable or set a color */
-  }
-</style>
+{#key data.username}
+  {@render children()}
+{/key}

@@ -1,13 +1,19 @@
 // This file contains a Library of functions designed to validate input on the frontend.
 
-import { players } from "$lib/components/scoresheet/data.svelte";
+import { metaStats } from "$lib/components/scoresheet/data.svelte";
 
-export function removeError(target: HTMLInputElement) {
+// Object of error checks, with regex and error message to display if failed.
+// export const errorChecks: {
+//   playerno: {regex: },
+
+// }
+
+export function removeError(target: HTMLInputElement | HTMLElement | Element) {
   target.classList.remove("error");
   target.removeAttribute("title");
 }
 
-export function addError(target: HTMLInputElement, message: string) {
+export function addError(target: any, message: string) {
   target.classList.add("error");
   target.setAttribute("title", message);
 }
@@ -17,6 +23,12 @@ export function addIDError(elementId: string, message: string) {
 
   target.classList.add("error");
   target.setAttribute("title", message);
+}
+
+export function removeIDError(elementId: string) {
+  let target = document.getElementById(elementId);
+
+  removeError(target);
 }
 
 // Checks if the event target value is an integer.
@@ -34,21 +46,10 @@ export function IsNumber(event: any): boolean {
 
 // Iterates through all player elements on the specified side and marks any that are the same.
 export function CheckPlayerNumber(event: any, side: number) {
-  const mainTarget = event.target as HTMLInputElement;
-
-  mainTarget.classList.remove("error");
-  mainTarget.removeAttribute("title");
-
-  if (mainTarget.value == "") {
-    return;
-  }
-
+  console.log(event.target.value);
   if (!IsNumber(event)) {
     return;
   }
-
-  // Get a snapshot of the state of the player array
-  const playerSnapshot = $state.snapshot(players);
 }
 
 export function readString(e): string | null {
@@ -57,8 +58,7 @@ export function readString(e): string | null {
   removeError(target);
 
   if(target.value == "") {
-    addError(target, "Field Cannot be Empty");
-    return null;
+    return target.value;
   }
 
   return target.value;
@@ -83,7 +83,7 @@ export function readTime(e): string | null {
   return target.value;
 }
 
-// Validates time input
+// Validates player number input
 export function readPlayerno(e): number | null {
   let target = e.target as HTMLInputElement;
 
@@ -101,4 +101,58 @@ export function readPlayerno(e): number | null {
   }
 
   return Number(matches[0]);
+}
+
+// Validates player number input
+export function readNumber(e): number | null {
+  let target = e.target as HTMLInputElement;
+
+  removeError(target);
+
+  if (target.value == "") {
+    return null;
+  }
+
+  let regex: RegExp = /^\d{1,2}$/;
+  let matches = target.value.match(regex);
+  if (!matches) {
+    addError(target, "Please enter a number.");
+    return null;
+  }
+
+  return Number(matches[0]);
+}
+
+// Validates goal type
+export function readGoalType(e): string | null {
+  let target = e.target as HTMLInputElement;
+
+  removeError(target);
+
+  if (target.value == "") {
+    return target.value;
+  }
+
+  let regex: RegExp = /^[BCFODX]$/;
+  let matches = target.value.match(regex);
+  if (!matches) {
+    addError(target, "Please enter a valid goal type. Valid types are: B, C, F, O, D and X");
+  }
+
+  return target.value;
+}
+
+export function checkMetaStat(e) {
+  const target = e.target as HTMLInputElement;
+
+  if(metaStats.date && metaStats.gameStart && metaStats.scorekeeper) {
+    removeIDError("metaStatsButton");
+  }
+  
+  removeError(target);
+  
+  if(!target.value) {
+    addIDError("metaStatsButton", "There are errors in the Meta Game Stats." );
+    addError(target, "Field cannot be empty.");
+  }
 }

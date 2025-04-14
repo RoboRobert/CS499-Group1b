@@ -1,4 +1,11 @@
-import type { SheetPenalty, ScoresheetPlayer, SheetSave, SheetData, Stat } from "$lib/components/scoresheet/data.svelte";
+import {
+  type ScoresheetPlayer,
+  type SheetData,
+  type SheetGoal,
+  type SheetPenalty,
+  type SheetSave,
+  type Stat
+} from "$lib/components/scoresheet/data.svelte";
 
 export interface SheetErr {
   elementID: string;
@@ -6,6 +13,7 @@ export interface SheetErr {
 }
 
 const validNumberMsg = "Field must contain an integer.";
+const emptyFieldMsg = "Field cannot be empty.";
 
 export function checkSheet(rawData: any): SheetErr[] {
   const data: SheetData = {
@@ -23,16 +31,31 @@ export function checkSheet(rawData: any): SheetErr[] {
     timeouts: rawData.timeouts,
     penalties: rawData.penalties,
     metaStats: rawData.metaStats,
-    coachName: []
+    coachName: [],
   };
-  
+
   let errors: SheetErr[] = [];
+
+  // Check the meta stats
+  if (!data.metaStats.gameStart || !data.metaStats.date || !data.metaStats.scorekeeper) {
+    errors.push({ elementID: `metaStatsButton`, message: "The Meta Game Stats contains errors." });
+  }
+
+  if (!data.metaStats.gameStart) {
+    errors.push({ elementID: `metaStats-gameStart`, message: "You must specify a valid game start time." });
+  }
+  if (!data.metaStats.date) {
+    errors.push({ elementID: `metaStats-date`, message: "You must specify a valid date." });
+  }
+  if (!data.metaStats.scorekeeper) {
+    errors.push({ elementID: `metaStats-scorekeeper`, message: "You must specify a valid name for the scorekeeper" });
+  }
 
   // Check all the team names and make sure they're not empty.
   for (let i = 0; i < data.teamName.length; i++) {
     const name: string = data.teamName[i];
     if (!name) {
-      errors.push({ elementID: `teamName-${i}`, message: "Team name is invalid." });
+      errors.push({ elementID: `teamName-${i}`, message: "Team name cannot be empty." });
     }
   }
 
@@ -40,20 +63,14 @@ export function checkSheet(rawData: any): SheetErr[] {
   for (let i = 0; i < data.players.length; i++) {
     for (let j = 0; j < data.players[i].length; j++) {
       let player: ScoresheetPlayer = data.players[i][j];
-      // If the player is empty, ignore it.
-      if (!player.name && !player.number && !player.position) {
-        continue;
-      }
-
-      // Otherwise, if the player has some data, check all its fields
       if (!player.name) {
-        errors.push({ elementID: `playerName-${i}-${j}`, message: "Player name is invalid." });
+        errors.push({ elementID: `playerName-${i}-${player.index}`, message: emptyFieldMsg });
       }
       if (!player.number) {
-        errors.push({ elementID: `playerNumber-${i}-${j}`, message: "Player number is invalid." });
+        errors.push({ elementID: `playerNumber-${i}-${player.index}`, message: "Please enter a number in the range 0-99" });
       }
       if (!player.position) {
-        errors.push({ elementID: `playerPosition-${i}-${j}`, message: "Player position is invalid." });
+        errors.push({ elementID: `playerPosition-${i}-${player.index}`, message: "Player position is invalid." });
       }
     }
   }
@@ -69,19 +86,19 @@ export function checkSheet(rawData: any): SheetErr[] {
 
       // Otherwise, if the save has some data, check all its fields
       if (save.qtr1 == null) {
-        errors.push({ elementID: `savesQ1-${i}-${j}`, message: "Field cannot be empty." });
+        errors.push({ elementID: `savesQ1-${i}-${j}`, message: validNumberMsg });
       }
       if (save.qtr2 == null) {
-        errors.push({ elementID: `savesQ2-${i}-${j}`, message: "Field cannot be empty." });
+        errors.push({ elementID: `savesQ2-${i}-${j}`, message: validNumberMsg });
       }
       if (save.qtr3 == null) {
-        errors.push({ elementID: `savesQ3-${i}-${j}`, message: "Field cannot be empty." });
+        errors.push({ elementID: `savesQ3-${i}-${j}`, message: validNumberMsg });
       }
       if (save.qtr4 == null) {
-        errors.push({ elementID: `savesQ4-${i}-${j}`, message: "Field cannot be empty." });
+        errors.push({ elementID: `savesQ4-${i}-${j}`, message: validNumberMsg });
       }
       if (save.ot == null) {
-        errors.push({ elementID: `savesOT-${i}-${j}`, message: "Field cannot be empty." });
+        errors.push({ elementID: `savesOT-${i}-${j}`, message: validNumberMsg });
       }
     }
   }
@@ -90,37 +107,45 @@ export function checkSheet(rawData: any): SheetErr[] {
   for (let i = 0; i < data.penalties.length; i++) {
     for (let j = 0; j < data.penalties[i].length; j++) {
       let penalty: SheetPenalty = data.penalties[i][j];
-      // If the penalty is empty, ignore it.
-      if (!penalty.infraction && penalty.playerno == null && !penalty.quarter && !penalty.time && !penalty.timeout) {
-        continue;
-      }
 
       if (!penalty.timeout) {
-        errors.push({ elementID: `penaltyTimeout-${i}-${j}`, message: "Field cannot be empty." });
+        errors.push({ elementID: `penaltyTimeout-${i}-${penalty.index}`, message: "Please enter a time in the format mm:ss" });
       }
 
       if (penalty.playerno == null) {
-        errors.push({ elementID: `penaltyNumber-${i}-${j}`, message: "Field cannot be empty." });
+        errors.push({ elementID: `penaltyNumber-${i}-${penalty.index}`, message: "Field must contain a player number." });
       }
 
       if (!penalty.infraction) {
-        errors.push({ elementID: `penaltyInfraction-${i}-${j}`, message: "Field cannot be empty." });
+        errors.push({ elementID: `penaltyInfraction-${i}-${penalty.index}`, message: emptyFieldMsg });
       }
 
       if (!penalty.quarter) {
-        errors.push({ elementID: `penaltyQuarter-${i}-${j}`, message: "Field cannot be empty." });
+        errors.push({ elementID: `penaltyQuarter-${i}-${penalty.index}`, message: "Please enter a valid game quarter." });
       }
 
       if (!penalty.time) {
-        errors.push({ elementID: `penaltyTime-${i}-${j}`, message: "Field cannot be empty." });
+        errors.push({ elementID: `penaltyTime-${i}-${penalty.index}`, message: "Please enter a time in the format mm:ss" });
       }
     }
   }
 
-  // TODO: Check all the timeouts
-  // for(let i = 0; i < data.penalties.length; i++) {
-  //     for(let j = 0; j < data.penalties[i].length; j++) {
-  // }
+  for (let i = 0; i < data.timeouts.length; i++) {
+    for (let j = 0; j < data.timeouts[i].length; j++) {
+      const timeout = data.timeouts[i][j];
+
+      // Only check the timeout if it isn't falsy
+      if (!timeout.period && !timeout.time) {
+        continue;
+      }
+      if (!timeout.time) {
+        errors.push({ elementID: `timeoutTime-${i}-${j}`, message: "Please enter a time in the format mm:ss" });
+      }
+      if (j < 4 && !timeout.period) {
+        errors.push({ elementID: `timeoutPeriod-${i}-${j}`, message: "Please enter a valid game quarter." });
+      }
+    }
+  }
 
   // Check all the ground balls
   for (let i = 0; i < data.groundBalls.length; i++) {
@@ -185,6 +210,25 @@ export function checkSheet(rawData: any): SheetErr[] {
 
       if (faceoff.lost == null) {
         errors.push({ elementID: `faceoffsLost-${i}-${j}`, message: validNumberMsg });
+      }
+    }
+  }
+
+  // Check all the goal track
+  for (let i = 0; i < data.goalTrack.length; i++) {
+    for (let j = 0; j < data.goalTrack[i].length; j++) {
+      let goal: SheetGoal = data.goalTrack[i][j];
+      if (!goal.main) {
+        errors.push({ elementID: `goalTrackMain-${i}-${goal.index}`, message: "Field must contain a player number." });
+      }
+      if (!goal.assist) {
+        errors.push({ elementID: `goalTrackAssist-${i}-${goal.index}`, message: "Field must contain a player number." });
+      }
+      if (!goal.time) {
+        errors.push({ elementID: `goalTrackTime-${i}-${goal.index}`, message: "Please enter a time in the format mm:ss" });
+      }
+      if (!goal.type) {
+        errors.push({ elementID: `goalTrackType-${i}-${goal.index}`, message: "Please enter a valid goal type. Valid types are: B, C, F, O, D and X"});
       }
     }
   }

@@ -232,8 +232,6 @@ ul li:hover .theme-options {
   display: block;
 }
 
-
-
 /* Buttons */
 .buttons {
   display: flex;
@@ -241,7 +239,6 @@ ul li:hover .theme-options {
   margin-left: auto;
   /* flex-shrink: 0; */
   z-index: 3;
-  margin-right:20px;
 }
 
 .buttons button {
@@ -257,25 +254,6 @@ ul li:hover .theme-options {
 .buttons button:hover {
   background-color: var(--clr-button-hover);
 }
-
-/* .sign-out-button {
-  display: flex;
-  gap: 10px;
-  margin-left: 0px;
-  flex-shrink: 0;
-  z-index: 3;
-} */
-
-/* .sign-out-button button {
-  background-color: var(--clr-button);
-  color: var(--clr-light-a0);
-  padding: 8px 15px;
-  margin: 0px;
-  cursor: pointer;
-  border: none;
-  font-size: 16px;
-  border-radius: 5px;
-} */
 
 .cancel-button {
   background-color: transparent;
@@ -674,4 +652,14 @@ ul li:hover .theme-options {
 .team-actions {
   display: flex;
   gap: 10px;
+}
+
+.navLeft {
+  display: flex;
+  margin-right: 20px;
+}
+
+.welcome-message {
+  font-size: 16px; /* Adjust font size if needed */
+  color: var(--clr-light-a0); /* Use a variable or set a color */
 }

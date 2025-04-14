@@ -1,3 +1,4 @@
+/* Remove spinners on platforms besides firefox */
 input[type="number"]::-webkit-outer-spin-button,
 input[type="number"]::-webkit-inner-spin-button {
   -webkit-appearance: none;
@@ -9,8 +10,87 @@ input[type="number"] {
   -moz-appearance: textfield;
 }
 
+/* Color Variables */
+:root[data-theme="dark"] {
+  /** Base colors */
+  --clr-dark-a0: #000000;
+  --clr-light-a0: #ffffff;
+
+  /** Theme primary colors */
+  --clr-primary-a0: #006aff;
+  --clr-primary-a10: #4b79ff;
+  --clr-primary-a20: #6c88ff;
+  --clr-primary-a30: #8698ff;
+  --clr-primary-a40: #9da9ff;
+  --clr-primary-a50: #b2b9ff;
+
+  /** Theme surface colors */
+  --clr-surface-a0: #212121;
+  --clr-surface-a10: #363636;
+  --clr-surface-a20: #4c4c4c;
+  --clr-surface-a30: #636363;
+  --clr-surface-a40: #7b7b7b;
+  --clr-surface-a50: #949494;
+
+  /** Theme tonal surface colors */
+  --clr-surface-tonal-a0: #272834;
+  --clr-surface-tonal-a10: #3b3c48;
+  --clr-surface-tonal-a20: #51525c;
+  --clr-surface-tonal-a30: #686872;
+  --clr-surface-tonal-a40: #7f8088;
+  --clr-surface-tonal-a50: #97989e;
+
+  --clr-home: white;
+  --clr-button:#6c88ff;
+  --clr-add-button:#6c88ff;
+  --clr-button-hover: #4b79ff;
+  --clr-add-button-hover:#4b79ff;
+  --clr-input: #e1e2f0;
+}
+
+:root[data-theme="light"] {
+ /** Base colors */
+--clr-dark-a0: #000000;
+--clr-light-a0: #ffffff;
+
+/** Theme primary colors */
+--clr-primary-a0: #006aff;
+--clr-primary-a10: #366cf1;
+--clr-primary-a20: #4b6ee2;
+--clr-primary-a30: #5a71d4;
+--clr-primary-a40: #6473c6;
+--clr-primary-a50: #6d76b8;
+
+/** Theme surface colors */
+--clr-surface-a0: #eeefff;
+--clr-surface-a10: #6c88ff;
+--clr-surface-a20: #4b6ee2;
+--clr-surface-a30: #636363;
+--clr-surface-a40: #c5c5c5;
+--clr-surface-a50: #b6b6b6;
+
+/** Theme tonal surface colors */
+--clr-surface-tonal-a0: #e1e3fd;
+--clr-surface-tonal-a10: #e1e2f0;
+--clr-surface-tonal-a20: #d5d5e1;
+--clr-surface-tonal-a30: #c8c9d3;
+--clr-surface-tonal-a40: #bcbcc5;
+--clr-surface-tonal-a50: #afb0b6;
+
+--clr-home: black;
+--clr-button:#636363;
+--clr-add-button: #3b3c48;
+--clr-button-hover: #4c4c4c;
+--clr-add-button-hover:#272834;
+--clr-input: #e1e2f0;
+}
+
 * {
   font-size: 0.8vw;
+}
+
+body {
+  background-color: var(--clr-surface-a0);
 }
 
 .outer {
@@ -23,16 +103,43 @@ input[type="number"] {
   flex-direction: column;
 }
 
-.noBorder {
-  flex: 1;
-  border: none;
-}
-
 .field {
+  all:unset;
+  padding: 2px;
+  background-color: var(--clr-surface-tonal-a0);
+  color: var(--clr-home);
   text-align: center;
   min-width: 0;
   min-height: 0;
   border: 1px solid black;
+  opacity: 100%;
+  box-sizing: border-box;
+}
+
+.rowBox {
+  padding: 2px;
+  color: var(--clr-home);
+  background-color: var(--clr-surface-tonal-a0);
+  text-align: center;
+  border: 1px solid black;
+  overflow: hidden;
+  align-content: center;
+  box-sizing: border-box;
+}
+
+.dropdown {
+  background-color: var(--clr-surface-tonal-a0);
+  color: var(--clr-home);
+  text-align: center;
+  min-width: 0;
+  min-height: 0;
+  border: 1px solid black;
+  opacity: 100%;
+  box-sizing: border-box;
+}
+
+.dropdown.small {
+  font-size: 0.6vw;
 }
 
 .error {
@@ -40,14 +147,9 @@ input[type="number"] {
   outline-offset: -3px;
 }
 
-.rowBox {
-  text-align: center;
-  border: 1px solid black;
-  overflow: hidden;
-  align-content: center;
-}
-
 .headerBox {
+  color: var(--clr-home);
+  background-color: var(--clr-surface-tonal-a0);
   text-align: center;
   border: 1px solid black;
 }
@@ -81,6 +183,7 @@ input[type="number"] {
 }
 
 .goal-label {
+  color: var(--clr-home);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -90,17 +193,19 @@ input[type="number"] {
   border: 1px solid black;
 }
 
-.drop-down {
-  font-size: 0.6vw;
-}
-
 .svg {
   width: 50px;
   height: 50px;
+  stroke: var(--clr-home);
 }
 
 .svg:hover {
   background-color: lightgray;
+}
+
+.hidden {
+  visibility:hidden;
+  display:none;
 }
 
 /* Modal Styles */
@@ -173,6 +278,18 @@ input[type="number"] {
   background-color: #2b6cb0;
 }
 
+.cancel-button {
+  background-color: transparent;
+  border: none;
+  color: red;
+  cursor: pointer;
+  transition: color 0.2s;
+}
+
+.cancel-button:hover {
+  color: rgb(212, 11, 11);
+}
+
 .timeInput {
   min-width: 0;
   min-height: 0;
@@ -202,5 +319,107 @@ input[type="number"] {
 }
 
 .thickBorder {
-  border: 2px solid black;
+  border: 2px solid var(--clr-home);
+}
+
+/* Theme Options */
+.theme-buttons {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 5px;
+}
+.theme-buttons button {
+  background-color: var(--clr-button);
+  color: var(--clr-light-a0);
+  padding-top: 5px;
+  height: 50px;
+  width: 50px;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  position: relative;
+}
+.theme-buttons button:hover {
+  background-color: var(--clr-button-hover);
+  transition: background-color 0.2s;
+}
+
+
+/* Scoresheet-specific CSS */
+.main {
+  display: flex;
+  flex-direction: column;
+  max-height: 98vh;
+  min-height: 0;
+  overflow: hidden;
+}
+
+.sheets {
+  display: flex;
+  flex-direction: row;
+  min-height: 0;
+}
+
+.column {
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+}
+
+.columns {
+  flex: 1;
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 2fr) minmax(0, 1.5fr) minmax(0, 1fr);
+  gap: 10px;
+  min-height: 0;
+}
+
+.verticalLine {
+  margin-left: 10px;
+  margin-right: 10px;
+  margin-bottom: 10px;
+  border-left: thick solid var(--clr-home);
+  min-height: 100%;
+  width: 1px;
+}
+
+@keyframes makeMax {
+  100% {
+    flex: 11;
+  }
+}
+
+.maximized {
+  animation: makeMax 1s forwards;
+}
+
+.cover {
+  background-color: transparent;
+  opacity: 50%;
+  position: absolute;
+  inset: 0;
+}
+
+.inactive {
+  pointer-events: none;
+}
+
+.cover:hover {
+  background-color: var(--clr-home);
+}
+
+.top-bar-item {
+  color: var(--clr-home);
+  border: none;
+}
+
+.quarters {
+  color: var(--clr-home);
+  display:flex;
+  border-color: var(--clr-home);
+}
+
+.goal{
+  font-size:0.65vw;
 }
