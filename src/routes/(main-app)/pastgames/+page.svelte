@@ -16,8 +16,8 @@
     awayscore: 0,
   };
   let showDeleteConfirm = $state(false);
-  let userToken = data.token;
-  let canEdit = userToken === "admin" || userToken === "scorekeeper";
+  let userToken = data.role;
+  let canEdit = userToken === "admin" || userToken === "score-keeper";
 
   const openDeleteModal = (game: Game) => {
     deleteGame = game;

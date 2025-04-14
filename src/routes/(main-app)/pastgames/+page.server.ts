@@ -10,9 +10,5 @@ export const load: PageServerLoad = async ({ fetch, cookies }) => {
     };
   } catch (err) {
     console.error("Failed to fetch games:", err);
-    return {
-      games: [], // Return an empty array or a default value
-      token,
-    };
   }
 };
