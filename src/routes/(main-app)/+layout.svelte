@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { invalidateAll } from "$app/navigation";
+  import { goto, invalidateAll } from "$app/navigation";
   import "$lib/styles/app.css";
   import type { LayoutProps } from "./$types";
   //import { enhance } from '$app/forms';
@@ -10,6 +10,9 @@
   // State to control modal visibility
   let showSignInModal = $state(false);
   let showRegModal = $state(false);
+
+  // State controlling whether to show a sign out confirmation message
+  let showSignOutConfirm = $state(false);
 
   // State to hold results of sign-in and registration
   let signMessage = $state(""); // Message to display for signin modal
@@ -38,6 +41,7 @@
   }
 
   async function handleSignOut() {
+    showSignOutConfirm = false;
     const form = "signout";
     await fetch(`/api/logon?form=${form}`, {
       method: "GET",
@@ -45,6 +49,8 @@
     });
 
     invalidateAll();
+
+    location.href = "/";
   }
 
   async function handleSignInForm(event: Event) {
@@ -115,7 +121,12 @@
       {#if data.username}
         <div class="buttons">
           <p class="welcome-message">Welcome, {data.username} ({convertRole(data.role)})</p>
-          <button onclick={handleSignOut} type="button">Sign Out</button>
+          <button
+            onclick={() => {
+              showSignOutConfirm = true;
+            }}
+            type="button">Sign Out</button
+          >
         </div>
       {:else}
         <div class="buttons">
@@ -157,8 +168,6 @@
   </div>
 {/if}
 
-{@render children()}
-
 {#if showRegModal}
   <div class="modal-backdrop">
     <!-- Modal Content -->
@@ -194,3 +203,25 @@
     </div>
   </div>
 {/if}
+
+{#if showSignOutConfirm}
+  <div class="modal-backdrop">
+    <div class="modal-content">
+      <h2>Are you sure you want to sign out?</h2>
+      <div class="modal-actions">
+        <button
+          type="button"
+          onclick={() => {
+            showSignOutConfirm = false;
+          }}
+          class="cancel-button">Cancel</button
+        >
+        <button type="button" onclick={() => handleSignOut()} class="sign-in-button">Confirm</button>
+      </div>
+    </div>
+  </div>
+{/if}
+
+{#key data.username}
+  {@render children()}
+{/key}
