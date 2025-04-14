@@ -39,7 +39,7 @@
 </script>
 
 <div class="thin">
-  <button onclick={runCheck}>SUBMIT SCORESHEET</button>
+  <button class="button" onclick={runCheck}>SUBMIT SCORESHEET</button>
 
   {#if showConfirmModal}
     <div class="modal-backdrop">
