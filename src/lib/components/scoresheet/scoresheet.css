@@ -66,7 +66,7 @@ input[type="number"] {
 
 /** Theme surface colors */
 --clr-surface-a0: #eeefff;
---clr-surface-a10: #e1e2f0;
+--clr-surface-a10:#c5c5c5;
 --clr-surface-a20: #4b6ee2;
 --clr-surface-a30: #636363;
 --clr-surface-a40: #c5c5c5;
@@ -95,7 +95,8 @@ input[type="number"] {
 }
 
 body {
-  background-color: var(--clr-surface-a10);
+  background-color: var(--clr-surface-a10)
+  ;
 }
 
 .outer {

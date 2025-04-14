@@ -62,6 +62,10 @@
   .outer {
     max-width: 85%;
     margin-right: 10px;
+    border: 2px solid var(--clr-button);
+  }
+  .outer:hover {
+    border: 2px solid var(--clr-hover);
   }
 
   .bigField {
@@ -69,4 +73,5 @@
     text-align: left;
     margin-right: 10px;
   }
+
 </style>
