@@ -423,3 +423,5 @@ body {
 .goal{
   font-size:0.65vw;
 }
+
+.st0{fill:var(--clr-button);}
