@@ -28,6 +28,22 @@ function invalidString(input: string): string {
   return "";
 }
 
+function invalidTime(input: string): string {
+  if(!/^(\d{1,2}):(\d{2})$/.test(input)) {
+    return "Please enter a time in the format mm:ss";
+  }
+
+  return "";
+}
+
+function invalidGoalType(input: string): string {
+  if(!/^[BCFODX]$/.test(input)) {
+    return "Please enter a valid goal type. Valid types are: B, C, F, O, D and X";
+  }
+
+  return "";
+}
+
 function falsyData(input: any): string {
   if(!input) {
     return emptyFieldMsg;
@@ -70,9 +86,9 @@ export function checkSheet(rawData: any): SheetErr[] {
   if (!data.metaStats.gameStart || !data.metaStats.date || !data.metaStats.scorekeeper) {
     errors.push({ elementID: `metaStatsButton`, message: "The Meta Game Stats contains errors." });
   }
-
   if (!data.metaStats.gameStart) {
     errors.push({ elementID: `metaStats-gameStart`, message: "You must specify a valid game start time." });
+    
   }
   if (!data.metaStats.date) {
     errors.push({ elementID: `metaStats-date`, message: "You must specify a valid date." });
@@ -136,10 +152,7 @@ export function checkSheet(rawData: any): SheetErr[] {
     for (let j = 0; j < data.penalties[i].length; j++) {
       let penalty: SheetPenalty = data.penalties[i][j];
 
-      if (!penalty.timeout) {
-        errors.push({ elementID: `penaltyTimeout-${i}-${penalty.index}`, message: "Please enter a time in the format mm:ss" });
-      }
-
+      appendError(errors, {elementID: `penaltyTimeout-${i}-${penalty.index}`, message: invalidTime(penalty.timeout)});
       if (penalty.playerno == null) {
         errors.push({ elementID: `penaltyNumber-${i}-${penalty.index}`, message: "Field must contain a player number." });
       }
@@ -152,9 +165,7 @@ export function checkSheet(rawData: any): SheetErr[] {
         errors.push({ elementID: `penaltyQuarter-${i}-${penalty.index}`, message: "Please enter a valid game quarter." });
       }
 
-      if (!penalty.time) {
-        errors.push({ elementID: `penaltyTime-${i}-${penalty.index}`, message: "Please enter a time in the format mm:ss" });
-      }
+      appendError(errors, {elementID: `penaltyTime-${i}-${penalty.index}`, message: invalidTime(penalty.time)});
     }
   }
 
@@ -166,9 +177,7 @@ export function checkSheet(rawData: any): SheetErr[] {
       if (!timeout.period && !timeout.time) {
         continue;
       }
-      if (!timeout.time) {
-        errors.push({ elementID: `timeoutTime-${i}-${j}`, message: "Please enter a time in the format mm:ss" });
-      }
+      appendError(errors, {elementID: `timeoutTime-${i}-${j}`, message: invalidTime(timeout.time)});
       if (j < 4 && !timeout.period) {
         errors.push({ elementID: `timeoutPeriod-${i}-${j}`, message: "Please enter a valid game quarter." });
       }
@@ -252,12 +261,8 @@ export function checkSheet(rawData: any): SheetErr[] {
       if (!goal.assist) {
         errors.push({ elementID: `goalTrackAssist-${i}-${goal.index}`, message: "Field must contain a player number." });
       }
-      if (!goal.time) {
-        errors.push({ elementID: `goalTrackTime-${i}-${goal.index}`, message: "Please enter a time in the format mm:ss" });
-      }
-      if (!goal.type) {
-        errors.push({ elementID: `goalTrackType-${i}-${goal.index}`, message: "Please enter a valid goal type. Valid types are: B, C, F, O, D and X"});
-      }
+      appendError(errors, {elementID: `goalTrackTime-${i}-${goal.index}`, message: invalidTime(goal.time)});
+      appendError(errors, {elementID: `goalTrackType-${i}-${goal.index}`, message: invalidGoalType(goal.type)});
     }
   }
 
