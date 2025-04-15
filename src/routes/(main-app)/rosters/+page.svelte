@@ -1,5 +1,6 @@
 <script lang="ts">
   import { invalidateAll } from "$app/navigation";
+  import { toTeamID } from "$lib/conversion/general";
   import type { Team } from "$lib/database/Team";
   import type { PageProps } from "./$types";
 
@@ -155,7 +156,7 @@
     } else {
       // Create a new team object; note that players is empty initially.
       newTeam = {
-        team_id: `${name}-${hometown}-${state}-${coach}`,
+        team_id: toTeamID(name),
         team_name: name,
         hometown: hometown,
         state: state,

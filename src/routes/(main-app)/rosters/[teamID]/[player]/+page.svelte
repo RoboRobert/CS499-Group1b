@@ -37,6 +37,7 @@
             <p><strong>Shots: </strong> {data.player.attempted_shots} </p>
             <p><strong>Goals: </strong> {data.player.goals} </p>
             <p><strong>Ground Balls: </strong> {data.player.ground_balls}</p>
+            <p><strong>Assists: </strong> {data.player.assists}</p>
         </div>
     </section>
 </div>

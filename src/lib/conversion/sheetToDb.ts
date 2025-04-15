@@ -227,7 +227,8 @@ function convertPlayer(team_name: string, team_id: string, input: ScoresheetPlay
     attempted_shots: input.shots,
     failed_shots: input.shots - input.goals,
     goals: input.goals,
-    ground_balls: input.groundBalls
+    ground_balls: input.groundBalls,
+    assists: input.assists,
   };
 
   return player;

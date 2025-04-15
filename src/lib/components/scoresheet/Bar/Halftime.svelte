@@ -9,15 +9,19 @@ Fouls: Navy-5 Loyola-8
 Turnovers: Navy-2 Loyola-3 -->
 
 <script lang="ts">
-  import { groundBalls, shots, teamName } from "../data.svelte";
+  import { clears, faceoffs, groundBalls, shots, teamName, type SheetSave } from "../data.svelte";
 
   function toggleHalftimeStats() {
     document.getElementById("halftime").classList.toggle("hidden");
   }
+
+  // function addSaves(save: SheetSave): number {
+  //   return save.qtr1 + save.qtr2;
+  // }
 </script>
 
 <div class="top-bar-item thin">
-  <button onclick={toggleHalftimeStats}>HALFTIME STATS</button>
+  <button onclick={toggleHalftimeStats}>OVERALL STATS</button>
 </div>
 
 <div id="halftime" class="modal-backdrop hidden">
@@ -28,6 +32,18 @@ Turnovers: Navy-2 Loyola-3 -->
     </div>
     <div>
       Ground Balls: {teamName[0].split(" ")[0]}-{groundBalls[0][0] + groundBalls[0][1]}, {teamName[1].split(" ")[0]}-{groundBalls[1][0] + groundBalls[1][1]}
+    </div>
+    <div>
+      Faceoffs: {teamName[0].split(" ")[0]}-{faceoffs[0][0].won + faceoffs[0][1].won}, {teamName[1].split(" ")[0]}-{faceoffs[1][1].won + faceoffs[1][1].won}
+    </div>
+    <div>
+      Clears: {teamName[0].split(" ")[0]}-{clears[0][0].won + clears[0][1].won}, {teamName[1].split(" ")[0]}-{clears[1][1].won + clears[1][1].won}
+    </div>
+    <div>
+      Fouls: {teamName[0].split(" ")[0]}-{clears[0][0].won + clears[0][1].won}, {teamName[1].split(" ")[0]}-{clears[1][1].won + clears[1][1].won}
+    </div>
+    <div>
+      Saves: {teamName[0].split(" ")[0]}-{clears[0][0].won + clears[0][1].won}, {teamName[1].split(" ")[0]}-{clears[1][1].won + clears[1][1].won}
     </div>
     <!-- <div class="halftimeGroup">
       <div>

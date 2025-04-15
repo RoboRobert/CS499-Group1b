@@ -21,10 +21,11 @@
     quarters: 0,
     attempted_shots: 0,
     goals: 0,
+    assists: 0,
     failed_shots: 0,
     ground_balls: 0,
     team_name: data.team.team_name,
-    player_id: ""
+    player_id: "",
   };
 
   let isEdit = $state(false);
@@ -206,6 +207,7 @@
         quarters: 0,
         attempted_shots: 0,
         goals: 0,
+        assists: 0,
         failed_shots: 0,
         ground_balls: 0,
       };

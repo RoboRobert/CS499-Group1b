@@ -207,7 +207,7 @@ export const players = $state([homePlayers, awayPlayers]);
 function makeMap(players: ScoresheetPlayer[]): Map<number, ScoresheetPlayer> {
   let map = new Map<number, ScoresheetPlayer>();
   players.forEach((player) => {
-    if (player.number) map.set(player.number, player);
+    if (player.number != null) map.set(player.number, player);
   });
 
   return map;
