@@ -5,4 +5,4 @@
   let { data }: PageProps = $props();
 </script>
 
-<PastGame theme={data.theme}></PastGame>
+<PastGame theme={data.theme} role={data.role}></PastGame>

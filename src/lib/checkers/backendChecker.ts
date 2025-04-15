@@ -14,6 +14,36 @@ export interface SheetErr {
 
 const validNumberMsg = "Field must contain an integer.";
 const emptyFieldMsg = "Field cannot be empty.";
+const fieldTooLongMsg = "Field cannot be longer than 100 characters.";
+
+function invalidString(input: string): string {
+  if(input.length > 100) {
+    return fieldTooLongMsg;
+  }
+  
+  if(!input) {
+    return emptyFieldMsg;
+  }
+
+  return "";
+}
+
+function falsyData(input: any): string {
+  if(!input) {
+    return emptyFieldMsg;
+  }
+
+  return "";
+}
+
+// If the error contains a message, append it. If not, don't append it
+function appendError(errors: SheetErr[], error: SheetErr) {
+  if(error.message == "") {
+    return;
+  }
+
+  errors.push(error);
+}
 
 export function checkSheet(rawData: any): SheetErr[] {
   const data: SheetData = {
@@ -47,9 +77,7 @@ export function checkSheet(rawData: any): SheetErr[] {
   if (!data.metaStats.date) {
     errors.push({ elementID: `metaStats-date`, message: "You must specify a valid date." });
   }
-  if (!data.metaStats.scorekeeper) {
-    errors.push({ elementID: `metaStats-scorekeeper`, message: "You must specify a valid name for the scorekeeper" });
-  }
+  appendError(errors, {elementID: `metaStats-scorekeeper`, message: invalidString(data.metaStats.scorekeeper)});
 
   // Check all the team names and make sure they're not empty.
   for (let i = 0; i < data.teamName.length; i++) {
@@ -66,11 +94,11 @@ export function checkSheet(rawData: any): SheetErr[] {
       if (!player.name) {
         errors.push({ elementID: `playerName-${i}-${player.index}`, message: emptyFieldMsg });
       }
-      if (!player.number) {
+      if (player.number == null) {
         errors.push({ elementID: `playerNumber-${i}-${player.index}`, message: "Please enter a number in the range 0-99" });
       }
       if (!player.position) {
-        errors.push({ elementID: `playerPosition-${i}-${player.index}`, message: "Player position is invalid." });
+        errors.push({ elementID: `playerPosition-${i}-${player.index}`, message: "Player must have a valid position." });
       }
     }
   }

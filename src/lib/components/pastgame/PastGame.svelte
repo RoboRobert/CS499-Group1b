@@ -18,9 +18,10 @@
 
   interface Theme {
     theme: boolean;
+    role: string;
   }
 
-  let { theme }: Theme = $props();
+  let { theme, role }: Theme = $props();
 
   let leftSheet: HTMLElement;
   let rightSheet: HTMLElement;
@@ -42,7 +43,9 @@
     <HomeButton></HomeButton>
     <MetaStats></MetaStats>
     <ExitSheet></ExitSheet>
-    <CorrectSheet></CorrectSheet>
+    {#if role === "admin" || role === "score-keeper"}
+      <CorrectSheet></CorrectSheet>
+    {/if}
     <ThemeSwitch theme={theme}></ThemeSwitch>
   </div>
   <Header></Header>
