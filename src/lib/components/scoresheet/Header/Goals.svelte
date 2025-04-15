@@ -26,7 +26,7 @@
     </div>
     <div class="innerColumn">
       <input min="0" max="99" autocomplete="off" class="field normal" type="number" placeholder="OT1" bind:value={goals[0][4]} />
-      <div class="goal-label">O.T. 2</div>
+      <div class="goal-label">O.T. 1</div>
       <input min="0" max="99" autocomplete="off" class="field normal" type="number" placeholder="OT1" bind:value={goals[1][4]} />
     </div>
     <div class="innerColumn">

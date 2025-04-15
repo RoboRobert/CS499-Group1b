@@ -17,6 +17,7 @@
   import ImportTeam from "$lib/components/scoresheet/Bar/ImportTeam.svelte";
   import HomeButton from "$lib/components/scoresheet/Bar/HomeButton.svelte";
   import ThemeSwitch from "../general/ThemeSwitch.svelte";
+  import Halftime from "./Bar/Halftime.svelte";
 
   interface Theme {
     theme: boolean;
@@ -43,6 +44,7 @@
   <div class="wideRow">
     <HomeButton></HomeButton>
     <MetaStats></MetaStats>
+    <Halftime></Halftime>
     <Quarters></Quarters>
     <ImportTeam></ImportTeam>
     <Submit></Submit>
