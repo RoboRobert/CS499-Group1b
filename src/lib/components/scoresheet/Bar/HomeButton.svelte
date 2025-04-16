@@ -5,7 +5,7 @@
 </script>
 
 <div class="top-bar-item thin">
-  <svg class="svg" width="800px" height="800px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <svg class="svg" width="800px" height="800px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" onpointerup={goHome}>
     <path d="M22 22L2 22" stroke-width="1.5" stroke-linecap="round" />
     <path d="M2 11L10.1259 4.49931C11.2216 3.62279 12.7784 3.62279 13.8741 4.49931L22 11" stroke-width="1.5" stroke-linecap="round" />
     <path d="M15.5 5.5V3.5C15.5 3.22386 15.7239 3 16 3H18.5C18.7761 3 19 3.22386 19 3.5V8.5" stroke-width="1.5" stroke-linecap="round" />

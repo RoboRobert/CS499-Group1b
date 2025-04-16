@@ -71,7 +71,12 @@
   }
 
   button {
+    height: 75%;
+  }
+  .thin{
+    display: flex;
     justify-content: end;
-    height: 100%;
+    margin-right: 10px;
+    align-items: center;
   }
 </style>
