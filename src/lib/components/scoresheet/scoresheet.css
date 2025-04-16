@@ -84,8 +84,8 @@ input[type="number"] {
 --clr-surface-tonal-a50: #afb0b6;
 
 --clr-home: black;
-/* --clr-button:#636363; */
---clr-button:#6c88ff;
+--clr-button:#636363;
+/* --clr-button:#6c88ff; */
 --clr-add-button: #3b3c48;
 /* --clr-button-hover: #4c4c4c; */
 --clr-button-hover: #4b79ff;
@@ -95,7 +95,7 @@ input[type="number"] {
 --clr-hover: #366cf1;
 --clr-outer:#636363;
 --clr-body:#c5c5c5;
---clr-svg: rgba(0, 0, 0, 0.4);
+--clr-svg:rgba(178, 185, 255, 1);
 }
 
 * {
@@ -103,8 +103,7 @@ input[type="number"] {
 }
 
 body {
-  background-color: var(--clr-body)
-  ;
+  background-color: var(--clr-body);
 }
 
 .outer {
@@ -234,7 +233,7 @@ body {
 
 .svg:hover {
   background-color: var(--clr-svg);
-
+  border-radius: 8px;
 }
 
 .hidden {

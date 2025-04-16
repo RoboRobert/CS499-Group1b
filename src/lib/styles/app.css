@@ -32,10 +32,15 @@
   --clr-home: white;
   --clr-button:#6c88ff;
   --clr-add-button:#6c88ff;
-  --clr-button-hover: #4b79ff;
+  --clr-button-hover: #bcbcc5;
   --clr-add-button-hover:#4b79ff;
-  --clr-input: #363636;
+  --clr-input: #3b3c48;
+  --clr-bar:#3b3c48;
   --clr-modal:#4c4c4c;
+  --clr-hover: #006eff ;
+  --clr-outer:#949494;
+  --clr-body:#686872;
+  --clr-svg: rgba(255, 255, 255, 0.4);
 }
 
 :root[data-theme="light"] {
@@ -53,7 +58,7 @@
 
 /** Theme surface colors */
 --clr-surface-a0: #eeefff;
---clr-surface-a10: #6c88ff;
+--clr-surface-a10:  #eeefff;
 --clr-surface-a20: #4b6ee2;
 --clr-surface-a30: #636363;
 --clr-surface-a40: #c5c5c5;
@@ -69,11 +74,18 @@
 
 --clr-home: black;
 --clr-button:#636363;
+/* --clr-button:#6c88ff; */
 --clr-add-button: #3b3c48;
---clr-button-hover: #4c4c4c;
+--clr-button-hover: #6c88ff;
+/* --clr-button-hover: #4b79ff; */
 --clr-add-button-hover:#272834;
 --clr-input: #e1e2f0;
+--clr-bar:#636363 ;
 --clr-modal: #eeefff;
+--clr-hover: #006eff;
+--clr-outer:#636363;
+--clr-body:#c5c5c5;
+--clr-svg: rgba(0, 0, 0, 0.4);
 }
 
 /* Global Styles */
@@ -81,7 +93,7 @@ body {
   font-family: Arial, sans-serif;
   margin: 0;
   padding: 0;
-  background-color: var(--clr-surface-a0);
+  background-color: var(--clr-surface-a10);
 }
 
 header {
@@ -101,7 +113,7 @@ header {
 
 nav {
   height: 50px;
-  background-color: var(--clr-surface-a10);
+  background-color: var(--clr-body);
   padding: 10px;
   display: flex;
   gap: 15px;
@@ -109,6 +121,7 @@ nav {
   top: 0; /* Position it at the very top */
   left: 0; /* Align it to the left edge */
   width: 100%; /* Make it span the full width of the screen */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
 nav a {
@@ -119,7 +132,7 @@ nav a {
 }
 
 nav a:hover {
-  color: var(--clr-button);
+  color: var(--clr-hover);
 }
 
 h1,
@@ -350,11 +363,12 @@ ul li:hover .theme-options {
 
 /* Lists */
 .list-section-1 {
-  background-color: var(--clr-surface-a10);
+  background-color: var(--clr-body);
   padding: 20px;
   margin-top: 20px ;
   border-radius: 5px;
   color: var(--clr-light-a0);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
 
@@ -377,7 +391,7 @@ ul li:hover .theme-options {
   margin: 20px 20px auto;
 
   padding: 20px;
-  background-color: var(--clr-surface-a10);
+  background-color: var(--clr-body);
   border-radius: 8px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
@@ -424,7 +438,7 @@ ul li:hover .theme-options {
   padding: 10px;
   border-radius: 4px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  background-color: var(--clr-surface-a30);
+  background-color: var(--clr-bar);
   color: var(--clr-light-a0)
 }
 
@@ -465,14 +479,14 @@ ul li:hover .theme-options {
   padding: 10px 20px;
   font-size: 1rem;
   color: #fff;
-  background-color: var(--clr-add-button);
+  background-color: var(--clr-button);
   border: none;
   border-radius: 4px;
   cursor: pointer;
 }
 
 .add-player-button:hover {
-  background-color: var(--clr-add-button-hover);
+  background-color: var(--clr-button-hover);
   transition: background-color 0.2s;
 }
 
@@ -502,7 +516,7 @@ ul li:hover .theme-options {
 
 .player-card {
   display: grid;
-  background-color: var(--clr-surface-a30);
+  background-color: var(--clr-bar);
   color: var(--clr-light-a0);
   border-radius: 8px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
@@ -609,8 +623,8 @@ ul li:hover .theme-options {
   justify-content: space-between;
   align-items: stretch;
   
-  background-color: var(--clr-surface-a30);
-  border: 1px solid var(--clr-surface-a30);
+  background-color: var(--clr-bar);
+  border: 1px solid var(--clr-bar);
   /* Use a surface color for the border */
   border-radius: 5px;
   transition: background-color 0.3s, box-shadow 0.3s;
