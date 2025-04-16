@@ -9,7 +9,8 @@ Fouls: Navy-5 Loyola-8
 Turnovers: Navy-2 Loyola-3 -->
 
 <script lang="ts">
-  import { clears, faceoffs, groundBalls, shots, teamName, type SheetSave } from "../data.svelte";
+  import { checkObj } from "$lib/conversion/submit";
+  import { clears, faceoffs, groundBalls, penalties, saves, shots, teamName, type SheetSave } from "../data.svelte";
 
   function toggleHalftimeStats() {
     document.getElementById("halftime").classList.toggle("hidden");
@@ -75,10 +76,10 @@ Turnovers: Navy-2 Loyola-3 -->
       Clears: {teamName[0].split(" ")[0]}-{clears[0][0].won + clears[0][1].won}, {teamName[1].split(" ")[0]}-{clears[1][1].won + clears[1][1].won}
     </div>
     <div>
-      Fouls: {teamName[0].split(" ")[0]}-{clears[0][0].won + clears[0][1].won}, {teamName[1].split(" ")[0]}-{clears[1][1].won + clears[1][1].won}
+      Fouls: {teamName[0].split(" ")[0]}-{penalties[0].filter((p) => checkObj(p)).map((p)=>p.quarter<=2).length}, {teamName[1].split(" ")[0]}-{penalties[1].filter((p) => checkObj(p)).map((p)=>p.quarter<=2).length}
     </div>
     <div>
-      Saves: {teamName[0].split(" ")[0]}-{clears[0][0].won + clears[0][1].won}, {teamName[1].split(" ")[0]}-{clears[1][1].won + clears[1][1].won}
+      Saves: {teamName[0].split(" ")[0]}-{saves[0].map((save) => save.qtr1+save.qtr2).reduce((prev, curr) => curr+prev)}, {teamName[1].split(" ")[0]}-{saves[1].map((save) => save.qtr1+save.qtr2).reduce((prev, curr) => curr+prev)}
     </div>
     <!-- <div class="halftimeGroup">
       <div>
