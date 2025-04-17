@@ -25,7 +25,7 @@ import {
 // }
 
 // Returns true or false if all the fields of an object are null or undefined
-function checkObj(object): boolean {
+export function checkObj(object): boolean {
   const valuesToCheck = Object.entries(object)
     .filter(([key]) => key !== "index")
     .map(([, value]) => value);

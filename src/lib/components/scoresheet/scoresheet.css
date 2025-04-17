@@ -85,10 +85,6 @@ input[type="number"] {
 --clr-input: #e1e2f0;
 }
 
-* {
-  font-size: 0.8vw;
-}
-
 body {
   background-color: var(--clr-surface-a0);
 }
@@ -105,6 +101,7 @@ body {
 
 .field {
   all:unset;
+  font-size: 0.8vw;
   padding: 2px;
   background-color: var(--clr-surface-tonal-a0);
   color: var(--clr-home);
@@ -117,7 +114,8 @@ body {
 }
 
 .rowBox {
-  padding: 2px;
+  font-size: 0.8vw;
+  padding: 0px;
   color: var(--clr-home);
   background-color: var(--clr-surface-tonal-a0);
   text-align: center;

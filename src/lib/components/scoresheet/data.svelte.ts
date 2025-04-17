@@ -65,6 +65,9 @@ export interface ScoresheetPlayer {
   groundBalls: number;
 }
 
+export const turnovers = $state([{half1: 0, half2: 0}, {half1: 0, half2: 0}]);
+export const substitutions = $state([{half1: 0, half2: 0}, {half1: 0, half2: 0}]);
+
 export const game_quarter = $state({quarter: 0});
 
 export const game_id = $state({game_id: "", sheet_id: ""});
