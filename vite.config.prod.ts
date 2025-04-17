@@ -6,6 +6,9 @@ dns.setDefaultResultOrder("verbatim");
 
 export default defineConfig({
   plugins: [sveltekit()],
+  preview: {
+    port: 8080
+  },
   server: {
     strictPort: true,
     port: 8080,
