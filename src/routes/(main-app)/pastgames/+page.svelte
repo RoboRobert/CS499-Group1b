@@ -60,7 +60,7 @@
       <div>
         <h1>Past Games</h1>
       </div>
-      <div class="team-bars">
+      <div class="teams-bars">
         {#each data.games as game}
           <div class="team-bar">
             <a href="/pastgames/{game.game_id}" class="team-link">

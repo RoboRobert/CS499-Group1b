@@ -433,3 +433,7 @@ body {
 .st0 {
   fill: var(--clr-button);
 }
+
+.smegol {
+  max-width: 50px;
+}
