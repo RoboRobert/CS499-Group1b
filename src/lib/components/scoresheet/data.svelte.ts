@@ -1,5 +1,7 @@
 export interface SheetData {
   game_id: string,
+  turnovers: SheetTurnover[],
+  substitutions: SheetTurnover[],
   teamName: string[];
   coachName: string[];
   players: ScoresheetPlayer[][];
@@ -65,8 +67,13 @@ export interface ScoresheetPlayer {
   groundBalls: number;
 }
 
-export const turnovers = $state([{half1: 0, half2: 0}, {half1: 0, half2: 0}]);
-export const substitutions = $state([{half1: 0, half2: 0}, {half1: 0, half2: 0}]);
+export interface SheetTurnover {
+  half1: number,
+  half2: number,
+}
+
+export const turnovers: SheetTurnover[] = $state([{half1: 0, half2: 0}, {half1: 0, half2: 0}]);
+export const substitutions: SheetTurnover[] = $state([{half1: 0, half2: 0}, {half1: 0, half2: 0}]);
 
 export const game_quarter = $state({quarter: 0});
 
