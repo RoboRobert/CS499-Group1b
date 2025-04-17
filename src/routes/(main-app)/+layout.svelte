@@ -54,7 +54,7 @@
   }
 
   async function handleSignInForm(event: Event) {
-    //event.preventDefault();
+    event.preventDefault();
     const formData = new FormData(event.target as HTMLFormElement);
     const username = formData.get("username") as string;
     const password = formData.get("password") as string;
@@ -77,7 +77,7 @@
   }
 
   async function handleRegisterForm(event: Event) {
-    //event.preventDefault();
+    event.preventDefault();
     const formData = new FormData(event.target as HTMLFormElement);
     const username = formData.get("username") as string;
     const password = formData.get("password") as string;
