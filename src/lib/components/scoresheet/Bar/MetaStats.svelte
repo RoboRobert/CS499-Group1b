@@ -69,15 +69,3 @@
     </div>
   </div>
 </div>
-
-
-<style>
-  img {
-    width: 50px;
-    height: 50px;
-  }
-
-  img:hover {
-    background-color: lightgray;
-  }
-</style>

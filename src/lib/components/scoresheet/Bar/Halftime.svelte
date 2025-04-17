@@ -57,7 +57,7 @@
 
 <div id="halftime" class="modal-backdrop hidden">
   <div class="modal-content parent">
-    <h2>DISPLAY STATS</h2>
+    <h2>OVERALL STATS</h2>
     <div class="radio-group">
       <button class="button toggleButton {halftime ? 'active' : ''}" onclick={() => halftime = true}> HALFTIME </button>
 
@@ -87,17 +87,17 @@
           .reduce((prev, curr) => curr + prev)}
       </div>
       <div class="innerRow">
-        <p class="smallBox">Turnovers:</p>
+        <div class="smallBox">Turnovers:&nbsp</div>
         <div class="smallBox">{teamName[0].split(" ")[0]}-</div>
         <input class="smallInput" min="0" max="99" autocomplete="off" type="number" bind:value={turnovers[0].half1} />
-        <div class="smallBox">, {teamName[1].split(" ")[0]}-,</div>
+        <div class="smallBox">, {teamName[1].split(" ")[0]}-</div>
         <input class="smallInput" min="0" max="99" autocomplete="off" type="number" bind:value={turnovers[1].half1} />
       </div>
       <div class="innerRow">
-        <p class="smallBox">Turnovers:</p>
+        <p class="smallBox">Substitutions:&nbsp</p>
         <div class="smallBox">{teamName[0].split(" ")[0]}-</div>
         <input class="smallInput" min="0" max="99" autocomplete="off" type="number" bind:value={substitutions[0].half1} />
-        <div class="smallBox">, {teamName[1].split(" ")[0]}-,</div>
+        <div class="smallBox">, {teamName[1].split(" ")[0]}-</div>
         <input class="smallInput" min="0" max="99" autocomplete="off" type="number" bind:value={substitutions[1].half1} />
       </div>
     {/if}
@@ -123,17 +123,17 @@
           .reduce((prev, curr) => curr + prev)}
       </div>
       <div class="innerRow">
-        <p class="smallBox">Turnovers:</p>
+        <div class="smallBox">Turnovers:&nbsp</div>
         <div class="smallBox">{teamName[0].split(" ")[0]}-</div>
         <input class="smallInput" min="0" max="99" autocomplete="off" type="number" value={turnovers[0].half1 + turnovers[0].half2} onchange={(e) => modifyTurnoverHalf2(e, 0)} />
-        <div class="smallBox">, {teamName[1].split(" ")[0]}-,</div>
+        <div class="smallBox">, {teamName[1].split(" ")[0]}-</div>
         <input class="smallInput" min="0" max="99" autocomplete="off" type="number" value={turnovers[1].half1 + turnovers[1].half2} onchange={(e) => modifyTurnoverHalf2(e, 1)} />
       </div>
       <div class="innerRow">
-        <p class="smallBox">Turnovers:</p>
+        <div class="smallBox">Substitutions:&nbsp</div>
         <div class="smallBox">{teamName[0].split(" ")[0]}-</div>
         <input class="smallInput" min="0" max="99" autocomplete="off" type="number" value={substitutions[0].half1 + substitutions[0].half2} onchange={(e) => modifySubsHalf2(e, 0)} />
-        <div class="smallBox">, {teamName[1].split(" ")[0]}-,</div>
+        <div class="smallBox">, {teamName[1].split(" ")[0]}-</div>
         <input class="smallInput" min="0" max="99" autocomplete="off" type="number" value={substitutions[1].half1 + substitutions[1].half2} onchange={(e) => modifySubsHalf2(e, 1)} />
       </div>
     {/if}
