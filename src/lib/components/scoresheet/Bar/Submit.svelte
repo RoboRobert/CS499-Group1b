@@ -39,7 +39,7 @@
 </script>
 
 <div class="thin">
-  <button onclick={runCheck}>SUBMIT SCORESHEET</button>
+  <button class="button" onclick={runCheck}>SUBMIT SCORESHEET</button>
 
   {#if showConfirmModal}
     <div class="modal-backdrop">
@@ -71,7 +71,12 @@
   }
 
   button {
+    height: 75%;
+  }
+  .thin{
+    display: flex;
     justify-content: end;
-    height: 100%;
+    margin-right: 10px;
+    align-items: center;
   }
 </style>

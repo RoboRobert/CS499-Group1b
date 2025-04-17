@@ -78,8 +78,8 @@
 </script>
 
 <div style="display:flex; flex-direction:column;">
-  <button onclick={toggleImportHome}>IMPORT HOME TEAM</button>
-  <button onclick={toggleImportAway}>IMPORT AWAY TEAM</button>
+  <button class="button" onclick={toggleImportHome}>IMPORT HOME TEAM</button>
+  <button class="button" onclick={toggleImportAway}>IMPORT AWAY TEAM</button>
 
   {#if showImportHome}
     <div class="modal-backdrop">

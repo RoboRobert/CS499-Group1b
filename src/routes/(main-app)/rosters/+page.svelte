@@ -251,7 +251,7 @@
 <div class="container">
   <div class="roster-page">
     <section class="rosters-dash">
-      <h1><strong>Rosters</strong></h1>
+      <h1>Rosters</h1>
       <h3>A List of All Teams on the Website</h3>
     </section>
 
