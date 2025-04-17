@@ -13,84 +13,33 @@ input[type="number"] {
 
 /* Color Variables */
 :root[data-theme="dark"] {
-  /** Base colors */
-  --clr-dark-a0: #000000;
-  --clr-light-a0: #ffffff;
-
-  /** Theme primary colors */
-  --clr-primary-a0: #006aff;
-  --clr-primary-a10: #4b79ff;
-  --clr-primary-a20: #6c88ff;
-  --clr-primary-a30: #8698ff;
-  --clr-primary-a40: #9da9ff;
-  --clr-primary-a50: #b2b9ff;
-
-  /** Theme surface colors */
-  --clr-surface-a0: #212121;
-  --clr-surface-a10: #363636;
-  --clr-surface-a20: #4c4c4c;
-  --clr-surface-a30: #636363;
-  --clr-surface-a40: #7b7b7b;
-  --clr-surface-a50: #949494;
-
-  /** Theme tonal surface colors */
-  --clr-surface-tonal-a0: #272834;
-  --clr-surface-tonal-a10: #3b3c48;
-  --clr-surface-tonal-a20: #51525c;
-  --clr-surface-tonal-a30: #686872;
-  --clr-surface-tonal-a40: #7f8088;
-  --clr-surface-tonal-a50: #97989e;
-
   --clr-home: white;
-  --clr-button:#6c88ff;
-  --clr-add-button:#6c88ff;
+  --clr-button: #6c88ff;
+  --clr-add-button: #6c88ff;
   --clr-button-hover: #4b79ff;
-  --clr-add-button-hover:#4b79ff;
+  --clr-add-button-hover: #4b79ff;
   --clr-input: #3b3c48;
-  --clr-modal:#4c4c4c;
-  --clr-hover: #366cf1 ;
-  --clr-outer:#949494;
-  --clr-body:#686872;
+  --clr-modal: #4c4c4c;
+  --clr-hover: #366cf1;
+  --clr-outer: #949494;
+  --clr-body: #686872;
   --clr-svg: rgba(255, 255, 255, 0.4);
 }
 
 :root[data-theme="light"] {
- /** Base colors */
---clr-dark-a0: #000000;
---clr-light-a0: #ffffff;
-
-/** Theme primary colors */
---clr-primary-a0: #006aff;
---clr-primary-a10: #366cf1;
---clr-primary-a20: #4b6ee2;
---clr-primary-a30: #5a71d4;
---clr-primary-a40: #6473c6;
---clr-primary-a50: #6d76b8;
-
-/** Theme surface colors */
---clr-surface-a0: #eeefff;
---clr-surface-a10:#c5c5c5;
---clr-surface-a20: #4b6ee2;
---clr-surface-a30: #636363;
---clr-surface-a40: #c5c5c5;
---clr-surface-a50: #b6b6b6;
-
-/** Theme tonal surface colors */
---clr-surface-tonal-a0: #e1e3fd;
---clr-surface-tonal-a10: #e1e2f0;
---clr-surface-tonal-a20: #d5d5e1;
---clr-surface-tonal-a30: #c8c9d3;
---clr-surface-tonal-a40: #bcbcc5;
---clr-surface-tonal-a50: #afb0b6;
-
---clr-home: black;
---clr-button:#636363;
-/* --clr-button:#6c88ff; */
---clr-add-button: #3b3c48;
-/* --clr-button-hover: #4c4c4c; */
---clr-button-hover: #4b79ff;
---clr-add-button-hover:#272834;
---clr-input: #e1e2f0;
+  --clr-home: black;
+  --clr-button: #636363;
+  /* --clr-button:#6c88ff; */
+  --clr-add-button: #3b3c48;
+  /* --clr-button-hover: #4c4c4c; */
+  --clr-button-hover: #4b79ff;
+  --clr-add-button-hover: #272834;
+  --clr-input: #e1e2f0;
+  --clr-modal: #eeefff;
+  --clr-hover: #366cf1;
+  --clr-outer: #636363;
+  --clr-body: #c5c5c5;
+  --clr-svg: rgba(178, 185, 255, 1);
 }
 
 body {
@@ -99,7 +48,7 @@ body {
 
 .outer {
   border: 2px solid var(--clr-outer);
-  resize: both;
+  /* resize: both; */
   overflow: hidden;
   max-width: 100%;
   margin-bottom: 10px;
@@ -110,10 +59,9 @@ body {
 .outer:hover {
   border: 2px solid var(--clr-hover);
 }
-  
 
 .field {
-  all:unset;
+  all: unset;
   font-size: 0.8vw;
   padding: 2px;
   background-color: var(--clr-input);
@@ -124,11 +72,11 @@ body {
   border: 1px solid var(--clr-outer);
   opacity: 100%;
   box-sizing: border-box;
-  
 }
 
 .rowBox {
-  font-size: 0.8vw;
+  all:unset;
+  font-size: 0.7vw;
   padding: 0px;
   color: var(--clr-home);
   background-color: var(--clr-input);
@@ -137,7 +85,6 @@ body {
   overflow: hidden;
   align-content: center;
   box-sizing: border-box;
-  
 }
 
 .dropdown {
@@ -149,18 +96,15 @@ body {
   border: 1px solid var(--clr-outer);
   opacity: 100%;
   box-sizing: border-box;
-  
 }
 
 .dropdown.small {
   font-size: 0.6vw;
-  
 }
 
 .error {
   outline: 3px solid red;
   outline-offset: -3px;
-  
 }
 
 .headerBox {
@@ -168,15 +112,11 @@ body {
   background-color: var(--clr-input);
   text-align: center;
   border: 1px solid var(--clr-outer);
-  
-  
 }
 
 .headerRow {
   display: flex;
   flex-direction: row;
-  
-  
 }
 
 .innerRow {
@@ -185,7 +125,6 @@ body {
   flex-direction: row;
   min-height: 0;
   min-width: 0;
-  
 }
 
 .innerColumn {
@@ -194,7 +133,6 @@ body {
   flex-direction: column;
   min-height: 0;
   min-width: 0;
-  
 }
 
 .wideRow {
@@ -202,7 +140,6 @@ body {
   display: flex;
   flex-direction: row;
   margin-top: 10px;
-  
 }
 
 .goal-label {
@@ -210,11 +147,10 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  min-height:0px;
-  height:10px;
+  min-height: 0px;
+  height: 10px;
   font-size: 0.5vw;
   border: 1px solid black;
-  
 }
 
 .svg {
@@ -230,8 +166,8 @@ body {
 }
 
 .hidden {
-  visibility:hidden;
-  display:none;
+  visibility: hidden;
+  display: none;
 }
 
 /* Modal Styles */
@@ -256,7 +192,6 @@ body {
   /* Enable vertical scrolling */
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
   color: var(--clr-home);
-  
 }
 
 .modal-content h2 {
@@ -266,7 +201,7 @@ body {
 
 .form-group {
   margin-bottom: 15px;
-  color: var(--clr-home)
+  color: var(--clr-home);
 }
 
 .form-group label {
@@ -296,7 +231,7 @@ body {
 }
 
 .sign-in-button {
-  background-color: var(--clr-primary-a20);
+  background-color: var(--clr-button);
   color: #fff;
   border: none;
   padding: 5px 15px;
@@ -306,7 +241,7 @@ body {
 }
 
 .sign-in-button:hover {
-  background-color: var(--clr-primary-a10);
+  background-color: var(--clr-button-hover);
 }
 
 .cancel-button {
@@ -358,7 +293,7 @@ body {
   display: flex;
   gap: 10px;
   margin-bottom: 5px;
-  align-items: center;;
+  align-items: center;
 }
 .theme-buttons button {
   background-color: var(--clr-button);
@@ -375,7 +310,6 @@ body {
   background-color: var(--clr-button-hover);
   transition: background-color 0.2s;
 }
-
 
 /* Scoresheet-specific CSS */
 .main {
@@ -448,12 +382,12 @@ body {
 
 .quarters {
   color: var(--clr-home);
-  display:flex;
+  display: flex;
   border-color: var(--clr-button);
 }
 
-.goal{
-  font-size:0.65vw;
+.goal {
+  font-size: 0.65vw;
 }
 
 .button {
@@ -471,32 +405,24 @@ body {
 }
 
 .radio-group {
-  flex:1;
+  flex: 1;
   display: flex;
   /* justify-content: space-around; */
   align-items: center;
-  padding:5px;
-  color: var(--clr-home)
+  padding: 5px;
+  color: var(--clr-home);
 }
 
 .radio-item {
   text-align: center;
-  margin:5px;
-  color: var(--clr-home)
+  margin: 5px;
+  color: var(--clr-home);
 }
 
 .radio-item label {
   display: block;
   margin-top: 5px;
-  color: var(--clr-home)
-}
-
-.innerRow {
-  text-align: center;
-}
-
-.rowBox {
-  font-size: 0.7vw;
+  color: var(--clr-home);
 }
 
 ::placeholder {
@@ -504,4 +430,6 @@ body {
   opacity: 0.5;
 }
 
-.st0{fill:var(--clr-button);}
+.st0 {
+  fill: var(--clr-button);
+}

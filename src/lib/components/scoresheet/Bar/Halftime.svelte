@@ -24,7 +24,7 @@
     substitutions[side].half2 = value - substitutions[side].half1;
   }
 
-  let statsMode = $state("halftime");
+  let halftime = $state(true);
 </script>
 
 <div class="top-bar-item thin">
@@ -52,23 +52,18 @@
       />
     </g>
   </svg>
-  <div>HALFTIME STATS</div>
+  <div>OVERALL STATS</div>
 </div>
 
 <div id="halftime" class="modal-backdrop hidden">
   <div class="modal-content parent">
     <h2>DISPLAY STATS</h2>
     <div class="radio-group">
-      <div class="radio-item">
-        <input type="radio" id="option1" name="statsGroup" value="halftime" bind:group={statsMode} class="radioButton" />
-        <label class="radioLabel" for="option1">HALFTIME</label>
-      </div>
-      <div class="radio-item">
-        <input type="radio" id="option2" name="statsGroup" value="fullgame" bind:group={statsMode} class="radioButton" />
-        <label class="radioLabel" for="option2">FULL GAME</label>
-      </div>
+      <button class="button toggleButton {halftime ? 'active' : ''}" onclick={() => halftime = true}> HALFTIME </button>
+
+      <button class="button toggleButton {!halftime ? 'active' : ''}" onclick={() => halftime = false}> FULL GAME </button>
     </div>
-    {#if statsMode === "halftime"}
+    {#if halftime}
       <div>
         Shots: {teamName[0].split(" ")[0]}-{shots[0][0] + shots[0][1]}, {teamName[1].split(" ")[0]}-{shots[1][0] + shots[1][1]}
       </div>
@@ -106,7 +101,7 @@
         <input class="smallInput" min="0" max="99" autocomplete="off" type="number" bind:value={substitutions[1].half1} />
       </div>
     {/if}
-    {#if statsMode !== "halftime"}
+    {#if !halftime}
       <div>
         Shots: {teamName[0].split(" ")[0]}-{shots[0].reduce((c, p) => c + p)}, {teamName[1].split(" ")[0]}-{shots[1].reduce((c, p) => c + p)}
       </div>
@@ -114,14 +109,13 @@
         Ground Balls: {teamName[0].split(" ")[0]}-{groundBalls[0].reduce((c, p) => c + p)}, {teamName[1].split(" ")[0]}-{groundBalls[1].reduce((c, p) => c + p)}
       </div>
       <div>
-        Faceoffs: {teamName[0].split(" ")[0]}-{faceoffs[0].map((f) => f.won).reduce((c,p) => c + p)}, {teamName[1].split(" ")[0]}-{faceoffs[1].map((f) => f.won).reduce((c,p) => c + p)}
+        Faceoffs: {teamName[0].split(" ")[0]}-{faceoffs[0].map((f) => f.won).reduce((c, p) => c + p)}, {teamName[1].split(" ")[0]}-{faceoffs[1].map((f) => f.won).reduce((c, p) => c + p)}
       </div>
       <div>
-        Clears: {teamName[0].split(" ")[0]}-{clears[0].map((f) => f.won).reduce((c,p ) => c + p)}, {teamName[1].split(" ")[0]}-{clears[1].map((f) => f.won).reduce((c,p) => c + p)}
+        Clears: {teamName[0].split(" ")[0]}-{clears[0].map((f) => f.won).reduce((c, p) => c + p)}, {teamName[1].split(" ")[0]}-{clears[1].map((f) => f.won).reduce((c, p) => c + p)}
       </div>
       <div>
-        Fouls: {teamName[0].split(" ")[0]}-{penalties[0].filter((p) => checkObj(p)).length}, {teamName[1].split(" ")[0]}-{penalties[1]
-          .filter((p) => checkObj(p)).length}
+        Fouls: {teamName[0].split(" ")[0]}-{penalties[0].filter((p) => checkObj(p)).length}, {teamName[1].split(" ")[0]}-{penalties[1].filter((p) => checkObj(p)).length}
       </div>
       <div>
         Saves: {teamName[0].split(" ")[0]}-{saves[0].map((save) => save.qtr1 + save.qtr2 + save.qtr3 + save.qtr4 + save.ot).reduce((prev, curr) => curr + prev)}, {teamName[1].split(" ")[0]}-{saves[1]
@@ -153,7 +147,7 @@
   .parent {
     display: flex;
     flex-direction: column;
-    gap: 16px; /* this adds vertical spacing */
+    gap: 20px; /* this adds vertical spacing */
   }
 
   .smallInput {
@@ -164,6 +158,10 @@
     box-sizing: border-box;
     height: 100%;
     flex: 0.15;
+    border: 1px solid var(--clr-outer);
+    border-radius: 5px;
+    background-color: var(--clr-input);
+    color: var(--clr-home);
   }
 
   .smallBox {
@@ -178,14 +176,24 @@
   .radio-group {
     flex: 1;
     display: flex;
-    /* justify-content: space-around; */
     align-items: center;
+    border: 1px solid var(--clr-outer);
+    border-radius: 5px;
+    background-color: var(--clr-input);
+    color: var(--clr-home);
   }
 
-  .radioLabel {
-    margin-right: 20px;
+  .toggleButton {
+    flex: 1;
+    height: 50px;
+    margin: 5px;
   }
-  .radioButton {
-    height: 100%;
+
+  .active {
+    background-color: #00ab22;
+  }
+
+  .active:hover {
+    background-color: #009c1f;
   }
 </style>
