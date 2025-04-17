@@ -59,9 +59,9 @@
   <div class="modal-content parent">
     <h2>OVERALL STATS</h2>
     <div class="radio-group">
-      <button class="button toggleButton {halftime ? 'active' : ''}" onclick={() => halftime = true}> HALFTIME </button>
+      <button class="button toggleButton {halftime ? 'active' : ''}" onclick={() => (halftime = true)}> HALFTIME </button>
 
-      <button class="button toggleButton {!halftime ? 'active' : ''}" onclick={() => halftime = false}> FULL GAME </button>
+      <button class="button toggleButton {!halftime ? 'active' : ''}" onclick={() => (halftime = false)}> FULL GAME </button>
     </div>
     {#if halftime}
       <div>
@@ -181,19 +181,5 @@
     border-radius: 5px;
     background-color: var(--clr-input);
     color: var(--clr-home);
-  }
-
-  .toggleButton {
-    flex: 1;
-    height: 50px;
-    margin: 5px;
-  }
-
-  .active {
-    background-color: #00ab22;
-  }
-
-  .active:hover {
-    background-color: #009c1f;
   }
 </style>

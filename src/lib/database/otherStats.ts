@@ -39,7 +39,7 @@ export async function dbOtherStatsReset() {
     `;
 
   await sql`CREATE TABLE otherstats(
-            SHEET_ID VARCHAR(100) NOT NULL,
+            SHEET_ID VARCHAR(300) NOT NULL,
             SIDE INT NOT NULL,
             TURNOVERS_HALF1 INT,
             TURNOVERS_HALF2 INT,

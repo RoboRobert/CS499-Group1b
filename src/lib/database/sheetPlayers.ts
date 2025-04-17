@@ -43,7 +43,7 @@ export async function dbSheetPlayersReset() {
 
   //Not entirely sure about this for the table
   await sql`CREATE TABLE sheetplayers(
-              SHEET_ID varchar(100),
+              SHEET_ID varchar(300),
               SIDE INT,
               INDEX INT,
               NAME varchar(100),

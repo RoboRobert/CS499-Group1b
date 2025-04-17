@@ -18,7 +18,8 @@ export const auburnLacrosseRoster: Player[] = [
     height_inches: 0,
     weight: 0,
     team_id: "auburnuniversity",
-    player_id: "auburnuniversity-sarveradams-14"
+    player_id: "auburnuniversity-sarveradams-14",
+    assists: 0
   },
   {
     team_name: "Auburn University",
@@ -37,7 +38,8 @@ export const auburnLacrosseRoster: Player[] = [
     height_inches: 0,
     weight: 0,
     team_id: "auburnuniversity",
-    player_id: "auburnuniversity-brooksandrus-6"
+    player_id: "auburnuniversity-brooksandrus-6",
+    assists: 0
   },
   // {
   //   team_name: "Auburn University Men's Lacrosse",
@@ -800,7 +802,8 @@ export const uahLacrosseRoster: Player[] = [
     height_inches: 0,
     weight: 0,
     team_id: "uah",
-    player_id: "uah-jamesalford-15"
+    player_id: "uah-jamesalford-15",
+    assists: 0
   },
   {
     team_name: "UAH",
@@ -819,7 +822,8 @@ export const uahLacrosseRoster: Player[] = [
     height_inches: 0,
     weight: 0,
     team_id: "uah",
-    player_id: "uah-alexbass-16"
+    player_id: "uah-alexbass-16",
+    assists: 0
   },
   // {
   //   team_name: "UAH Men's Lacrosse",

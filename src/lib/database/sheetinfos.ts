@@ -54,7 +54,7 @@ export async function dbSheetInfoReset() {
     `;
 
   await sql`CREATE TABLE sheetinfo (
-            SHEET_ID VARCHAR(100) NOT NULL,
+            SHEET_ID VARCHAR(300) NOT NULL,
             HOMECOACH VARCHAR(100),
             AWAYCOACH VARCHAR(100),
             HOMETEAM VARCHAR(100),

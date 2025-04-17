@@ -60,11 +60,27 @@ export interface ScoresheetPlayer {
   position: string;
   name: string;
   number: number;
-  quarters: string;
-  shots: number;
+  quarters: Quarters;
+  shots: SheetPlayerStat;
   goals: number;
   assists: number;
-  groundBalls: number;
+  groundBalls: SheetPlayerStat;
+}
+
+export interface Quarters {
+  q1: boolean,
+  q2: boolean,
+  q3: boolean,
+  q4: boolean,
+  ot: boolean,
+}
+
+export interface SheetPlayerStat {
+  q1: number;
+  q2: number;
+  q3: number;
+  q4: number;
+  ot: number;
 }
 
 export interface SheetTurnover {
@@ -75,7 +91,7 @@ export interface SheetTurnover {
 export const turnovers: SheetTurnover[] = $state([{half1: 0, half2: 0}, {half1: 0, half2: 0}]);
 export const substitutions: SheetTurnover[] = $state([{half1: 0, half2: 0}, {half1: 0, half2: 0}]);
 
-export const game_quarter = $state({quarter: 0});
+export const game_quarter = $state({quarter: 1});
 
 export const game_id = $state({game_id: "", sheet_id: ""});
 
@@ -199,7 +215,7 @@ for (let i = 0; i < 3; i++) {
 export const saves = $state([homeSaves, awaySaves]);
 
 function makePlayer(side: number, index: number): ScoresheetPlayer {
-  return { side: side, index: index, position: "", name: "", number: null, goals: 0, assists: 0, shots: 0, quarters: "", groundBalls: 0 }
+  return { side: side, index: index, position: "", name: "", number: null, goals: 0, assists: 0, quarters: {q1:false,q2:false,q3:false,q4:false,ot:false}, shots: {q1: 0, q2: 0, q3: 0, q4: 0, ot: 0}, groundBalls: {q1: 0, q2: 0, q3: 0, q4: 0, ot: 0} }
 }
 
 let numPlayers = 31;

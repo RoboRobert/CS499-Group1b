@@ -437,3 +437,19 @@ body {
 .smegol {
   max-width: 50px;
 }
+
+.toggleButton {
+  flex: 1;
+  height: 50px;
+  margin: 5px;
+  min-width: 0px;
+  padding: 0px;
+}
+
+.active {
+  background-color: #00ab22;
+}
+
+.active:hover {
+  background-color: #009c1f;
+}

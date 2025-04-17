@@ -37,7 +37,7 @@ export async function dbGoalReset() {
 
   //Not entirely sure about this for the table
   await sql`CREATE TABLE goals(
-              SHEET_ID VARCHAR(100),
+              SHEET_ID VARCHAR(300),
               SIDE INT,
               INDEX INT,
               TIME varchar(5),
