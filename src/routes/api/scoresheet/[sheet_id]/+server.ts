@@ -8,6 +8,7 @@ import { getSheetInfo } from "$lib/database/sheetinfos";
 import { getSheetPlayers } from "$lib/database/sheetPlayers.js";
 import { deleteSheet, getSheet } from "$lib/database/sheets.js";
 import { getTimeouts } from "$lib/database/timeouts.js";
+import { getOtherStats } from "$lib/database/otherStats.js";
 
 export async function GET({ params, cookies }) {
     const token = cookies.get('user-role');
@@ -23,7 +24,8 @@ export async function GET({ params, cookies }) {
     const timeouts = await getTimeouts(sheet_id);
     const goals = await getGoals(sheet_id);
     const sheetPlayers = await getSheetPlayers(sheet_id);
-    return json({sheet, gameStats, penalties, saves, sheetInfo, timeouts, goals, sheetPlayers});
+    const otherStats = await getOtherStats(sheet_id);
+    return json({sheet, gameStats, penalties, saves, sheetInfo, timeouts, goals, sheetPlayers, otherStats});
 }
 
 export async function DELETE({ params, cookies }) {

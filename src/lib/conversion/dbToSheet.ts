@@ -1,6 +1,7 @@
-import { clears, coachName, extraMan, faceoffs, game_id, goalTrack, groundBalls, metaStats, penalties, players, saves, shots, teamName, timeouts } from "$lib/components/scoresheet/data.svelte";
+import { clears, coachName, extraMan, faceoffs, game_id, goalTrack, groundBalls, metaStats, penalties, players, saves, shots, substitutions, teamName, timeouts, turnovers } from "$lib/components/scoresheet/data.svelte";
 import type { GameStat } from "$lib/database/GameStats";
 import type { Goal } from "$lib/database/Goal";
+import type { OtherStat } from "$lib/database/OtherStat";
 import type { Penalty } from "$lib/database/Penalty";
 import type { Save } from "$lib/database/Save";
 import type { Sheet } from "$lib/database/Sheet";
@@ -133,5 +134,14 @@ export function dbPlayersToPlayers(dbPlayers: SheetPlayer[]) {
     players[s][j].position = sheetPlayer.position;
     players[s][j].groundBalls = sheetPlayer.groundballs;
     players[s][j].shots = sheetPlayer.shots;
+  }
+}
+
+export function dbOtherStatsToOtherStats(otherStats: OtherStat[]) {
+  for(let i = 0; i < otherStats.length; i++) {
+    turnovers[i].half1 = otherStats[i].turnovers_half1;
+    turnovers[i].half2 = otherStats[i].turnovers_half2;
+    substitutions[i].half1 = otherStats[i].subs_half1;
+    substitutions[i].half2 = otherStats[i].subs_half2;
   }
 }
