@@ -61,6 +61,10 @@ export function readString(e): string | null {
     return target.value;
   }
 
+  if(target.value.length > 100) {
+    addError(target, "String cannot be longer than 100 characters.")
+  }
+
   return target.value;
 }
 
@@ -142,17 +146,25 @@ export function readGoalType(e): string | null {
   return target.value;
 }
 
+function validString(input: string): boolean {
+  if(input.length < 100 && input) {
+    return true;
+  }
+
+  return false;
+}
+
 export function checkMetaStat(e) {
   const target = e.target as HTMLInputElement;
 
-  if(metaStats.date && metaStats.gameStart && metaStats.scorekeeper) {
+  if(validString(metaStats.date) && validString(metaStats.gameStart) && validString(metaStats.scorekeeper)) {
     removeIDError("metaStatsButton");
   }
   
   removeError(target);
   
-  if(!target.value) {
+  if(!validString(target.value)) {
     addIDError("metaStatsButton", "There are errors in the Meta Game Stats." );
-    addError(target, "Field cannot be empty.");
+    addError(target, "Field cannot be empty or be longer than 100 characters.");
   }
 }

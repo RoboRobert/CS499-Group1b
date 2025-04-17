@@ -23,5 +23,6 @@ export interface Player {
   attempted_shots: number;
   failed_shots: number;
   goals: number; 
+  assists: number;
   ground_balls: number;
 }

@@ -1,4 +1,4 @@
-import { dbDataToSheetData, dbGoalsToGoals, dbMetaToMeta, dbPenaltiesToPenalties, dbPlayersToPlayers, dbSavesToSaves, dbStatsToStats, dbTimeoutsToTimeouts } from "$lib/conversion/dbToSheet";
+import { dbDataToSheetData, dbGoalsToGoals, dbMetaToMeta, dbOtherStatsToOtherStats, dbPenaltiesToPenalties, dbPlayersToPlayers, dbSavesToSaves, dbStatsToStats, dbTimeoutsToTimeouts } from "$lib/conversion/dbToSheet";
 import type { PageLoad } from "./$types";
 
 export const ssr = false;
@@ -7,6 +7,7 @@ export const load: PageLoad = async ({ data, params, fetch }) => {
     const sheetId = params.sheetID;  // Extracts the slug from the URL
 
     const theme = data.theme;
+    const role = data.role;
 
     try {
         const response = await fetch(`/api/scoresheet/${sheetId}`);
@@ -20,8 +21,9 @@ export const load: PageLoad = async ({ data, params, fetch }) => {
         dbPenaltiesToPenalties(data.penalties);
         dbGoalsToGoals(data.goals);
         dbPlayersToPlayers(data.sheetPlayers);
+        dbOtherStatsToOtherStats(data.otherStats);
 
-        return { theme }
+        return { role, theme }
     } catch (err) {
         console.error('Error loading data:', err);
     }

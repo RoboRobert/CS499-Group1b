@@ -13,14 +13,16 @@
   import Team from "$lib/components/scoresheet/Team.svelte";
   import Timeouts from "$lib/components/scoresheet/Timeouts.svelte";
   import ThemeSwitch from "../general/ThemeSwitch.svelte";
+  import Halftime from "../scoresheet/Bar/Halftime.svelte";
   import CorrectSheet from "./CorrectSheet.svelte";
   import ExitSheet from "./ExitSheet.svelte";
 
   interface Theme {
     theme: boolean;
+    role: string;
   }
 
-  let { theme }: Theme = $props();
+  let { theme, role }: Theme = $props();
 
   let leftSheet: HTMLElement;
   let rightSheet: HTMLElement;
@@ -41,8 +43,11 @@
   <div class="wideRow">
     <HomeButton></HomeButton>
     <MetaStats></MetaStats>
+    <Halftime></Halftime>
     <ExitSheet></ExitSheet>
-    <CorrectSheet></CorrectSheet>
+    {#if role === "admin" || role === "score-keeper"}
+      <CorrectSheet></CorrectSheet>
+    {/if}
     <ThemeSwitch theme={theme}></ThemeSwitch>
   </div>
   <Header></Header>

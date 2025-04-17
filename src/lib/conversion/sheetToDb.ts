@@ -5,10 +5,12 @@ import {
   type SheetPenalty,
   type SheetSave,
   type SheetTimeout,
+  type SheetTurnover,
   type Stat
 } from "$lib/components/scoresheet/data.svelte";
 import type { GameStat } from "$lib/database/GameStats";
 import type { Goal } from "$lib/database/Goal";
+import type { OtherStat } from "$lib/database/OtherStat";
 import type { Penalty } from "$lib/database/Penalty";
 import type { Save } from "$lib/database/Save";
 import type { SheetInfo } from "$lib/database/SheetInfo";
@@ -227,7 +229,8 @@ function convertPlayer(team_name: string, team_id: string, input: ScoresheetPlay
     attempted_shots: input.shots,
     failed_shots: input.shots - input.goals,
     goals: input.goals,
-    ground_balls: input.groundBalls
+    ground_balls: input.groundBalls,
+    assists: input.assists,
   };
 
   return player;
@@ -240,4 +243,20 @@ export function playersToDBPlayers(team_name: string, team_id: string, players: 
   }
 
   return dbPlayers;
+}
+
+export function otherStatsToDBOtherStats(sheet_id: string, turnovers: SheetTurnover[], substitutions: SheetTurnover[]): OtherStat[] {
+  let dbOtherStats: OtherStat[] = [];
+  for(let i = 0; i < turnovers.length; i++) {
+    dbOtherStats.push({
+      sheet_id: sheet_id,
+      side: i,
+      turnovers_half1: turnovers[i].half1,
+      turnovers_half2: turnovers[i].half2,
+      subs_half1: substitutions[i].half1,
+      subs_half2: substitutions[i].half2
+    })
+  }
+
+  return dbOtherStats;
 }

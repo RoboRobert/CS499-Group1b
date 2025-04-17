@@ -3,7 +3,7 @@ import { v4 as uuidv4 } from 'uuid';
 
 import { coachName, type SheetData } from "$lib/components/scoresheet/data.svelte";
 import { toTeamID } from "$lib/conversion/general.js";
-import { goalsToDBGoals, metaStatsToDBMetaStats, penaltiesToDbPenalties as penaltiesToDBPenalties, playersToDBPlayers, playersToDBSheetPlayers, savesToDBSaves, statsToDBStats, timeoutsToDBTimeouts } from "$lib/conversion/sheetToDb.js";
+import { goalsToDBGoals, metaStatsToDBMetaStats, otherStatsToDBOtherStats, penaltiesToDbPenalties as penaltiesToDBPenalties, playersToDBPlayers, playersToDBSheetPlayers, savesToDBSaves, statsToDBStats, timeoutsToDBTimeouts } from "$lib/conversion/sheetToDb.js";
 import { addgameStats } from "$lib/database/gamestat.js";
 import { addGoals } from "$lib/database/goals";
 import { addPenalties } from "$lib/database/penalties";
@@ -13,6 +13,7 @@ import { addSheetPlayers } from "$lib/database/sheetPlayers.js";
 import { addGameIfPossible, addSheet } from "$lib/database/sheets.js";
 import { addOrUpdatePlayers, addTeamIfPossible } from "$lib/database/teams.js";
 import { addTimeouts } from "$lib/database/timeouts";
+import { addOtherStats } from "$lib/database/otherStats.js";
 
 export const POST = async ({ request }) => {
     // Parse incoming JSON data from the request body
@@ -34,6 +35,8 @@ export const POST = async ({ request }) => {
       metaStats: rawData.metaStats,
       goals: rawData.goals,
       goalTrack: rawData.goalTrack,
+      turnovers: rawData.turnovers,
+      substitutions: rawData.substitutions,
     };
     
     // Assign a game id to the scoresheet.
@@ -70,6 +73,7 @@ export const POST = async ({ request }) => {
     await addTimeouts(timeoutsToDBTimeouts(sheet_id, data.timeouts));
     await addSaves(savesToDBSaves(sheet_id, data.saves));
     await addSheetPlayers(playersToDBSheetPlayers(sheet_id, data.players));
+    await addOtherStats(otherStatsToDBOtherStats(sheet_id, data.turnovers, data.substitutions));
     
     // If the scoresheet is added for the first time, update all related team and player stats
     if(data.game_id == "") {

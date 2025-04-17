@@ -14,8 +14,10 @@ import {
   penalties,
   saves,
   shots,
+  substitutions,
   teamName,
   timeouts,
+  turnovers,
   type SheetData,
 } from "$lib/components/scoresheet/data.svelte";
 
@@ -25,7 +27,7 @@ import {
 // }
 
 // Returns true or false if all the fields of an object are null or undefined
-function checkObj(object): boolean {
+export function checkObj(object): boolean {
   const valuesToCheck = Object.entries(object)
     .filter(([key]) => key !== "index")
     .map(([, value]) => value);
@@ -37,6 +39,8 @@ function checkObj(object): boolean {
 export function getScoresheetData(): SheetData {
   return {
     game_id: game_id.game_id,
+    turnovers: turnovers,
+    substitutions: substitutions,
     coachName: coachName,
     teamName: teamName,
     players: [Array.from(getPlayerMap(0).values()), Array.from(getPlayerMap(1).values())],

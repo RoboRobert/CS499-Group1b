@@ -1,5 +1,7 @@
 export interface SheetData {
   game_id: string,
+  turnovers: SheetTurnover[],
+  substitutions: SheetTurnover[],
   teamName: string[];
   coachName: string[];
   players: ScoresheetPlayer[][];
@@ -64,6 +66,14 @@ export interface ScoresheetPlayer {
   assists: number;
   groundBalls: number;
 }
+
+export interface SheetTurnover {
+  half1: number,
+  half2: number,
+}
+
+export const turnovers: SheetTurnover[] = $state([{half1: 0, half2: 0}, {half1: 0, half2: 0}]);
+export const substitutions: SheetTurnover[] = $state([{half1: 0, half2: 0}, {half1: 0, half2: 0}]);
 
 export const game_quarter = $state({quarter: 0});
 
@@ -207,7 +217,7 @@ export const players = $state([homePlayers, awayPlayers]);
 function makeMap(players: ScoresheetPlayer[]): Map<number, ScoresheetPlayer> {
   let map = new Map<number, ScoresheetPlayer>();
   players.forEach((player) => {
-    if (player.number) map.set(player.number, player);
+    if (player.number != null) map.set(player.number, player);
   });
 
   return map;

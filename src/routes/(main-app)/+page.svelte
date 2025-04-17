@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { convertTo12Hour } from "$lib/conversion/general";
   import type { PageProps } from "./$types";
   let { data }: PageProps = $props();
 </script>
@@ -22,7 +23,7 @@
             <a href="/pastgames/{game.game_id}" class="team-link">
               <h3>{game.hometeam} vs. {game.awayteam}</h3>
               <p>{game.homescore}-{game.awayscore}</p>
-              <p>{game.date} {game.time}</p>
+              <p>{game.date} {convertTo12Hour(game.time)}</p>
             </a>
           </div>
         {/each}

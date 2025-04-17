@@ -7,6 +7,7 @@ import { dbPlayersReset, dbTeamsReset } from '$lib/database/teams'
 import { dbTimeoutReset } from '$lib/database/timeouts'
 import { dbLoginReset } from '$lib/logon/logins'
 import { dbGoalReset } from './goals'
+import { dbOtherStatsReset } from './otherStats'
 import { dbSheetInfoReset } from './sheetinfos'
 import { dbSheetPlayersReset } from './sheetPlayers'
 
@@ -24,4 +25,5 @@ export async function dbReset() {
     await dbSheetInfoReset();
     await dbGoalReset();
     await dbSheetPlayersReset();
+    await dbOtherStatsReset();
 }

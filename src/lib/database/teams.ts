@@ -104,10 +104,11 @@ export async function addPlayer(player: Player) {
   let quarter = player.quarters;
   let shots = player.attempted_shots || 0;
   let goals = player.goals || 0;
+  let assists = player.assists || 0;
   let miss = player.failed_shots || 0;
   let ground = player.ground_balls || 0;
   const result = await sql`
-    INSERT INTO players (PLAYER_NAME, PLAYER_ID, PLAYER_NUMBER, TEAM_ID, TEAM_NAME, POSITION, PLAYER_CLASS, HOMETOWN, STATE, HEIGHT_FEET, HEIGHT_INCHES, WEIGHT, QUARTERS, ATTEMPTED_SHOTS, GOALS, FAILED_SHOTS, GROUND_BALLS) VALUES (${name}, ${player_id}, ${number}, ${team_id}, ${team_name}, ${position},${player_class}, ${hometown}, ${state}, ${height_feet}, ${height_inches}, ${weight}, ${quarter}, ${shots}, ${goals}, ${miss}, ${ground}) RETURNING *
+    INSERT INTO players (PLAYER_NAME, PLAYER_ID, PLAYER_NUMBER, TEAM_ID, TEAM_NAME, POSITION, PLAYER_CLASS, HOMETOWN, STATE, HEIGHT_FEET, HEIGHT_INCHES, WEIGHT, QUARTERS, ATTEMPTED_SHOTS, GOALS, ASSISTS, FAILED_SHOTS, GROUND_BALLS) VALUES (${name}, ${player_id}, ${number}, ${team_id}, ${team_name}, ${position},${player_class}, ${hometown}, ${state}, ${height_feet}, ${height_inches}, ${weight}, ${quarter}, ${shots}, ${goals}, ${assists}, ${miss}, ${ground}) RETURNING *
   `;
 
   return result;
@@ -131,11 +132,12 @@ export async function addOrUpdatePlayer(player: Player) {
   let goals = player.goals || 0;
   let miss = player.failed_shots || 0;
   let ground = player.ground_balls || 0;
+  let assists = player.assists || 0;
 
   const result = await sql`
-    INSERT INTO players (PLAYER_NAME, PLAYER_ID, PLAYER_NUMBER, TEAM_ID, TEAM_NAME, POSITION, PLAYER_CLASS, HOMETOWN, STATE, HEIGHT_FEET, HEIGHT_INCHES, WEIGHT, QUARTERS, ATTEMPTED_SHOTS, GOALS, FAILED_SHOTS, GROUND_BALLS) 
+    INSERT INTO players (PLAYER_NAME, PLAYER_ID, PLAYER_NUMBER, TEAM_ID, TEAM_NAME, POSITION, PLAYER_CLASS, HOMETOWN, STATE, HEIGHT_FEET, HEIGHT_INCHES, WEIGHT, QUARTERS, ATTEMPTED_SHOTS, GOALS, ASSISTS, FAILED_SHOTS, GROUND_BALLS) 
     VALUES 
-    (${name}, ${player_id}, ${number}, ${team_id}, ${team_name}, ${position},${player_class}, ${hometown}, ${state}, ${height_feet}, ${height_inches}, ${weight}, ${quarter}, ${shots}, ${goals}, ${miss}, ${ground})
+    (${name}, ${player_id}, ${number}, ${team_id}, ${team_name}, ${position},${player_class}, ${hometown}, ${state}, ${height_feet}, ${height_inches}, ${weight}, ${quarter}, ${shots}, ${goals}, ${assists}, ${miss}, ${ground})
     ON CONFLICT (player_id)
     DO UPDATE SET 
       GOALS = players.GOALS + EXCLUDED.GOALS,
@@ -253,6 +255,7 @@ export async function dbPlayersReset() {
             QUARTERS INT,
             ATTEMPTED_SHOTS INT,
             GOALS INT,
+            ASSISTS INT,
             FAILED_SHOTS INT,
             GROUND_BALLS INT,
             PRIMARY KEY(PLAYER_ID),

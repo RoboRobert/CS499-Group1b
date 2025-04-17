@@ -17,10 +17,6 @@
       align-content: end;
     }
   
-    .modal-actions {
-      margin: 10px;
-    }
-  
     button {
       justify-content: end;
       height: 100%;
