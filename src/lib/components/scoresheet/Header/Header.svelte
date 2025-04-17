@@ -57,16 +57,31 @@
     flex-direction: row;
     display: flex;
     min-width: 0;
+    border: 1.5px solid var(--clr-outer);
+  }
+  .boxes:hover {
+    border: 1.5px solid var(--clr-hover);
   }
 
   .outer {
     max-width: 85%;
     margin-right: 10px;
+   
   }
+  .outer:hover {
+    border: none;
+  }
+
+ 
 
   .bigField {
     flex: 3;
     text-align: left;
     margin-right: 10px;
+    border: 1.5px solid var(--clr-outer);
   }
+  .bigField:hover {
+    border: 1.5px solid var(--clr-hover);
+  }
+
 </style>

@@ -30,21 +30,5 @@
 
 
 <style>
-  .radio-group {
-    flex:1;
-    display: flex;
-    /* justify-content: space-around; */
-    align-items: center;
-    padding:5px;
-  }
 
-  .radio-item {
-    text-align: center;
-    margin:5px;
-  }
-
-  .radio-item label {
-    display: block;
-    margin-top: 5px;
-  }
 </style>
