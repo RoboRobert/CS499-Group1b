@@ -1,24 +1,28 @@
-<!-- Halftime stats
-Shots: Navy-25, Loyola-18
-Ground Balls: Loyola-5, Navy-4
-Draws: Loyola-13, Navy-11
-Clears: Navy 9-9, Loyola 7-7
-Free Position: Navy 5-6 Loyola 1-1
-Saves: Navy-5 Loyola-3
-Fouls: Navy-5 Loyola-8
-Turnovers: Navy-2 Loyola-3 -->
-
 <script lang="ts">
   import { checkObj } from "$lib/conversion/submit";
-  import { clears, faceoffs, groundBalls, penalties, saves, shots, teamName, type SheetSave } from "../data.svelte";
+  import { clears, faceoffs, groundBalls, penalties, saves, shots, substitutions, teamName, turnovers, type SheetSave } from "../data.svelte";
 
   function toggleHalftimeStats() {
     document.getElementById("halftime").classList.toggle("hidden");
   }
 
-  // function addSaves(save: SheetSave): number {
-  //   return save.qtr1 + save.qtr2;
-  // }
+  function modifyTurnoverHalf2(event: any, side: number) {
+    const value = Number(event.target.value);
+    if(value < turnovers[side].half1) {
+      event.target.value = turnovers[side].half1;
+      return;
+    }
+    turnovers[side].half2 = value - turnovers[side].half1;
+  }
+
+  function modifySubsHalf2(event: any, side: number) {
+    const value = Number(event.target.value);
+    if(value < substitutions[side].half1) {
+      event.target.value = substitutions[side].half1;
+      return;
+    }
+    substitutions[side].half2 = value - substitutions[side].half1;
+  }
 
   let statsMode = $state("halftime");
 </script>
@@ -52,16 +56,16 @@ Turnovers: Navy-2 Loyola-3 -->
 </div>
 
 <div id="halftime" class="modal-backdrop hidden">
-  <div class="modal-content statsList">
+  <div class="modal-content parent">
     <h2>DISPLAY STATS</h2>
     <div class="radio-group">
       <div class="radio-item">
-        <input type="radio" id="option1" name="statsGroup" value="halftime" bind:group={statsMode} />
-        <label for="option1">HALFTIME</label>
+        <input type="radio" id="option1" name="statsGroup" value="halftime" bind:group={statsMode} class="radioButton"/>
+        <label class="radioLabel" for="option1">HALFTIME</label>
       </div>
       <div class="radio-item">
-        <input type="radio" id="option2" name="statsGroup" value="fullgame" bind:group={statsMode} />
-        <label for="option2">FULL GAME</label>
+        <input type="radio" id="option2" name="statsGroup" value="fullgame" bind:group={statsMode} class="radioButton"/>
+        <label class="radioLabel" for="option2">FULL GAME</label>
       </div>
     </div>
     {#if statsMode === "halftime"}
@@ -90,14 +94,16 @@ Turnovers: Navy-2 Loyola-3 -->
       <div class="innerRow">
         <p class="smallBox">Turnovers: </p>
         <div class="smallBox"> {teamName[0].split(" ")[0]}-</div>
-        <input class="smallInput">
+        <input class="smallInput" min="0" max="99" autocomplete="off" type="number" bind:value={turnovers[0].half1}>
         <div class="smallBox">, {teamName[1].split(" ")[0]}-, </div>
-        <input class="smallInput">
+        <input class="smallInput" min="0" max="99" autocomplete="off" type="number" bind:value={turnovers[1].half1}>
       </div>
-      <div>
-        Substitutions: {teamName[0].split(" ")[0]}-{saves[0].map((save) => save.qtr1 + save.qtr2).reduce((prev, curr) => curr + prev)}, {teamName[1].split(" ")[0]}-{saves[1]
-          .map((save) => save.qtr1 + save.qtr2)
-          .reduce((prev, curr) => curr + prev)}
+      <div class="innerRow">
+        <p class="smallBox">Turnovers: </p>
+        <div class="smallBox"> {teamName[0].split(" ")[0]}-</div>
+        <input class="smallInput" min="0" max="99" autocomplete="off" type="number" bind:value={substitutions[0].half1}>
+        <div class="smallBox">, {teamName[1].split(" ")[0]}-, </div>
+        <input class="smallInput" min="0" max="99" autocomplete="off" type="number" bind:value={substitutions[1].half1}>
       </div>
     {/if}
     {#if statsMode !== "halftime"}
@@ -123,17 +129,21 @@ Turnovers: Navy-2 Loyola-3 -->
           .map((save) => save.qtr1 + save.qtr2)
           .reduce((prev, curr) => curr + prev)}
       </div>
+      <div class="innerRow">
+        <p class="smallBox">Turnovers: </p>
+        <div class="smallBox"> {teamName[0].split(" ")[0]}-</div>
+        <input class="smallInput" min="0" max="99" autocomplete="off" type="number" value={turnovers[0].half1 + turnovers[0].half2} onchange={(e) => modifyTurnoverHalf2(e, 0)}>
+        <div class="smallBox">, {teamName[1].split(" ")[0]}-, </div>
+        <input class="smallInput" min="0" max="99" autocomplete="off" type="number" value={turnovers[1].half1 + turnovers[1].half2} onchange={(e) => modifyTurnoverHalf2(e, 1)}>
+      </div>
+      <div class="innerRow">
+        <p class="smallBox">Turnovers: </p>
+        <div class="smallBox"> {teamName[0].split(" ")[0]}-</div>
+        <input class="smallInput" min="0" max="99" autocomplete="off" type="number" value={substitutions[0].half1 + substitutions[0].half2} onchange={(e) => modifySubsHalf2(e, 0)}>
+        <div class="smallBox">, {teamName[1].split(" ")[0]}-, </div>
+        <input class="smallInput" min="0" max="99" autocomplete="off" type="number" value={substitutions[1].half1 + substitutions[1].half2} onchange={(e) => modifySubsHalf2(e, 1)}>
+      </div>
     {/if}
-    <!-- <div class="halftimeGroup">
-      <div>
-        Draws: {teamName[0].split(" ")[0]}
-      </div>
-      <input />
-      <div>
-        , {teamName[1].split(" ")[0]}
-      </div>
-      <input />
-    </div> -->
     <div class="modal-actions">
       <button onclick={toggleHalftimeStats} class="sign-in-button">Back to Scoresheet</button>
     </div>
@@ -141,8 +151,10 @@ Turnovers: Navy-2 Loyola-3 -->
 </div>
 
 <style>
-  .statsList { 
-    padding-bottom:10px;
+  .parent {
+    display: flex;
+    flex-direction: column;
+    gap: 16px; /* this adds vertical spacing */
   }
 
   .smallInput {
@@ -169,6 +181,12 @@ Turnovers: Navy-2 Loyola-3 -->
     display: flex;
     /* justify-content: space-around; */
     align-items: center;
-    padding: 5px;
+  }
+
+  .radioLabel {
+    margin-right: 20px;
+  }
+  .radioButton {
+    height: 100%;
   }
 </style>
