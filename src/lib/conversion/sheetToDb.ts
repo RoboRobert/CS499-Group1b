@@ -181,7 +181,7 @@ export function playersToDBSheetPlayers(sheet_id: string, players: ScoresheetPla
 }
 
 function convertGoal(sheet_id: string, side: number, input: SheetGoal): Goal {
-  const player: Goal = {
+  const goal: Goal = {
     sheet_id: sheet_id,
     index: input.index,
     side: side,
@@ -189,9 +189,10 @@ function convertGoal(sheet_id: string, side: number, input: SheetGoal): Goal {
     playerno_score: input.main,
     playerno_assist: input.assist,
     goaltype: input.type,
+    quarter: input.quarter,
   };
 
-  return player;
+  return goal;
 }
 
 export function goalsToDBGoals(sheet_id: string, goalTrack: SheetGoal[][]): Goal[] {

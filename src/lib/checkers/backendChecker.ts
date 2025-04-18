@@ -67,7 +67,6 @@ export function checkSheet(rawData: any): SheetErr[] {
     teamName: rawData.teamName,
     players: rawData.players,
     saves: rawData.saves,
-    goals: rawData.goals,
     goalTrack: rawData.goalTrack,
     clears: rawData.clears,
     faceoffs: rawData.faceoffs,
@@ -75,9 +74,10 @@ export function checkSheet(rawData: any): SheetErr[] {
     timeouts: rawData.timeouts,
     penalties: rawData.penalties,
     metaStats: rawData.metaStats,
+    goals: rawData.goals,
     coachName: [],
     turnovers: [],
-    substitutions: []
+    substitutions: [],
   };
 
   let errors: SheetErr[] = [];

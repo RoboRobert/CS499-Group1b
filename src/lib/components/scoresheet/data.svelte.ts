@@ -6,8 +6,8 @@ export interface SheetData {
   coachName: string[];
   players: ScoresheetPlayer[][];
   saves: SheetSave[][];
-  goals: number[][];
   goalTrack: SheetGoal[][];
+  goals: number[][];
   clears: Stat[][];
   faceoffs: Stat[][];
   extraMan: Stat[][];
@@ -22,6 +22,7 @@ export interface SheetGoal {
   type: string;
   main: number;
   assist: number;
+  quarter: number;
 }
 
 export interface Stat {
@@ -87,7 +88,7 @@ export const substitutions: SheetTurnover[] = $state([
   { half1: 0, half2: 0 },
 ]);
 
-export const game_quarter = $state({ quarter: 1 });
+export const game_quarter = $state({ quarter: 0 });
 
 export const game_id = $state({ game_id: "", sheet_id: "" });
 
@@ -178,8 +179,14 @@ export const penalties = $state([homePenalties, awayPenalties]);
 let homeArr: SheetGoal[] = [];
 let awayArr: SheetGoal[] = [];
 for (let i = 0; i < 30; i++) {
-  homeArr.push({ index: i, time: null, type: "", main: null, assist: null });
-  awayArr.push({ index: i, time: null, type: "", main: null, assist: null });
+  homeArr.push({
+    index: i, time: null, type: "", main: null, assist: null,
+    quarter: 0
+  });
+  awayArr.push({
+    index: i, time: null, type: "", main: null, assist: null,
+    quarter: 0
+  });
 }
 
 export const goalTrack = $state([homeArr, awayArr]);
@@ -407,7 +414,23 @@ export function getGroundBalls(side: number): number[] {
   return $state.snapshot(groundBalls[side]);
 }
 
-export const goals = $state([
-  [0, 0, 0, 0, 0, 0],
-  [0, 0, 0, 0, 0, 0],
+const goals = $derived([
+  [
+    goalTrack[0].filter((g)=>g.main!=null && g.quarter==0).length,
+    goalTrack[0].filter((g)=>g.main!=null && g.quarter==1).length,
+    goalTrack[0].filter((g)=>g.main!=null && g.quarter==2).length,
+    goalTrack[0].filter((g)=>g.main!=null && g.quarter==3).length,
+    goalTrack[0].filter((g)=>g.main!=null && g.quarter==4).length,
+  ],
+  [
+    goalTrack[1].filter((g)=>g.main!=null && g.quarter==0).length,
+    goalTrack[1].filter((g)=>g.main!=null && g.quarter==1).length,
+    goalTrack[1].filter((g)=>g.main!=null && g.quarter==2).length,
+    goalTrack[1].filter((g)=>g.main!=null && g.quarter==3).length,
+    goalTrack[1].filter((g)=>g.main!=null && g.quarter==4).length,
+  ]
 ]);
+
+export function getGoals(side: number): number[] {
+  return $state.snapshot(goals[side]);
+}

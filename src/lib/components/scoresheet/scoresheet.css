@@ -368,6 +368,7 @@ body {
   opacity: 50%;
   position: absolute;
   inset: 0;
+  z-index: 1000;
 }
 
 .inactive {

@@ -137,7 +137,6 @@
     padding: 0px;
     text-align: center;
     /* box-sizing: border-box; */
-    z-index: 0;
   }
 
   /* Show text only when checked */
@@ -147,7 +146,7 @@
     color: green;
     font-size: 0.8vw;
     padding: 0px;
-    z-index: 0;
+    
   }
 
   /* Optional: Change background on check */
@@ -156,6 +155,5 @@
     /* border-color: green; */
     border: 1px solid var(--clr-outer);
     padding: 0px;
-    z-index: 0;
   }
 </style>

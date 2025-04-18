@@ -115,6 +115,7 @@ export function dbGoalsToGoals(dbGoals: Goal[]) {
     goalTrack[s][j].assist = goal.playerno_assist;
     goalTrack[s][j].time = goal.time
     goalTrack[s][j].type = goal.goaltype;
+    goalTrack[s][j].quarter = goal.quarter;
   }
 }
 

@@ -16,8 +16,9 @@ export async function addGoal(goal: Goal) {
   let playerno_score = goal.playerno_score;
   let playerno_assist = goal.playerno_assist;
   let goaltype = goal.goaltype;
+  let quarter = goal.quarter;
   const result = await sql`
-      INSERT INTO goals (sheet_id, side, index, time, playerno_score, playerno_assist, goaltype) VALUES (${sheetid}, ${side}, ${index}, ${time}, ${playerno_score}, ${playerno_assist}, ${goaltype}) RETURNING *;`;
+      INSERT INTO goals (sheet_id, side, index, time, playerno_score, playerno_assist, goaltype, quarter) VALUES (${sheetid}, ${side}, ${index}, ${time}, ${playerno_score}, ${playerno_assist}, ${goaltype}, ${quarter}) RETURNING *;`;
 }
 
 export async function addGoals(goals: Goal[]) {
@@ -44,6 +45,7 @@ export async function dbGoalReset() {
               PLAYERNO_SCORE INT,
               PLAYERNO_ASSIST INT,
               GOALTYPE varchar(1),
+              QUARTER INT,
               Foreign key (SHEET_ID) references sheets(SHEET_ID) ON DELETE CASCADE ON UPDATE CASCADE);`;
 
   const res = await addGoal({
@@ -54,6 +56,7 @@ export async function dbGoalReset() {
     playerno_score: 42,
     playerno_assist: 69,
     goaltype: "F",
+    quarter: 2
   });
 
   return res;
