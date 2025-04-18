@@ -10,6 +10,6 @@ interface SheetPlayer {
   quarter_3: boolean;
   quarter_4: boolean;
   ot: boolean;
-  shots: number;
-  groundballs: number;
+  shots: number[];
+  groundballs: number[];
 }

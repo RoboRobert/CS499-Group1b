@@ -10,6 +10,7 @@ import { dbGoalReset } from './goals'
 import { dbOtherStatsReset } from './otherStats'
 import { dbSheetInfoReset } from './sheetinfos'
 import { dbSheetPlayersReset } from './sheetPlayers'
+import { dbTestReset } from './tests'
 
 export async function dbReset() {
     await dbLoginReset();
@@ -26,4 +27,5 @@ export async function dbReset() {
     await dbGoalReset();
     await dbSheetPlayersReset();
     await dbOtherStatsReset();
+    // await dbTestReset();
 }

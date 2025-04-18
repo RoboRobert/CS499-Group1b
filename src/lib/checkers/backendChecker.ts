@@ -69,8 +69,6 @@ export function checkSheet(rawData: any): SheetErr[] {
     saves: rawData.saves,
     goals: rawData.goals,
     goalTrack: rawData.goalTrack,
-    groundBalls: rawData.groundBalls,
-    shots: rawData.shots,
     clears: rawData.clears,
     faceoffs: rawData.faceoffs,
     extraMan: rawData.extraMan,
@@ -78,6 +76,8 @@ export function checkSheet(rawData: any): SheetErr[] {
     penalties: rawData.penalties,
     metaStats: rawData.metaStats,
     coachName: [],
+    turnovers: [],
+    substitutions: []
   };
 
   let errors: SheetErr[] = [];
@@ -184,27 +184,27 @@ export function checkSheet(rawData: any): SheetErr[] {
     }
   }
 
-  // Check all the ground balls
-  for (let i = 0; i < data.groundBalls.length; i++) {
-    for (let j = 0; j < data.groundBalls[i].length; j++) {
-      let groundBall: number = data.groundBalls[i][j];
-      // If the groundBall field is empty, mark it on the sheet.
-      if (groundBall == null) {
-        errors.push({ elementID: `groundBalls-${i}-${j}`, message: validNumberMsg });
-      }
-    }
-  }
+  // // Check all the ground balls
+  // for (let i = 0; i < data.groundBalls.length; i++) {
+  //   for (let j = 0; j < data.groundBalls[i].length; j++) {
+  //     let groundBall: number = data.groundBalls[i][j];
+  //     // If the groundBall field is empty, mark it on the sheet.
+  //     if (groundBall == null) {
+  //       errors.push({ elementID: `groundBalls-${i}-${j}`, message: validNumberMsg });
+  //     }
+  //   }
+  // }
 
-  // Check all the shots
-  for (let i = 0; i < data.shots.length; i++) {
-    for (let j = 0; j < data.shots[i].length; j++) {
-      let groundBall: number = data.shots[i][j];
-      // If the groundBall field is empty, mark it on the sheet.
-      if (groundBall == null) {
-        errors.push({ elementID: `shots-${i}-${j}`, message: validNumberMsg });
-      }
-    }
-  }
+  // // Check all the shots
+  // for (let i = 0; i < data.shots.length; i++) {
+  //   for (let j = 0; j < data.shots[i].length; j++) {
+  //     let groundBall: number = data.shots[i][j];
+  //     // If the groundBall field is empty, mark it on the sheet.
+  //     if (groundBall == null) {
+  //       errors.push({ elementID: `shots-${i}-${j}`, message: validNumberMsg });
+  //     }
+  //   }
+  // }
 
   // Check all the clears
   for (let i = 0; i < data.clears.length; i++) {

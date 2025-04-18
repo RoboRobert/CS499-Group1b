@@ -1,6 +1,6 @@
 <script lang="ts">
   import { checkObj } from "$lib/conversion/submit";
-  import { clears, faceoffs, groundBalls, penalties, saves, shots, substitutions, teamName, turnovers, type SheetSave } from "../data.svelte";
+  import { clears, faceoffs, getGroundBalls, getShots, penalties, saves, substitutions, teamName, turnovers } from "../data.svelte";
 
   function toggleHalftimeStats() {
     document.getElementById("halftime").classList.toggle("hidden");
@@ -65,10 +65,10 @@
     </div>
     {#if halftime}
       <div>
-        Shots: {teamName[0].split(" ")[0]}-{shots[0][0] + shots[0][1]}, {teamName[1].split(" ")[0]}-{shots[1][0] + shots[1][1]}
+        Shots: {teamName[0].split(" ")[0]}-{getShots(0)[0] + getShots(0)[1]}, {teamName[1].split(" ")[0]}-{getShots(1)[0] + getShots(1)[1]}
       </div>
       <div>
-        Ground Balls: {teamName[0].split(" ")[0]}-{groundBalls[0][0] + groundBalls[0][1]}, {teamName[1].split(" ")[0]}-{groundBalls[1][0] + groundBalls[1][1]}
+        Ground Balls: {teamName[0].split(" ")[0]}-{getGroundBalls(0)[0] + getGroundBalls(0)[1]}, {teamName[1].split(" ")[0]}-{getGroundBalls(1)[0] + getGroundBalls(1)[1]}
       </div>
       <div>
         Faceoffs: {teamName[0].split(" ")[0]}-{faceoffs[0][0].won + faceoffs[0][1].won}, {teamName[1].split(" ")[0]}-{faceoffs[1][0].won + faceoffs[1][1].won}
@@ -103,10 +103,10 @@
     {/if}
     {#if !halftime}
       <div>
-        Shots: {teamName[0].split(" ")[0]}-{shots[0].reduce((c, p) => c + p)}, {teamName[1].split(" ")[0]}-{shots[1].reduce((c, p) => c + p)}
+        Shots: {teamName[0].split(" ")[0]}-{getShots(0).reduce((c, p) => c + p)}, {teamName[1].split(" ")[0]}-{getShots(1).reduce((c, p) => c + p)}
       </div>
       <div>
-        Ground Balls: {teamName[0].split(" ")[0]}-{groundBalls[0].reduce((c, p) => c + p)}, {teamName[1].split(" ")[0]}-{groundBalls[1].reduce((c, p) => c + p)}
+        Ground Balls: {teamName[0].split(" ")[0]}-{getGroundBalls(0).reduce((c,p)=>c+p,0)}, {teamName[1].split(" ")[0]}-{getGroundBalls(1).reduce((c,p)=>c+p,0)}
       </div>
       <div>
         Faceoffs: {teamName[0].split(" ")[0]}-{faceoffs[0].map((f) => f.won).reduce((c, p) => c + p)}, {teamName[1].split(" ")[0]}-{faceoffs[1].map((f) => f.won).reduce((c, p) => c + p)}

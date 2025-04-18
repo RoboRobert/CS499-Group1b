@@ -3,15 +3,15 @@
 </script>
 
 <div class="radio-group">
-  <button class="button toggleButton {game_quarter.quarter === 1 ? 'active' : ''}" onclick={() => game_quarter.quarter = 1}>QTR 1</button>
+  <button class="button toggleButton {game_quarter.quarter === 0 ? 'active' : ''}" onclick={() => game_quarter.quarter = 0}>QTR 1</button>
 
-  <button class="button toggleButton {game_quarter.quarter === 2 ? 'active' : ''}" onclick={() => game_quarter.quarter = 2}>QTR 2</button>
+  <button class="button toggleButton {game_quarter.quarter === 1 ? 'active' : ''}" onclick={() => game_quarter.quarter = 1}>QTR 2</button>
 
-  <button class="button toggleButton {game_quarter.quarter === 3 ? 'active' : ''}" onclick={() => game_quarter.quarter = 3}>QTR 3</button>
+  <button class="button toggleButton {game_quarter.quarter === 2 ? 'active' : ''}" onclick={() => game_quarter.quarter = 2}>QTR 3</button>
 
-  <button class="button toggleButton {game_quarter.quarter === 4 ? 'active' : ''}" onclick={() => game_quarter.quarter = 4}>QTR 4</button>
+  <button class="button toggleButton {game_quarter.quarter === 3 ? 'active' : ''}" onclick={() => game_quarter.quarter = 3}>QTR 4</button>
 
-  <button class="button toggleButton {game_quarter.quarter === 5 ? 'active' : ''}" onclick={() => game_quarter.quarter = 5}>O.T.</button>
+  <button class="button toggleButton {game_quarter.quarter === 4 ? 'active' : ''}" onclick={() => game_quarter.quarter = 4}>O.T.</button>
 </div>
 
 <style> 

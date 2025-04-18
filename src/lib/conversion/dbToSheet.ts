@@ -1,4 +1,4 @@
-import { clears, coachName, extraMan, faceoffs, game_id, goalTrack, groundBalls, metaStats, penalties, players, saves, shots, substitutions, teamName, timeouts, turnovers } from "$lib/components/scoresheet/data.svelte";
+import { clears, coachName, extraMan, faceoffs, game_id, goalTrack, metaStats, penalties, players, saves, substitutions, teamName, timeouts, turnovers } from "$lib/components/scoresheet/data.svelte";
 import type { GameStat } from "$lib/database/GameStats";
 import type { Goal } from "$lib/database/Goal";
 import type { OtherStat } from "$lib/database/OtherStat";
@@ -10,10 +10,6 @@ import type { Timeout } from "$lib/database/Timeout";
 
 export function dbStatsToStats(gameStats: GameStat[]) {
   for (const gameStat of gameStats) {
-    shots[gameStat.side][gameStat.quarter] = gameStat.shots;
-
-    groundBalls[gameStat.side][gameStat.quarter] = gameStat.ground;
-
     clears[gameStat.side][gameStat.quarter].won = gameStat.clears_pass;
     clears[gameStat.side][gameStat.quarter].lost = gameStat.clears_fail;
 
@@ -134,6 +130,11 @@ export function dbPlayersToPlayers(dbPlayers: SheetPlayer[]) {
     players[s][j].position = sheetPlayer.position;
     players[s][j].groundBalls = sheetPlayer.groundballs;
     players[s][j].shots = sheetPlayer.shots;
+    players[s][j].quarters.q1 = sheetPlayer.quarter_1;
+    players[s][j].quarters.q2 = sheetPlayer.quarter_2;
+    players[s][j].quarters.q3 = sheetPlayer.quarter_3;
+    players[s][j].quarters.q4 = sheetPlayer.quarter_4;
+    players[s][j].quarters.ot = sheetPlayer.ot;
   }
 }
 

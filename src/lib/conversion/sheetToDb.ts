@@ -20,21 +20,19 @@ import { toPlayerID } from "./general";
 
 export function statsToDBStats(
   sheet_id: string,
-  groundBalls: number[][],
-  shots: number[][],
   clears: Stat[][],
   faceoffs: Stat[][],
   extraMan: Stat[][]
 ): GameStat[] {
   let gameStats: GameStat[] = [];
   for (let i = 0; i < 2; i++) {
-    for (let j = 0; j < groundBalls[0].length; j++) {
+    for (let j = 0; j < extraMan[0].length; j++) {
       const gameStat: GameStat = {
         sheet_id: sheet_id,
         side: i,
         quarter: j,
-        ground: groundBalls[i][j],
-        shots: shots[i][j],
+        ground: 0,
+        shots: 0,
         clears_pass: clears[i][j].won,
         clears_fail: clears[i][j].won,
         extra_man_score: extraMan[i][j].won,
@@ -155,11 +153,11 @@ function convertSheetPlayer(sheet_id: string, input: ScoresheetPlayer): SheetPla
     name: input.name,
     position: input.position,
     playerno: input.number,
-    quarter_1: false,
-    quarter_2: false,
-    quarter_3: false,
-    quarter_4: false,
-    ot: false,
+    quarter_1: input.quarters.q1,
+    quarter_2: input.quarters.q2,
+    quarter_3: input.quarters.q3,
+    quarter_4: input.quarters.q4,
+    ot: input.quarters.ot,
     shots: input.shots,
     groundballs: input.groundBalls,
   };
@@ -218,18 +216,18 @@ function convertPlayer(team_name: string, team_id: string, input: ScoresheetPlay
     team_name: team_name,
     player_name: input.name,
     player_number: input.number,
-    position: "",
-    player_class: "",
-    hometown: "",
-    state: "",
+    position: "default",
+    player_class: "default",
+    hometown: "default",
+    state: "AL",
     height_feet: 0,
     height_inches: 0,
     weight: 0,
     quarters: 0,
-    attempted_shots: input.shots,
-    failed_shots: input.shots - input.goals,
+    attempted_shots: input.shots.reduce((c,p)=>c+p,0),
+    failed_shots: input.shots.reduce((c,p)=>c+p,0) - input.goals,
     goals: input.goals,
-    ground_balls: input.groundBalls,
+    ground_balls: input.groundBalls.reduce((c,p)=>c+p,0),
     assists: input.assists,
   };
 
