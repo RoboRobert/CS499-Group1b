@@ -5,7 +5,7 @@ import {getPlayers, addPlayer, getPlayersByTeam,} from "$lib/database/teams"
 // This probably wont work as indended because the table is not the same as the interface in the frontend
 export async function GET({ params, cookies }) {
     const token = cookies.get("user-role");
-    if (token !== "admin" && token !== "coach") {
+    if (token !== "admin" && token !== "coach" && token !=="score-keeper") {
         error(403, "You don't have the right O you don't have the right");
     }
     // console.log(event)

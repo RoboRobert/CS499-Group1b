@@ -45,11 +45,11 @@
     <HomeButton></HomeButton>
     <MetaStats></MetaStats>
     <Halftime></Halftime>
-    {#if role === "admin" || role === "score-keeper"}
+    {#if role === "admin" || role === "score-keeper" || role ==="coach"}
       <Quarters></Quarters>
     {/if}
     <ExitSheet></ExitSheet>
-    {#if role === "admin" || role === "score-keeper"}
+    {#if role === "admin" || role === "score-keeper" || role ==="coach"}
       <CorrectSheet></CorrectSheet>
     {/if}
     <ThemeSwitch theme={theme}></ThemeSwitch>

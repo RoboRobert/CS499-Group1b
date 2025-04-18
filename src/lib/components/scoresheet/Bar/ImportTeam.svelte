@@ -18,16 +18,16 @@
       coachName[side] = "";
 
       const defaultPlayer: ScoresheetPlayer = {
-        side: 0,
-        index: 0,
-        position: "",
-        name: "",
-        number: null,
-        quarters: "",
-        shots: 0,
-        goals: 0,
-        assists: 0,
-        groundBalls: 0
+          side: 0,
+          index: 0,
+          position: "",
+          name: "",
+          number: null,
+          quarters: {q1:false,q2:false,q3:false,q4:false,ot:false},
+          goals: 0,
+          assists: 0,
+          groundBalls: [0,0,0,0,0],
+          shots: [0,0,0,0,0],
       }
       for (let i = 0; i < players[side].length; i++) {
         players[side][i] = defaultPlayer;

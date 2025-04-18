@@ -7,7 +7,7 @@ import {getTeams, addTeam, deleteTeam, updateTeam} from "$lib/database/teams"
 // api/teams Get
 export const GET: RequestHandler = async (event) => {
     const token = event.cookies.get("user-role");
-    if (token !== "admin" && token !== "coach") {
+    if (token !== "admin" && token !== "coach" && token !== "score-keeper") {
         error(403, "You don't have the right O you don't have the right");
     }
     // console.log(event)
