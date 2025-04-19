@@ -75,9 +75,9 @@ body {
 }
 
 .rowBox {
-  all:unset;
+  /* all:unset; */
   font-size: 0.7vw;
-  padding: 0px;
+  padding-bottom: 2px;
   color: var(--clr-home);
   background-color: var(--clr-input);
   text-align: center;
@@ -110,6 +110,9 @@ body {
 }
 
 .headerBox {
+  font-size: 0.9vw;
+  min-height:0px;
+  min-width:0px;
   color: var(--clr-home);
   background-color: var(--clr-input);
   text-align: center;
@@ -153,7 +156,7 @@ body {
   align-items: center;
   min-height: 0px;
   height: 10px;
-  font-size: 0.5vw;
+  font-size: 0.4vw;
   border: 1px solid var(--clr-outer);
 }
 
@@ -186,6 +189,7 @@ body {
 }
 
 .modal-content {
+  position:fixed;
   background-color: var(--clr-modal);
   border-radius: 8px;
   padding: 20px;
@@ -370,7 +374,7 @@ body {
   opacity: 50%;
   position: absolute;
   inset: 0;
-  z-index: 1000;
+  z-index: 20;
 }
 
 .inactive {
@@ -393,7 +397,8 @@ body {
 }
 
 .goal {
-  font-size: 0.65vw;
+  flex: 5;
+  font-size: 0.6vw;
 }
 
 .button {

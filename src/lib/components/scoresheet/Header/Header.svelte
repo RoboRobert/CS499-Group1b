@@ -17,8 +17,8 @@
       {#each Array(numGoals) as attempt, i}
         <div class="innerColumn normal">
             <div class="boxes">
-              <input id="goalTrackTime-0-{i}" autocomplete="off" class="field goal" style="flex:3" type="text" value={goalTrack[0][i].time} oninput={(e) => {goalTrack[0][i].time = readTime(e); goalTrack[0][i].quarter = game_quarter.quarter}} />
-              <input id="goalTrackType-0-{i}" autocomplete="off" class="field normal" type="text" bind:value={goalTrack[0][i].type} oninput={(e) => {goalTrack[0][i].type = readGoalType(e); goalTrack[0][i].quarter = game_quarter.quarter }}/>
+              <input id="goalTrackTime-0-{i}" autocomplete="off" class="field goal" type="text" value={goalTrack[0][i].time} oninput={(e) => {goalTrack[0][i].time = readTime(e); goalTrack[0][i].quarter = game_quarter.quarter}} />
+              <input id="goalTrackType-0-{i}" autocomplete="off" class="field goalType" type="text" bind:value={goalTrack[0][i].type} oninput={(e) => {goalTrack[0][i].type = readGoalType(e); goalTrack[0][i].quarter = game_quarter.quarter }}/>
             </div>
             <div class="boxes">
               <input id="goalTrackMain-0-{i}" autocomplete="off" class="field normal" inputmode="numeric" value={goalTrack[0][i].main} oninput={(e) => {goalTrack[0][i].main = readPlayerno(e); goalTrack[0][i].quarter = game_quarter.quarter}}/>
@@ -35,8 +35,8 @@
       {#each Array(numGoals) as attempt, i}
         <div class="innerColumn normal">
             <div class="boxes">
-              <input id="goalTrackTime-1-{i}" autocomplete="off" class="field goal" style="flex:3" type="text" value={goalTrack[1][i].time} oninput={(e) => {goalTrack[1][i].time = readTime(e); goalTrack[1][i].quarter = game_quarter.quarter}} />
-              <input id="goalTrackType-1-{i}" autocomplete="off" class="field normal" type="text" bind:value={goalTrack[1][i].type} oninput={(e) => {goalTrack[1][i].type = readGoalType(e); goalTrack[1][i].quarter = game_quarter.quarter }}/>
+              <input id="goalTrackTime-1-{i}" autocomplete="off" class="field goal" type="text" value={goalTrack[1][i].time} oninput={(e) => {goalTrack[1][i].time = readTime(e); goalTrack[1][i].quarter = game_quarter.quarter}} />
+              <input id="goalTrackType-1-{i}" autocomplete="off" class="field goalType" type="text" bind:value={goalTrack[1][i].type} oninput={(e) => {goalTrack[1][i].type = readGoalType(e); goalTrack[1][i].quarter = game_quarter.quarter }}/>
             </div>
             <div class="boxes">
               <input id="goalTrackMain-1-{i}" autocomplete="off" class="field normal" inputmode="numeric" value={goalTrack[1][i].main} oninput={(e) => {goalTrack[1][i].main = readPlayerno(e); goalTrack[1][i].quarter = game_quarter.quarter}} />
@@ -65,12 +65,17 @@
   }
 
   .outer {
-    max-width: 85%;
+    max-width: 90%;
     margin-right: 10px;
    
   }
   .outer:hover {
     border: none;
+  }
+
+  .goalType {
+    font-size: 0.6vw;
+    flex: 1;
   }
 
   .bigField {
