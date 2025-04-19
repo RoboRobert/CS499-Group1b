@@ -43,7 +43,7 @@ export async function dbSheetPlayersReset() {
 
   //Not entirely sure about this for the table
   await sql`CREATE TABLE sheetplayers(
-              SHEET_ID varchar(100),
+              SHEET_ID varchar(300),
               SIDE INT,
               INDEX INT,
               NAME varchar(100),
@@ -54,8 +54,8 @@ export async function dbSheetPlayersReset() {
               QUARTER_3 BOOLEAN,
               QUARTER_4 BOOLEAN,
               OT BOOLEAN,
-              SHOTS INT,
-              GROUNDBALLS INT,
+              SHOTS INTEGER[],
+              GROUNDBALLS INTEGER[],
               Foreign key (SHEET_ID) references sheets(SHEET_ID) ON DELETE CASCADE ON UPDATE CASCADE);`;
 
   const res = await addSheetPlayer({
@@ -70,8 +70,8 @@ export async function dbSheetPlayersReset() {
     quarter_3: true,
     quarter_4: false,
     ot: true,
-    shots: 10,
-    groundballs: 5,
+    shots: [1,6,7,1,2],
+    groundballs: [2,4,8,4,2],
   })
 
   return res;

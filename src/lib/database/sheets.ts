@@ -117,7 +117,7 @@ export async function dbGameReset() {
     `;
 
   await sql`CREATE TABLE games (
-      GAME_ID VARCHAR(100) NOT NULL,
+      GAME_ID VARCHAR(300) NOT NULL,
       HOMETEAM VARCHAR(100),
       AWAYTEAM VARCHAR(100),
       DATE VARCHAR(100),
@@ -149,8 +149,8 @@ export async function dbSheetReset() {
     `;
 
   const res = await sql`CREATE TABLE sheets (
-      SHEET_ID VARCHAR(100) NOT NULL,
-      GAME_ID VARCHAR(100) NOT NULL,
+      SHEET_ID VARCHAR(300) NOT NULL,
+      GAME_ID VARCHAR(300) NOT NULL,
       SCOREKEEPER VARCHAR(100),
       PRIMARY KEY (SHEET_ID),
       FOREIGN KEY (GAME_ID) REFERENCES games(GAME_ID) ON DELETE CASCADE);`

@@ -52,7 +52,7 @@ export async function dbIndividualScoreReset() {
 
     //Not entirely sure about this for the table
   await sql`CREATE TABLE individualscore(
-            SHEET_ID VARCHAR(100),
+            SHEET_ID VARCHAR(300),
             SIDE INT,
             PLAYER_NUMBER INT NOT NULL,
             PLAYER_NAME varchar(100),

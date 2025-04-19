@@ -67,17 +67,17 @@ export function checkSheet(rawData: any): SheetErr[] {
     teamName: rawData.teamName,
     players: rawData.players,
     saves: rawData.saves,
-    goals: rawData.goals,
     goalTrack: rawData.goalTrack,
-    groundBalls: rawData.groundBalls,
-    shots: rawData.shots,
     clears: rawData.clears,
     faceoffs: rawData.faceoffs,
     extraMan: rawData.extraMan,
     timeouts: rawData.timeouts,
     penalties: rawData.penalties,
     metaStats: rawData.metaStats,
+    goals: rawData.goals,
     coachName: [],
+    turnovers: [],
+    substitutions: [],
   };
 
   let errors: SheetErr[] = [];
@@ -184,27 +184,27 @@ export function checkSheet(rawData: any): SheetErr[] {
     }
   }
 
-  // Check all the ground balls
-  for (let i = 0; i < data.groundBalls.length; i++) {
-    for (let j = 0; j < data.groundBalls[i].length; j++) {
-      let groundBall: number = data.groundBalls[i][j];
-      // If the groundBall field is empty, mark it on the sheet.
-      if (groundBall == null) {
-        errors.push({ elementID: `groundBalls-${i}-${j}`, message: validNumberMsg });
-      }
-    }
-  }
+  // // Check all the ground balls
+  // for (let i = 0; i < data.groundBalls.length; i++) {
+  //   for (let j = 0; j < data.groundBalls[i].length; j++) {
+  //     let groundBall: number = data.groundBalls[i][j];
+  //     // If the groundBall field is empty, mark it on the sheet.
+  //     if (groundBall == null) {
+  //       errors.push({ elementID: `groundBalls-${i}-${j}`, message: validNumberMsg });
+  //     }
+  //   }
+  // }
 
-  // Check all the shots
-  for (let i = 0; i < data.shots.length; i++) {
-    for (let j = 0; j < data.shots[i].length; j++) {
-      let groundBall: number = data.shots[i][j];
-      // If the groundBall field is empty, mark it on the sheet.
-      if (groundBall == null) {
-        errors.push({ elementID: `shots-${i}-${j}`, message: validNumberMsg });
-      }
-    }
-  }
+  // // Check all the shots
+  // for (let i = 0; i < data.shots.length; i++) {
+  //   for (let j = 0; j < data.shots[i].length; j++) {
+  //     let groundBall: number = data.shots[i][j];
+  //     // If the groundBall field is empty, mark it on the sheet.
+  //     if (groundBall == null) {
+  //       errors.push({ elementID: `shots-${i}-${j}`, message: validNumberMsg });
+  //     }
+  //   }
+  // }
 
   // Check all the clears
   for (let i = 0; i < data.clears.length; i++) {
@@ -257,9 +257,6 @@ export function checkSheet(rawData: any): SheetErr[] {
       let goal: SheetGoal = data.goalTrack[i][j];
       if (!goal.main) {
         errors.push({ elementID: `goalTrackMain-${i}-${goal.index}`, message: "Field must contain a player number." });
-      }
-      if (!goal.assist) {
-        errors.push({ elementID: `goalTrackAssist-${i}-${goal.index}`, message: "Field must contain a player number." });
       }
       appendError(errors, {elementID: `goalTrackTime-${i}-${goal.index}`, message: invalidTime(goal.time)});
       appendError(errors, {elementID: `goalTrackType-${i}-${goal.index}`, message: invalidGoalType(goal.type)});

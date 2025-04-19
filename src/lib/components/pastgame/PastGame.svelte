@@ -14,6 +14,7 @@
   import Timeouts from "$lib/components/scoresheet/Timeouts.svelte";
   import ThemeSwitch from "../general/ThemeSwitch.svelte";
   import Halftime from "../scoresheet/Bar/Halftime.svelte";
+  import Quarters from "../scoresheet/Bar/Quarters.svelte";
   import CorrectSheet from "./CorrectSheet.svelte";
   import ExitSheet from "./ExitSheet.svelte";
 
@@ -44,8 +45,11 @@
     <HomeButton></HomeButton>
     <MetaStats></MetaStats>
     <Halftime></Halftime>
+    {#if role === "admin" || role === "score-keeper" || role ==="coach"}
+      <Quarters></Quarters>
+    {/if}
     <ExitSheet></ExitSheet>
-    {#if role === "admin" || role === "score-keeper"}
+    {#if role === "admin" || role === "score-keeper" || role ==="coach"}
       <CorrectSheet></CorrectSheet>
     {/if}
     <ThemeSwitch theme={theme}></ThemeSwitch>

@@ -2,33 +2,31 @@
   import { game_quarter } from "../data.svelte";  
 </script>
 
-<div class="quarters thin">
-  <div class="radio-group thickBorder">
-    <div>CURRENT QUARTER: </div>
-    <div class="radio-item">
-      <input type="radio" id="option1" name="quarter" value="1" bind:group={game_quarter.quarter}/>
-      <label for="option1">1</label>
-    </div>
-    <div class="radio-item">
-      <input type="radio" id="option2" name="quarter" value="2" bind:group={game_quarter.quarter}/>
-      <label for="option2">2</label>
-    </div>
-    <div class="radio-item">
-      <input type="radio" id="option3" name="quarter" value="3" bind:group={game_quarter.quarter}/>
-      <label for="option3">3</label>
-    </div>
-    <div class="radio-item">
-      <input type="radio" id="option4" name="quarter" value="4" bind:group={game_quarter.quarter}/>
-      <label for="option4">4</label>
-    </div>
-    <div class="radio-item">
-      <input type="radio" id="option5" name="quarter" value="5" bind:group={game_quarter.quarter}/>
-      <label for="option5">O.T.</label>
-    </div>
-  </div>
+<div class="radio-group">
+  <button class="button toggleButton {game_quarter.quarter === 0 ? 'active' : ''}" onclick={() => game_quarter.quarter = 0}>QTR 1</button>
+
+  <button class="button toggleButton {game_quarter.quarter === 1 ? 'active' : ''}" onclick={() => game_quarter.quarter = 1}>QTR 2</button>
+
+  <button class="button toggleButton {game_quarter.quarter === 2 ? 'active' : ''}" onclick={() => game_quarter.quarter = 2}>QTR 3</button>
+
+  <button class="button toggleButton {game_quarter.quarter === 3 ? 'active' : ''}" onclick={() => game_quarter.quarter = 3}>QTR 4</button>
+
+  <button class="button toggleButton {game_quarter.quarter === 4 ? 'active' : ''}" onclick={() => game_quarter.quarter = 4}>O.T.</button>
 </div>
 
+<style> 
+  .radio-group {
+    flex: 0.5;
+    display: flex;
+    align-items: center;
+    border: 1px solid var(--clr-outer);
+    border-radius: 5px;
+    background-color: var(--clr-input);
+    color: var(--clr-home);
+    min-width: 0px;
+  }
 
-<style>
-
+  .toggleButton {
+    font-size: 0.7vw;
+  }
 </style>

@@ -7,19 +7,17 @@ import {
   faceoffs,
   game_id,
   getPlayerMap,
-  goals,
   goalTrack,
-  groundBalls,
   metaStats,
   penalties,
   saves,
-  shots,
   substitutions,
   teamName,
   timeouts,
   turnovers,
   type SheetData,
 } from "$lib/components/scoresheet/data.svelte";
+import { getGoals } from "$lib/components/scoresheet/data.svelte";
 
 // Returns true or false if any of the fields of an object are null or undefined
 // function checkObj(object): boolean {
@@ -35,6 +33,14 @@ export function checkObj(object): boolean {
   return !valuesToCheck.every((value) => value === null || value === "" || value == undefined);
 }
 
+export function checkGoal(object): boolean {
+  const valuesToCheck = Object.entries(object)
+    .filter(([key]) => key !== "index" && key !== "quarter")
+    .map(([, value]) => value);
+
+  return !valuesToCheck.every((value) => value === null || value === "" || value == undefined);
+}
+
 // Returns the data needed to send a scoresheet to the database.
 export function getScoresheetData(): SheetData {
   return {
@@ -45,10 +51,8 @@ export function getScoresheetData(): SheetData {
     teamName: teamName,
     players: [Array.from(getPlayerMap(0).values()), Array.from(getPlayerMap(1).values())],
     saves: saves,
-    goals: goals,
-    goalTrack: [goalTrack[0].filter((p) => checkObj(p)), goalTrack[1].filter((p) => checkObj(p))],
-    groundBalls: groundBalls,
-    shots: shots,
+    goalTrack: [goalTrack[0].filter((p) => checkGoal(p)), goalTrack[1].filter((p) => checkGoal(p))],
+    goals: [getGoals(0), getGoals(1)],
     clears: clears,
     faceoffs: faceoffs,
     extraMan: extraMan,

@@ -57,7 +57,7 @@ export async function dbSaveReset() {
     `;
 
   await sql`CREATE TABLE saves(
-            SHEET_ID VARCHAR(100) NOT NULL,
+            SHEET_ID VARCHAR(300) NOT NULL,
             SIDE INT,
             PLAYER_NUMBER INT NOT NULL,
             QUARTER_1 INT,

@@ -1,15 +1,13 @@
 export interface SheetData {
-  game_id: string,
-  turnovers: SheetTurnover[],
-  substitutions: SheetTurnover[],
+  game_id: string;
+  turnovers: SheetTurnover[];
+  substitutions: SheetTurnover[];
   teamName: string[];
   coachName: string[];
   players: ScoresheetPlayer[][];
   saves: SheetSave[][];
-  goals: number[][]
   goalTrack: SheetGoal[][];
-  groundBalls: number[][];
-  shots: number[][];
+  goals: number[][];
   clears: Stat[][];
   faceoffs: Stat[][];
   extraMan: Stat[][];
@@ -24,6 +22,7 @@ export interface SheetGoal {
   type: string;
   main: number;
   assist: number;
+  quarter: number;
 }
 
 export interface Stat {
@@ -37,7 +36,7 @@ export interface SheetTimeout {
 }
 
 export interface SheetPenalty {
-  index: number,
+  index: number;
   timeout: string;
   playerno: number;
   infraction: string;
@@ -60,45 +59,42 @@ export interface ScoresheetPlayer {
   position: string;
   name: string;
   number: number;
-  quarters: string;
-  shots: number;
+  quarters: Quarters;
   goals: number;
   assists: number;
-  groundBalls: number;
+  groundBalls: number[];
+  shots: number[];
+}
+
+export interface Quarters {
+  q1: boolean;
+  q2: boolean;
+  q3: boolean;
+  q4: boolean;
+  ot: boolean;
 }
 
 export interface SheetTurnover {
-  half1: number,
-  half2: number,
+  half1: number;
+  half2: number;
 }
 
-export const turnovers: SheetTurnover[] = $state([{half1: 0, half2: 0}, {half1: 0, half2: 0}]);
-export const substitutions: SheetTurnover[] = $state([{half1: 0, half2: 0}, {half1: 0, half2: 0}]);
+export const turnovers: SheetTurnover[] = $state([
+  { half1: 0, half2: 0 },
+  { half1: 0, half2: 0 },
+]);
+export const substitutions: SheetTurnover[] = $state([
+  { half1: 0, half2: 0 },
+  { half1: 0, half2: 0 },
+]);
 
-export const game_quarter = $state({quarter: 0});
+export const game_quarter = $state({ quarter: 0 });
 
-export const game_id = $state({game_id: "", sheet_id: ""});
+export const game_id = $state({ game_id: "", sheet_id: "" });
 
 export const teamName = $state(["", ""]);
 
 export const coachName = $state(["", ""]);
-
-export const goals = $state([
-  [0, 0, 0, 0, 0, 0],
-  [0, 0, 0, 0, 0, 0],
-])
-
-// Contains two arrays. groundBalls[0] is home, groundBalls[1] is away.
-// I'll use this theme for the rest of the state variables.
-export const groundBalls = $state([
-  [0, 0, 0, 0, 0],
-  [0, 0, 0, 0, 0],
-]);
-
-export const shots = $state([
-  [0, 0, 0, 0, 0],
-  [0, 0, 0, 0, 0],
-]);
 
 export const clears: Stat[][] = $state([
   [
@@ -183,8 +179,14 @@ export const penalties = $state([homePenalties, awayPenalties]);
 let homeArr: SheetGoal[] = [];
 let awayArr: SheetGoal[] = [];
 for (let i = 0; i < 30; i++) {
-  homeArr.push({ index: i, time: null, type: "", main: null, assist: null });
-  awayArr.push({ index: i, time: null, type: "", main: null, assist: null });
+  homeArr.push({
+    index: i, time: null, type: "", main: null, assist: null,
+    quarter: 0
+  });
+  awayArr.push({
+    index: i, time: null, type: "", main: null, assist: null,
+    quarter: 0
+  });
 }
 
 export const goalTrack = $state([homeArr, awayArr]);
@@ -199,7 +201,18 @@ for (let i = 0; i < 3; i++) {
 export const saves = $state([homeSaves, awaySaves]);
 
 function makePlayer(side: number, index: number): ScoresheetPlayer {
-  return { side: side, index: index, position: "", name: "", number: null, goals: 0, assists: 0, shots: 0, quarters: "", groundBalls: 0 }
+  return {
+    side: side,
+    index: index,
+    position: "",
+    name: "",
+    number: null,
+    goals: 0,
+    assists: 0,
+    quarters: { q1: false, q2: false, q3: false, q4: false, ot: false },
+    shots: [0, 0, 0, 0, 0],
+    groundBalls: [0, 0, 0, 0, 0],
+  };
 }
 
 let numPlayers = 31;
@@ -296,6 +309,128 @@ export const metaStats = $state<MetaStats>({
   weatherCondition: "",
 });
 
-
 // Error checking
-export const numMetaErrors = $state({errors: 0});
+export const numMetaErrors = $state({ errors: 0 });
+
+const shots = $derived([
+  [
+    getPlayerMap(0)
+      .values()
+      .map((e) => e.shots[0])
+      .reduce((c, p) => c + p, 0),
+    getPlayerMap(0)
+      .values()
+      .map((e) => e.shots[1])
+      .reduce((c, p) => c + p, 0),
+    getPlayerMap(0)
+      .values()
+      .map((e) => e.shots[2])
+      .reduce((c, p) => c + p, 0),
+    getPlayerMap(0)
+      .values()
+      .map((e) => e.shots[3])
+      .reduce((c, p) => c + p, 0),
+    getPlayerMap(0)
+      .values()
+      .map((e) => e.shots[4])
+      .reduce((c, p) => c + p, 0),
+  ],
+  [
+    getPlayerMap(1)
+      .values()
+      .map((e) => e.shots[0])
+      .reduce((c, p) => c + p, 0),
+    getPlayerMap(1)
+      .values()
+      .map((e) => e.shots[1])
+      .reduce((c, p) => c + p, 0),
+    getPlayerMap(1)
+      .values()
+      .map((e) => e.shots[2])
+      .reduce((c, p) => c + p, 0),
+    getPlayerMap(1)
+      .values()
+      .map((e) => e.shots[3])
+      .reduce((c, p) => c + p, 0),
+    getPlayerMap(1)
+      .values()
+      .map((e) => e.shots[4])
+      .reduce((c, p) => c + p, 0),
+  ],
+]);
+
+export function getShots(side: number): number[] {
+  return $state.snapshot(shots[side]);
+}
+
+const groundBalls = $derived([
+  [
+    getPlayerMap(0)
+      .values()
+      .map((e) => e.groundBalls[0])
+      .reduce((c, p) => c + p, 0),
+    getPlayerMap(0)
+      .values()
+      .map((e) => e.groundBalls[1])
+      .reduce((c, p) => c + p, 0),
+    getPlayerMap(0)
+      .values()
+      .map((e) => e.groundBalls[2])
+      .reduce((c, p) => c + p, 0),
+    getPlayerMap(0)
+      .values()
+      .map((e) => e.groundBalls[3])
+      .reduce((c, p) => c + p, 0),
+    getPlayerMap(0)
+      .values()
+      .map((e) => e.groundBalls[4])
+      .reduce((c, p) => c + p, 0),
+  ],
+  [
+    getPlayerMap(1)
+      .values()
+      .map((e) => e.groundBalls[0])
+      .reduce((c, p) => c + p, 0),
+    getPlayerMap(1)
+      .values()
+      .map((e) => e.groundBalls[1])
+      .reduce((c, p) => c + p, 0),
+    getPlayerMap(1)
+      .values()
+      .map((e) => e.groundBalls[2])
+      .reduce((c, p) => c + p, 0),
+    getPlayerMap(1)
+      .values()
+      .map((e) => e.groundBalls[3])
+      .reduce((c, p) => c + p, 0),
+    getPlayerMap(1)
+      .values()
+      .map((e) => e.groundBalls[4])
+      .reduce((c, p) => c + p, 0),
+  ],
+]);
+
+export function getGroundBalls(side: number): number[] {
+  return $state.snapshot(groundBalls[side]);
+}
+
+const goals = $derived([
+  [
+    goalTrack[0].filter((g)=>g.main!=null && g.quarter==0).length,
+    goalTrack[0].filter((g)=>g.main!=null && g.quarter==1).length,
+    goalTrack[0].filter((g)=>g.main!=null && g.quarter==2).length,
+    goalTrack[0].filter((g)=>g.main!=null && g.quarter==3).length,
+    goalTrack[0].filter((g)=>g.main!=null && g.quarter==4).length,
+  ],
+  [
+    goalTrack[1].filter((g)=>g.main!=null && g.quarter==0).length,
+    goalTrack[1].filter((g)=>g.main!=null && g.quarter==1).length,
+    goalTrack[1].filter((g)=>g.main!=null && g.quarter==2).length,
+    goalTrack[1].filter((g)=>g.main!=null && g.quarter==3).length,
+    goalTrack[1].filter((g)=>g.main!=null && g.quarter==4).length,
+  ]
+]);
+
+export function getGoals(side: number): number[] {
+  return $state.snapshot(goals[side]);
+}

@@ -64,7 +64,7 @@ export async function dbTimeoutReset() {
     `;
 
   await sql`CREATE TABLE timeouts (
-            SHEET_ID VARCHAR(100),
+            SHEET_ID VARCHAR(300),
             SIDE INT,
             first_1_time VARCHAR(5),
             first_1_period INT,

@@ -82,6 +82,8 @@ body {
   background-color: var(--clr-input);
   text-align: center;
   border: 1px solid var(--clr-outer);
+  min-width: 0;
+  min-height: 0;
   overflow: hidden;
   align-content: center;
   box-sizing: border-box;
@@ -140,17 +142,19 @@ body {
   display: flex;
   flex-direction: row;
   margin-top: 10px;
+  /* min-height:0px; */
 }
 
 .goal-label {
   color: var(--clr-home);
+  background-color: var(--clr-input);
   display: flex;
   justify-content: center;
   align-items: center;
   min-height: 0px;
   height: 10px;
   font-size: 0.5vw;
-  border: 1px solid black;
+  border: 1px solid var(--clr-outer);
 }
 
 .svg {
@@ -365,6 +369,7 @@ body {
   opacity: 50%;
   position: absolute;
   inset: 0;
+  z-index: 1000;
 }
 
 .inactive {
@@ -436,4 +441,20 @@ body {
 
 .smegol {
   max-width: 50px;
+}
+
+.toggleButton {
+  flex: 1;
+  height: 50px;
+  margin: 5px;
+  min-width: 0px;
+  padding: 0px;
+}
+
+.active {
+  background-color: #00ab22;
+}
+
+.active:hover {
+  background-color: #009c1f;
 }

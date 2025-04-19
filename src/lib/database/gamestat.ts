@@ -60,7 +60,7 @@ export async function dbGameStatReset() {
     `;
 
   await sql`CREATE TABLE gamestats(
-            SHEET_ID VARCHAR(100),
+            SHEET_ID VARCHAR(300),
             SIDE INT,
             QUARTER INT,
             GROUND INT,

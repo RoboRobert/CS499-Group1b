@@ -57,7 +57,7 @@ export async function dbPenaltyReset() {
     `;
 
   await sql`CREATE TABLE penalties(
-            SHEET_ID VARCHAR(100) NOT NULL,
+            SHEET_ID VARCHAR(300) NOT NULL,
             SIDE INT NOT NULL,
             INDEX INT,
             TIMEOUT varchar(5),
