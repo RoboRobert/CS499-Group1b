@@ -258,9 +258,6 @@ export function checkSheet(rawData: any): SheetErr[] {
       if (!goal.main) {
         errors.push({ elementID: `goalTrackMain-${i}-${goal.index}`, message: "Field must contain a player number." });
       }
-      if (!goal.assist) {
-        errors.push({ elementID: `goalTrackAssist-${i}-${goal.index}`, message: "Field must contain a player number." });
-      }
       appendError(errors, {elementID: `goalTrackTime-${i}-${goal.index}`, message: invalidTime(goal.time)});
       appendError(errors, {elementID: `goalTrackType-${i}-${goal.index}`, message: invalidGoalType(goal.type)});
     }

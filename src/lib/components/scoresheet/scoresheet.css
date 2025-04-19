@@ -142,6 +142,7 @@ body {
   display: flex;
   flex-direction: row;
   margin-top: 10px;
+  /* min-height:0px; */
 }
 
 .goal-label {
