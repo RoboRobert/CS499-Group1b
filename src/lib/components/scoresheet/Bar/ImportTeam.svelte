@@ -86,7 +86,7 @@
       <div class="modal-content">
         <h2>IMPORT HOME TEAM</h2>
         <div class="form-group">
-          <select id="dropdown" bind:value={option}>
+          <select class="dropdown" id="away-dropdown" bind:value={option}>
             <option value={-1}>Clear Home Import</option>
             {#each teams as team, i}
               {#if team.team_name != teamName[1]}
@@ -110,7 +110,7 @@
       <div class="modal-content">
         <h2>IMPORT AWAY TEAM</h2>
         <div class="form-group">
-          <select id="dropdown" bind:value={option}>
+          <select class="dropdown" id="away-dropdown" bind:value={option}>
             <option value={-1}>Clear Away Import</option>
             {#each teams as team, i}
               {#if team.team_name != teamName[0]}
@@ -134,5 +134,11 @@
   button {
     margin: 10px;
     font-size: 16px;
+  }
+
+  .dropdown {
+    display: block;
+    margin: 0 auto;
+    font-size: 20px;
   }
 </style>
