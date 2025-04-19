@@ -77,7 +77,7 @@
   }
 </script>
 
-<div style="display:flex; flex-direction:column;">
+<div class="importHolder">
   <button class="button" onclick={toggleImportHome}>IMPORT HOME TEAM</button>
   <button class="button" onclick={toggleImportAway}>IMPORT AWAY TEAM</button>
 
@@ -131,9 +131,17 @@
 </div>
 
 <style>
+  .importHolder {
+    display:flex; 
+    flex-direction:row;
+    min-height: 0px;
+    height: 100%;
+  }
+
   button {
-    margin: 10px;
-    font-size: 16px;
+    margin: 5px;
+    font-size: 14px;
+    min-height: 0px;
   }
 
   .dropdown {

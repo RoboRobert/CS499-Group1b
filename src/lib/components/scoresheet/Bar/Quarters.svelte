@@ -24,9 +24,11 @@
     background-color: var(--clr-input);
     color: var(--clr-home);
     min-width: 0px;
+    min-height: 0px;
   }
 
   .toggleButton {
     font-size: 0.7vw;
+    height: 80%;
   }
 </style>

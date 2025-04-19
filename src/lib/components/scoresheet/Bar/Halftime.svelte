@@ -52,7 +52,7 @@
       />
     </g>
   </svg>
-  <div>OVERALL STATS</div>
+  <!-- <div class="topText">OVERALL STATS</div> -->
 </div>
 
 <div id="halftime" class="modal-backdrop hidden">

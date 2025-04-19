@@ -51,6 +51,10 @@
 </div>
 
 <style>
+  .wideRow {
+    height: 150px;
+  }
+
   .boxes {
     flex: 1;
     max-width: 100%;

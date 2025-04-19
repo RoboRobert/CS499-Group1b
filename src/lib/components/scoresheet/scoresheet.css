@@ -145,7 +145,7 @@ body {
   display: flex;
   flex-direction: row;
   margin-top: 10px;
-  /* min-height:0px; */
+  height: 90px;
 }
 
 .goal-label {
@@ -161,8 +161,8 @@ body {
 }
 
 .svg {
-  width: 50px;
-  height: 50px;
+  height: 100%;
+  max-width: 50px;
   stroke: var(--clr-button);
   background-color: transparent;
 }
@@ -388,6 +388,8 @@ body {
 .top-bar-item {
   color: var(--clr-home);
   border: none;
+  min-height: 0px;
+  min-width: 0px;
 }
 
 .quarters {
@@ -397,6 +399,7 @@ body {
 }
 
 .goal {
+  padding: 0px;
   flex: 5;
   font-size: 0.6vw;
 }
@@ -463,4 +466,8 @@ body {
 
 .active:hover {
   background-color: #009c1f;
+}
+
+.topText {
+  font-size: 0.5em;
 }
