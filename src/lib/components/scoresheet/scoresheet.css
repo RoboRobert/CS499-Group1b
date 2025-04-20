@@ -189,7 +189,6 @@ body {
 }
 
 .modal-content {
-  position:fixed;
   background-color: var(--clr-modal);
   border-radius: 8px;
   padding: 20px;
@@ -200,7 +199,6 @@ body {
   /* Enable vertical scrolling */
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
   color: var(--clr-home);
-  align-items: center;
 }
 
 .modal-content h2 {
