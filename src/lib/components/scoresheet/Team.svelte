@@ -24,7 +24,8 @@
     const value = Number(event.target.value);
 
     const otherGBs: number = players[side][index].groundBalls.reduce((sum, value, index) => {
-      return index === game_quarter.quarter ? sum : sum + value;}, 0);
+      return index === game_quarter.quarter ? sum : sum + value;
+    }, 0);
     if (value < otherGBs) {
       event.target.value = otherGBs;
       return;

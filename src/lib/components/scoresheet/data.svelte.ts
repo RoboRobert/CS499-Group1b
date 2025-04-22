@@ -246,7 +246,6 @@ const playerMap = $derived.by(() => {
     if (homeMap.has(e.main)) {
       let val = homeMap.get(e.main);
       val.goals += 1;
-      val.shots[0] += 1;
       homeMap.set(e.main, val);
     }
     if (homeMap.has(e.assist)) {
@@ -260,7 +259,6 @@ const playerMap = $derived.by(() => {
     if (awayMap.has(e.main)) {
       let val = awayMap.get(e.main);
       val.goals += 1;
-      val.shots[0] += 1;
       awayMap.set(e.main, val);
     }
     if (awayMap.has(e.assist)) {
