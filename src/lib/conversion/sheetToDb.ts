@@ -224,7 +224,7 @@ function convertPlayer(team_name: string, team_id: string, input: ScoresheetPlay
     height_feet: 0,
     height_inches: 0,
     weight: 0,
-    quarters: 0,
+    num_games: 1,
     attempted_shots: input.shots.reduce((c,p)=>c+p,0),
     failed_shots: input.shots.reduce((c,p)=>c+p,0) - input.goals,
     goals: input.goals,

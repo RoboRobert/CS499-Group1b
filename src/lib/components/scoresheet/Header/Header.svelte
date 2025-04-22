@@ -40,7 +40,7 @@
             </div>
             <div class="boxes">
               <input id="goalTrackMain-1-{i}" autocomplete="off" class="field normal" inputmode="numeric" value={goalTrack[1][i].main} oninput={(e) => {goalTrack[1][i].main = readPlayerno(e); goalTrack[1][i].quarter = game_quarter.quarter}} />
-              <input id="goalTrackAssist-1-{i}" autocomplete="off" class="field normal" inputmode="numeric" value={goalTrack[1][i].assist} oninput={(e) => {goalTrack[1][i].type = readGoalType(e); goalTrack[1][i].quarter = game_quarter.quarter }} />
+              <input id="goalTrackAssist-1-{i}" autocomplete="off" class="field normal" inputmode="numeric" value={goalTrack[1][i].assist} oninput={(e) => {goalTrack[1][i].assist = readPlayerno(e); goalTrack[1][i].quarter = game_quarter.quarter }} />
             </div>
         </div>
       {/each}

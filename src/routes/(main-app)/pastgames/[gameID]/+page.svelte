@@ -13,7 +13,7 @@
   };
   let showDeleteConfirm = $state(false);
   let userToken = data.token;
-  let canEdit = userToken === "admin" || userToken === "scorekeeper" || userToken === "coach";
+  let canEdit = userToken === "admin" || userToken === "score-keeper" || userToken === "coach";
 
   const openDeleteModal = (sheet: Sheet) => {
     deleteSheet = sheet;

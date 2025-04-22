@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { players } from '$lib/components/scoresheet/data.svelte';
     import type { PageProps } from './$types';
 
     let { data }: PageProps = $props();
@@ -32,9 +33,9 @@
     <section class="player-stats">
         <h3>Player Stats</h3>
         <div class="stats-grid">
-            <p><strong>Games Played: </strong> 0 </p>
-            <p><strong>Quarters: </strong> {data.player.quarters}</p>
+            <p><strong>Games Played: </strong> {data.player.num_games} </p>
             <p><strong>Shots: </strong> {data.player.attempted_shots} </p>
+            <p><strong>Failed Shots: </strong> {data.player.failed_shots} </p>
             <p><strong>Goals: </strong> {data.player.goals} </p>
             <p><strong>Ground Balls: </strong> {data.player.ground_balls}</p>
             <p><strong>Assists: </strong> {data.player.assists}</p>

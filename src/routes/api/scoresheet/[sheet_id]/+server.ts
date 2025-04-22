@@ -28,7 +28,7 @@ export async function GET({ params, cookies }) {
 
 export async function DELETE({ params, cookies }) {
     const token = cookies.get('user-role');
-    if (token !== 'score-keeper' && token !== 'admin') {
+    if (token !== 'score-keeper' && token !== 'admin' && token !== 'coach') {
         return error(403, "You don't have the right O you don't have the right");
     }
     const { sheet_id } = params;

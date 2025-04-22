@@ -255,7 +255,7 @@ export function checkSheet(rawData: any): SheetErr[] {
   for (let i = 0; i < data.goalTrack.length; i++) {
     for (let j = 0; j < data.goalTrack[i].length; j++) {
       let goal: SheetGoal = data.goalTrack[i][j];
-      if (!goal.main) {
+      if (goal.main == null) {
         errors.push({ elementID: `goalTrackMain-${i}-${goal.index}`, message: "Field must contain a player number." });
       }
       appendError(errors, {elementID: `goalTrackTime-${i}-${goal.index}`, message: invalidTime(goal.time)});

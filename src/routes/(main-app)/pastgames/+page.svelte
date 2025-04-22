@@ -6,6 +6,9 @@
 
   let { data }: PageProps = $props();
 
+  // Sorts the games using the date and time as keys.
+  const games = data.games.sort((a,b) => a.date.concat(a.time) > b.date.concat(a.time) ? -1 : 1)
+
   let deleteGame: Game = {
     game_id: "",
     hometeam: "",
@@ -61,7 +64,7 @@
         <h1>Past Games</h1>
       </div>
       <div class="teams-bars">
-        {#each data.games as game}
+        {#each games as game}
           <div class="team-bar">
             <a href="/pastgames/{game.game_id}" class="team-link">
               <h3>{game.hometeam} vs. {game.awayteam}</h3>

@@ -19,7 +19,7 @@ export interface Player {
   height_feet: number;
   height_inches: number;
   weight: number;
-  quarters: number;
+  num_games: number;
   attempted_shots: number;
   failed_shots: number;
   goals: number; 
