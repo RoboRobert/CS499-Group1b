@@ -11,8 +11,7 @@
     const value = Number(event.target.value);
 
     const otherShots: number = players[side][index].shots.reduce((sum, value, index) => {
-      return index === game_quarter.quarter ? sum : sum + value;
-    }, 0);
+      return index === game_quarter.quarter ? sum : sum + value;}, 0);
     if (value < otherShots) {
       event.target.value = otherShots;
       return;
@@ -25,8 +24,7 @@
     const value = Number(event.target.value);
 
     const otherGBs: number = players[side][index].groundBalls.reduce((sum, value, index) => {
-      return index === game_quarter.quarter ? sum : sum + value;
-    }, 0);
+      return index === game_quarter.quarter ? sum : sum + value;}, 0);
     if (value < otherGBs) {
       event.target.value = otherGBs;
       return;
@@ -102,7 +100,7 @@
         value={players[side][i].groundBalls.reduce((c, p) => c + p)}
         onchange={(e) => modifyGB(e, side, i)}
       />
-      <input id="playerShots-{side}-{i}" min="0" autocomplete="off" class="field thin" type="number" value={players[side][i].shots.reduce((c, p) => c + p)} onchange={(e) => modifyShot(e, side, i)} />
+      <input id="playerShots-{side}-{i}" min="0" autocomplete="off" class="field thin" type="number" value={players[side][i].shots.reduce((c, p) => c + p, 0)} onchange={(e) => modifyShot(e, side, i)} />
       <div class="rowBox thin">{getPlayer(side, players[side][i].number).goals}</div>
       <div class="rowBox thin">{getPlayer(side, players[side][i].number).assists}</div>
     </div>
