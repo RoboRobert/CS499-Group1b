@@ -8,7 +8,7 @@ If you want to run the app locally, read on.
 
 ## Developing
 
-If you haven't installed NodeJS and npm, go here: https://nodejs.org/en/download
+This program has been tested on Node version `22.14.0` and npm version `10.9.2`. You need Node and npm to run the app. If you haven't installed NodeJS and npm, go here: https://nodejs.org/en/download
 
 After you have npm set up, navigate to the top-level directory of the project and install the dependencies with `npm install` (or `pnpm install` or `yarn install` if you have them).
 
