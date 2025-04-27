@@ -60,7 +60,10 @@ sudo service postgresql restart
 
 After setting up your Postgres server and running your application, go to 
 `localhost:{port}/api/dbreset`
-in your web browser to set up the database for use.
+in your web browser to set up the database for use. Replace {port} with whatever port your local application is running on.
+
+### NOTE: 
+If you do not go to `localhost:{port}/api/dbreset` and reset the database, the app will not work correctly.
 
 ## Building
 
