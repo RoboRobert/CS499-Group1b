@@ -72,8 +72,8 @@ To create a production version of the app:
 ```bash
 npm run build
 ```
-https://github.com/RoboRobert/CS499-Group1b
+
 You can preview the production build with `npm run preview`.
 
 ## Link to Github Repo
-
+https://github.com/RoboRobert/CS499-Group1b
