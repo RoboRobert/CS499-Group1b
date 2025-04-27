@@ -10,7 +10,7 @@ If you want to run the app locally, read on.
 
 This program has been tested on Node version `22.14.0` and npm version `10.9.2`. You need Node and npm to run the app. If you haven't installed NodeJS and npm, go here: https://nodejs.org/en/download
 
-After you have npm set up, navigate to the top-level directory of the project and install the dependencies with `npm install` (or `pnpm install` or `yarn install` if you have them).
+After you have npm set up, navigate to the top-level directory of the project and install the dependencies with `npm ci`. Normally, you might want to use `npm install`, but `npm ci` downloads dependencies using the versions we've tested the application on, which should guarantee that it will work.
 
 After that you can start a development server:
 
@@ -41,7 +41,7 @@ The config given above will allow you to develop using a Postgres database with 
 No matter where and how you install Postgres, as long as your database is configured the same as your `.env` file, you should be good to go.
 
 Now you're ready to install PostgreSQL. The instructions below work on Ubuntu.  
-To get more help on installing PostgreSQL, follow the instructions from their website: https://www.postgresql.org/
+To install PostgreSQL on a different platform, follow the instructions from their website: https://www.postgresql.org/
 
 To do this on Ubuntu, follow these steps (taken from [here](https://ubuntu.com/server/docs/install-and-configure-postgresql)):
 
