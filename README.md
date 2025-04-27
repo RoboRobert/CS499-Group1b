@@ -77,7 +77,7 @@ If you do not set up your PostgreSQL database exactly the same as your `.env` fi
 
 If your credentials aren't the same as in the `.env` file above, you can either edit the `.env` file to match your database, or you can edit the database to match the `.env` file.
 
-You may need to edit some settings in the `postgresql.conf` file. If so, consult this page for more help: https://www.postgresql.org/docs/current/config-setting.html#CONFIG-SETTING-CONFIGURATION-FILE
+If you want to edit some settings in the `postgresql.conf` file, such as the port # or allowed hosts, consult this page for more help: https://www.postgresql.org/docs/current/config-setting.html#CONFIG-SETTING-CONFIGURATION-FILE
 
 ## Building
 
