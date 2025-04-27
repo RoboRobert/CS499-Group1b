@@ -57,13 +57,27 @@ sudo systemctl restart postgresql.service
 // If the above command doesn't work, run this:
 sudo service postgresql restart
 ```
+These steps do two things:  
+#1: They install PostgreSQL on the machine.  
+#2: They configure a database with the same credentials as the `.env` file.  
+
+If you set up Postgres on a different platform, make sure to also set up your Postgres credentials in the same way as described above.
 
 After setting up your Postgres server and running your application, go to 
 `localhost:{port}/api/dbreset`
 in your web browser to set up the database for use. Replace {port} with whatever port your local application is running on.
 
-### NOTE: 
+If you've done everything right, you should get a homepage that looks like this:
+![image](https://github.com/user-attachments/assets/c2a4a815-3b6d-40e3-868f-bb27012357b4)
+
+### NOTES: 
 If you do not go to `localhost:{port}/api/dbreset` and reset the database, the app will not work correctly.
+
+If you do not set up your PostgreSQL database exactly the same as your `.env` file, the application will not work correctly. Check your port, username, password and database name to make sure they match.
+
+If your credentials aren't the same as in the `.env` file above, you can either edit the `.env` file to match your database, or you can edit the database to match the `.env` file.
+
+You may need to edit some settings in the `postgresql.conf` file. If so, consult this page for more help: https://www.postgresql.org/docs/current/config-setting.html#CONFIG-SETTING-CONFIGURATION-FILE
 
 ## Building
 
